@@ -38,9 +38,14 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         drawerView()
         setContentView()
         setSearchView()
+        readyGo()
         // Do any additional setup after loading the view.
     }
 
+    func readyGo(){
+        statusArrOfContent[1] = true
+        self.tableView2.reloadSections(IndexSet.init(integer: 1), with: UITableViewRowAnimation.automatic)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -56,37 +61,38 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     
     func setSearchView(){
-        view.backgroundColor = UIColor.white
-        let searchViewFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40)
+        let searchViewFrame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width-40, height: 30)
         let gesture = UITapGestureRecognizer()
         gesture.delegate = self
         gesture.addTarget(self, action: #selector(toSearchData))
         searchView.frame = searchViewFrame
         searchView.layer.borderWidth = 1
-//        searchView.layer.borderColor = UIColor.gray.cgColor
-//        searchView.layer.backgroundColor = UIColor.white.cgColor
-        searchView.layer.cornerRadius = 20
+        searchView.layer.borderColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
+        searchView.layer.backgroundColor = UIColor.white.cgColor
+        searchView.layer.cornerRadius = 15
         let mLabel = UILabel()
         mLabel.text = "请输入您要查询的设备"
-        mLabel.frame = CGRect(x: 30, y: 0, width: 120, height: 40)
+        mLabel.frame = CGRect(x: 30, y: 0, width: 150, height: 30)
         mLabel.font = UIFont.boldSystemFont(ofSize: 12)
         mLabel.textColor = UIColor.gray
         mLabel.textAlignment = .left
         searchView.addSubview(mLabel)
         
         let mImageView = UIImageView(image :UIImage(named: "搜索-1"))
-        mImageView.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
+        mImageView.frame = CGRect(x: 10, y: 7.5, width: 15, height: 15)
         searchView.addSubview(mImageView)
-        
-        let mImageViewForSer = UIImageView(image: UIImage(named: "扫描"))
-        mImageViewForSer.frame = CGRect(x: UIScreen.main.bounds.size.width - 30, y: 10, width: 20, height: 20)
-        searchView.addSubview(mImageViewForSer)
+        let qCButton = UIButton()
+        qCButton.setImage(UIImage(named: "扫描"), for: UIControlState.normal)
+        qCButton.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 7.5, width: 15, height: 15)
+        qCButton.addTarget(self, action: #selector(toQC), for: UIControlEvents.touchUpInside)
+        searchView.addSubview(qCButton)
 //        mImageView.frame.origin.x = searchView.frame.width/2-mLabel.frame.width/2-mImageView.frame.width/2
 //        mImageView.frame.origin.y = searchView.frame.height/2-mImageView.frame.height/2
 //        mLabel.frame.origin.x = searchView.frame.width/2 - mLabel.frame.width/2+mImageView.frame.width/2
 //        mLabel.frame.origin.y = searchView.frame.height/2-mLabel.frame.height/2
-        searchView.layer.cornerRadius = 5
         searchView.addGestureRecognizer(gesture)
+        searchView.center.x = UIScreen.main.bounds.size.width/2
+        searchView.center.y = 20
         view.addSubview(searchView)
     }
     
@@ -95,6 +101,9 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
 //        self.present(SearchForResultViewController(), animated: false, completion: nil)
     }
     
+    @objc func toQC(){
+        self.present(QrCodeViewController(), animated: false, completion: nil)
+    }
     func drawerView(){
         self.tabBarController?.view.isMultipleTouchEnabled = true
         self.tabBarController?.view.isUserInteractionEnabled = true
@@ -170,12 +179,15 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     //MARK:页面布局
     func setContentView(){
+        view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         contentView = UIView()
         contentView.frame = CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - (navigationController?.navigationBar.frame.height)! - UIApplication.shared.statusBarFrame.height - 40)
         tableView2.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: "tableCell2")
         tableView2.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - (navigationController?.navigationBar.frame.height)! - UIApplication.shared.statusBarFrame.height - (tabBarController?.tabBar.frame.height)! - 40)
         tableView2.dataSource = self
         tableView2.delegate = self
+//        let indexPath = IndexPath(row:1,section:1)
+//        tableView2.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
         tableView2.separatorStyle = UITableViewCellSeparatorStyle.none
         self.contentView.addSubview(tableView2)
         self.view.addSubview(contentView)
@@ -256,7 +268,13 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 if self.statusArr[i] as! Bool{
                     self.statusArr[i] = false
                 }else{
-                    self.statusArr[i] = true
+                    for j in 0..<self.statusArr.count{
+                        if(j != i){
+                            self.statusArr[j] = false
+                        }else{
+                            self.statusArr[j] = true
+                        }
+                    }
                 }
                 //画左侧菜单竖着的直线
                 if section == 0 {
@@ -268,7 +286,8 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 }else{
                     
                 }
-                self.tableView1.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
+                self.tableView1.reloadData()
+                //self.tableView1.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
             view.mLabel.text = oneMeanArr[section]
             return view
@@ -277,6 +296,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 2000
             view.mNum.text = "3个"
+            view.mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
             view.isSelected = statusArrOfContent[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 2000
@@ -285,11 +305,18 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                     self.statusArrOfContent[i] = false
                 }else{
                     view.rightPic.image = UIImage(named: "收起")
-                    self.statusArrOfContent[i] = true
+                    
+                    for j in 0..<self.statusArrOfContent.count{
+                        if(j != i){
+                            self.statusArrOfContent[j] = false
+                        }else{
+                            self.statusArrOfContent[j] = true
+                        }
+                    }
                 }
-                print(self.statusArrOfContent[i])
-                //            self.reLoadCollectionView(option: "区域头被点击å")
-                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
+                
+                self.tableView2.reloadData()
+//                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
             view.mLabel.text = oneMeanArr[section]
             return view
@@ -335,7 +362,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         }else{
             self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
         }
-        print(indexPath.row)
+//        print(indexPath.row)
 //        reLoadCollectionView(option:"区域行被电击")
         
     }

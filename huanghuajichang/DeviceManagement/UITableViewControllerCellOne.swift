@@ -55,7 +55,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
          */
         let arcPath = UIBezierPath(arcCenter: CGPoint(x: 10, y: 15), radius: 5, startAngle: CGFloat(M_PI) * 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
         areShapeLayer.path = arcPath.cgPath //存入UIBezierPath的路径
-        areShapeLayer.fillColor = UIColor.blue.cgColor //设置填充色
+        areShapeLayer.fillColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor //设置填充色
         areShapeLayer.lineWidth = 2  //设置路径线的宽度
         areShapeLayer.strokeColor = UIColor.gray.cgColor //路径颜色
         //如果想变为虚线设置这个属性，[实线宽度，虚线宽度]，若两宽度相等可以简写为[宽度]
