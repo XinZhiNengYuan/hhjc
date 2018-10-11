@@ -1,0 +1,6 @@
+framework module Pods_huanghuajichang {
+  umbrella header "Pods-huanghuajichang-umbrella.h"
+
+  export *
+  module * { export * }
+}
