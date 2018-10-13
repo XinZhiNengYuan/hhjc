@@ -30,7 +30,12 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let IdentifierC = "MyUICollectionViewCell"
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
+    var forMeanStatus : Bool = false//记录菜单的最后一个是不是被选中了，选中的时候取消子菜单的竖线
     let searchView = UIView()
+    //存储最后选中的行（包括菜单和清单主页）
+    var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
+    //本地存储
+    let userDefault = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,8 +48,21 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
 
     func readyGo(){
-        statusArrOfContent[1] = true
-        self.tableView2.reloadSections(IndexSet.init(integer: 1), with: UITableViewRowAnimation.automatic)
+        meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as! [String : [String : Int]]
+        print(meanAndContentLog)
+//        let indexPathForMean = IndexPath(row:meanAndContentLog["meanLog"]!["two"]!,section:1)
+//        tableView1.scrollToRow(at: indexPathForMean, at: UITableViewScrollPosition.top, animated: true)
+//        let indexPathForContent = IndexPath(row:meanAndContentLog["contentLog"]!["two"]!,section:1)
+//        tableView2.scrollToRow(at: indexPathForContent, at: UITableViewScrollPosition.top, animated: true)
+        if meanAndContentLog["meanLog"]!["one"]! != -1{
+            statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
+            self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
+        }
+        if meanAndContentLog["contentLog"]!["one"]! != -1{
+            statusArrOfContent[meanAndContentLog["contentLog"]!["one"]!] = true
+            self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
+        }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -86,10 +104,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         qCButton.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 7.5, width: 15, height: 15)
         qCButton.addTarget(self, action: #selector(toQC), for: UIControlEvents.touchUpInside)
         searchView.addSubview(qCButton)
-//        mImageView.frame.origin.x = searchView.frame.width/2-mLabel.frame.width/2-mImageView.frame.width/2
-//        mImageView.frame.origin.y = searchView.frame.height/2-mImageView.frame.height/2
-//        mLabel.frame.origin.x = searchView.frame.width/2 - mLabel.frame.width/2+mImageView.frame.width/2
-//        mLabel.frame.origin.y = searchView.frame.height/2-mLabel.frame.height/2
         searchView.addGestureRecognizer(gesture)
         searchView.center.x = UIScreen.main.bounds.size.width/2
         searchView.center.y = 20
@@ -265,29 +279,43 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             view.isSelected = statusArr[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 1000
+                print(i)
+                print(self.oneMeanArr.count-1)
+                if i == self.oneMeanArr.count-1{
+                    self.forMeanStatus = true
+                }else{
+                    self.forMeanStatus = false
+                }
+                //设置选中状态
                 if self.statusArr[i] as! Bool{
                     self.statusArr[i] = false
                 }else{
-                    for j in 0..<self.statusArr.count{
+                    for j in 0..<self.statusArr.count{//设置菜单为只有一个是选中的状态，其他的为非选中状态
                         if(j != i){
                             self.statusArr[j] = false
                         }else{
+                            //选中时i==j
                             self.statusArr[j] = true
+                            self.meanAndContentLog["meanLog"]!["one"] = j
+                            self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
+                            self.reloadContent()//重新z加载主页
+                            print(self.meanAndContentLog)
                         }
                     }
                 }
-                //画左侧菜单竖着的直线
-                if section == 0 {
-//                    view.rectPath.anchorPoint(x:0,y:0) //开始绘制，表示这个点是起点
-//                    view.rectPath.addLine(to: CGPointMake(40, 100))
-                    
-                }else if section == self.listArr.count - 1{
-                    
-                }else{
-                    
-                }
                 self.tableView1.reloadData()
                 //self.tableView1.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
+            }
+            //画左侧菜单竖着的直线
+            
+            if section == 0 {
+                view.setBottomLine()
+                
+            }else if section == self.listArr.count{
+                view.setTopLine()
+            }else{
+                view.setTopLine()
+                view.setBottomLine()
             }
             view.mLabel.text = oneMeanArr[section]
             return view
@@ -300,17 +328,21 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             view.isSelected = statusArrOfContent[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 2000
+                //设置选中状态
                 if self.statusArrOfContent[i] as! Bool{
                     view.rightPic.image = UIImage(named: "展开")
                     self.statusArrOfContent[i] = false
                 }else{
                     view.rightPic.image = UIImage(named: "收起")
                     
-                    for j in 0..<self.statusArrOfContent.count{
+                    for j in 0..<self.statusArrOfContent.count{//设置主页为只有一个是选中的状态，其他的为非选中状态
                         if(j != i){
                             self.statusArrOfContent[j] = false
                         }else{
+                            //选中时i==j
                             self.statusArrOfContent[j] = true
+                            self.meanAndContentLog["contentLog"]!["one"] = j
+                            self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
                         }
                     }
                 }
@@ -336,6 +368,18 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             cell?.mLabel.text = listArr[rowNum]
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
             
+            func setCell(){
+                if meanAndContentLog["meanLog"]!["two"]! != -1 && meanAndContentLog["meanLog"]!["one"]! != (oneMeanArr.count-1){
+                    cell?.setTopLine()
+                    cell?.setBottomLine()
+                }
+            }
+                
+                if self.meanAndContentLog["meanLog"]!["two"]! != -1 && !self.forMeanStatus{
+                    cell?.setTopLine()
+                    cell?.setBottomLine()
+                }
+                
             return cell!
         }else{
             let identifier = "reusedCell2"
@@ -349,8 +393,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             cell?.midelLeft.text = listForArr[rowNum]["deviceW"]
             cell?.midelCenter.text = listForArr[rowNum]["wp"]
             cell?.bottomRight.text = listForArr[rowNum]["position"]
-            
-            
             return cell!
         }
         
@@ -358,13 +400,26 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     //tableView点击事件
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         if tableView1.isEqual(tableView){
-            
+            self.meanAndContentLog["meanLog"]!["two"] = indexPath.row
+            reloadContent()
         }else{
-            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
+            self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
+            self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
+//            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
         }
+        print(self.userDefault.dictionary(forKey: "DeviceManagementKey") as Any)
 //        print(indexPath.row)
 //        reLoadCollectionView(option:"区域行被电击")
         
     }
-    
+    func reloadContent(){
+        //点击菜单之后要重新记录主页被选中的状态
+        self.meanAndContentLog["contentLog"]!["one"] = -1
+        self.meanAndContentLog["contentLog"]!["two"] = -1
+        for j in 0..<self.statusArrOfContent.count{//设置主页所有行为未选中状态
+            self.statusArrOfContent[j] = false
+        }
+        self.tableView2.reloadData()
+        self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
+    }
 }
