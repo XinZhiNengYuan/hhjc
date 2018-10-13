@@ -11,6 +11,10 @@ import UIKit
 class UITableViewControllerCellTwo: UITableViewCell {
     let mView : UIView = UIView()
     let mLabel : UILabel = UILabel()
+    let rectButtonShapeLayer = CAShapeLayer()
+    let rectTopShapeLayer = CAShapeLayer()
+    let mainTopPath = UIBezierPath()
+    let mainButtonPath = UIBezierPath()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,8 +53,6 @@ class UITableViewControllerCellTwo: UITableViewCell {
     //绘制圆点下边的直线
     func setBottomLine(){
         
-        let rectButtonShapeLayer = CAShapeLayer()
-        let mainButtonPath = UIBezierPath()
         mainButtonPath.move(to: CGPoint(x: 20, y: 15))//开始绘制，表示这个点是起点
         mainButtonPath.addLine(to: CGPoint(x: 20, y: 40))//设置终点
         rectButtonShapeLayer.path = mainButtonPath.cgPath
@@ -62,8 +64,7 @@ class UITableViewControllerCellTwo: UITableViewCell {
     }
     
     func setTopLine(){
-        let rectTopShapeLayer = CAShapeLayer()
-        let mainTopPath = UIBezierPath()
+        
         mainTopPath.move(to: CGPoint(x: 20, y: 15))//开始绘制，表示这个点是起点
         mainTopPath.addLine(to: CGPoint(x: 20, y: 0))//设置终点
         rectTopShapeLayer.path = mainTopPath.cgPath
@@ -71,5 +72,10 @@ class UITableViewControllerCellTwo: UITableViewCell {
         rectTopShapeLayer.strokeColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor//路径颜色
         mView.layer.addSublayer(rectTopShapeLayer)
         //        mainPath.removeAllPoints() //删除所有点和线
+    }
+    
+    func removeAllLine(){
+        mainTopPath.removeAllPoints()
+        mainButtonPath.removeAllPoints()
     }
 }

@@ -48,7 +48,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
 
     func readyGo(){
-        meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as! [String : [String : Int]]
+//        print(userDefault.dictionary(forKey: "DeviceManagementKey") as! [String : [String : Int]])
+        meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
         print(meanAndContentLog)
 //        let indexPathForMean = IndexPath(row:meanAndContentLog["meanLog"]!["two"]!,section:1)
 //        tableView1.scrollToRow(at: indexPathForMean, at: UITableViewScrollPosition.top, animated: true)
@@ -281,15 +282,16 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 let i = index - 1000
                 print(i)
                 print(self.oneMeanArr.count-1)
-                if i == self.oneMeanArr.count-1{
-                    self.forMeanStatus = true
-                }else{
-                    self.forMeanStatus = false
-                }
+                
                 //设置选中状态
                 if self.statusArr[i] as! Bool{
                     self.statusArr[i] = false
                 }else{
+                    if i == self.oneMeanArr.count-1{
+                        self.forMeanStatus = true
+                    }else{
+                        self.forMeanStatus = false
+                    }
                     for j in 0..<self.statusArr.count{//设置菜单为只有一个是选中的状态，其他的为非选中状态
                         if(j != i){
                             self.statusArr[j] = false
@@ -359,6 +361,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView1.isEqual(tableView){
+            
             let identifier = "reusedCell1"
             var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellTwo
             if cell == nil{
@@ -367,19 +370,12 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             let rowNum = indexPath.row
             cell?.mLabel.text = listArr[rowNum]
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
-            
-            func setCell(){
-                if meanAndContentLog["meanLog"]!["two"]! != -1 && meanAndContentLog["meanLog"]!["one"]! != (oneMeanArr.count-1){
-                    cell?.setTopLine()
-                    cell?.setBottomLine()
-                }
+            if self.forMeanStatus{//最后一个不要线
+                cell?.removeAllLine()
+            }else{
+                cell?.setTopLine()
+                cell?.setBottomLine()
             }
-                
-                if self.meanAndContentLog["meanLog"]!["two"]! != -1 && !self.forMeanStatus{
-                    cell?.setTopLine()
-                    cell?.setBottomLine()
-                }
-                
             return cell!
         }else{
             let identifier = "reusedCell2"
