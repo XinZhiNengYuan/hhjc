@@ -35,7 +35,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         super.viewDidLoad()
         self.title = "智慧能源管理系统"
         self.navigationController?.title = "首页"
-        
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(openNewDetail))
+        rightBarButtonItem.tintColor = UIColor.white//必须设置颜色，不然不出现～
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+//        self.navigationItem.rightBarButtonItem.set
         self.view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         // Do any additional setup after loading the view.
         deviceTotal()
@@ -602,3 +605,9 @@ extension UIImage{
         return tintedImage!
     }
 }
+//
+//extension UIBarButtonItem {
+//    public func addMessage(msg:String) ->UIBarButtonItem{
+////        let newBarButton =
+//    }
+//}
