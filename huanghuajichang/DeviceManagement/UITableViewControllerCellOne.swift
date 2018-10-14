@@ -13,6 +13,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     let mView : UIView = UIView()
     let rectPath = UIBezierPath()
     var isSelected : Bool = false
+    let mNum : UILabel = UILabel()
     var callBack = {(index : Int,isSelected : Bool)->Void in
     }
     override init(frame: CGRect) {
@@ -31,7 +32,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         mView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width, height: 35)
-        mLabel.frame = CGRect(x: 30, y: 0, width: mView.frame.width*1/3, height: mView.frame.height)
+        mLabel.frame = CGRect(x: 30, y: 0, width: mView.frame.width*1/4, height: mView.frame.height)
         mLabel.font = UIFont.boldSystemFont(ofSize: 14)
         mLabel.textColor = UIColor.white
         mLabel.layer.borderColor = UIColor(red: 64/255, green: 155/255, blue: 239/255, alpha: 1).cgColor
@@ -39,7 +40,10 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
         mLabel.layer.cornerRadius = 5
         mLabel.layer.backgroundColor = UIColor(red: 64/255, green: 155/255, blue: 239/255, alpha: 1).cgColor
         mLabel.textAlignment = .center
-        
+        mNum.frame = CGRect(x: mView.frame.width*1/3+40 , y: 0, width: 40, height: 40)
+        mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
+        mNum.font = UIFont.boldSystemFont(ofSize: 11)
+        mView.addSubview(mNum)
         
         /*
          参数解释：

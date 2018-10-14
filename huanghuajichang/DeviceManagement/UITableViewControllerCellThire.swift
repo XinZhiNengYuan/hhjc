@@ -48,13 +48,15 @@ class UITableViewControllerCellThire: UIView,UIGestureRecognizerDelegate {
         mLabel.textColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 1)
         mLabel.textAlignment = .left
         mNum.frame = CGRect(x: UIScreen.main.bounds.width - 70, y: 0, width: 40, height: 40)
+        mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
+        mNum.font = UIFont.boldSystemFont(ofSize: 11)
         if isSelected {
             rightPic.image = UIImage(named: "收起")
         }else{
             rightPic.image = UIImage(named: "展开")
         }
         
-        rightPic.frame = CGRect(x: UIScreen.main.bounds.width-35, y: 15, width: 15, height: 10)
+        rightPic.frame = CGRect(x: UIScreen.main.bounds.width-45, y: 15, width: 15, height: 10)
         mView.addSubview(mLabel)
         mView.addSubview(mBorderLeft)
         mView.addSubview(mNum)

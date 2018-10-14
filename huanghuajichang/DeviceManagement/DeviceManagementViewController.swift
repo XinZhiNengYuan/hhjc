@@ -30,7 +30,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let IdentifierC = "MyUICollectionViewCell"
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
-    var forMeanStatus : Bool = false//记录菜单的最后一个是不是被选中了，选中的时候取消子菜单的竖线
     let searchView = UIView()
     //存储最后选中的行（包括菜单和清单主页）
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
@@ -48,9 +47,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
 
     func readyGo(){
-//        print(userDefault.dictionary(forKey: "DeviceManagementKey") as! [String : [String : Int]])
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
-        print(meanAndContentLog)
 //        let indexPathForMean = IndexPath(row:meanAndContentLog["meanLog"]!["two"]!,section:1)
 //        tableView1.scrollToRow(at: indexPathForMean, at: UITableViewScrollPosition.top, animated: true)
 //        let indexPathForContent = IndexPath(row:meanAndContentLog["contentLog"]!["two"]!,section:1)
@@ -234,8 +231,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         }else{
             return 6
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -277,36 +272,35 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             let view : UITableViewControllerCellOne = UITableViewControllerCellOne()
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 1000
+            view.mNum.text = "3个"
             view.isSelected = statusArr[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 1000
-                print(i)
-                print(self.oneMeanArr.count-1)
                 
                 //设置选中状态
                 if self.statusArr[i] as! Bool{
                     self.statusArr[i] = false
                 }else{
-                    if i == self.oneMeanArr.count-1{
-                        self.forMeanStatus = true
-                    }else{
-                        self.forMeanStatus = false
-                    }
                     for j in 0..<self.statusArr.count{//设置菜单为只有一个是选中的状态，其他的为非选中状态
                         if(j != i){
                             self.statusArr[j] = false
                         }else{
                             //选中时i==j
+                            if i == self.statusArr.count-1{
+                                view.setBottomLine()
+                            }
                             self.statusArr[j] = true
                             self.meanAndContentLog["meanLog"]!["one"] = j
                             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
                             self.reloadContent()//重新z加载主页
-                            print(self.meanAndContentLog)
                         }
                     }
                 }
                 self.tableView1.reloadData()
                 //self.tableView1.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
+            }
+            if self.meanAndContentLog["meanLog"]!["one"] == statusArr.count-1{
+                view.setBottomLine()
             }
             //画左侧菜单竖着的直线
             
@@ -326,7 +320,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 2000
             view.mNum.text = "3个"
-            view.mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
             view.isSelected = statusArrOfContent[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 2000
@@ -370,12 +363,9 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             let rowNum = indexPath.row
             cell?.mLabel.text = listArr[rowNum]
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
-            if self.forMeanStatus{//最后一个不要线
-                cell?.removeAllLine()
-            }else{
-                cell?.setTopLine()
-                cell?.setBottomLine()
-            }
+            cell?.mNum.text = "3个"
+            cell?.setTopLine()
+            cell?.setBottomLine()
             return cell!
         }else{
             let identifier = "reusedCell2"
@@ -401,7 +391,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         }else{
             self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
-//            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
+            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
         }
         print(self.userDefault.dictionary(forKey: "DeviceManagementKey") as Any)
 //        print(indexPath.row)
