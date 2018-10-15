@@ -7,231 +7,231 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		012CB4ADBBAA7DE57CCC7983D4F8BEEB /* ChartBaseDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB09D42F15145A933F68121480D53DE /* ChartBaseDataSet.swift */; };
-		049A127C2966CDF6E629CFD5D18BD5C5 /* CombinedChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDB6C60D809610BD37323DF11F8E67 /* CombinedChartDataProvider.swift */; };
-		05513E73849F41E7C7FC4841446D0DAC /* ChartLimitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB901EEC73C407D31B6900F9B184557D /* ChartLimitLine.swift */; };
-		06D3966A94443BE084131EB8AE9FA7A8 /* ChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C573EAA257BEEA8AE22468B5434A1 /* ChartViewBase.swift */; };
-		076FCA7A57FD4378B24F1126684F1FB1 /* BarLineChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A631D9B64F8F9DFE72A5DA020BED9F6A /* BarLineChartViewBase.swift */; };
-		0BDF83A169CA1C0CF11BDD8FEC4EE49F /* LegendEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A44875EAC45071CEC69EE0A935ABCCC /* LegendEntry.swift */; };
-		0CCF9BAEFBCF6DBFA9F5C4A7161AEDC9 /* LegendRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF63FF8FBD845A5CD73988A0AC4AC01 /* LegendRenderer.swift */; };
-		0CE763598DCCBF3396B47E75722A0981 /* IBarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C20CA506BC0AE65D810AB06F08AD63C /* IBarChartDataSet.swift */; };
-		0D176D3194A7402523D99A7360910135 /* BarLineScatterCandleBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4570C67544F2D365EFC10C414715422C /* BarLineScatterCandleBubbleChartDataSet.swift */; };
-		0D533F8DFDADFEC54E81AECB9474BC08 /* PieRadarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887A04764BD1B14A53702CA2BC4313B /* PieRadarHighlighter.swift */; };
-		0E8CD0E86CDC847CB80F6A7EF6AB2C57 /* ScatterChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261DEA3E82E8B05278A970A10487A0C3 /* ScatterChartRenderer.swift */; };
+		03C332CE48CE563BE34889A93661197B /* Legend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665456E1291AAFE557FBDD219942FF66 /* Legend.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0523419917399AD061A8590C49C94419 /* BubbleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EDADEEFB891C7E6A0DD6DCD060C8 /* BubbleChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		091878F380A5E22FB9278771983DB9EA /* NeonGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC9681E01FAECCAE8D9EBB6C073B500 /* NeonGroupable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		092011BD13C259D986642B5A842CF997 /* CombinedChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85404494D9141BC144EFD6D2E16F0358 /* CombinedChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0A614755B0258F2C584D57BAF43245E0 /* ScatterChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738C1BDA5C34EA5FB3D38EA8BDFA86EA /* ScatterChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0BF96C90FD9427084AEEE5A80777D315 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EFB3EB33399EA61383711F51B255F4 /* ParameterEncoding.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0C2D47415AE6B9354BAE3B627A92142E /* ChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E94AA40F4486978622B4AB86A60FD6D /* ChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0C9F73D7F7CCBBF9F393CCA56B7474E8 /* RATreeNodeItem+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812ED571AEBDDD1FAC489BDF772A514 /* RATreeNodeItem+Private.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0E98110A5A7F6C5D0476942BC335CDC9 /* RATreeView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C3BE4E87053B2860CBD02DC0C61F625E /* RATreeView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0ED96EFE059D12B6AC01346B2F85ECDC /* MarkerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6F61F31F5A74FDAFACEE620D4046FB /* MarkerImage.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		10422A83E5E7CE748FEC304F9910EE7F /* DefaultAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD07AE60CB09DA5D17C32AD454EE00CF /* DefaultAxisValueFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1061C371BF22F553ACC76DD60C2F9C89 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 03CBCDDE7F4FCE4DB2555109AB0FA3EB /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		10CBAC2F07A9AB6C41E3CC8F70DFF348 /* RATreeNode_ClassExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 341B03EB61F658341839EFF3FC2B8CF6 /* RATreeNode_ClassExtension.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		13CAE26CF62ECFACA5759EC7E35DF850 /* IMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E807365FA4E2CF400E786EA1E92513E /* IMarker.swift */; };
-		14A3DAF2BC102BDBED76E4AA5C1D03D4 /* ChartAnimationEasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A28AEFDD67E1246D5C73A700606EC3 /* ChartAnimationEasing.swift */; };
-		14BE15A2838CB20D18098F265F0DC77F /* Charts-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC65E95257EF44B218BB7A6B28005 /* Charts-dummy.m */; };
-		16864FD3120FC4AFC63376EE85A12F1F /* CandleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0C738EA3E7C3E631E03E0F6F2899B /* CandleChartDataSet.swift */; };
-		17F137FAD1CDA919559C86468D95DAF0 /* ScatterChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738C1BDA5C34EA5FB3D38EA8BDFA86EA /* ScatterChartView.swift */; };
-		1876328C59939ACEF699285ADA1C3B7C /* BarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA822694EFDDB21BF3F72D0B3D764E54 /* BarHighlighter.swift */; };
-		19707F5E59E6839B2530C7C69E5DBF80 /* IBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25576C113E97BA38FE12B90C244C326 /* IBubbleChartDataSet.swift */; };
+		120700249562CDA7600D877DC70FAA25 /* ChevronUpShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D73A97E3AB8A79227C0C8AE5251532 /* ChevronUpShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1374ABF417D13A2D8EFEAFFC359F4E08 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17626A7332993B7BC67934C06D163A2 /* ChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		13BCBF3CEA918A8C633835213BA3029D /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822B05C655E6EA4C749BC53E04792B3 /* BarChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1418477303438487238188481990757F /* ScatterChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A97A8739B940665A8618B0A9B405 /* ScatterChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		16D3DB873C209F7BF08A69B9B4433518 /* IValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9A2C488DC18C20BD9EF8D9E1C25197 /* IValueFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1D01C28BDCE0CA6C5E46DC2CF79F6089 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
 		1D175C613112E93D7337D83DEED6E05D /* RATreeNodeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7B7D829B2E629B427DDEE2EA3D6CE4 /* RATreeNodeController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1E3396FD5013697E0DB6D7913907ADEE /* Neon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A69E0A5401B76393D2457A49410A6 /* Neon.swift */; };
-		1E9E9AF74CA07EB3FEAD4C450313887D /* RATableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53574A19F7B544CB4743565E5207488B /* RATableView.m */; };
-		1FA21E031BA4203CC59F955E015C8B4D /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C5A137DD63B64556BD3543A4909A5A /* Transformer.swift */; };
-		1FC3FD39157C2FFFF3869A1300730086 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED2B309488E946379F85EAB7AF0C2E /* SessionDelegate.swift */; };
+		1DB6666AEF260573B9D5461E4E4423E6 /* RATreeNodeCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C043C4C0BF8AD8AEBD45F216051AD8C3 /* RATreeNodeCollectionController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1F05F6D0C5B42853B61057FF1D2EEBF4 /* IMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E807365FA4E2CF400E786EA1E92513E /* IMarker.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1FEEA92C76862EE48C3456778BFEFA98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA35453164805EF09B731482EB86BAD /* Security.framework */; };
-		21F5410EFA98373E4521B93F1738FF96 /* PieRadarChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84B80EF9E89BC96521D993E216C307 /* PieRadarChartViewBase.swift */; };
+		201D14A4C9331751467DB4BF157315B4 /* PieChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6AEDD04087CBFFBA5E309B71856E3F /* PieChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		20DF05B97A06AE53FAC46AEF64C38C9B /* CircleShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623F9DD0A6EC390FC36529927662934C /* CircleShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2214D9EF048C093D94CEFDC849C2743E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737DE3A62545928C528BF1DF55AF7E76 /* QuartzCore.framework */; };
-		24B6471CC5AC5CE5509A7035FADA7EA6 /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F3F87EEA02DC76BFC601F167C4487F /* RadarChartView.swift */; };
-		254D1207EFC39F6502F94FD4BA1CB316 /* DataApproximator+N.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BACFCF67927A6F57A5D1DA07F124F /* DataApproximator+N.swift */; };
+		230AA10FBCBD30A1197E0D8E24687ECC /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE77F701AD3F86DCAD2BF2CD44B02 /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		259E5C8AE4AD8BC8C9FB88460A605B81 /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D836B64A4053804C1A5061E7EE2A8B6 /* Highlight.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		265D58A35AAC3FBE6BBA6C05F9F919DB /* RATreeView+TableViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = FACE35B70B740101B01D7DB757FD1732 /* RATreeView+TableViewDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		26AFBD1E074D6BEAE5C268893ABA6352 /* NeonGroupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC9681E01FAECCAE8D9EBB6C073B500 /* NeonGroupable.swift */; };
+		2711C9950721F9F90A0F4D521C730669 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4AE987DDDF9CA909CFE9CA6DAAB1B5 /* LineChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2716A86BD9C6CFE03AC4E43024380CCD /* ChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33889A011FE9762E6189806418A6604D /* ChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		27626C2C5904789B0C8E40E99ACA7A07 /* Neon-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BA8AA25CEA3A0DC808AEC91452213E80 /* Neon-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		276F082DA0A032AB6F2998B3A8E2FA96 /* CocoaAsyncSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 369C99822372C4C7C05B0A3877925CC1 /* CocoaAsyncSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		28EF307B0C105913457A155E0B026BF4 /* ILineScatterCandleRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF9E20F4D522EBFD5A6CE7A780EF27F /* ILineScatterCandleRadarChartDataSet.swift */; };
-		2AD5EE3218D56C5ED8897E65DEB3FF97 /* HorizontalBarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1075AC94EB3F5522064A06AFB2E795B9 /* HorizontalBarHighlighter.swift */; };
-		2BBB0CA7C91BB9BC4B331E638BC09095 /* LineScatterCandleRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A643460DA4A95B0EA4EED89281837 /* LineScatterCandleRadarChartDataSet.swift */; };
-		2FF1CF56E25B239E38F41DF0057CFD50 /* IHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EDC746C0E732269D0A6723C6D7CBB /* IHighlighter.swift */; };
-		30169A0026017D898DAC180CC3218F79 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E0DD4E421308017B4DA9DDFADCCDFC48 /* GCDAsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		31872D03598F83E3733CAF2F2A199BE8 /* MarkerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6F61F31F5A74FDAFACEE620D4046FB /* MarkerImage.swift */; };
+		2A5B8D6DE57B4AA3CEF0B365282AE019 /* HorizontalBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A42CFC31390C2606B09D656824054 /* HorizontalBarChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2C2C310BA513CB6FCC892407531A515F /* IndexAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F417906778DDE51F728994AC907894F /* IndexAxisValueFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2D178BC8412501794934B2C13AD6FE0B /* BarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D245D68B74B7DE6C268E10FC1C56B1 /* BarChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2E2100236D2D416E636F93BD7C42EAAD /* ZoomViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E740B47E0A9A2D1AAADE27DD84C94 /* ZoomViewJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		31306D0B409E67CD2CA7D20932999D05 /* ILineScatterCandleRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF9E20F4D522EBFD5A6CE7A780EF27F /* ILineScatterCandleRadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		31AD1217C2BD4F460EE4F7C577A9BEE7 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30321A7877B536B5CF2C7E00DDF49A2F /* Platform.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		31E097613F217BBF4E774D235917E165 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DDC4E5A5D86B956BAD10E9DFDC952F /* TaskDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		32CFEE47E82FA484E4CE872F32CE1A19 /* RATreeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 107C2B94173172DAAA45864AA2701050 /* RATreeNode.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		33A734F8749CDE7E929A480EDCF395F6 /* TransformerHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33436682695E5ACC8A7DEC8D7B63159E /* TransformerHorizontalBarChart.swift */; };
-		3558A46A7C9EBF3BC390FDEEEF43343E /* LineChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE45F18B1B6889C97D18345CA30469 /* LineChartDataSet.swift */; };
-		357C54C1ED791CCFFD08616D1FB69D58 /* BubbleChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF0DDD5F77F9B8B19B55BFB219ADF19 /* BubbleChartDataEntry.swift */; };
-		36FF8853CB34A9297AFAA8F5F7456324 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DDC4E5A5D86B956BAD10E9DFDC952F /* TaskDelegate.swift */; };
-		3B177593BFE8BE0CC55B87A7D67FB85D /* CandleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A057A15817457656B910AA8BB73A6FD /* CandleChartDataProvider.swift */; };
-		400FB12B85EFE556D08E91E352555CFE /* ChevronUpShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D73A97E3AB8A79227C0C8AE5251532 /* ChevronUpShapeRenderer.swift */; };
-		40D7DFB3CA9DDD97703803E306ADD472 /* PieHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D94D5E04D8444150887707BAE70B2 /* PieHighlighter.swift */; };
-		44CE06FF721DF718C886FE7DFA92F02B /* RATreeView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9598E1DB4E0FF08C2121E4148A3BC7 /* RATreeView-dummy.m */; };
-		44E54F42E16224BCEF097E6E02DCC653 /* ScatterChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284579C3E0596C7224966C93BFE1A21 /* ScatterChartDataSet.swift */; };
-		463F876CB8056924BAE8209BC553739A /* AnimatedViewPortJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3089E76BCB1F2CEB5CA9AA0E5A223 /* AnimatedViewPortJob.swift */; };
-		480B0C59109AA1748CBAAB2168D3B7F1 /* ICandleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E296E64D9D2FA1BD6A6E356FAF11E9E2 /* ICandleChartDataSet.swift */; };
+		377F167BDAB0482CE83004E98F086F82 /* ScatterChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261DEA3E82E8B05278A970A10487A0C3 /* ScatterChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3813534CDF6D03A333E4624D011DD887 /* BarLineScatterCandleBubbleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4DD47389F7F85055FFC8DDCBC49DB6 /* BarLineScatterCandleBubbleRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		386D90589762A4FD681E22DE927F86F5 /* MoveViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340062BD77F137E85BF2CE078E9B1E61 /* MoveViewJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		398AEABD96D83C7EDD7DE08484A8A40B /* RATreeView+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D14A75C2EBBB9B724F8FF3B20638EA /* RATreeView+TableViewDelegate.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		39E46DB3A3EA5EB4427CC89A9FBE6127 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DF16C5685BBF6DA3474217ECC8E3D2 /* DispatchQueue+Alamofire.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3AC69C422C561D15607B45558F50EE05 /* Charts-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FEEC65E95257EF44B218BB7A6B28005 /* Charts-dummy.m */; };
+		3ACBEC5B851B694C829A666899BA0490 /* IRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32284D1DEDB38DDE1A4C987ABC3878D /* IRadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		400D2652B78FA1A8C4060EB5E7A855EB /* LineChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88A88F7924B830F8E1C27A6BBBF8764 /* LineChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		40E83A2C4472A974BA66E787E66ACB40 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BF41A02CDE66B6A5994DDF084427B1 /* MultipartFormData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4163B8B1DA697452C9B9263EB3881F4F /* ILineRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BBC3598D7B11C0F6722375554F5EB3 /* ILineRadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		420356FB05B461AD4BA9959E5371ACF4 /* IShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459E19A14141404B019BF883C245CD0F /* IShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		431DFD0E3CD1671726DC33F6650FE4C7 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C5A137DD63B64556BD3543A4909A5A /* Transformer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		442177EFE00C04905F9911A2ECE5526F /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F3F87EEA02DC76BFC601F167C4487F /* RadarChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4816928D5BA1F7C68999DC552FC25929 /* RABatchChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DA741BD5EFC9D70226BDF7CB12B339 /* RABatchChanges.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		48C2284F5ACCBC817C5A01C6D02D2F65 /* Charts-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DF8EFBFADAA958C9A3E61D038FBF093A /* Charts-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4915992A0D5FCFF1F998FEEAA3717078 /* RATreeView+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C321298479F006DC9AB087C626F6CAAB /* RATreeView+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		499D55F4264E99401902C7EC91F3590E /* YAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEE91091CD325BE06B9C9B6178A30D7 /* YAxis.swift */; };
-		4BD3B1D588017EA43F3E98563319DC19 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CEA1926233E9C74AD566A9AEC53795 /* MBProgressHUD.m */; };
-		4CC4758FDC80E32F46B33E1F674533F3 /* RATreeNodeItem+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 0812ED571AEBDDD1FAC489BDF772A514 /* RATreeNodeItem+Private.m */; };
-		4E1A913EFB404FB11524718FF0298EFE /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA09BE00B85873835BC079766B6678F /* Alamofire.swift */; };
+		493895B57E30040A18CC2758B7C9138B /* RABatchChangeEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E21B8EB6868026875413EDE9697C2F /* RABatchChangeEntity.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4972D596D54D5CCEC57DFA1EAECEC630 /* ICandleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E296E64D9D2FA1BD6A6E356FAF11E9E2 /* ICandleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4B4EDA65A6E6FAE8B37BA47B53A3C7E3 /* DataApproximator+N.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BACFCF67927A6F57A5D1DA07F124F /* DataApproximator+N.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4D033F63E586719C6DD61DC0D16DAD5E /* XAxisRendererHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE14A233AEE9A516C2B845ED4E8AD6 /* XAxisRendererHorizontalBarChart.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4D24FC0EF43B398C4F35E15A255C9DD4 /* PieHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3D94D5E04D8444150887707BAE70B2 /* PieHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4D4A61EC172DB39FCF11C0829DF6913C /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436E31839A9AF6545926F797906DBB3 /* ServerTrustPolicy.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		4D4DBD9D4C46D9F4D21035C7366D1757 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EE73A401E5C31CDB6BB05ACB92E706 /* SwiftyJSON-dummy.m */; };
+		4D727AF87599A7CD6C326C230A89ED18 /* RATreeView+Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = 977C995744A9B1C48C1EB7F17221DDCC /* RATreeView+Enums.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4E2D8476FBE6B689319F7E682F5A1E48 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
 		4E64BFE403368CE1CB4C57FE1BD2191D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
 		4EB100FF9229539CA4094551779BF2BE /* CocoaAsyncSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FECB9A82974E555EFACE28E78615139F /* CocoaAsyncSocket-dummy.m */; };
 		4F9863537BC7DA16B2F5D24FB8332853 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D24B6FD6559A4F9D32FA4071DCC857DB /* CoreGraphics.framework */; };
-		4FCD9824D10A3494A5CA1D343800EF80 /* DefaultFillFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C4D4CE9395765CEDBA1C4F92FA0C6 /* DefaultFillFormatter.swift */; };
-		500C8EDA60C07B0F127C7FC385E17D38 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091792D730CBEB117DAC596E2BF14423 /* Notifications.swift */; };
-		50892FAB58F4DE27534725D04EC9419A /* BarChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18519E09B47E27DB24F82B41293473 /* BarChartDataEntry.swift */; };
-		520816B1C59A797AFBC111511C76AA7E /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC358BED2E728B74EA66A7476A0ACB1 /* XAxis.swift */; };
-		52237C35642089F77DD4D723CEB25737 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93214EF4FFA21DBA66825FE2337D72F /* Response.swift */; };
-		52F6283EED6C5FBB38C0E25DCF64B02D /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30321A7877B536B5CF2C7E00DDF49A2F /* Platform.swift */; };
 		530E8AD78AAA24D7F9408522DFF240A8 /* RABatchChanges.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C479074AE7206D54C072DE70DA02000 /* RABatchChanges.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		536517BCEABB0D56B4C832C574D597F4 /* BarChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975F7F0023599436B5372D3588CEA5F /* BarChartDataProvider.swift */; };
-		551320C65A604DC354E5E9772A486249 /* NeonAlignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90E2A1701A0933F79D728D4CC505E2 /* NeonAlignable.swift */; };
-		5671EB4563069B67233694E71045C425 /* HorizontalBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55656D564AD892DE76854E127DB0ABA4 /* HorizontalBarChartRenderer.swift */; };
-		579F647A1801F76F5EA5C653284B4860 /* BarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D245D68B74B7DE6C268E10FC1C56B1 /* BarChartData.swift */; };
+		567E47EE5AA042E2475AA8AC19F35060 /* ChartDataEntryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCA24960C7CE08B49B5967C0D133413 /* ChartDataEntryBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		57A3C21CCCE482191CA48C4383958BDE /* RATreeNodeCollectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 26740F0FA09AAA9BB8E8EA51E9957D3F /* RATreeNodeCollectionController.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		57A98673D5AFB459D105BB5EB9C920AC /* PieChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4035E288F25187FD5DA65D87B6B27D /* PieChartData.swift */; };
-		5854CD2E0729EADBB283C3FAEA3CF7A2 /* LineChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F846BFE2123F1E002B6BA8289E2452 /* LineChartRenderer.swift */; };
-		58A9719584AFA2D108D9E5C585A79329 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7E0FAE3BF749B21F662445701EC1E /* Validation.swift */; };
-		59CBB3F1E1FF0EB2858674DEAF14EED1 /* Platform+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211759DBB438A63796763E4EEAC5C3A5 /* Platform+Accessibility.swift */; };
-		5ADD230002C1821B0B5CBC0D6C586CEC /* PieChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA155A6624CC450B14FC7CE60583EDE /* PieChartDataEntry.swift */; };
-		5AE7B7AF3BED8CF5546C90C4B18578A3 /* BarLineScatterCandleBubbleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2590960EB83A024305B92B7E1F4E35 /* BarLineScatterCandleBubbleChartData.swift */; };
-		5C3CB45C56AB979C6D0764051942DECC /* NeonAnchorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C1F1916B17FB84A9A6C7755A29F08 /* NeonAnchorable.swift */; };
-		5DE6FD6909A0CFF71648907F5B2FCE99 /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4AE987DDDF9CA909CFE9CA6DAAB1B5 /* LineChartView.swift */; };
-		5E0A9D0EE5EA988814CAFB8409B964A9 /* RadarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDEA634DA22C76DECDA307C487E26B6 /* RadarHighlighter.swift */; };
-		5EE5FED83B90A606A763CF1114D1D6FB /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A0E714472E67AAE7DFEFF55F83F822 /* ResponseSerialization.swift */; };
+		582C17C37CCCCC12A71016020B1E6F9A /* CombinedChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFDB6C60D809610BD37323DF11F8E67 /* CombinedChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5830202DA5E8E5FA0734046FD00CA9AB /* IChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AF544B957C9854F455DE828A219B87 /* IChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5B92725F46360893493FA626926F80F2 /* CombinedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599E50B78E28F09E4D22369B9337B0CF /* CombinedHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5E7F7D5A2B60547DEDB75E322B85C1E3 /* BarChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA18519E09B47E27DB24F82B41293473 /* BarChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5EE7ADE2C374506F5E817A64C249DA31 /* Pods-huanghuajichang-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 83491476082838A633CD19E4B3EFC2E4 /* Pods-huanghuajichang-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6149D50EFF91A5775AE8E00972826111 /* IRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32284D1DEDB38DDE1A4C987ABC3878D /* IRadarChartDataSet.swift */; };
+		5FAE6243000CCAF381D57109484B1396 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED2B309488E946379F85EAB7AF0C2E /* SessionDelegate.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		60A61A5EA6BDBD5601299DDB5A52C14A /* LineScatterCandleRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A643460DA4A95B0EA4EED89281837 /* LineScatterCandleRadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		610605379D549B8246F4689CAE528114 /* Platform+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211759DBB438A63796763E4EEAC5C3A5 /* Platform+Accessibility.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6160548467C00EEA2F7928AC9B669D9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
-		61D428F4F8F7DEC8CB5FD2B30B0FCE56 /* AnimatedZoomViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5E589CCDB9C57A1BD13C252846B3F3 /* AnimatedZoomViewJob.swift */; };
-		61D7573CEE84142E85D7271503CF57E6 /* BubbleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EDADEEFB891C7E6A0DD6DCD060C8 /* BubbleChartData.swift */; };
-		62CBA9536DAB2D04E7FB16EF57C930E9 /* BubbleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7024C91DCA9EF887A79A3F4AA8B40D /* BubbleChartDataProvider.swift */; };
-		661673F24D851884DD883A25B129AAA0 /* CandleChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C5F361BB3AC1A52BB9A3D18642B3C /* CandleChartDataEntry.swift */; };
-		6786F89FCE1A6939F280AC9AC3CE2B1B /* AxisRendererBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7BAAF4F8F05AD9BF1C0CB0FDB6FC1F /* AxisRendererBase.swift */; };
-		68D82E4D974ED70879E11AF8E6108A69 /* RATreeNodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8BC25F520979AC4E05EF684A3B1581 /* RATreeNodeController.m */; };
-		6AB59B5A3C138E13F039F5888BC51D9B /* BubbleChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DE594B6707850974D6C061131CE0 /* BubbleChartRenderer.swift */; };
-		6BEA14EC335E07C7063CD1383C0C443C /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C436E31839A9AF6545926F797906DBB3 /* ServerTrustPolicy.swift */; };
-		6C2239D3627884D85523C2D42E0AFEF0 /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846CE67D9F3A922C904743B3B82AE79 /* Fill.swift */; };
-		6C23608F3E3EB1833D37990592A295B3 /* ChevronDownShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44160B508FB2546F9289E74F9F43790 /* ChevronDownShapeRenderer.swift */; };
-		6CA4DC2D027B5ACC9A66C991FCAE632D /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39463F0438A15BCBE71347A5533F36E0 /* MarkerView.swift */; };
-		6CB91B4E789DD1BADC8FB45DF7014D04 /* Legend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665456E1291AAFE557FBDD219942FF66 /* Legend.swift */; };
-		6CF48F75C90A05A23B23961D7E62D35E /* IndexAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F417906778DDE51F728994AC907894F /* IndexAxisValueFormatter.swift */; };
-		6DC37D60B48B4F0E885385F48BBB987A /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932234EFC8925E828F5CF053B084C0E /* AxisBase.swift */; };
-		7068E8A7DDC1424EE8F24BC77E8746F4 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FB1820B643A03B311361E15EDAE57B /* SessionManager.swift */; };
-		71D30181CFBE52086791D59AC9DC1981 /* IFillFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9A2858443BD29BD2D5E82BF302FA06 /* IFillFormatter.swift */; };
+		618F0C277CFA69A5433DAA11EB68538A /* ViewPortHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0464204A85CA0132F00AF7396DE15 /* ViewPortHandler.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		61C446A2F28E4F813CB130B6C772F857 /* CombinedChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C175CCC2E0BA7BD2384C66A8E89BC4 /* CombinedChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6447456659DBAD26105045042CE2910E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 44CEA1926233E9C74AD566A9AEC53795 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		644E05CE5F65D923C4FE3BE9BDC78B7D /* IFillFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9A2858443BD29BD2D5E82BF302FA06 /* IFillFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		66777B3D392D4AF8CBAE17A9C5D13C2F /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCA29A57068486DF136DAC8064F49F /* Timeline.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		669421AC5F4FA4EC7D13F08575D53B6F /* ScatterChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D7C3DBE2DBE6328ED530A40C090B4 /* ScatterChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		66F8FFDDA535894825A2E9D3490A85F6 /* DefaultFillFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356C4D4CE9395765CEDBA1C4F92FA0C6 /* DefaultFillFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6B2BDBE02D48B328BEFB642C91B76D58 /* RATableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53574A19F7B544CB4743565E5207488B /* RATableView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6B2D8E86FC5988707F276D63E6D09843 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6932234EFC8925E828F5CF053B084C0E /* AxisBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6B8FC7C9E95AB1715333AAAB260C8185 /* BubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA42A0FE11FCB648414D804BA0424B /* BubbleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6C5AA261DE2D6CA33DA0BC60C50BFF85 /* ScatterChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9284579C3E0596C7224966C93BFE1A21 /* ScatterChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6D31B46EAFC7DE3E9E03978B58F248E0 /* NeonAlignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC90E2A1701A0933F79D728D4CC505E2 /* NeonAlignable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6E234A862ED158238D3CB582143270EF /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA09BE00B85873835BC079766B6678F /* Alamofire.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6E4A465D989C2BEFEBC075C85D808B1B /* Neon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A69E0A5401B76393D2457A49410A6 /* Neon.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6F1237DA789F13B52D753C17B3317E66 /* RATreeView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9598E1DB4E0FF08C2121E4148A3BC7 /* RATreeView-dummy.m */; };
+		70E59FA2437A59807C900A9E381172E6 /* TriangleShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE8A781589445C18448BECB0775C227 /* TriangleShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		70F0F60BF5E18C9F5D44E175F996BC42 /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A6312BD08ADE1192F319F868C74AAAA6 /* RATreeView+RATreeNodeCollectionControllerDataSource.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		71C8993DD60E299326A97D5329C3CD71 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4101EDE2272E905A50B5A9845657C8 /* Alamofire-dummy.m */; };
 		71D322A26E57080681DDE37076F748CC /* RABatchChangeEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = C44C6FE2FC6726AD9DC4BA87D6EA754D /* RABatchChangeEntity.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		72CACA59AADECC00F61DF1F1AD02C199 /* CandleStickChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4C5810B7575221612533C70C7826D /* CandleStickChartView.swift */; };
-		7455BC249B3F3A5B6ACFC0E9D088887C /* RadarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A27E891D63CF11E10BE4A5404322E55 /* RadarChartRenderer.swift */; };
-		74C2E6CE35F467901B3E21ECA5FBB0C2 /* XAxisRendererRadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE842533EE9E61C5B4719C3A3907CC0 /* XAxisRendererRadarChart.swift */; };
-		75E5E60C0A55E5A92414D25BF82E68D8 /* ChartHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27C8F76FFF64FEB8B99CD97855C5677 /* ChartHighlighter.swift */; };
-		763B16AA87CA8B9A9264EF5D49B3AF37 /* YAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15F1C1410236B34311286023D029B6 /* YAxisRenderer.swift */; };
+		72EDF21BFA7D0C52E40EAB4354F8AF44 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93214EF4FFA21DBA66825FE2337D72F /* Response.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7306E7AA1468FE0833BEAEB0D50A99DD /* ChartColorTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053F8A45EFF4A2999FE47713A4F13AB8 /* ChartColorTemplates.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		74EC7DA37555A322E231D48B8E11F774 /* CrossShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CDDB275AB31631CE4E73D4BB7FBE4 /* CrossShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		769BD37C5508E6D7A06582E59D33450E /* RATreeView.h in Headers */ = {isa = PBXBuildFile; fileRef = FFDD4ED2B1A8E91CDC34B37D582B7EF5 /* RATreeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		76CAA231106FD1BF9851ABC2FED5A201 /* RATreeNodeItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BF55946D9F17347A58C18DB751085854 /* RATreeNodeItem.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7726A13DF5D2AD5EF0C6D484CDC66B02 /* XAxisRendererHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DE14A233AEE9A516C2B845ED4E8AD6 /* XAxisRendererHorizontalBarChart.swift */; };
+		771FB69AC8E6605083E63FB27AC951A4 /* LegendEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A44875EAC45071CEC69EE0A935ABCCC /* LegendEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		778CFAB2FF431A7CA34821B18DCD332B /* PieRadarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887A04764BD1B14A53702CA2BC4313B /* PieRadarHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7792E3F4D5B300BFFC286E699A3901E4 /* Neon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F7079DBBD871B3AF7D2FB2F4085537B2 /* Neon-dummy.m */; };
+		77AAE9E936660E1EFB1BAD250D10C5C8 /* AnimatedViewPortJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F3089E76BCB1F2CEB5CA9AA0E5A223 /* AnimatedViewPortJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		783F45B36DA95C2AF9A38E84D0C8BF10 /* RATableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D0C08A551A0C06C9C6EE68A765789AA /* RATableView.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		796177DE2762F24DAC16A709FD954838 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EFB3EB33399EA61383711F51B255F4 /* ParameterEncoding.swift */; };
-		7A57B9EAD0D9C74A62B291DC58F37142 /* RadarChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDAF65CF863388642E6CD9C3856B29 /* RadarChartDataEntry.swift */; };
-		7ADF7EF8F5E5500AB27E0216BD4AC0D3 /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A6312BD08ADE1192F319F868C74AAAA6 /* RATreeView+RATreeNodeCollectionControllerDataSource.m */; };
 		7B6904C0F06F5C77C42639786FAAAC35 /* RATreeView+RATreeNodeCollectionControllerDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F51D77E161C8E4BA4D0F70AE2ACBD98A /* RATreeView+RATreeNodeCollectionControllerDataSource.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7B96559D6DBBCE61A87B32D08D8F5548 /* RATreeNodeCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C043C4C0BF8AD8AEBD45F216051AD8C3 /* RATreeNodeCollectionController.m */; };
-		7BB1F8DB12A8D78DE35809A53015B631 /* BarLineScatterCandleBubbleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4DD47389F7F85055FFC8DDCBC49DB6 /* BarLineScatterCandleBubbleRenderer.swift */; };
-		7D908E27DDB015E811AA88D62382C057 /* AnimatedMoveViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BAB3F6BECCBBAB976AD741946CB64F /* AnimatedMoveViewJob.swift */; };
-		7ED61A40314F4761FF7E6D1C07C1FAAA /* IScatterChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D6352DBB4F0966721596C044600192 /* IScatterChartDataSet.swift */; };
-		8399CEE375A0D830CC93BEE7DA6B88AD /* ChartDataRendererBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E87A4B0F2AFFC8866B8CB6D8B605C /* ChartDataRendererBase.swift */; };
-		83DDCE47CAD2508FAD020673A5A30213 /* RATreeNodeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD5EA8BDB8A0162039B375A5B37B91D /* RATreeNodeItem.m */; };
-		847A5543F08617E8D5808A57CB17BD95 /* YAxisRendererHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5848210073B5E9DE8135840C92D6900F /* YAxisRendererHorizontalBarChart.swift */; };
-		849271A7C6D5A4B93DD940DC33815285 /* PieChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6AEDD04087CBFFBA5E309B71856E3F /* PieChartDataSet.swift */; };
+		7DDEEA91D0D552EA97C246C730D78824 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D305875C459F24BF443B5E713DD24 /* AFError.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7EC61770466C1FF57B5A2C82046284B7 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1826F71168D898CF69D209E7526A61E /* Request.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7F89B8FC19832264C0567C9BABC3654B /* ViewPortJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D52D655C86D25619932F7D1B8B383 /* ViewPortJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7FD267EC050B1AF18FF090EA036FEAA9 /* LineScatterCandleRadarRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE06BB967E7B0D0ADE36356A3461B20 /* LineScatterCandleRadarRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		81E72938A6165A7F476DF08F511A1B66 /* BarLineScatterCandleBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4570C67544F2D365EFC10C414715422C /* BarLineScatterCandleBubbleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		84925CC6CD24D46DBC0800942AD1C306 /* LegendRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF63FF8FBD845A5CD73988A0AC4AC01 /* LegendRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		84AC17D6CAB684B5D1329DF03F9AEEA5 /* RATreeNodeItem+ClassExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = B7601E0D0E6A04D806FDEB5247F5860E /* RATreeNodeItem+ClassExtension.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		84D92FC60D98C077AB3A6D56AEBE8FEB /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D171DE62E655CAFEFD3BFB101A8EE9 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		858C6BC6EB853D51297E2EF6465ACDBC /* CircleShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623F9DD0A6EC390FC36529927662934C /* CircleShapeRenderer.swift */; };
-		85C91A467AAA393CA66DAE7AE11F56E9 /* LineScatterCandleRadarRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE06BB967E7B0D0ADE36356A3461B20 /* LineScatterCandleRadarRenderer.swift */; };
-		866BA429BA741062E549D5858FF5FAE2 /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D836B64A4053804C1A5061E7EE2A8B6 /* Highlight.swift */; };
-		8796634223D21B7A843ED75D49CE1E10 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17626A7332993B7BC67934C06D163A2 /* ChartData.swift */; };
-		88B3A41591D98654E091A11D4E9C33E7 /* RadarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D7152AEA1BEA7BF62DDCAC1E20C542 /* RadarChartData.swift */; };
-		88C1E1142491294949D390E2CFD23C96 /* ChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E94AA40F4486978622B4AB86A60FD6D /* ChartDataProvider.swift */; };
-		89DDE0A675D0E21805339706CBC8B638 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EE73A401E5C31CDB6BB05ACB92E706 /* SwiftyJSON-dummy.m */; };
-		8B7FECA77C6A23A7239A603A4179D403 /* IBarLineScatterCandleBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008E03FE405108FA94D130B0773C239C /* IBarLineScatterCandleBubbleChartDataSet.swift */; };
-		8D1C305D5C4D7C464261E32FDF6993E4 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E078308E0EB63935DD31278669E02AFC /* Renderer.swift */; };
-		8DA61CAC3B5CF85320E470A7FFC34D2E /* CrossShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540CDDB275AB31631CE4E73D4BB7FBE4 /* CrossShapeRenderer.swift */; };
-		900C71BB6D9417E75BDCF5577CC9EDD5 /* ChartColorTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053F8A45EFF4A2999FE47713A4F13AB8 /* ChartColorTemplates.swift */; };
+		8502610E39EA4DA1C645D85AC1BD9F49 /* ChartDataRendererBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90E87A4B0F2AFFC8866B8CB6D8B605C /* ChartDataRendererBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		856FA8FD6609AC750670E2FA996BADF8 /* LineChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F846BFE2123F1E002B6BA8289E2452 /* LineChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		85F46AC0868623936E84FBD678B986EF /* XAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39642D469C3712669BD66FF8CA0D2635 /* XAxisRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8642DFA71BB00038924BB701B030C345 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = E0DD4E421308017B4DA9DDFADCCDFC48 /* GCDAsyncUdpSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		86672ED0548E81E771A5A6C11239D9C2 /* PieRadarChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84B80EF9E89BC96521D993E216C307 /* PieRadarChartViewBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		87CACFF8D1DEB6F794AC8DDCE8D52721 /* LineRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB35B573AB99A5F7F059D4E9D913A796 /* LineRadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8817670F999F88091A8E1A7AC59B5DD0 /* BarLineScatterCandleBubbleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2590960EB83A024305B92B7E1F4E35 /* BarLineScatterCandleBubbleChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8C46ADC14759E79D0D4CBC63E3E14B80 /* CandleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A057A15817457656B910AA8BB73A6FD /* CandleChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8CD86FA725C57D6F6FE9DA4132AC16E9 /* CandleChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3C5F361BB3AC1A52BB9A3D18642B3C /* CandleChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8EEBBB90A27B8CCF754B7BEAC5E460C8 /* ChartAnimationEasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A28AEFDD67E1246D5C73A700606EC3 /* ChartAnimationEasing.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		8FC64E47A51DD7D6D3C9ACFD54F31469 /* NeonAnchorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0C1F1916B17FB84A9A6C7755A29F08 /* NeonAnchorable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		918D55F16814247D5D0D74FC75B48FBE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7E0FAE3BF749B21F662445701EC1E /* Validation.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		934543CDC3E37251DE163ADB4B6820FD /* CandleStickChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A5D781ECC020208C555405A561DB7 /* CandleStickChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9390AE0143D7A2F7F60E1A3FCAE34B40 /* RATreeView+TableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C795A822ABFCEED481F97744CD8B /* RATreeView+TableViewDataSource.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		94010611BC443BA91F91E4739E6BD17F /* RATreeNodeItem+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F9496C46C835F1D06B3005EF0F251D1 /* RATreeNodeItem+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		946B8DE90A7C6B3872C82AA2AF240118 /* GCDAsyncUdpSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 62C613756EA6C37AD2E598B00F163557 /* GCDAsyncUdpSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		965DACF3DC02857ECBE66C5CBA3DA5D4 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1826F71168D898CF69D209E7526A61E /* Request.swift */; };
-		96C2AA619B8291A82E84AB839B012FC7 /* ViewPortJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D52D655C86D25619932F7D1B8B383 /* ViewPortJob.swift */; };
-		970D92F1BF1A7FC37F2E62B78DB28E17 /* IChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AF544B957C9854F455DE828A219B87 /* IChartDataSet.swift */; };
-		987ACADDFF187151B0110028A27E97D9 /* HorizontalBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A42CFC31390C2606B09D656824054 /* HorizontalBarChartView.swift */; };
-		9BF77CA9C59F9492F772BEF752358BF4 /* XShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34443F2B3B986F28B9F53F93E40BE40 /* XShapeRenderer.swift */; };
-		9E0986DBC285D7C5226F160DD4280A33 /* IPieChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A3EF5C585FFF01966387027D9387A /* IPieChartDataSet.swift */; };
+		9512CDA083EA61F299A467BF4678A2FB /* BubbleChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA75DE594B6707850974D6C061131CE0 /* BubbleChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9523929E8668F0E72243B5D8E7379CF2 /* BarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA822694EFDDB21BF3F72D0B3D764E54 /* BarHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		96C0FF8A72036FF83A4752A02B811B5B /* LineRadarRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E83F968D7B0E2EFBA815DA7A5B7EB /* LineRadarRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		96C8BE77C6E26E4B9312D62F5C211269 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3F3CC9BB6143706D5772A983600DDF /* Description.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		98371A8C65AF1373CA3887E187B16ABC /* XAxisRendererRadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE842533EE9E61C5B4719C3A3907CC0 /* XAxisRendererRadarChart.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		987C7F5C034715EB4A264175B8FA3AEB /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FEE3ED2A6A55DDFC2FEC30A839FFE1 /* Range.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		989CB1FF8E0FD8DF5B1A0C9EC57CD91D /* IPieChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179A3EF5C585FFF01966387027D9387A /* IPieChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9CCF6EF2287763656A9E86F7552998E7 /* BubbleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560CE58A421F3D2B46B378F2F4537D5 /* BubbleChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9D7A80B2B72F4FBC01765B25B7B0033D /* LineChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE45F18B1B6889C97D18345CA30469 /* LineChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A00B3B20DB010F2F289E90A965E0ACA9 /* CombinedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8399FB0C55390DE29E1BB9676AF7E /* CombinedChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A11AA27F116FF1637A8FE254AF6F044C /* ChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17298D55B1206C7B66EE17D5D59A18F6 /* ChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A191E3933EEFD02A9ACEC22B12A436A5 /* IAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8977F8B8F5AA13EDF895364EB3111057 /* IAxisValueFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A1E35F989221096A4DEB0D5345F52BB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
-		A286B93362FD651FC2BA650E3CFD1094 /* NeonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F57AA0ED376966F9913EA69D44E9E4 /* NeonExtensions.swift */; };
-		A44E0B6040359CCDD6A44E22B99B576B /* RadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F62E6D26308915059954F000869C0 /* RadarChartDataSet.swift */; };
-		A6D44FE2587458EB7B5E2CC3994BE456 /* ChartDataEntryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCA24960C7CE08B49B5967C0D133413 /* ChartDataEntryBase.swift */; };
-		A78689FB49D9A9363AEB9C1D382005F2 /* ZoomViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114E740B47E0A9A2D1AAADE27DD84C94 /* ZoomViewJob.swift */; };
-		A8239FEF007BC598BB21C8BF63BCC4CC /* BubbleChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6560CE58A421F3D2B46B378F2F4537D5 /* BubbleChartView.swift */; };
-		A8241FEFAB1775BB95E16A4E7993FB16 /* SquareShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526E452D962193B01D0B75056A777CFD /* SquareShapeRenderer.swift */; };
-		A84DA2F018CC88A52C020ADB445C8E97 /* CombinedHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599E50B78E28F09E4D22369B9337B0CF /* CombinedHighlighter.swift */; };
+		A23C15CFFE2F0E3EFBC92FE4E799A255 /* PieChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4035E288F25187FD5DA65D87B6B27D /* PieChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A35899B69536C89FD209D72189189429 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E078308E0EB63935DD31278669E02AFC /* Renderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A497C4B9650355975228FC86A9F88026 /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C5153B7BFB07266E95AB0E812283C8 /* BarLineScatterCandleBubbleChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A4DF0869E33A835721E12663EB81D37B /* LineChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CFB5508C7C135B913729D0333D563 /* LineChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A5AB8E85B4EAB2E0958191FA978948E6 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5FDEAAB97F28AE49A7C9AC6823D10 /* Animator.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A63B3C9A2AAB3A8D5BF63A882225FFFA /* IScatterChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D6352DBB4F0966721596C044600192 /* IScatterChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A7816C2E792C8641CE01542BBB22CB9E /* RATreeView+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BFC24E8159BEC942B24B1DA8C491F2 /* RATreeView+Private.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A7F8937FA0B184FB4A9CBF94AFD5C9CA /* IBarLineScatterCandleBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008E03FE405108FA94D130B0773C239C /* IBarLineScatterCandleBubbleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A8906F6003D20F1B2E9C5BFEF7AE9C1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
-		A8A13DAFC7C1AA6855DAD34CE834CF97 /* BubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA42A0FE11FCB648414D804BA0424B /* BubbleChartDataSet.swift */; };
-		AACF3B12ABE2AAF788B3AEE32CF92605 /* RATreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FE79CB99CB205156CFFAB7889FD316 /* RATreeNode.m */; };
-		AC166C66311BCAAAD1D9289A80E51CCF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE77F701AD3F86DCAD2BF2CD44B02 /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		AD0AD13EA58EC31B6B48D6233821AFB8 /* ViewPortHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0464204A85CA0132F00AF7396DE15 /* ViewPortHandler.swift */; };
-		AD16932F7401B183FE9282E5B2B6BE2B /* ComponentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1179F8C8C940F6097C926D0E52BDB7 /* ComponentBase.swift */; };
-		ADAB54F5DB90A9610D79A8E573909107 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F684FC9813405667682D858544BD8E /* SwiftyJSON.swift */; };
-		AFC8BDA2A1141E2224C803A48520CB23 /* ChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33889A011FE9762E6189806418A6604D /* ChartDataEntry.swift */; };
-		B1DAAC5AA371C25D430320F66EA11FBA /* CandleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F853BA919E6D45926C44D2E699476 /* CandleChartData.swift */; };
-		B424F524BBBE34E685129945993809A8 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBCA29A57068486DF136DAC8064F49F /* Timeline.swift */; };
-		B74F75C08E7A97E935B4A6B2E5FBA9A6 /* ILineRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3BBC3598D7B11C0F6722375554F5EB3 /* ILineRadarChartDataSet.swift */; };
-		B77705737566AE83ED7E448923D7FA60 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FFB428F3005A127B1D75C1210E56 /* NetworkReachabilityManager.swift */; };
-		BB51931AAB493AC9338F9A1EFAFEE834 /* BarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D9668CCC5547B54AF2C3EAAF1BA93 /* BarChartDataSet.swift */; };
-		BE4BA1EDE444A770F834605F4B65348E /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D305875C459F24BF443B5E713DD24 /* AFError.swift */; };
-		BEEBFD54499AE6FA7A301C620803A443 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FEE3ED2A6A55DDFC2FEC30A839FFE1 /* Range.swift */; };
-		BF5A0417432B1B16D423E2472F8F183C /* LineRadarRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E83F968D7B0E2EFBA815DA7A5B7EB /* LineRadarRenderer.swift */; };
-		C2AF193F8074C73EEDEE9C7438F20FFD /* ScatterChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648D7C3DBE2DBE6328ED530A40C090B4 /* ScatterChartDataProvider.swift */; };
+		ABA7E91E616F446AE13FAC9050B55881 /* NeonFrameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30CEB28B71CAEE97EE287C14AA43F8B /* NeonFrameable.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		ACC0988FA6FD531E5EF82ECD0B0F8F72 /* DataApproximator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887D03E56B5C351480B7A690E89071D8 /* DataApproximator.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AD8BDD5A9231068B37619FBDAEC06DE4 /* BarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594A8E9001672D053F36B19CC0E0ED96 /* BarChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B05E520812AA92A479EB9EAA29C88B97 /* ChevronDownShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44160B508FB2546F9289E74F9F43790 /* ChevronDownShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B15FC25978BE630AAE96635D17907A71 /* ChartUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EA64271AD37C458D967DC89A4924 /* ChartUtils.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B1D52A9C38BE10BE4229506B91103133 /* XShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34443F2B3B986F28B9F53F93E40BE40 /* XShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B3AC852255B3BB778847B171C675296B /* AxisRendererBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7BAAF4F8F05AD9BF1C0CB0FDB6FC1F /* AxisRendererBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B9FA3D63FE523FF1E97CA50AEDDF1833 /* RadarChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DDAF65CF863388642E6CD9C3856B29 /* RadarChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BD919F30AE8401BD08F15505B8AE8ABE /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32F1821561ADF78031C0AED8E3C679 /* PieChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BE18FA232ADFD92A0E9299B254555FB9 /* XAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC358BED2E728B74EA66A7476A0ACB1 /* XAxis.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BE5C415A6E5AD3CB99BA91F9561C9DA7 /* NeonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F57AA0ED376966F9913EA69D44E9E4 /* NeonExtensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BE9064297027980C803A495B0BD36364 /* RadarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A27E891D63CF11E10BE4A5404322E55 /* RadarChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C176C895258C6562FBC3636AF462A826 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F684FC9813405667682D858544BD8E /* SwiftyJSON.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C31470E92B1A691AC3D3D55A127DCBF0 /* MBProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 73E9E64766F2D6641615BAF8FE48EF78 /* MBProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C35BB2F5E0A3C77384C1BE5637C1B671 /* RATreeView+TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D14A75C2EBBB9B724F8FF3B20638EA /* RATreeView+TableViewDelegate.m */; };
-		C79769A8C3BEFA2A2EDA7003719A2C77 /* IShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459E19A14141404B019BF883C245CD0F /* IShapeRenderer.swift */; };
-		C7D8FD94481E4D954D1C7FA872E67F8D /* CombinedChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C175CCC2E0BA7BD2384C66A8E89BC4 /* CombinedChartRenderer.swift */; };
-		C8832B3B43EE844E02756C83912D9B57 /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7571DA790D861B9380B89FF56661147 /* RATreeView.m */; };
-		CADF5E586286D48C5E92FC05ACA1D584 /* ChartUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859EA64271AD37C458D967DC89A4924 /* ChartUtils.swift */; };
-		CBE26C80EFD5F358511245F62758263F /* XAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39642D469C3712669BD66FF8CA0D2635 /* XAxisRenderer.swift */; };
-		CCCD4F74615F18BA16FC3D17DE796AD3 /* CombinedChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8399FB0C55390DE29E1BB9676AF7E /* CombinedChartView.swift */; };
-		D051D220B9996F1A2E9E0EA2EBD4A9F9 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A32F1821561ADF78031C0AED8E3C679 /* PieChartView.swift */; };
-		D1784DBA4136FE41E09AA73F8142B2AD /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1822B05C655E6EA4C749BC53E04792B3 /* BarChartView.swift */; };
-		D47017A96EE66EB9F704F838FEE67059 /* CandleStickChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0A5D781ECC020208C555405A561DB7 /* CandleStickChartRenderer.swift */; };
-		D489F1D929EDD386A0B4EBD5B526515A /* LineChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88A88F7924B830F8E1C27A6BBBF8764 /* LineChartDataProvider.swift */; };
-		D4C3899574E9D5DF5E5DA52310560BCC /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4101EDE2272E905A50B5A9845657C8 /* Alamofire-dummy.m */; };
-		D52BCBD17C065256499815837EB85C9B /* DefaultAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD07AE60CB09DA5D17C32AD454EE00CF /* DefaultAxisValueFormatter.swift */; };
-		D7193D2975FBFFA0B4E3B81A00FF49DF /* YAxisRendererRadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9662E4AE2F3BFF72737D4A4F2D5114 /* YAxisRendererRadarChart.swift */; };
-		D7D237AD097690DB5791F5BF43268F9D /* RATreeView+Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = 977C995744A9B1C48C1EB7F17221DDCC /* RATreeView+Enums.m */; };
-		D7E0ECF466AC6551B92729F715C24897 /* BarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594A8E9001672D053F36B19CC0E0ED96 /* BarChartRenderer.swift */; };
+		C35EE3B69F07A9CBA5214DB466BCFA0F /* MBProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E849727B86EF9C8D857927ECB7213EC /* MBProgressHUD-dummy.m */; };
+		C3CC572A93496D96D1514C110C05D4A9 /* AnimatedZoomViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5E589CCDB9C57A1BD13C252846B3F3 /* AnimatedZoomViewJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C662028048556D063A9AC1B784988B8D /* RadarChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D7152AEA1BEA7BF62DDCAC1E20C542 /* RadarChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C721515766404B9E5E5A4FBB25DF23AE /* RATreeNodeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD5EA8BDB8A0162039B375A5B37B91D /* RATreeNodeItem.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C7948DD19484AD97B80E7622B9A9BCAC /* BubbleChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF0DDD5F77F9B8B19B55BFB219ADF19 /* BubbleChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C80AEEF00532797FF769CF482E568473 /* YAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15F1C1410236B34311286023D029B6 /* YAxisRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C81103311755CCE17B7373294BB2E1BF /* YAxisRendererHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5848210073B5E9DE8135840C92D6900F /* YAxisRendererHorizontalBarChart.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C8E1B950DE90D165986AFE4727126491 /* RATreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7571DA790D861B9380B89FF56661147 /* RATreeView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CAFDEC2BE2BD6C00E8E71FED4BBFF080 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197EB543569E90D34638C18E8DCD504E /* Result.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CC2E2E413D6125F7636C4A0B3F6DFFCC /* ChartBaseDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB09D42F15145A933F68121480D53DE /* ChartBaseDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CEAF967ACE976FF757ECDC3524E0F03D /* CandleChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5F853BA919E6D45926C44D2E699476 /* CandleChartData.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D04270C0C61007A8BB065F92A680D6DE /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A0E714472E67AAE7DFEFF55F83F822 /* ResponseSerialization.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D12FB77C9C64D1E7A691407206DA2348 /* AnimatedMoveViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BAB3F6BECCBBAB976AD741946CB64F /* AnimatedMoveViewJob.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D423F046852D73CC7407370136F924CE /* PieChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA155A6624CC450B14FC7CE60583EDE /* PieChartDataEntry.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D6FB3C2B3E18583390ECA4FDA97A1EEA /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8846CE67D9F3A922C904743B3B82AE79 /* Fill.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D8EC5B74B9B5DC842F4179D19E6DE6D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
 		D966EB561A0A6A10BAF414F0B952E95E /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = F949E7ADDA762ABCA10A8611C1A40C9E /* MBProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DA445D4C80AC71AEDC2F122B053543A7 /* RABatchChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = C6DA741BD5EFC9D70226BDF7CB12B339 /* RABatchChanges.m */; };
+		DA3B50AF86C7F0AB8AA95BC126F0D070 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FB1820B643A03B311361E15EDAE57B /* SessionManager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DB0BC32BBE444D115E83D0818B87CBF6 /* RATreeNodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D8BC25F520979AC4E05EF684A3B1581 /* RATreeNodeController.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		DB41923C0191EB4C9A5A690F56BAEEB2 /* RATreeView+Enums.h in Headers */ = {isa = PBXBuildFile; fileRef = DD34E331427CDDE333D8DBE8E11B84A7 /* RATreeView+Enums.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		DB4221F4D63B44C9C28FEE82EF936DCC /* RATreeView_ClassExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 421731935F3AD69858C52890CFF7C9AD /* RATreeView_ClassExtension.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DBE6E2E4D205545E7988CFA5057C31D6 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DF16C5685BBF6DA3474217ECC8E3D2 /* DispatchQueue+Alamofire.swift */; };
-		DFF51A7F164CA0F6BBC1DA3B49A47158 /* RATreeView+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BFC24E8159BEC942B24B1DA8C491F2 /* RATreeView+Private.m */; };
-		E8686F29432EF7FEC70A8309543A1F42 /* ChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17298D55B1206C7B66EE17D5D59A18F6 /* ChartDataSet.swift */; };
-		E910AADF9614E5218FE6D9A2BEBDCB85 /* MoveViewJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340062BD77F137E85BF2CE078E9B1E61 /* MoveViewJob.swift */; };
-		E969583DD45D79D6111BAEE94E37DFA3 /* CombinedChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85404494D9141BC144EFD6D2E16F0358 /* CombinedChartData.swift */; };
-		E99F447129D4A8EB143B542BFB3A4BEF /* Neon-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F7079DBBD871B3AF7D2FB2F4085537B2 /* Neon-dummy.m */; };
-		EAB325F021DD1D9EBC91F0454EEF0537 /* DataApproximator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887D03E56B5C351480B7A690E89071D8 /* DataApproximator.swift */; };
-		EB61412975255B78381F541F5ADE87F4 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E5FDEAAB97F28AE49A7C9AC6823D10 /* Animator.swift */; };
+		DC4BBBCECB152203D4901B930197C668 /* BarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5D9668CCC5547B54AF2C3EAAF1BA93 /* BarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		DE454B28B9AC9F7C42839AA55D7574D2 /* YAxisRendererRadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9662E4AE2F3BFF72737D4A4F2D5114 /* YAxisRendererRadarChart.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E168E51972842469FAAD625F11D9D781 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091792D730CBEB117DAC596E2BF14423 /* Notifications.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E60188A7E4C69337B6840D7875A539C2 /* IBarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C20CA506BC0AE65D810AB06F08AD63C /* IBarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E83DD47D94C577B3D5F672C7A5C55467 /* RadarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDEA634DA22C76DECDA307C487E26B6 /* RadarHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E86B6328D8296809B25F536C5F10CD4B /* ChartLimitLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB901EEC73C407D31B6900F9B184557D /* ChartLimitLine.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E922EAB5357E2B0C01D49E9A3D6F3272 /* IHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EDC746C0E732269D0A6723C6D7CBB /* IHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		EBC9299FE403A45B246F74297CD8A05A /* PieChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEE7340EE65074BE895316DE3DE97F /* PieChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EDCED9422681E15E4AB4EBD265B3358E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A6EC20AF2F958694CF349DFAC9F9D6 /* CFNetwork.framework */; };
-		EDDA8498D91ACA4BE119AB8664D20C43 /* RABatchChangeEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E21B8EB6868026875413EDE9697C2F /* RABatchChangeEntity.m */; };
+		EE30E67B79136BE20215583604092326 /* ChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489C573EAA257BEEA8AE22468B5434A1 /* ChartViewBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EE62EFE26D3523FA7AF81121764FEFA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE100C857DB1A7D325381AABE9E19C35 /* Foundation.framework */; };
-		EEB4A455551D7B917E1AD4B0A1A964FF /* MBProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E849727B86EF9C8D857927ECB7213EC /* MBProgressHUD-dummy.m */; };
+		EF0752D7045F333EB6B017BABDC63984 /* SquareShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526E452D962193B01D0B75056A777CFD /* SquareShapeRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EF1461221681BCA12A4147900A704727 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C46B5B0D1E60FD9BEC9C27F41EDA27 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF203789B9D827C23D6C5B894C239CAE /* BarLineChartViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A631D9B64F8F9DFE72A5DA020BED9F6A /* BarLineChartViewBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		EF4F22758F8957DFE7B1A9C1259D820E /* Pods-huanghuajichang-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4EFF53CB41AE480FCAF1E8FF7228B7 /* Pods-huanghuajichang-dummy.m */; };
-		F031E096300030295C2C6A81635E16F1 /* IValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9A2C488DC18C20BD9EF8D9E1C25197 /* IValueFormatter.swift */; };
-		F0E5A264680F2C17B5CA1BF8C5A16688 /* LineRadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB35B573AB99A5F7F059D4E9D913A796 /* LineRadarChartDataSet.swift */; };
+		EFE5F0E288D5582F37B69E838FE907BC /* DefaultValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFEE0801059E0A8F5B016FE2ED7E56A /* DefaultValueFormatter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F08904E8835E4279192C40CA6474A13C /* YAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEE91091CD325BE06B9C9B6178A30D7 /* YAxis.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F16A032A811867FF6323143582E47951 /* HorizontalBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55656D564AD892DE76854E127DB0ABA4 /* HorizontalBarChartRenderer.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F1A0BACF2A146A439122863794F734EE /* RadarChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032F62E6D26308915059954F000869C0 /* RadarChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F1D096BE7FD7AD4CE1135805B170BBB4 /* HorizontalBarHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1075AC94EB3F5522064A06AFB2E795B9 /* HorizontalBarHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F31343B3BDB2A9A9D025BF209906C04B /* RATreeView+TableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDC0ECCDDF197FA69E9318BC6BC03A5 /* RATreeView+TableViewDataSource.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F32FEC8E88D7B647255F833E42983ED2 /* IAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8977F8B8F5AA13EDF895364EB3111057 /* IAxisValueFormatter.swift */; };
-		F3687F197138700649E557D5F9EF6FD8 /* NeonFrameable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30CEB28B71CAEE97EE287C14AA43F8B /* NeonFrameable.swift */; };
-		F3A894D8D9C435C83790DDFE6B2A31CC /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3F3CC9BB6143706D5772A983600DDF /* Description.swift */; };
-		F4838DAB483A38DD0CEA93528902EAD1 /* LineChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569CFB5508C7C135B913729D0333D563 /* LineChartData.swift */; };
-		F510CB628EF50B4F8842E1264B8725D2 /* DefaultValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFEE0801059E0A8F5B016FE2ED7E56A /* DefaultValueFormatter.swift */; };
-		F7D10FD4189953ADE4698A0F60B7A46A /* TriangleShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE8A781589445C18448BECB0775C227 /* TriangleShapeRenderer.swift */; };
-		F9EA61D484CC15FDDAB0D8C0D26D7949 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197EB543569E90D34638C18E8DCD504E /* Result.swift */; };
-		FA644CA887DD9533356CF7FDBD325D48 /* PieChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEE7340EE65074BE895316DE3DE97F /* PieChartRenderer.swift */; };
-		FCCE13FEE0114A809049F323685451BB /* ScatterChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3A97A8739B940665A8618B0A9B405 /* ScatterChartData.swift */; };
-		FD998554C9752596F319A572E6655A4A /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C5153B7BFB07266E95AB0E812283C8 /* BarLineScatterCandleBubbleChartDataProvider.swift */; };
-		FDB48951C863433CA753C69C0570784D /* RATreeView+TableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BB6C795A822ABFCEED481F97744CD8B /* RATreeView+TableViewDataSource.m */; };
-		FF169438F0868CF8CDB040C9809CC1D6 /* ILineChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6E9E1BF84EC01EE44CC69689D9ED8 /* ILineChartDataSet.swift */; };
-		FF9C7BC64DB23D2CED48197DE67F0335 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BF41A02CDE66B6A5994DDF084427B1 /* MultipartFormData.swift */; };
+		F3F4F80C0BAE1855B294ADAFC6BEC67E /* TransformerHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33436682695E5ACC8A7DEC8D7B63159E /* TransformerHorizontalBarChart.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F48A2073BF27DD81DA781B5AEC15E10A /* IBubbleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25576C113E97BA38FE12B90C244C326 /* IBubbleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F7A9B63B2EE7B49C97809FF5F8F2E413 /* ComponentBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1179F8C8C940F6097C926D0E52BDB7 /* ComponentBase.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F808BBF493971020745ABDCDA63F182D /* RATreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FE79CB99CB205156CFFAB7889FD316 /* RATreeNode.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F869D5CDB92AFEAFB507B3BC097E87D6 /* BarChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975F7F0023599436B5372D3588CEA5F /* BarChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		F87B87AB390DE5D24C4CAE8C30108A16 /* BubbleChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7024C91DCA9EF887A79A3F4AA8B40D /* BubbleChartDataProvider.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FA61E357CF88BC5817DF5628C8C143CE /* CandleChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A0C738EA3E7C3E631E03E0F6F2899B /* CandleChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FC7DC5345AC5BD330F9F9C640151C745 /* CandleStickChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB4C5810B7575221612533C70C7826D /* CandleStickChartView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FD9ACD2FBE5243A91558B907BC425CF1 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FFB428F3005A127B1D75C1210E56 /* NetworkReachabilityManager.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FDE4713E6FF767EC7157F283F969F8F9 /* ChartHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27C8F76FFF64FEB8B99CD97855C5677 /* ChartHighlighter.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FE3BC02AF9FEFFA71AE4E0D8A3FB2B39 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39463F0438A15BCBE71347A5533F36E0 /* MarkerView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		FF3FE753D8E3A0AFB85E4CB28425FBDB /* ILineChartDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD6E9E1BF84EC01EE44CC69689D9ED8 /* ILineChartDataSet.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1171,7 +1171,7 @@
 			buildConfigurationList = D2E1919BD7A5224724512F462715CDD0 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
 			buildPhases = (
 				E214B0175F8877A5A2862093A509C09F /* Headers */,
-				D6229BBD0014D614C2B975F092702C35 /* Sources */,
+				19095430D9BA2C53C5331506065D7C88 /* Sources */,
 				E57AFFCF3068508199AB54C0E39141F2 /* Frameworks */,
 				749CB8C592314A32805D2048539CDDE9 /* Resources */,
 			);
@@ -1189,7 +1189,7 @@
 			buildConfigurationList = 3E088B00DA8B02AD02B07069F1F908B6 /* Build configuration list for PBXNativeTarget "RATreeView" */;
 			buildPhases = (
 				6CE8D8826261E2B55CB711E8FD7F88AC /* Headers */,
-				3762B4E160D80F8B7E9BD437D418F248 /* Sources */,
+				37127773A495F37E12C48DD204D48197 /* Sources */,
 				C00833C95ED4F1B42620A9F9E92C1E9D /* Frameworks */,
 				9D06E897A55569791AB0D68B9E6BE8A0 /* Resources */,
 			);
@@ -1207,7 +1207,7 @@
 			buildConfigurationList = AE6C2622DAA1AF717AC6699471345632 /* Build configuration list for PBXNativeTarget "Neon" */;
 			buildPhases = (
 				3C3A8E4BE345CB382A63DFB87F28E23A /* Headers */,
-				0D19B5389EB001D083DD72AC50BCF405 /* Sources */,
+				90CE05CC897D1EA1E2F16717522E0AA0 /* Sources */,
 				C62864E9B7872E16E2520B2F7312EA0C /* Frameworks */,
 				170920F24397C1A3C16E28314BE1D49E /* Resources */,
 			);
@@ -1250,7 +1250,7 @@
 			buildConfigurationList = 09600571F63852ACA3B7A23B4729B6A4 /* Build configuration list for PBXNativeTarget "MBProgressHUD" */;
 			buildPhases = (
 				5CE17C32A4504B751C3375AA3458D828 /* Headers */,
-				88F228B332626246A6113EBE81AB9792 /* Sources */,
+				59F87C5B396793AC6B3E715AF28C5333 /* Sources */,
 				35A398F6CC37A8D8E469498B848E286F /* Frameworks */,
 				96C60439BF31F7D396AAA2AAD2622A98 /* Resources */,
 			);
@@ -1268,7 +1268,7 @@
 			buildConfigurationList = 427F0F003A1AD80AE00155AFCDEFAC20 /* Build configuration list for PBXNativeTarget "Alamofire" */;
 			buildPhases = (
 				A6A607506FEAAC7C41268D3E5CF4E5FE /* Headers */,
-				CC399CEC576B42C962CEB290481CAF95 /* Sources */,
+				86CCC4A4A8864DB1BD696381A2D523B0 /* Sources */,
 				6E8AF668A2161F7D6F680F721DB65D2D /* Frameworks */,
 				3DDB7E21141D7764AE4658D5B6AFF8C6 /* Resources */,
 			);
@@ -1304,7 +1304,7 @@
 			buildConfigurationList = 232465D02EE4BB98B5673A80AB4C5B0C /* Build configuration list for PBXNativeTarget "Charts" */;
 			buildPhases = (
 				D04A8FE1A0C091B803D65246BD8EC96D /* Headers */,
-				0D4AE5403B5359098ECFA64A765E5511 /* Sources */,
+				C3F85362D2C1A448871B75640E779191 /* Sources */,
 				27651B48E00B05B5B51AABD201BABD7A /* Frameworks */,
 				074ADB43C9DB1D9F8675F3FA016C16F8 /* Resources */,
 			);
@@ -1410,183 +1410,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0D19B5389EB001D083DD72AC50BCF405 /* Sources */ = {
+		19095430D9BA2C53C5331506065D7C88 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E99F447129D4A8EB143B542BFB3A4BEF /* Neon-dummy.m in Sources */,
-				1E3396FD5013697E0DB6D7913907ADEE /* Neon.swift in Sources */,
-				551320C65A604DC354E5E9772A486249 /* NeonAlignable.swift in Sources */,
-				5C3CB45C56AB979C6D0764051942DECC /* NeonAnchorable.swift in Sources */,
-				A286B93362FD651FC2BA650E3CFD1094 /* NeonExtensions.swift in Sources */,
-				F3687F197138700649E557D5F9EF6FD8 /* NeonFrameable.swift in Sources */,
-				26AFBD1E074D6BEAE5C268893ABA6352 /* NeonGroupable.swift in Sources */,
+				4D4DBD9D4C46D9F4D21035C7366D1757 /* SwiftyJSON-dummy.m in Sources */,
+				C176C895258C6562FBC3636AF462A826 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D4AE5403B5359098ECFA64A765E5511 /* Sources */ = {
+		37127773A495F37E12C48DD204D48197 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D908E27DDB015E811AA88D62382C057 /* AnimatedMoveViewJob.swift in Sources */,
-				463F876CB8056924BAE8209BC553739A /* AnimatedViewPortJob.swift in Sources */,
-				61D428F4F8F7DEC8CB5FD2B30B0FCE56 /* AnimatedZoomViewJob.swift in Sources */,
-				EB61412975255B78381F541F5ADE87F4 /* Animator.swift in Sources */,
-				6DC37D60B48B4F0E885385F48BBB987A /* AxisBase.swift in Sources */,
-				6786F89FCE1A6939F280AC9AC3CE2B1B /* AxisRendererBase.swift in Sources */,
-				579F647A1801F76F5EA5C653284B4860 /* BarChartData.swift in Sources */,
-				50892FAB58F4DE27534725D04EC9419A /* BarChartDataEntry.swift in Sources */,
-				536517BCEABB0D56B4C832C574D597F4 /* BarChartDataProvider.swift in Sources */,
-				BB51931AAB493AC9338F9A1EFAFEE834 /* BarChartDataSet.swift in Sources */,
-				D7E0ECF466AC6551B92729F715C24897 /* BarChartRenderer.swift in Sources */,
-				D1784DBA4136FE41E09AA73F8142B2AD /* BarChartView.swift in Sources */,
-				1876328C59939ACEF699285ADA1C3B7C /* BarHighlighter.swift in Sources */,
-				076FCA7A57FD4378B24F1126684F1FB1 /* BarLineChartViewBase.swift in Sources */,
-				5AE7B7AF3BED8CF5546C90C4B18578A3 /* BarLineScatterCandleBubbleChartData.swift in Sources */,
-				FD998554C9752596F319A572E6655A4A /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */,
-				0D176D3194A7402523D99A7360910135 /* BarLineScatterCandleBubbleChartDataSet.swift in Sources */,
-				7BB1F8DB12A8D78DE35809A53015B631 /* BarLineScatterCandleBubbleRenderer.swift in Sources */,
-				61D7573CEE84142E85D7271503CF57E6 /* BubbleChartData.swift in Sources */,
-				357C54C1ED791CCFFD08616D1FB69D58 /* BubbleChartDataEntry.swift in Sources */,
-				62CBA9536DAB2D04E7FB16EF57C930E9 /* BubbleChartDataProvider.swift in Sources */,
-				A8A13DAFC7C1AA6855DAD34CE834CF97 /* BubbleChartDataSet.swift in Sources */,
-				6AB59B5A3C138E13F039F5888BC51D9B /* BubbleChartRenderer.swift in Sources */,
-				A8239FEF007BC598BB21C8BF63BCC4CC /* BubbleChartView.swift in Sources */,
-				B1DAAC5AA371C25D430320F66EA11FBA /* CandleChartData.swift in Sources */,
-				661673F24D851884DD883A25B129AAA0 /* CandleChartDataEntry.swift in Sources */,
-				3B177593BFE8BE0CC55B87A7D67FB85D /* CandleChartDataProvider.swift in Sources */,
-				16864FD3120FC4AFC63376EE85A12F1F /* CandleChartDataSet.swift in Sources */,
-				D47017A96EE66EB9F704F838FEE67059 /* CandleStickChartRenderer.swift in Sources */,
-				72CACA59AADECC00F61DF1F1AD02C199 /* CandleStickChartView.swift in Sources */,
-				14A3DAF2BC102BDBED76E4AA5C1D03D4 /* ChartAnimationEasing.swift in Sources */,
-				012CB4ADBBAA7DE57CCC7983D4F8BEEB /* ChartBaseDataSet.swift in Sources */,
-				900C71BB6D9417E75BDCF5577CC9EDD5 /* ChartColorTemplates.swift in Sources */,
-				8796634223D21B7A843ED75D49CE1E10 /* ChartData.swift in Sources */,
-				AFC8BDA2A1141E2224C803A48520CB23 /* ChartDataEntry.swift in Sources */,
-				A6D44FE2587458EB7B5E2CC3994BE456 /* ChartDataEntryBase.swift in Sources */,
-				88C1E1142491294949D390E2CFD23C96 /* ChartDataProvider.swift in Sources */,
-				8399CEE375A0D830CC93BEE7DA6B88AD /* ChartDataRendererBase.swift in Sources */,
-				E8686F29432EF7FEC70A8309543A1F42 /* ChartDataSet.swift in Sources */,
-				75E5E60C0A55E5A92414D25BF82E68D8 /* ChartHighlighter.swift in Sources */,
-				05513E73849F41E7C7FC4841446D0DAC /* ChartLimitLine.swift in Sources */,
-				14BE15A2838CB20D18098F265F0DC77F /* Charts-dummy.m in Sources */,
-				CADF5E586286D48C5E92FC05ACA1D584 /* ChartUtils.swift in Sources */,
-				06D3966A94443BE084131EB8AE9FA7A8 /* ChartViewBase.swift in Sources */,
-				6C23608F3E3EB1833D37990592A295B3 /* ChevronDownShapeRenderer.swift in Sources */,
-				400FB12B85EFE556D08E91E352555CFE /* ChevronUpShapeRenderer.swift in Sources */,
-				858C6BC6EB853D51297E2EF6465ACDBC /* CircleShapeRenderer.swift in Sources */,
-				E969583DD45D79D6111BAEE94E37DFA3 /* CombinedChartData.swift in Sources */,
-				049A127C2966CDF6E629CFD5D18BD5C5 /* CombinedChartDataProvider.swift in Sources */,
-				C7D8FD94481E4D954D1C7FA872E67F8D /* CombinedChartRenderer.swift in Sources */,
-				CCCD4F74615F18BA16FC3D17DE796AD3 /* CombinedChartView.swift in Sources */,
-				A84DA2F018CC88A52C020ADB445C8E97 /* CombinedHighlighter.swift in Sources */,
-				AD16932F7401B183FE9282E5B2B6BE2B /* ComponentBase.swift in Sources */,
-				8DA61CAC3B5CF85320E470A7FFC34D2E /* CrossShapeRenderer.swift in Sources */,
-				254D1207EFC39F6502F94FD4BA1CB316 /* DataApproximator+N.swift in Sources */,
-				EAB325F021DD1D9EBC91F0454EEF0537 /* DataApproximator.swift in Sources */,
-				D52BCBD17C065256499815837EB85C9B /* DefaultAxisValueFormatter.swift in Sources */,
-				4FCD9824D10A3494A5CA1D343800EF80 /* DefaultFillFormatter.swift in Sources */,
-				F510CB628EF50B4F8842E1264B8725D2 /* DefaultValueFormatter.swift in Sources */,
-				F3A894D8D9C435C83790DDFE6B2A31CC /* Description.swift in Sources */,
-				6C2239D3627884D85523C2D42E0AFEF0 /* Fill.swift in Sources */,
-				866BA429BA741062E549D5858FF5FAE2 /* Highlight.swift in Sources */,
-				5671EB4563069B67233694E71045C425 /* HorizontalBarChartRenderer.swift in Sources */,
-				987ACADDFF187151B0110028A27E97D9 /* HorizontalBarChartView.swift in Sources */,
-				2AD5EE3218D56C5ED8897E65DEB3FF97 /* HorizontalBarHighlighter.swift in Sources */,
-				F32FEC8E88D7B647255F833E42983ED2 /* IAxisValueFormatter.swift in Sources */,
-				0CE763598DCCBF3396B47E75722A0981 /* IBarChartDataSet.swift in Sources */,
-				8B7FECA77C6A23A7239A603A4179D403 /* IBarLineScatterCandleBubbleChartDataSet.swift in Sources */,
-				19707F5E59E6839B2530C7C69E5DBF80 /* IBubbleChartDataSet.swift in Sources */,
-				480B0C59109AA1748CBAAB2168D3B7F1 /* ICandleChartDataSet.swift in Sources */,
-				970D92F1BF1A7FC37F2E62B78DB28E17 /* IChartDataSet.swift in Sources */,
-				71D30181CFBE52086791D59AC9DC1981 /* IFillFormatter.swift in Sources */,
-				2FF1CF56E25B239E38F41DF0057CFD50 /* IHighlighter.swift in Sources */,
-				FF169438F0868CF8CDB040C9809CC1D6 /* ILineChartDataSet.swift in Sources */,
-				B74F75C08E7A97E935B4A6B2E5FBA9A6 /* ILineRadarChartDataSet.swift in Sources */,
-				28EF307B0C105913457A155E0B026BF4 /* ILineScatterCandleRadarChartDataSet.swift in Sources */,
-				13CAE26CF62ECFACA5759EC7E35DF850 /* IMarker.swift in Sources */,
-				6CF48F75C90A05A23B23961D7E62D35E /* IndexAxisValueFormatter.swift in Sources */,
-				9E0986DBC285D7C5226F160DD4280A33 /* IPieChartDataSet.swift in Sources */,
-				6149D50EFF91A5775AE8E00972826111 /* IRadarChartDataSet.swift in Sources */,
-				7ED61A40314F4761FF7E6D1C07C1FAAA /* IScatterChartDataSet.swift in Sources */,
-				C79769A8C3BEFA2A2EDA7003719A2C77 /* IShapeRenderer.swift in Sources */,
-				F031E096300030295C2C6A81635E16F1 /* IValueFormatter.swift in Sources */,
-				6CB91B4E789DD1BADC8FB45DF7014D04 /* Legend.swift in Sources */,
-				0BDF83A169CA1C0CF11BDD8FEC4EE49F /* LegendEntry.swift in Sources */,
-				0CCF9BAEFBCF6DBFA9F5C4A7161AEDC9 /* LegendRenderer.swift in Sources */,
-				F4838DAB483A38DD0CEA93528902EAD1 /* LineChartData.swift in Sources */,
-				D489F1D929EDD386A0B4EBD5B526515A /* LineChartDataProvider.swift in Sources */,
-				3558A46A7C9EBF3BC390FDEEEF43343E /* LineChartDataSet.swift in Sources */,
-				5854CD2E0729EADBB283C3FAEA3CF7A2 /* LineChartRenderer.swift in Sources */,
-				5DE6FD6909A0CFF71648907F5B2FCE99 /* LineChartView.swift in Sources */,
-				F0E5A264680F2C17B5CA1BF8C5A16688 /* LineRadarChartDataSet.swift in Sources */,
-				BF5A0417432B1B16D423E2472F8F183C /* LineRadarRenderer.swift in Sources */,
-				2BBB0CA7C91BB9BC4B331E638BC09095 /* LineScatterCandleRadarChartDataSet.swift in Sources */,
-				85C91A467AAA393CA66DAE7AE11F56E9 /* LineScatterCandleRadarRenderer.swift in Sources */,
-				31872D03598F83E3733CAF2F2A199BE8 /* MarkerImage.swift in Sources */,
-				6CA4DC2D027B5ACC9A66C991FCAE632D /* MarkerView.swift in Sources */,
-				E910AADF9614E5218FE6D9A2BEBDCB85 /* MoveViewJob.swift in Sources */,
-				57A98673D5AFB459D105BB5EB9C920AC /* PieChartData.swift in Sources */,
-				5ADD230002C1821B0B5CBC0D6C586CEC /* PieChartDataEntry.swift in Sources */,
-				849271A7C6D5A4B93DD940DC33815285 /* PieChartDataSet.swift in Sources */,
-				FA644CA887DD9533356CF7FDBD325D48 /* PieChartRenderer.swift in Sources */,
-				D051D220B9996F1A2E9E0EA2EBD4A9F9 /* PieChartView.swift in Sources */,
-				40D7DFB3CA9DDD97703803E306ADD472 /* PieHighlighter.swift in Sources */,
-				21F5410EFA98373E4521B93F1738FF96 /* PieRadarChartViewBase.swift in Sources */,
-				0D533F8DFDADFEC54E81AECB9474BC08 /* PieRadarHighlighter.swift in Sources */,
-				59CBB3F1E1FF0EB2858674DEAF14EED1 /* Platform+Accessibility.swift in Sources */,
-				52F6283EED6C5FBB38C0E25DCF64B02D /* Platform.swift in Sources */,
-				88B3A41591D98654E091A11D4E9C33E7 /* RadarChartData.swift in Sources */,
-				7A57B9EAD0D9C74A62B291DC58F37142 /* RadarChartDataEntry.swift in Sources */,
-				A44E0B6040359CCDD6A44E22B99B576B /* RadarChartDataSet.swift in Sources */,
-				7455BC249B3F3A5B6ACFC0E9D088887C /* RadarChartRenderer.swift in Sources */,
-				24B6471CC5AC5CE5509A7035FADA7EA6 /* RadarChartView.swift in Sources */,
-				5E0A9D0EE5EA988814CAFB8409B964A9 /* RadarHighlighter.swift in Sources */,
-				BEEBFD54499AE6FA7A301C620803A443 /* Range.swift in Sources */,
-				8D1C305D5C4D7C464261E32FDF6993E4 /* Renderer.swift in Sources */,
-				FCCE13FEE0114A809049F323685451BB /* ScatterChartData.swift in Sources */,
-				C2AF193F8074C73EEDEE9C7438F20FFD /* ScatterChartDataProvider.swift in Sources */,
-				44E54F42E16224BCEF097E6E02DCC653 /* ScatterChartDataSet.swift in Sources */,
-				0E8CD0E86CDC847CB80F6A7EF6AB2C57 /* ScatterChartRenderer.swift in Sources */,
-				17F137FAD1CDA919559C86468D95DAF0 /* ScatterChartView.swift in Sources */,
-				A8241FEFAB1775BB95E16A4E7993FB16 /* SquareShapeRenderer.swift in Sources */,
-				1FA21E031BA4203CC59F955E015C8B4D /* Transformer.swift in Sources */,
-				33A734F8749CDE7E929A480EDCF395F6 /* TransformerHorizontalBarChart.swift in Sources */,
-				F7D10FD4189953ADE4698A0F60B7A46A /* TriangleShapeRenderer.swift in Sources */,
-				AD0AD13EA58EC31B6B48D6233821AFB8 /* ViewPortHandler.swift in Sources */,
-				96C2AA619B8291A82E84AB839B012FC7 /* ViewPortJob.swift in Sources */,
-				520816B1C59A797AFBC111511C76AA7E /* XAxis.swift in Sources */,
-				CBE26C80EFD5F358511245F62758263F /* XAxisRenderer.swift in Sources */,
-				7726A13DF5D2AD5EF0C6D484CDC66B02 /* XAxisRendererHorizontalBarChart.swift in Sources */,
-				74C2E6CE35F467901B3E21ECA5FBB0C2 /* XAxisRendererRadarChart.swift in Sources */,
-				9BF77CA9C59F9492F772BEF752358BF4 /* XShapeRenderer.swift in Sources */,
-				499D55F4264E99401902C7EC91F3590E /* YAxis.swift in Sources */,
-				763B16AA87CA8B9A9264EF5D49B3AF37 /* YAxisRenderer.swift in Sources */,
-				847A5543F08617E8D5808A57CB17BD95 /* YAxisRendererHorizontalBarChart.swift in Sources */,
-				D7193D2975FBFFA0B4E3B81A00FF49DF /* YAxisRendererRadarChart.swift in Sources */,
-				A78689FB49D9A9363AEB9C1D382005F2 /* ZoomViewJob.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3762B4E160D80F8B7E9BD437D418F248 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDDA8498D91ACA4BE119AB8664D20C43 /* RABatchChangeEntity.m in Sources */,
-				DA445D4C80AC71AEDC2F122B053543A7 /* RABatchChanges.m in Sources */,
-				1E9E9AF74CA07EB3FEAD4C450313887D /* RATableView.m in Sources */,
-				AACF3B12ABE2AAF788B3AEE32CF92605 /* RATreeNode.m in Sources */,
-				7B96559D6DBBCE61A87B32D08D8F5548 /* RATreeNodeCollectionController.m in Sources */,
-				68D82E4D974ED70879E11AF8E6108A69 /* RATreeNodeController.m in Sources */,
-				4CC4758FDC80E32F46B33E1F674533F3 /* RATreeNodeItem+Private.m in Sources */,
-				83DDCE47CAD2508FAD020673A5A30213 /* RATreeNodeItem.m in Sources */,
-				D7D237AD097690DB5791F5BF43268F9D /* RATreeView+Enums.m in Sources */,
-				DFF51A7F164CA0F6BBC1DA3B49A47158 /* RATreeView+Private.m in Sources */,
-				7ADF7EF8F5E5500AB27E0216BD4AC0D3 /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
-				FDB48951C863433CA753C69C0570784D /* RATreeView+TableViewDataSource.m in Sources */,
-				C35BB2F5E0A3C77384C1BE5637C1B671 /* RATreeView+TableViewDelegate.m in Sources */,
-				44CE06FF721DF718C886FE7DFA92F02B /* RATreeView-dummy.m in Sources */,
-				C8832B3B43EE844E02756C83912D9B57 /* RATreeView.m in Sources */,
+				493895B57E30040A18CC2758B7C9138B /* RABatchChangeEntity.m in Sources */,
+				4816928D5BA1F7C68999DC552FC25929 /* RABatchChanges.m in Sources */,
+				6B2BDBE02D48B328BEFB642C91B76D58 /* RATableView.m in Sources */,
+				F808BBF493971020745ABDCDA63F182D /* RATreeNode.m in Sources */,
+				1DB6666AEF260573B9D5461E4E4423E6 /* RATreeNodeCollectionController.m in Sources */,
+				DB0BC32BBE444D115E83D0818B87CBF6 /* RATreeNodeController.m in Sources */,
+				0C9F73D7F7CCBBF9F393CCA56B7474E8 /* RATreeNodeItem+Private.m in Sources */,
+				C721515766404B9E5E5A4FBB25DF23AE /* RATreeNodeItem.m in Sources */,
+				4D727AF87599A7CD6C326C230A89ED18 /* RATreeView+Enums.m in Sources */,
+				A7816C2E792C8641CE01542BBB22CB9E /* RATreeView+Private.m in Sources */,
+				70F0F60BF5E18C9F5D44E175F996BC42 /* RATreeView+RATreeNodeCollectionControllerDataSource.m in Sources */,
+				9390AE0143D7A2F7F60E1A3FCAE34B40 /* RATreeView+TableViewDataSource.m in Sources */,
+				398AEABD96D83C7EDD7DE08484A8A40B /* RATreeView+TableViewDelegate.m in Sources */,
+				6F1237DA789F13B52D753C17B3317E66 /* RATreeView-dummy.m in Sources */,
+				C8E1B950DE90D165986AFE4727126491 /* RATreeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,12 +1449,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		88F228B332626246A6113EBE81AB9792 /* Sources */ = {
+		59F87C5B396793AC6B3E715AF28C5333 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEB4A455551D7B917E1AD4B0A1A964FF /* MBProgressHUD-dummy.m in Sources */,
-				4BD3B1D588017EA43F3E98563319DC19 /* MBProgressHUD.m in Sources */,
+				C35EE3B69F07A9CBA5214DB466BCFA0F /* MBProgressHUD-dummy.m in Sources */,
+				6447456659DBAD26105045042CE2910E /* MBProgressHUD.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86CCC4A4A8864DB1BD696381A2D523B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DDEEA91D0D552EA97C246C730D78824 /* AFError.swift in Sources */,
+				71C8993DD60E299326A97D5329C3CD71 /* Alamofire-dummy.m in Sources */,
+				6E234A862ED158238D3CB582143270EF /* Alamofire.swift in Sources */,
+				39E46DB3A3EA5EB4427CC89A9FBE6127 /* DispatchQueue+Alamofire.swift in Sources */,
+				40E83A2C4472A974BA66E787E66ACB40 /* MultipartFormData.swift in Sources */,
+				FD9ACD2FBE5243A91558B907BC425CF1 /* NetworkReachabilityManager.swift in Sources */,
+				E168E51972842469FAAD625F11D9D781 /* Notifications.swift in Sources */,
+				0BF96C90FD9427084AEEE5A80777D315 /* ParameterEncoding.swift in Sources */,
+				7EC61770466C1FF57B5A2C82046284B7 /* Request.swift in Sources */,
+				72EDF21BFA7D0C52E40EAB4354F8AF44 /* Response.swift in Sources */,
+				D04270C0C61007A8BB065F92A680D6DE /* ResponseSerialization.swift in Sources */,
+				CAFDEC2BE2BD6C00E8E71FED4BBFF080 /* Result.swift in Sources */,
+				4D4A61EC172DB39FCF11C0829DF6913C /* ServerTrustPolicy.swift in Sources */,
+				5FAE6243000CCAF381D57109484B1396 /* SessionDelegate.swift in Sources */,
+				DA3B50AF86C7F0AB8AA95BC126F0D070 /* SessionManager.swift in Sources */,
+				31E097613F217BBF4E774D235917E165 /* TaskDelegate.swift in Sources */,
+				66777B3D392D4AF8CBAE17A9C5D13C2F /* Timeline.swift in Sources */,
+				918D55F16814247D5D0D74FC75B48FBE /* Validation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		90CE05CC897D1EA1E2F16717522E0AA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7792E3F4D5B300BFFC286E699A3901E4 /* Neon-dummy.m in Sources */,
+				6E4A465D989C2BEFEBC075C85D808B1B /* Neon.swift in Sources */,
+				6D31B46EAFC7DE3E9E03978B58F248E0 /* NeonAlignable.swift in Sources */,
+				8FC64E47A51DD7D6D3C9ACFD54F31469 /* NeonAnchorable.swift in Sources */,
+				BE5C415A6E5AD3CB99BA91F9561C9DA7 /* NeonExtensions.swift in Sources */,
+				ABA7E91E616F446AE13FAC9050B55881 /* NeonFrameable.swift in Sources */,
+				091878F380A5E22FB9278771983DB9EA /* NeonGroupable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,42 +1502,152 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EB100FF9229539CA4094551779BF2BE /* CocoaAsyncSocket-dummy.m in Sources */,
-				AC166C66311BCAAAD1D9289A80E51CCF /* GCDAsyncSocket.m in Sources */,
-				30169A0026017D898DAC180CC3218F79 /* GCDAsyncUdpSocket.m in Sources */,
+				230AA10FBCBD30A1197E0D8E24687ECC /* GCDAsyncSocket.m in Sources */,
+				8642DFA71BB00038924BB701B030C345 /* GCDAsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CC399CEC576B42C962CEB290481CAF95 /* Sources */ = {
+		C3F85362D2C1A448871B75640E779191 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE4BA1EDE444A770F834605F4B65348E /* AFError.swift in Sources */,
-				D4C3899574E9D5DF5E5DA52310560BCC /* Alamofire-dummy.m in Sources */,
-				4E1A913EFB404FB11524718FF0298EFE /* Alamofire.swift in Sources */,
-				DBE6E2E4D205545E7988CFA5057C31D6 /* DispatchQueue+Alamofire.swift in Sources */,
-				FF9C7BC64DB23D2CED48197DE67F0335 /* MultipartFormData.swift in Sources */,
-				B77705737566AE83ED7E448923D7FA60 /* NetworkReachabilityManager.swift in Sources */,
-				500C8EDA60C07B0F127C7FC385E17D38 /* Notifications.swift in Sources */,
-				796177DE2762F24DAC16A709FD954838 /* ParameterEncoding.swift in Sources */,
-				965DACF3DC02857ECBE66C5CBA3DA5D4 /* Request.swift in Sources */,
-				52237C35642089F77DD4D723CEB25737 /* Response.swift in Sources */,
-				5EE5FED83B90A606A763CF1114D1D6FB /* ResponseSerialization.swift in Sources */,
-				F9EA61D484CC15FDDAB0D8C0D26D7949 /* Result.swift in Sources */,
-				6BEA14EC335E07C7063CD1383C0C443C /* ServerTrustPolicy.swift in Sources */,
-				1FC3FD39157C2FFFF3869A1300730086 /* SessionDelegate.swift in Sources */,
-				7068E8A7DDC1424EE8F24BC77E8746F4 /* SessionManager.swift in Sources */,
-				36FF8853CB34A9297AFAA8F5F7456324 /* TaskDelegate.swift in Sources */,
-				B424F524BBBE34E685129945993809A8 /* Timeline.swift in Sources */,
-				58A9719584AFA2D108D9E5C585A79329 /* Validation.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D6229BBD0014D614C2B975F092702C35 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89DDE0A675D0E21805339706CBC8B638 /* SwiftyJSON-dummy.m in Sources */,
-				ADAB54F5DB90A9610D79A8E573909107 /* SwiftyJSON.swift in Sources */,
+				D12FB77C9C64D1E7A691407206DA2348 /* AnimatedMoveViewJob.swift in Sources */,
+				77AAE9E936660E1EFB1BAD250D10C5C8 /* AnimatedViewPortJob.swift in Sources */,
+				C3CC572A93496D96D1514C110C05D4A9 /* AnimatedZoomViewJob.swift in Sources */,
+				A5AB8E85B4EAB2E0958191FA978948E6 /* Animator.swift in Sources */,
+				6B2D8E86FC5988707F276D63E6D09843 /* AxisBase.swift in Sources */,
+				B3AC852255B3BB778847B171C675296B /* AxisRendererBase.swift in Sources */,
+				2D178BC8412501794934B2C13AD6FE0B /* BarChartData.swift in Sources */,
+				5E7F7D5A2B60547DEDB75E322B85C1E3 /* BarChartDataEntry.swift in Sources */,
+				F869D5CDB92AFEAFB507B3BC097E87D6 /* BarChartDataProvider.swift in Sources */,
+				DC4BBBCECB152203D4901B930197C668 /* BarChartDataSet.swift in Sources */,
+				AD8BDD5A9231068B37619FBDAEC06DE4 /* BarChartRenderer.swift in Sources */,
+				13BCBF3CEA918A8C633835213BA3029D /* BarChartView.swift in Sources */,
+				9523929E8668F0E72243B5D8E7379CF2 /* BarHighlighter.swift in Sources */,
+				EF203789B9D827C23D6C5B894C239CAE /* BarLineChartViewBase.swift in Sources */,
+				8817670F999F88091A8E1A7AC59B5DD0 /* BarLineScatterCandleBubbleChartData.swift in Sources */,
+				A497C4B9650355975228FC86A9F88026 /* BarLineScatterCandleBubbleChartDataProvider.swift in Sources */,
+				81E72938A6165A7F476DF08F511A1B66 /* BarLineScatterCandleBubbleChartDataSet.swift in Sources */,
+				3813534CDF6D03A333E4624D011DD887 /* BarLineScatterCandleBubbleRenderer.swift in Sources */,
+				0523419917399AD061A8590C49C94419 /* BubbleChartData.swift in Sources */,
+				C7948DD19484AD97B80E7622B9A9BCAC /* BubbleChartDataEntry.swift in Sources */,
+				F87B87AB390DE5D24C4CAE8C30108A16 /* BubbleChartDataProvider.swift in Sources */,
+				6B8FC7C9E95AB1715333AAAB260C8185 /* BubbleChartDataSet.swift in Sources */,
+				9512CDA083EA61F299A467BF4678A2FB /* BubbleChartRenderer.swift in Sources */,
+				9CCF6EF2287763656A9E86F7552998E7 /* BubbleChartView.swift in Sources */,
+				CEAF967ACE976FF757ECDC3524E0F03D /* CandleChartData.swift in Sources */,
+				8CD86FA725C57D6F6FE9DA4132AC16E9 /* CandleChartDataEntry.swift in Sources */,
+				8C46ADC14759E79D0D4CBC63E3E14B80 /* CandleChartDataProvider.swift in Sources */,
+				FA61E357CF88BC5817DF5628C8C143CE /* CandleChartDataSet.swift in Sources */,
+				934543CDC3E37251DE163ADB4B6820FD /* CandleStickChartRenderer.swift in Sources */,
+				FC7DC5345AC5BD330F9F9C640151C745 /* CandleStickChartView.swift in Sources */,
+				8EEBBB90A27B8CCF754B7BEAC5E460C8 /* ChartAnimationEasing.swift in Sources */,
+				CC2E2E413D6125F7636C4A0B3F6DFFCC /* ChartBaseDataSet.swift in Sources */,
+				7306E7AA1468FE0833BEAEB0D50A99DD /* ChartColorTemplates.swift in Sources */,
+				1374ABF417D13A2D8EFEAFFC359F4E08 /* ChartData.swift in Sources */,
+				2716A86BD9C6CFE03AC4E43024380CCD /* ChartDataEntry.swift in Sources */,
+				567E47EE5AA042E2475AA8AC19F35060 /* ChartDataEntryBase.swift in Sources */,
+				0C2D47415AE6B9354BAE3B627A92142E /* ChartDataProvider.swift in Sources */,
+				8502610E39EA4DA1C645D85AC1BD9F49 /* ChartDataRendererBase.swift in Sources */,
+				A11AA27F116FF1637A8FE254AF6F044C /* ChartDataSet.swift in Sources */,
+				FDE4713E6FF767EC7157F283F969F8F9 /* ChartHighlighter.swift in Sources */,
+				E86B6328D8296809B25F536C5F10CD4B /* ChartLimitLine.swift in Sources */,
+				3AC69C422C561D15607B45558F50EE05 /* Charts-dummy.m in Sources */,
+				B15FC25978BE630AAE96635D17907A71 /* ChartUtils.swift in Sources */,
+				EE30E67B79136BE20215583604092326 /* ChartViewBase.swift in Sources */,
+				B05E520812AA92A479EB9EAA29C88B97 /* ChevronDownShapeRenderer.swift in Sources */,
+				120700249562CDA7600D877DC70FAA25 /* ChevronUpShapeRenderer.swift in Sources */,
+				20DF05B97A06AE53FAC46AEF64C38C9B /* CircleShapeRenderer.swift in Sources */,
+				092011BD13C259D986642B5A842CF997 /* CombinedChartData.swift in Sources */,
+				582C17C37CCCCC12A71016020B1E6F9A /* CombinedChartDataProvider.swift in Sources */,
+				61C446A2F28E4F813CB130B6C772F857 /* CombinedChartRenderer.swift in Sources */,
+				A00B3B20DB010F2F289E90A965E0ACA9 /* CombinedChartView.swift in Sources */,
+				5B92725F46360893493FA626926F80F2 /* CombinedHighlighter.swift in Sources */,
+				F7A9B63B2EE7B49C97809FF5F8F2E413 /* ComponentBase.swift in Sources */,
+				74EC7DA37555A322E231D48B8E11F774 /* CrossShapeRenderer.swift in Sources */,
+				4B4EDA65A6E6FAE8B37BA47B53A3C7E3 /* DataApproximator+N.swift in Sources */,
+				ACC0988FA6FD531E5EF82ECD0B0F8F72 /* DataApproximator.swift in Sources */,
+				10422A83E5E7CE748FEC304F9910EE7F /* DefaultAxisValueFormatter.swift in Sources */,
+				66F8FFDDA535894825A2E9D3490A85F6 /* DefaultFillFormatter.swift in Sources */,
+				EFE5F0E288D5582F37B69E838FE907BC /* DefaultValueFormatter.swift in Sources */,
+				96C8BE77C6E26E4B9312D62F5C211269 /* Description.swift in Sources */,
+				D6FB3C2B3E18583390ECA4FDA97A1EEA /* Fill.swift in Sources */,
+				259E5C8AE4AD8BC8C9FB88460A605B81 /* Highlight.swift in Sources */,
+				F16A032A811867FF6323143582E47951 /* HorizontalBarChartRenderer.swift in Sources */,
+				2A5B8D6DE57B4AA3CEF0B365282AE019 /* HorizontalBarChartView.swift in Sources */,
+				F1D096BE7FD7AD4CE1135805B170BBB4 /* HorizontalBarHighlighter.swift in Sources */,
+				A191E3933EEFD02A9ACEC22B12A436A5 /* IAxisValueFormatter.swift in Sources */,
+				E60188A7E4C69337B6840D7875A539C2 /* IBarChartDataSet.swift in Sources */,
+				A7F8937FA0B184FB4A9CBF94AFD5C9CA /* IBarLineScatterCandleBubbleChartDataSet.swift in Sources */,
+				F48A2073BF27DD81DA781B5AEC15E10A /* IBubbleChartDataSet.swift in Sources */,
+				4972D596D54D5CCEC57DFA1EAECEC630 /* ICandleChartDataSet.swift in Sources */,
+				5830202DA5E8E5FA0734046FD00CA9AB /* IChartDataSet.swift in Sources */,
+				644E05CE5F65D923C4FE3BE9BDC78B7D /* IFillFormatter.swift in Sources */,
+				E922EAB5357E2B0C01D49E9A3D6F3272 /* IHighlighter.swift in Sources */,
+				FF3FE753D8E3A0AFB85E4CB28425FBDB /* ILineChartDataSet.swift in Sources */,
+				4163B8B1DA697452C9B9263EB3881F4F /* ILineRadarChartDataSet.swift in Sources */,
+				31306D0B409E67CD2CA7D20932999D05 /* ILineScatterCandleRadarChartDataSet.swift in Sources */,
+				1F05F6D0C5B42853B61057FF1D2EEBF4 /* IMarker.swift in Sources */,
+				2C2C310BA513CB6FCC892407531A515F /* IndexAxisValueFormatter.swift in Sources */,
+				989CB1FF8E0FD8DF5B1A0C9EC57CD91D /* IPieChartDataSet.swift in Sources */,
+				3ACBEC5B851B694C829A666899BA0490 /* IRadarChartDataSet.swift in Sources */,
+				A63B3C9A2AAB3A8D5BF63A882225FFFA /* IScatterChartDataSet.swift in Sources */,
+				420356FB05B461AD4BA9959E5371ACF4 /* IShapeRenderer.swift in Sources */,
+				16D3DB873C209F7BF08A69B9B4433518 /* IValueFormatter.swift in Sources */,
+				03C332CE48CE563BE34889A93661197B /* Legend.swift in Sources */,
+				771FB69AC8E6605083E63FB27AC951A4 /* LegendEntry.swift in Sources */,
+				84925CC6CD24D46DBC0800942AD1C306 /* LegendRenderer.swift in Sources */,
+				A4DF0869E33A835721E12663EB81D37B /* LineChartData.swift in Sources */,
+				400D2652B78FA1A8C4060EB5E7A855EB /* LineChartDataProvider.swift in Sources */,
+				9D7A80B2B72F4FBC01765B25B7B0033D /* LineChartDataSet.swift in Sources */,
+				856FA8FD6609AC750670E2FA996BADF8 /* LineChartRenderer.swift in Sources */,
+				2711C9950721F9F90A0F4D521C730669 /* LineChartView.swift in Sources */,
+				87CACFF8D1DEB6F794AC8DDCE8D52721 /* LineRadarChartDataSet.swift in Sources */,
+				96C0FF8A72036FF83A4752A02B811B5B /* LineRadarRenderer.swift in Sources */,
+				60A61A5EA6BDBD5601299DDB5A52C14A /* LineScatterCandleRadarChartDataSet.swift in Sources */,
+				7FD267EC050B1AF18FF090EA036FEAA9 /* LineScatterCandleRadarRenderer.swift in Sources */,
+				0ED96EFE059D12B6AC01346B2F85ECDC /* MarkerImage.swift in Sources */,
+				FE3BC02AF9FEFFA71AE4E0D8A3FB2B39 /* MarkerView.swift in Sources */,
+				386D90589762A4FD681E22DE927F86F5 /* MoveViewJob.swift in Sources */,
+				A23C15CFFE2F0E3EFBC92FE4E799A255 /* PieChartData.swift in Sources */,
+				D423F046852D73CC7407370136F924CE /* PieChartDataEntry.swift in Sources */,
+				201D14A4C9331751467DB4BF157315B4 /* PieChartDataSet.swift in Sources */,
+				EBC9299FE403A45B246F74297CD8A05A /* PieChartRenderer.swift in Sources */,
+				BD919F30AE8401BD08F15505B8AE8ABE /* PieChartView.swift in Sources */,
+				4D24FC0EF43B398C4F35E15A255C9DD4 /* PieHighlighter.swift in Sources */,
+				86672ED0548E81E771A5A6C11239D9C2 /* PieRadarChartViewBase.swift in Sources */,
+				778CFAB2FF431A7CA34821B18DCD332B /* PieRadarHighlighter.swift in Sources */,
+				610605379D549B8246F4689CAE528114 /* Platform+Accessibility.swift in Sources */,
+				31AD1217C2BD4F460EE4F7C577A9BEE7 /* Platform.swift in Sources */,
+				C662028048556D063A9AC1B784988B8D /* RadarChartData.swift in Sources */,
+				B9FA3D63FE523FF1E97CA50AEDDF1833 /* RadarChartDataEntry.swift in Sources */,
+				F1A0BACF2A146A439122863794F734EE /* RadarChartDataSet.swift in Sources */,
+				BE9064297027980C803A495B0BD36364 /* RadarChartRenderer.swift in Sources */,
+				442177EFE00C04905F9911A2ECE5526F /* RadarChartView.swift in Sources */,
+				E83DD47D94C577B3D5F672C7A5C55467 /* RadarHighlighter.swift in Sources */,
+				987C7F5C034715EB4A264175B8FA3AEB /* Range.swift in Sources */,
+				A35899B69536C89FD209D72189189429 /* Renderer.swift in Sources */,
+				1418477303438487238188481990757F /* ScatterChartData.swift in Sources */,
+				669421AC5F4FA4EC7D13F08575D53B6F /* ScatterChartDataProvider.swift in Sources */,
+				6C5AA261DE2D6CA33DA0BC60C50BFF85 /* ScatterChartDataSet.swift in Sources */,
+				377F167BDAB0482CE83004E98F086F82 /* ScatterChartRenderer.swift in Sources */,
+				0A614755B0258F2C584D57BAF43245E0 /* ScatterChartView.swift in Sources */,
+				EF0752D7045F333EB6B017BABDC63984 /* SquareShapeRenderer.swift in Sources */,
+				431DFD0E3CD1671726DC33F6650FE4C7 /* Transformer.swift in Sources */,
+				F3F4F80C0BAE1855B294ADAFC6BEC67E /* TransformerHorizontalBarChart.swift in Sources */,
+				70E59FA2437A59807C900A9E381172E6 /* TriangleShapeRenderer.swift in Sources */,
+				618F0C277CFA69A5433DAA11EB68538A /* ViewPortHandler.swift in Sources */,
+				7F89B8FC19832264C0567C9BABC3654B /* ViewPortJob.swift in Sources */,
+				BE18FA232ADFD92A0E9299B254555FB9 /* XAxis.swift in Sources */,
+				85F46AC0868623936E84FBD678B986EF /* XAxisRenderer.swift in Sources */,
+				4D033F63E586719C6DD61DC0D16DAD5E /* XAxisRendererHorizontalBarChart.swift in Sources */,
+				98371A8C65AF1373CA3887E187B16ABC /* XAxisRendererRadarChart.swift in Sources */,
+				B1D52A9C38BE10BE4229506B91103133 /* XShapeRenderer.swift in Sources */,
+				F08904E8835E4279192C40CA6474A13C /* YAxis.swift in Sources */,
+				C80AEEF00532797FF769CF482E568473 /* YAxisRenderer.swift in Sources */,
+				C81103311755CCE17B7373294BB2E1BF /* YAxisRendererHorizontalBarChart.swift in Sources */,
+				DE454B28B9AC9F7C42839AA55D7574D2 /* YAxisRendererRadarChart.swift in Sources */,
+				2E2100236D2D416E636F93BD7C42EAAD /* ZoomViewJob.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

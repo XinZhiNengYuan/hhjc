@@ -77,7 +77,7 @@ class LineButton: NSObject {
                 }
                 (b as! UIButton).isSelected = true
                 UIView.animate(withDuration: 0.2, animations: { () -> Void in
-                    self.sliderView.center = CGPoint(x: CGFloat(button.tag)*(10+self.moveWidth)+self.sliderView.frame.width/2, y: 28)
+                    self.sliderView.center = CGPoint(x: CGFloat(button.tag)*(10+self.moveWidth)+self.sliderView.frame.width/2, y: 29)
                 }, completion: { (finish) -> Void in
                     
                 })

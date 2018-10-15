@@ -69,10 +69,10 @@
             </objects>
             <point key="canvasLocation" x="359" y="1269"/>
         </scene>
-        <!--Personal Center View Controller-->
+        <!--Person View Controller-->
         <scene sceneID="IhT-PS-0Ma">
             <objects>
-                <viewController id="ZPe-dj-bKq" customClass="PersonalCenterViewController" customModule="huanghuajichang" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZPe-dj-bKq" customClass="PersonViewController" customModule="huanghuajichang" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eTY-1y-KZq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

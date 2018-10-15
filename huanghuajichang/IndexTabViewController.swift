@@ -9,6 +9,7 @@
 import UIKit
 import Charts.Swift
 
+
 class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate {
     
     var collectionView:UICollectionView!
@@ -31,14 +32,15 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     let allFontColor:UIColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
     let allUnitColor:UIColor = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
     
+    var rightBarButtonItem:UIBarButtonItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "智慧能源管理系统"
         self.navigationController?.title = "首页"
-        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(openNewDetail))
-        rightBarButtonItem.tintColor = UIColor.white//必须设置颜色，不然不出现～
+         rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(getNewMsg))
+        rightBarButtonItem?.tintColor = UIColor.white//必须设置颜色，不然不出现～
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-//        self.navigationItem.rightBarButtonItem.set
         self.view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         // Do any additional setup after loading the view.
         deviceTotal()
@@ -46,20 +48,28 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         currentNew()
     }
     
+    @objc func getNewMsg(){
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem?.addMessage(msg: "95")
+    }
+    @objc func removeMsg(){
+//        self.navigationItem.rightBarButtonItem = rightBarButtonItem?.addMessage(msg: "95")ß
+    }
+    
+    
     //设备汇总
     func deviceTotal() {
-        let topView:UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: kSCREEN_WIDTH, height: 136))
+        let topView:UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
         self.view.addSubview(topView)
         
-        let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kSCREEN_WIDTH-30, height: 20))
+        let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kScreenWidth-30, height: 20))
         topLabel.text = "设备汇总"
         topLabel.adjustsFontSizeToFitWidth = true
         topLabel.textColor = allFontColor
         topLabel.numberOfLines = 0
         topView.addSubview(topLabel)
         
-        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kSCREEN_WIDTH, height: 1))
+        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: 1))
         spearLine.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         topView.addSubview(spearLine)
         
@@ -67,7 +77,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
         
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 41, width: kSCREEN_WIDTH, height: 95), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 41, width: kScreenWidth, height: 95), collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.white
         collectionView.tag = 1
         collectionView.delegate = self
@@ -85,7 +95,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //功率，电量，负荷
     func createMiddleTab() {
-        let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT-146*2-64 - 49))
+        let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-64 - 49))
         middleView.backgroundColor = UIColor.white
         self.view.addSubview(middleView)
         
@@ -95,18 +105,18 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
             buttonView = nil
         }
         // 再创建
-        buttonView = linebutton.creatLineButton(buttonsFrame:CGRect(x: 15, y: 10, width: kSCREEN_WIDTH-30, height: 30), dataArr: buttons)
+        buttonView = linebutton.creatLineButton(buttonsFrame:CGRect(x: 15, y: 10, width: kScreenWidth-30, height: 30), dataArr: buttons)
         linebutton.delegate = self
         
         //buttonView.center = view.center
         middleView.addSubview(buttonView)
         
-        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kSCREEN_WIDTH, height: 1))
+        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: 1))
         spearLine.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         middleView.addSubview(spearLine)
         
-        scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 41, width: kSCREEN_WIDTH, height: middleView.frame.height-41))
-        scrollView.contentSize = CGSize(width: kSCREEN_WIDTH*3, height: scrollView.frame.height)
+        scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 41, width: kScreenWidth, height: middleView.frame.height-41))
+        scrollView.contentSize = CGSize(width: kScreenWidth*3, height: scrollView.frame.height)
         //设置起始偏移量
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
         //隐藏水平指示条
@@ -121,7 +131,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         middleView.addSubview(scrollView)
 //        let colors:[UIColor] = [UIColor.red,UIColor.orange,UIColor.yellow]
         for i in 0..<3 {
-//            let tmpView:UIView = UIView(frame: CGRect(x:kSCREEN_WIDTH * CGFloat(i), y:0, width:kSCREEN_WIDTH, height:scrollView.frame.height))
+//            let tmpView:UIView = UIView(frame: CGRect(x:kScreenWidth * CGFloat(i), y:0, width:kScreenWidth, height:scrollView.frame.height))
 //            tmpView.backgroundColor = colors[i]
 //            scrollView.addSubview(tmpView)
             if i == 0 {
@@ -142,20 +152,22 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //本月新增
     func currentNew() {
-        let topHeight:CGFloat = kSCREEN_HEIGHT - 64 - 49 - 136
-        let topView:UIView = UIView.init(frame: CGRect(x: 0, y: topHeight, width: kSCREEN_WIDTH, height: 136))
+        let topHeight:CGFloat = kScreenHeight - 64 - 49 - 136
+        let topView:UIView = UIView.init(frame: CGRect(x: 0, y: topHeight, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
         self.view.addSubview(topView)
         
-        let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kSCREEN_WIDTH-50, height: 20))
+        let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kScreenWidth-50, height: 20))
         topLabel.text = "本月新增"
         topLabel.adjustsFontSizeToFitWidth = true
         topLabel.textColor = allFontColor
         topLabel.numberOfLines = 0
         topView.addSubview(topLabel)
         
-        let newRightBtn:UIButton = UIButton.init(frame: CGRect(x: kSCREEN_WIDTH-35, y: 10, width: 20, height: 20))
-        let rightImg = UIImage.init(named: "进入")
+        let newRightBtn:UIButton = UIButton.init(frame: CGRect(x: kScreenWidth-35, y: 10, width: 20, height: 20))
+        
+        //下面这句即取图片的无色模式
+        let rightImg = UIImage.init(named: "进入")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
         let newImageNormal = rightImg?.imageWithTintColor(color: UIColor.black,blendMode: .overlay)
         let newImageHighlight = rightImg?.imageWithTintColor(color: UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1),blendMode: .overlay)
         newRightBtn.setImage(newImageNormal, for: UIControlState.normal)
@@ -163,7 +175,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         newRightBtn.addTarget(self, action: #selector(openNewDetail), for: UIControlEvents.touchUpInside)
         topView.addSubview(newRightBtn)
         
-        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kSCREEN_WIDTH, height: 1))
+        let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: 1))
         spearLine.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         topView.addSubview(spearLine)
         
@@ -171,7 +183,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
         
-        bottomCollectionView = UICollectionView(frame: CGRect(x: 0, y: 41, width: kSCREEN_WIDTH, height: 95), collectionViewLayout: layout)
+        bottomCollectionView = UICollectionView(frame: CGRect(x: 0, y: 41, width: kScreenWidth, height: 95), collectionViewLayout: layout)
         bottomCollectionView.backgroundColor = UIColor.white
         bottomCollectionView.delegate = self
         bottomCollectionView.dataSource = self
@@ -196,7 +208,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     func test2(originX:Int)
     {
         
-        lineChartView.frame = CGRect(x: CGFloat(originX)*kSCREEN_WIDTH + 20, y: 0, width: kSCREEN_WIDTH - 40, height: self.scrollView.frame.height)
+        lineChartView.frame = CGRect(x: CGFloat(originX)*kScreenWidth + 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
         scrollView.addSubview(lineChartView)
         lineChartView.delegate = self
         
@@ -383,7 +395,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     func test3()
     {
-        pieChartView.frame = CGRect(x: 20, y: 0, width: kSCREEN_WIDTH - 40, height: self.scrollView.frame.height)
+        pieChartView.frame = CGRect(x: 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
         scrollView.addSubview(pieChartView)
 //        pieChartView.backgroundColor = UIColor.init(red: 230/255, green: 253/255.0, blue: 253/255.0, alpha: 1)
         pieChartView.setExtraOffsets(left: 20, top: 10, right: 20, bottom: 10)  //设置这块饼的位置
@@ -478,7 +490,13 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
     }
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 3
+        
+        switch collectionView.tag {
+        case 1:
+            return 3
+        default:
+            return 2
+        }
     }
     
     
@@ -543,9 +561,9 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView.tag {
         case 1:
-            return CGSize.init(width: (kSCREEN_WIDTH-70)/3, height: 75)
+            return CGSize.init(width: (kScreenWidth-70)/3, height: 75)
         default:
-            return CGSize.init(width: (kSCREEN_WIDTH-60)/2, height: 75)
+            return CGSize.init(width: (kScreenWidth-60)/2, height: 75)
         }
         
         
@@ -572,7 +590,7 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
 extension IndexTabViewController:UIScrollViewDelegate{
     //scrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        _ = scrollView.contentOffset.x / kSCREEN_WIDTH
+        _ = scrollView.contentOffset.x / kScreenWidth
         //        pageControl!.currentPage = Int(offset)
     }
 }
@@ -582,7 +600,7 @@ extension IndexTabViewController:LineButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ lineButton:LineButton, buttonIndex:NSInteger){
         print(buttonIndex)
-        scrollView!.contentOffset = CGPoint(x:kSCREEN_WIDTH * CGFloat(buttonIndex), y:0)
+        scrollView!.contentOffset = CGPoint(x:kScreenWidth * CGFloat(buttonIndex), y:0)
     }
 }
 
@@ -605,9 +623,30 @@ extension UIImage{
         return tintedImage!
     }
 }
-//
-//extension UIBarButtonItem {
-//    public func addMessage(msg:String) ->UIBarButtonItem{
-////        let newBarButton =
-//    }
-//}
+
+extension UIBarButtonItem {
+    public func addMessage(msg:String) ->UIBarButtonItem{
+        let rightBarButton:UIButton = UIButton.init()
+        rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
+        rightBarButton.tintColor = UIColor.white
+        
+        let msgView:UIButton = UIButton.init(frame: CGRect(x: 12.5, y: 0, width: 15, height: 15))
+        msgView.backgroundColor = UIColor.red
+        msgView.layer.cornerRadius = 5
+        msgView.setTitle(msg, for: UIControlState.normal)
+        msgView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
+        msgView.tintColor = UIColor.white
+        rightBarButton.addSubview(msgView)
+        
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
+        return rightBarButtonItem
+    }
+    public func removeMessage(msg:String) ->UIBarButtonItem{
+        let rightBarButton:UIButton = UIButton.init()
+        rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
+        rightBarButton.tintColor = UIColor.white
+        
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
+        return rightBarButtonItem
+    }
+}
