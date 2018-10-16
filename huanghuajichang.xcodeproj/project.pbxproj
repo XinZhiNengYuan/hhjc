@@ -19,6 +19,7 @@
 		3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */; };
 		3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
 		3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCA21743B77002F3C35 /* PublicParamter.swift */; };
+		3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */; };
 		3D0DB86D2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */; };
 		3D0E4C41216F2E46005FFA2F /* RealTimeReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */; };
 		3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */; };
@@ -65,6 +66,7 @@
 		3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "咕咚APP截图操作.pdf"; sourceTree = "<group>"; };
 		3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanghuajichang-Bridging-Header.h"; sourceTree = "<group>"; };
 		3D06EBCA21743B77002F3C35 /* PublicParamter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicParamter.swift; sourceTree = "<group>"; };
+		3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeviceListViewController.swift; sourceTree = "<group>"; };
 		3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+badge.swift"; sourceTree = "<group>"; };
 		3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealTimeReusableView.swift; sourceTree = "<group>"; };
 		3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTopCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
 				FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */,
 				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
+				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
 				3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */,
 				3D0F9FE221706A740041B746 /* LineButton.swift */,
 				3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */,
@@ -380,6 +383,7 @@
 				FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,
 				3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */,
 				3D06EBBA21742BFC002F3C35 /* CoolNavi.swift in Sources */,
+				3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

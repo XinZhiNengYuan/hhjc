@@ -27,6 +27,7 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         let leftBar:UIBarButtonItem = UIBarButtonItem.init(title: "取消", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTolast))
+        leftBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBar
         
         rightBar = UIBarButtonItem.init(title: "完成", style: UIBarButtonItemStyle.done, target: self, action: #selector(changePassword))

@@ -172,7 +172,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         let newImageHighlight = rightImg?.imageWithTintColor(color: UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1),blendMode: .overlay)
         newRightBtn.setImage(newImageNormal, for: UIControlState.normal)
         newRightBtn.setImage(newImageHighlight, for: UIControlState.highlighted)
-        newRightBtn.addTarget(self, action: #selector(openNewDetail), for: UIControlEvents.touchUpInside)
+        newRightBtn.addTarget(self, action: #selector(openNewList), for: UIControlEvents.touchUpInside)
         topView.addSubview(newRightBtn)
         
         let spearLine:UIView = UIView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: 1))
@@ -196,8 +196,17 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         bottomCollectionView.register(IndexTopCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "topCollectionCell")
     }
     
-    @objc func openNewDetail() {
-        print("dsd")
+    @objc func openNewList() {
+        let newListVc = NewDeviceListViewController()
+        let newListNav = UINavigationController(rootViewController: newListVc)
+        openChildVC(childNavName:newListNav)
+    }
+    
+    //打开子页面
+    func openChildVC(childNavName:UINavigationController) {
+        self.hidesBottomBarWhenPushed = true
+        self.present(childNavName, animated: true, completion: nil)
+        self.hidesBottomBarWhenPushed = false
     }
 
     override func didReceiveMemoryWarning() {

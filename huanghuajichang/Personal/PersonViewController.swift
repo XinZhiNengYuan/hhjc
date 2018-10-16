@@ -261,7 +261,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let btnLabel:UILabel = UILabel.init()
             btnLabel.text = "退出当前帐号"
             btnLabel.frame = CGRect(x: 20, y: 10, width: kSCREEN_WIDTH-40, height: 30)
-            btnLabel.textColor = UIColor.init(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
+            btnLabel.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
             //设置label在cell水平居中
             btnLabel.center.x = self.view.center.x
             //设置文本居中
