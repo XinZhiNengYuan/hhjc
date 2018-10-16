@@ -285,7 +285,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
 
             }
 
-        }
+        }.session.finishTasksAndInvalidate()
         //实例化将要跳转的controller
         let sb = UIStoryboard(name: "Main", bundle:nil)
         let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
