@@ -1,6 +1,6 @@
 //
 //  LoginViewController.swift
-//  XinaoEnergy
+//  huanghuajichang
 //
 //  Created by zx on 1976/4/1.
 //  Copyright © 2018年 jun. All rights reserved.
@@ -245,15 +245,14 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             return
         }
         //网络请求
-        let urlStr = "http://192.168.24.1:2567/app/sys/login1"
+        let urlStr = "http://10.4.65.66:8086/interface"
         let headers: HTTPHeaders = [
             "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
             "Accept": "application/json"
         ]
         let contentData : [String : Any] = ["method":"login","info":["username":username,"password":password]]
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
-
+        configuration.timeoutIntervalForRequest = 60
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
         sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
 
@@ -269,17 +268,17 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 print(json["info"]["username"])
                 print(value)
                 //实例化将要跳转的controller
-                let sb = UIStoryboard(name: "Main", bundle:nil)
-                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-                self.present(vc, animated: false, completion: nil)
+//                let sb = UIStoryboard(name: "Main", bundle:nil)
+//                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+//                self.present(vc, animated: false, completion: nil)
 
             case .failure(let error):
                 //self.windowAlert(msges: "数据请求失败")
                 self.userDefault.set(username, forKey: "name")
                 self.userDefault.set(password,forKey:"password")
-                let sb = UIStoryboard(name: "Main", bundle:nil)
-                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-                self.navigationController?.pushViewController(vc, animated: false)
+//                let sb = UIStoryboard(name: "Main", bundle:nil)
+//                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+//                self.navigationController?.pushViewController(vc, animated: false)
                 //self.present(vc, animated: false, completion: nil)
                 print("error:\(error)")
                 return
