@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceSearchListViewController: UIViewController {
+class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     
     //原始数据集
     let schoolArray : NSMutableArray = ["清华大学","北京大学","中国人民大学","北京交通大学","北京工业大学",
@@ -26,12 +26,12 @@ class DeviceSearchListViewController: UIViewController {
     }
     var top : CGFloat = 0
     var tableViewFrame :CGRect!
-    
+    let searchInput = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
-        self.reloadViewStyle()
+//        self.reloadViewStyle()
     }
     
     //MARK:设置界面样式
@@ -54,20 +54,45 @@ class DeviceSearchListViewController: UIViewController {
         viewHeader.addSubview(headerText)
         view.addSubview(viewHeader)
         
+        //自定义搜索样式
+//        let searchView = UIView(frame: CGRect(x: 20, y: top+80, width: UIScreen.main.bounds.size.width-40, height: 40))
+//        searchView.backgroundColor = UIColor.white
+//        searchView.layer.borderWidth = 1
+//        searchView.layer.borderColor = UIColor.gray.cgColor
+//        searchView.layer.cornerRadius = 20
+//        searchView.center.x = UIScreen.main.bounds.size.width/2
+//        searchView.center.y = 20
+//
+//        let searchImg = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+//        searchImg.image = UIImage(named: "搜索-1")
+//        searchView.addSubview(searchImg)
+//
+//        searchInput.frame = CGRect(x: 60, y: 0, width: UIScreen.main.bounds.size.width-120, height: 40)
+//        searchInput.textAlignment = .left
+//        searchInput.adjustsFontForContentSizeCategory = true//字体超出输入框长度，字体可以自动缩放
+//        searchInput.minimumFontSize = 10//最小字体大小
+//        searchInput.contentVerticalAlignment = .center//垂直居中
+//        searchInput.clearButtonMode = .whileEditing //编辑时出现清除按钮
+//        searchInput.keyboardType = .default
+//        searchInput.returnKeyType = .search
+//        searchView.addSubview(searchInput)
+//
+//        let cancelBut = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-60, y: 0, width: 60, height: 40))
+//        cancelBut.setTitle("取消", for: UIControlState.normal)
+//        cancelBut.setTitle("取消", for: UIControlState.highlighted)
+//        searchView.addSubview(cancelBut)
+//        view.addSubview(searchView)
         //search
         countrySearchController = UISearchController(searchResultsController: nil)
         countrySearchController.searchBar.delegate = self
         countrySearchController.dimsBackgroundDuringPresentation = true
         countrySearchController.searchBar.placeholder = "搜索框"
-//        countrySearchController.searchBar.showsBookmarkButton = true
         countrySearchController.searchResultsUpdater = self
         countrySearchController.searchBar.searchBarStyle = .minimal
         // 设置开始搜索时导航条是否隐藏
         countrySearchController.hidesNavigationBarDuringPresentation = false
         // 设置开始搜索时背景是否显示
         countrySearchController.dimsBackgroundDuringPresentation = false
-        // 设置是否显示历史搜索记录
-        //        countrySearchController.searchBar.isSearchResultsButtonSelected = true
         
         //创建表视图 list
         tableViewFrame = CGRect(x: 0, y: top+40, width: view.frame.width,
@@ -104,9 +129,9 @@ extension DeviceSearchListViewController:UITableViewDataSource{
         if self.countrySearchController.isActive {
             return self.searchArray.count
         } else {
-            
+
             return self.schoolArray.count
-            
+
         }
     }
     
@@ -144,23 +169,23 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
         shouldShowSearchResults = true
         mTableView.reloadData()
     }
-    
+
     //点击Cancel按钮，设置不显示搜索结果并刷新列表
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowSearchResults = false
         mTableView.reloadData()
         //
     }
-    
+
     //点击搜索按钮，触发该代理方法，如果已经显示搜索结果，那么直接去除键盘，否则刷新列表
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+
         let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
         searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
         print(searchArray)
         mTableView.reloadData()
     }
-    
+
     //点击书签按钮，触发该代理方法
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
         //        print(historyList)
@@ -170,10 +195,10 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
         //            self.view.addSubview(historyView)
         //        }
     }
-    
+
     //这个updateSearchResultsForSearchController(_:)方法是UISearchResultsUpdating中唯一一个我们必须实现的方法。当search bar 成为第一响应者，或者search bar中的内容被改变将触发该方法.不管用户输入还是删除search bar的text，UISearchController都会被通知到并执行上述方法。
     func updateSearchResults(for searchController: UISearchController) {
-        
+
         //刷新表格
         mTableView.reloadData()
     }
