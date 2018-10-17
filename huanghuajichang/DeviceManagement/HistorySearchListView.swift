@@ -9,25 +9,25 @@
 import UIKit
 
 class HistorySearchListView: UIView {
-
+    
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     let mView = UIView()
     var mHistoryList : [String]!
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
-//    var callBack = {
-//        (hisList:[String])->UIView in
-//        return
-//    }
+    //    var callBack = {
+    //        (hisList:[String])->UIView in
+    //        return
+    //    }
     override func layoutSubviews(){
         super.layoutSubviews()
-        mView.frame = CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight)
+        mView.frame = CGRect(x: 0, y: 100, width: screenWidth, height: 100)
         let mLabelTitle = UILabel(frame: CGRect(x: 40, y: 20, width: screenWidth, height: 40))
         mLabelTitle.font = UIFont.boldSystemFont(ofSize: 12)
         mLabelTitle.textColor = UIColor.black
