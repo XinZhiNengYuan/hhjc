@@ -31,12 +31,6 @@
 		3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
-		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
-		3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
-		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
-		3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
-		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
-		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
 		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
 		3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
@@ -90,12 +84,6 @@
 		3D1598F62178778E00458C11 /* ThickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButton.swift; sourceTree = "<group>"; };
 		3D1598F8217880CF00458C11 /* ThickButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButtonModel.swift; sourceTree = "<group>"; };
 		3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
-		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
-		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
-		3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
-		3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
-		3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -355,7 +343,6 @@
 				"${BUILT_PRODUCTS_DIR}/Neon/Neon.framework",
 				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
-				"${BUILT_PRODUCTS_DIR}/Neon/Neon.framework",
 				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -369,7 +356,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Neon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Neon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -414,7 +400,6 @@
 				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
 				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
-<<<<<<< HEAD
 				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
 				3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */,
 				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
@@ -422,7 +407,6 @@
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
 				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
-=======
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
 				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
@@ -432,7 +416,6 @@
 				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
 				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
 				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
->>>>>>> e6c6eea18c607c71f0ccfe785ebc7de9406f37a1
 				3D0E4C41216F2E46005FFA2F /* RealTimeReusableView.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
