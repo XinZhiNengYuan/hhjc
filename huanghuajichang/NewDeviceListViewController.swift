@@ -32,7 +32,7 @@ class NewDeviceListViewController: AddNavViewController {
         newDeviceList.delegate = self
         newDeviceList.dataSource = self
         newDeviceList.separatorStyle = UITableViewCellSeparatorStyle.none
-        newDeviceList.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+        newDeviceList.backgroundColor = allListBackColor
         self.view.addSubview(newDeviceList)
         newDeviceList.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: "tableCell2")
     }

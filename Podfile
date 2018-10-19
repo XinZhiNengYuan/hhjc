@@ -14,5 +14,6 @@ target 'huanghuajichang' do
   pod 'CocoaAsyncSocket'
   pod 'MBProgressHUD', '~>1.1.0'
   pod 'RATreeView'
-
+  pod 'PGDatePicker'
+  pod 'MJRefresh'
 end

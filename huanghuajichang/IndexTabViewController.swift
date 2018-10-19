@@ -8,7 +8,7 @@
 
 import UIKit
 import Charts.Swift
-
+import Alamofire
 
 class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate {
     
@@ -22,15 +22,14 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     var  buttonView:UIView!
     
     var scrollView:UIScrollView!
-    
+    ///功率饼图
     let pieChartView = PieChartView()
-    let lineChartView = LineChartView()
+    ///电量曲线
+    let electricLineChartView = LineChartView()
+    ///负荷曲线
+    let fuheLineChartView = LineChartView()
     
     var lineCircleColors:[UIColor]!=[]
-    
-    let topValueColor:UIColor = UIColor(red: 8/255, green: 128/255, blue: 237/255, alpha: 1)
-    let allFontColor:UIColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-    let allUnitColor:UIColor = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
     
     var rightBarButtonItem:UIBarButtonItem?
     
@@ -136,8 +135,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
 //            scrollView.addSubview(tmpView)
             if i == 0 {
                 test3()
+            }else if i==1 {
+                test2(lineChartView:electricLineChartView, originX: i)
             }else{
-                test2(originX: i)
+                test2(lineChartView:fuheLineChartView, originX: i)
             }
         }
         
@@ -214,7 +215,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         // Dispose of any resources that can be recreated.
     }
     
-    func test2(originX:Int)
+    func test2(lineChartView:LineChartView, originX:Int)
     {
         
         lineChartView.frame = CGRect(x: CGFloat(originX)*kScreenWidth + 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
@@ -230,19 +231,22 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         lineChartView.dragEnabled = true //启用拖动手势
         lineChartView.dragDecelerationEnabled = true //拖拽后是否有惯性效果
         lineChartView.dragDecelerationFrictionCoef = 0.9  //拖拽后惯性效果的摩擦系数(0~1)，数值越小，惯性越不明显
+        lineChartView.extraTopOffset = 15 //正常规划的视图添加的距上边距
         
         //设置X轴样式
         let xAxis = lineChartView.xAxis
         xAxis.axisLineWidth = 1.0/UIScreen.main.scale //设置X轴线宽
         xAxis.labelPosition = .bottom //X轴的显示位置，默认是显示在上面的
-        xAxis.drawGridLinesEnabled = false;//不绘制网格线
+        xAxis.drawGridLinesEnabled = true;//绘制网格线
+        xAxis.gridColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)//网格线颜色
         xAxis.spaceMin = 4;//设置label间隔
         xAxis.axisMinimum = 0
         xAxis.axisLineColor = UIColor(white: 1, alpha: 0.1605)
         xAxis.labelTextColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)//label文字颜色
         
         //设置Y轴样式
-        lineChartView.rightAxis.enabled = false  //不绘制右边轴
+        lineChartView.rightAxis.enabled = true  //绘制右边轴
+        lineChartView.rightAxis.drawLabelsEnabled = false //不显示右边轴文本
         let leftAxis = lineChartView.leftAxis
         leftAxis.labelCount = 16 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
         leftAxis.forceLabelsEnabled = false //不强制绘制指定数量的label
@@ -251,17 +255,16 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         //leftAxis.axisMaximum = 1000 //设置Y轴的最大值
         leftAxis.inverted = false //是否将Y轴进行上下翻转
         leftAxis.axisLineWidth = 1.0/UIScreen.main.scale //设置Y轴线宽
-        leftAxis.axisLineColor = UIColor(white: 1, alpha: 0.1605)//Y轴颜色
+//        leftAxis.axisLineColor = UIColor(white: 1, alpha: 0.1605)//Y轴颜色
         //leftAxis.valueFormatter = NumberFormatter()//自定义格式
         //leftAxis.s  //数字后缀单位
         leftAxis.labelPosition = .outsideChart//label位置
         leftAxis.labelTextColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)//文字颜色
         leftAxis.labelFont = UIFont.systemFont(ofSize: 10)//文字字体
         
-        
-        //设置网格样式
-        leftAxis.gridLineDashLengths = [3.0,3.0]  //设置虚线样式的网格线
-        leftAxis.gridColor = UIColor.init(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 0.1) //网格线颜色
+        //设置y网格样式
+//        leftAxis.gridLineDashLengths = [3.0,3.0]  //设置虚线样式的网格线
+        leftAxis.gridColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1) //网格线颜色
         leftAxis.gridAntialiasEnabled = true //开启抗锯齿
         
         
@@ -277,8 +280,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在折线图的后面
         
         //设置折线图描述及图例样式
-        lineChartView.chartDescription?.text = "折线图" //折线图描述
-        lineChartView.chartDescription?.textColor = UIColor.cyan  //描述字体颜色
+        lineChartView.chartDescription?.text = "(kWh)" //折线图描述
+        lineChartView.chartDescription?.position = CGPoint(x: 32, y: 7)
+        lineChartView.chartDescription?.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)  //描述字体颜色
+        lineChartView.chartDescription?.font = NSUIFont.systemFont(ofSize: 10.0)
         lineChartView.legend.form = .line  // 图例的样式
         lineChartView.legend.formSize = 20  //图例中线条的长度
         lineChartView.legend.textColor = UIColor.darkGray
@@ -300,19 +305,19 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
         
+        //曲线1
         var yDataArray1 = [ChartDataEntry]()
         for i in 0...xValues.count-1 {
-            let y = arc4random()%500
+            let y = arc4random()%100//暂时用100内的随机数填充数据
             let entry = ChartDataEntry.init(x: Double(i), y: Double(y))
             
             yDataArray1.append(entry)
             
-            lineCircleColors.append(UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1))
+            lineCircleColors.append(UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1))
         }
         
-        
         let set1 = LineChartDataSet.init(values: yDataArray1, label: "test1")
-        set1.colors = [UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1)]
+        set1.colors = [UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1)]
         set1.drawCirclesEnabled = true //是否绘制转折点
         //set1.setCircleColor(UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1))//转折点圆圈的颜色
         set1.circleColors = lineCircleColors//为选中点变色做准备
@@ -321,12 +326,11 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         set1.circleRadius = 5//外圆半径
         set1.circleHoleRadius = 4//内圆半径
         set1.mode = .cubicBezier  //设置曲线是否平滑
-        set1.drawValuesEnabled = false //设置是否显示折线上的数据
-        
+        set1.drawValuesEnabled = false //设置是否显示折线上的数据        
         //开启填充色绘制
         set1.drawFilledEnabled = true
         //渐变颜色数组
-        let gradientColors = [UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1).cgColor, UIColor.white.cgColor] as CFArray
+        let gradientColors = [UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1).cgColor, UIColor.white.cgColor] as CFArray
         //每组颜色所在位置（范围0~1)
         let colorLocations:[CGFloat] = [1.0, 0.0]
         //生成渐变色
@@ -335,19 +339,22 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         //将渐变色作为填充对象s
         set1.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0)
         
+        //曲线2
         var yDataArray2 = [ChartDataEntry]();
         for i in 0...(xValues.count-1) {
-            let y = arc4random()%500+1
+            let y = arc4random()%100
             let entry = ChartDataEntry.init(x: Double(i), y: Double(y))
             
             yDataArray2.append(entry);
         }
         let set2 = LineChartDataSet.init(values: yDataArray2, label: "test2")
-        set2.colors = [UIColor.green]
+        set2.colors = [UIColor(red: 247/255, green: 122/255, blue: 4/255, alpha: 1)]
         set2.drawCirclesEnabled = false
         set2.lineWidth = 1.0
+        set2.mode = .cubicBezier  //设置曲线是否平滑
+        set2.drawValuesEnabled = false //设置是否显示折线上的数据
         
-        let data = LineChartData.init(dataSets: [set1])
+        let data = LineChartData.init(dataSets: [set1, set2])//更改dataSets,决定曲线数量
         
         lineChartView.data = data
         //lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBack)
@@ -355,10 +362,11 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
     }
     
-    func showMarkerView(value:String)
+    //点选中时的标注
+    func showMarkerView(operateView:ChartViewBase,value:String)
     {
         let marker = MarkerView.init(frame: CGRect(x: 20, y: 20, width: 60, height: 20))
-        marker.chartView = self.lineChartView
+        marker.chartView = operateView
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 20))
         label.text = value
         label.textColor = UIColor.white
@@ -366,14 +374,14 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         label.backgroundColor = UIColor.gray
         label.textAlignment = .center
         marker.addSubview(label)
-        self.lineChartView.marker = marker
+        operateView.marker = marker
     }
     
     //MARK - chartdelegate
     //因为转折点内圈颜色是一起设定的，所以无法更改内部颜色
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight)
     {
-        self.showMarkerView(value: "\(entry.y)")
+        self.showMarkerView(operateView:chartView, value: "\(entry.y)")
         //将选中的数据点的颜色改成黄色
         var chartDataSet = LineChartDataSet()
         chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
@@ -413,12 +421,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
 //        pieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 12)
 //        pieChartView.chartDescription?.textColor = UIColor.black
         
-        pieChartView.usePercentValuesEnabled = true  //转化为百分比
+        pieChartView.usePercentValuesEnabled = true  //是否根据所提供的数据, 将显示数据转换为百分比格式
         //pieChartView.dragDecelerationEnabled = false //把拖拽效果关了
         pieChartView.drawEntryLabelsEnabled = true //显示区块文本
         pieChartView.entryLabelFont = UIFont.systemFont(ofSize: 10) //区块文本的字体
         pieChartView.entryLabelColor = UIColor.white
-        pieChartView.drawSlicesUnderHoleEnabled = true
+        pieChartView.drawSlicesUnderHoleEnabled = true//是否显示区块文本
         
         pieChartView.drawHoleEnabled = true  //这个饼是空心的
         pieChartView.holeRadiusPercent = 0.6  //空心半径黄金比例
@@ -456,8 +464,9 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
             yVals.append(entry)
         }
         
-        let dataSet = PieChartDataSet.init(values: yVals, label:"test")
-        dataSet.colors = [UIColor(red: 255/255, green: 209/255, blue: 0/255, alpha: 1),UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1),UIColor(red: 74/255, green: 179/255, blue: 238/255, alpha: 1)] //设置名称和数据的位置 都在内就没有折线了
+        let dataSet = PieChartDataSet.init(values: yVals, label:"")
+        dataSet.colors = [UIColor(red: 255/255, green: 209/255, blue: 0/255, alpha: 1),UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1),UIColor(red: 74/255, green: 179/255, blue: 238/255, alpha: 1)]
+        //设置名称和数据的位置 都在内就没有折线了
         dataSet.xValuePosition = .insideSlice
         dataSet.yValuePosition = .outsideSlice
         dataSet.sliceSpace = 1 //相邻块的距离

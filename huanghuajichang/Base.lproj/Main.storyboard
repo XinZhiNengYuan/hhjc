@@ -85,11 +85,11 @@
             </objects>
             <point key="canvasLocation" x="1126" y="1269"/>
         </scene>
-        <!--个人记录-->
+        <!--日常记录-->
         <scene sceneID="zdp-82-NRc">
             <objects>
                 <navigationController id="bMZ-v8-9Zd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="个人记录" image="日常记录1" id="zGF-bo-8cg"/>
+                    <tabBarItem key="tabBarItem" title="日常记录" image="日常记录1" id="zGF-bo-8cg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VyE-HW-jV5">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
