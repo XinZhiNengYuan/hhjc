@@ -209,7 +209,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             flageStatus = true
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选2git"), for: UIControlState.normal)
             flageStatus = false
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }
