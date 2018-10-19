@@ -111,7 +111,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     //MARK:搜索按钮
     @objc func toSearchData(){
 //        navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
-        self.present(DeviceSearchListViewController(), animated: false, completion: nil)
+//        self.present(DeviceSearchListViewController(), animated: false, completion: nil)
+        self.navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
     }
     
     @objc func toQC(){

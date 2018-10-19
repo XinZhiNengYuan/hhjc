@@ -31,57 +31,15 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
-//        self.reloadViewStyle()
     }
     
     //MARK:设置界面样式
     func setViewStyle(){
         top = UIApplication.shared.statusBarFrame.height
         view.backgroundColor = UIColor.white
-        //header
-        let viewHeader = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: top+80))
-        viewHeader.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
-        let leftButton = UIButton(frame: CGRect(x: 0, y: top, width: 40, height: 40))
-        leftButton.setImage(UIImage(named: "返回"), for: UIControlState.normal)
-        leftButton.addTarget(self, action: #selector(goBack), for: UIControlEvents.touchUpInside)
-        let headerText = UILabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 40))
-        headerText.textAlignment = .center
-        headerText.textColor = UIColor.white
-        headerText.text = "设备搜索"
-        headerText.center.x = UIScreen.main.bounds.size.width/2
-        headerText.center.y = 20+top
-        viewHeader.addSubview(leftButton)
-        viewHeader.addSubview(headerText)
-        view.addSubview(viewHeader)
-        
-        //自定义搜索样式
-//        let searchView = UIView(frame: CGRect(x: 20, y: top+80, width: UIScreen.main.bounds.size.width-40, height: 40))
-//        searchView.backgroundColor = UIColor.white
-//        searchView.layer.borderWidth = 1
-//        searchView.layer.borderColor = UIColor.gray.cgColor
-//        searchView.layer.cornerRadius = 20
-//        searchView.center.x = UIScreen.main.bounds.size.width/2
-//        searchView.center.y = 20
-//
-//        let searchImg = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-//        searchImg.image = UIImage(named: "搜索-1")
-//        searchView.addSubview(searchImg)
-//
-//        searchInput.frame = CGRect(x: 60, y: 0, width: UIScreen.main.bounds.size.width-120, height: 40)
-//        searchInput.textAlignment = .left
-//        searchInput.adjustsFontForContentSizeCategory = true//字体超出输入框长度，字体可以自动缩放
-//        searchInput.minimumFontSize = 10//最小字体大小
-//        searchInput.contentVerticalAlignment = .center//垂直居中
-//        searchInput.clearButtonMode = .whileEditing //编辑时出现清除按钮
-//        searchInput.keyboardType = .default
-//        searchInput.returnKeyType = .search
-//        searchView.addSubview(searchInput)
-//
-//        let cancelBut = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width-60, y: 0, width: 60, height: 40))
-//        cancelBut.setTitle("取消", for: UIControlState.normal)
-//        cancelBut.setTitle("取消", for: UIControlState.highlighted)
-//        searchView.addSubview(cancelBut)
-//        view.addSubview(searchView)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.title = "设备搜索"
         //search
         countrySearchController = UISearchController(searchResultsController: nil)
         countrySearchController.searchBar.delegate = self
@@ -95,7 +53,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
         countrySearchController.dimsBackgroundDuringPresentation = false
         
         //创建表视图 list
-        tableViewFrame = CGRect(x: 0, y: top+40, width: view.frame.width,
+        tableViewFrame = CGRect(x: 0, y:0, width: view.frame.width,
                                 height: view.frame.height)
         self.mTableView = UITableView(frame: tableViewFrame, style:.plain)
         self.mTableView!.delegate = self
@@ -112,13 +70,9 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     @objc func goBack(){
         print("关闭当前页")
         if self.countrySearchController.isActive{
-            self.dismiss(animated: false, completion: ({
-                self.dismiss(animated: false, completion: nil)
-            }))
-        }else{
             self.dismiss(animated: false, completion: nil)
         }
-        
+        navigationController?.popViewController(animated: true)
     }
     
     
@@ -158,6 +112,10 @@ extension DeviceSearchListViewController: UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print(indexPath.row)
+        if self.countrySearchController.isActive{
+            self.dismiss(animated: false, completion: nil)
+        }
+        navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
     }
     
 }
@@ -188,12 +146,7 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
 
     //点击书签按钮，触发该代理方法
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar){
-        //        print(historyList)
-        //        print(searchBar.isSearchResultsButtonSelected)
-        //        if countrySearchController.searchBar.isSearchResultsButtonSelected{
-        //            let historyView = HistorySearchListView()
-        //            self.view.addSubview(historyView)
-        //        }
+       
     }
 
     //这个updateSearchResultsForSearchController(_:)方法是UISearchResultsUpdating中唯一一个我们必须实现的方法。当search bar 成为第一响应者，或者search bar中的内容被改变将触发该方法.不管用户输入还是删除search bar的text，UISearchController都会被通知到并执行上述方法。
@@ -202,16 +155,4 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
         //刷新表格
         mTableView.reloadData()
     }
-}
-
-extension DeviceSearchListViewController {
-    func reloadViewStyle(){
-        let historyView = HistorySearchListView()
-        historyView.setHistory(historyList: historyList)
-//        tableViewFrame = CGRect(x: 0, y: top+340, width: view.frame.width,
-//                                height: view.frame.height)
-//        self.view.addSubview(historyView)
-//        self.mTableView = UITableView(frame: tableViewFrame, style:.plain)
-    }
-    
 }

@@ -119,7 +119,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         inputPassView.addSubview(textPassField)
         
         
-        eyes.setImage(UIImage(named: "眼睛"), for: UIControlState.normal)
+        eyes.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
         eyes.frame = CGRect(x: inputView.frame.width - 30, y: 10, width: 20, height: 20)
         eyes.addTarget(self, action: #selector(toSeePass(_:)), for: UIControlEvents.touchUpInside)
         inputPassView.addSubview(eyes)
@@ -135,9 +135,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         reminder.textColor = UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1)
         flagPassView.addSubview(reminder)
         if flageStatus{//选中状态
-            flagButton.setImage(UIImage(named: "定位"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "眼睛"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
         }
         
 //        flagButton.setImage(UIImage(named: "定位"), for: UIControlState.highlighted)
@@ -205,11 +205,11 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK:记住密码功能
     @objc func buttonStatus(){
         if !flageStatus {//选中状态
-            flagButton.setImage(UIImage(named: "定位"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
             flageStatus = true
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "眼睛"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
             flageStatus = false
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }
@@ -226,11 +226,13 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     //MARK:登录按钮
     @objc func startTouch(_ button:UIButton){
-        UIView.animate(withDuration: 0.2, animations: {
-            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 0.5)
-        }) { (true) in
-            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 1)
-        }
+//        UIView.animate(withDuration: 0.1, animations: {
+//            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 0.5)
+//
+//        }) { (true) in
+//            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 1)
+//
+//        }
         requestLoginNet()
     }
     func requestLoginNet(){
