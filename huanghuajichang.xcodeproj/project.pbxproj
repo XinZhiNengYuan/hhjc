@@ -34,6 +34,17 @@
 		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
 		3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
 		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
+		3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
+		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
+		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
+		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
+		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
+		3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
+		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
+		3DC58F3D217971910015A518 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* common.swift */; };
+		3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
+		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
+		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55E216F180A00A5CD62 /* CameraView.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
@@ -85,6 +96,17 @@
 		3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
 		3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
 		3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
+		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
+		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
+		3D9F99012177235B003DAA35 /* HistorySearchListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistorySearchListView.swift; sourceTree = "<group>"; };
+		3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
+		3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
+		3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
+		3DC58F3C217971910015A518 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
+		3DC58F41217982F00015A518 /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
+		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
+		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55E216F180A00A5CD62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +179,16 @@
 			path = PopController;
 			sourceTree = "<group>";
 		};
+		3DC58F40217982920015A518 /* CycleView */ = {
+			isa = PBXGroup;
+			children = (
+				3DC58F41217982F00015A518 /* CycleView.swift */,
+				3DC58F43217983440015A518 /* CycleCell.swift */,
+				3DC58F45217983760015A518 /* CellFlowLayout.swift */,
+			);
+			path = CycleView;
+			sourceTree = "<group>";
+		};
 		92733A0B1D8E6AB28FD54EE1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +201,8 @@
 		FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
 			isa = PBXGroup;
 			children = (
+				3DC58F40217982920015A518 /* CycleView */,
+				3DC58F3C217971910015A518 /* common.swift */,
 				FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
 				FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */,
 				FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */,
@@ -177,6 +211,7 @@
 				3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */,
 				3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */,
 				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
+				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
 			);
 			path = DeviceManagement;
 			sourceTree = "<group>";
@@ -320,6 +355,7 @@
 				"${BUILT_PRODUCTS_DIR}/Neon/Neon.framework",
 				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
+				"${BUILT_PRODUCTS_DIR}/Neon/Neon.framework",
 				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -333,6 +369,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Neon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Neon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -372,10 +409,12 @@
 				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
 				3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */,
 				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
+				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
 				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
 				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
 				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
+<<<<<<< HEAD
 				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
 				3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */,
 				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
@@ -383,6 +422,17 @@
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
 				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
+=======
+				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
+				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
+				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
+				3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */,
+				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
+				3DC58F3D217971910015A518 /* common.swift in Sources */,
+				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
+				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
+				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
+>>>>>>> e6c6eea18c607c71f0ccfe785ebc7de9406f37a1
 				3D0E4C41216F2E46005FFA2F /* RealTimeReusableView.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
