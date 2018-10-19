@@ -85,7 +85,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textNameField.tag = 1
         textNameField.returnKeyType = UIReturnKeyType.next
         textNameField.placeholder = "请输入手机号/账号"
-        textNameField.text = "2"
+        textNameField.text = ""
         inputNameView.layer.borderColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 0.8).cgColor
         inputNameView.layer.borderWidth = 1
         inputNameView.layer.cornerRadius = 20
@@ -95,7 +95,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
         let inputPassView = UIView(frame: CGRect(x: 0, y: 50, width: inputView.frame.width, height: 40))
         
-        textPassField.frame = CGRect(x: 30, y: 0, width: inputPassView.frame.width-30, height: inputPassView.frame.height)
+        textPassField.frame = CGRect(x: 30, y: 0, width: inputPassView.frame.width-60, height: inputPassView.frame.height)
         textPassField.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         textPassField.minimumFontSize=11  //最小可缩小的字号
         /** 水平对齐 **/
@@ -111,7 +111,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.font = UIFont.boldSystemFont(ofSize: 14)
         textPassField.tag = 2
         textPassField.placeholder = "密码"
-        textPassField.text = "1"
+        textPassField.text = ""
         inputPassView.layer.borderWidth = 1
         inputPassView.layer.borderColor = UIColor(red: 229/255, green: 229/255, blue: 229/255, alpha: 1).cgColor
         inputPassView.layer.cornerRadius = 20
@@ -134,12 +134,6 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         reminder.textAlignment = .left
         reminder.textColor = UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1)
         flagPassView.addSubview(reminder)
-        if flageStatus{//选中状态
-            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
-        }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
-        }
-        
 //        flagButton.setImage(UIImage(named: "定位"), for: UIControlState.highlighted)
         flagButton.addTarget(self, action: #selector(LoginViewController.buttonStatus), for: UIControlEvents.touchUpInside)
         flagPassView.addSubview(flagButton)
@@ -173,8 +167,14 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         view.addSubview(scrollView)
         let name1 = self.userDefault.string(forKey: "name")
         textNameField.text = (name1 != nil) ? name1 : ""
-        let Value = self.userDefault.string(forKey: "password")
-        textPassField.text = (Value != nil) ? Value : ""
+        print(flageStatus)
+        if flageStatus{//选中状态
+            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
+            let Value = self.userDefault.string(forKey: "password")
+            textPassField.text = (Value != nil) ? Value : ""
+        }else{//没有选中状态
+            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -204,11 +204,11 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK:记住密码功能
     @objc func buttonStatus(){
         if !flageStatus {//选中状态
-            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
             flageStatus = true
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
             flageStatus = false
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }
