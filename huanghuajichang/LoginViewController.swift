@@ -119,7 +119,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         inputPassView.addSubview(textPassField)
         
         
-        eyes.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
+        eyes.setImage(UIImage(named: "眼睛"), for: UIControlState.normal)
         eyes.frame = CGRect(x: inputView.frame.width - 30, y: 10, width: 20, height: 20)
         eyes.addTarget(self, action: #selector(toSeePass(_:)), for: UIControlEvents.touchUpInside)
         inputPassView.addSubview(eyes)
@@ -187,7 +187,6 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         }else{
             textPassField.becomeFirstResponder()
         }
-        print("123")
         //打印出文本框中的值
         print(textField.text as Any)
         return true;
@@ -209,7 +208,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             flageStatus = true
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "复选2git"), for: UIControlState.normal)
+            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
             flageStatus = false
             self.userDefault.set(flageStatus, forKey: "buttonStatus")
         }
