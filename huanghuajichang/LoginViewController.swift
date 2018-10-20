@@ -218,8 +218,8 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         //self.present(PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)),animated:true,completion:nil)
 //        let alertView = PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 //        contentView.addSubview(alertView)
-        
-        contentView.addSubview(PortViewController.creatAlertView())
+//        self.persent(PortViewController())
+//        contentView.addSubview(PortViewController.creatAlertView())
         //自定义弹框调用方式
         //AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
     }
