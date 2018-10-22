@@ -61,7 +61,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let logoLabel = UILabel(frame: CGRect(x: 0, y: 200, width: UIScreen.main.bounds.width, height: 20))
         logoLabel.text = "智慧能源管理系统"
         logoLabel.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
-        logoLabel.font = UIFont.boldSystemFont(ofSize: 12)
+        logoLabel.font = UIFont.boldSystemFont(ofSize: 17)
         logoLabel.textAlignment = .center
         contentView.addSubview(logoLabel)
         contentView.addSubview(logoView)
@@ -81,7 +81,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         //textNameField.clearButtonMode = .always  //一直显示清除按钮
         textNameField.keyboardType = UIKeyboardType.default
         //textNameField.becomeFirstResponder()
-        textNameField.font = UIFont.boldSystemFont(ofSize: 14)
+        textNameField.font = UIFont.boldSystemFont(ofSize: 15)
         textNameField.tag = 1
         textNameField.returnKeyType = UIReturnKeyType.next
         textNameField.placeholder = "请输入手机号/账号"
@@ -108,7 +108,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.isSecureTextEntry = true //输入内容会显示成小黑点
         textPassField.keyboardType = UIKeyboardType.default
         textPassField.returnKeyType = UIReturnKeyType.done //表示完成输入
-        textPassField.font = UIFont.boldSystemFont(ofSize: 14)
+        textPassField.font = UIFont.boldSystemFont(ofSize: 15)
         textPassField.tag = 2
         textPassField.placeholder = "密码"
         textPassField.text = ""
@@ -126,11 +126,11 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         inputView.addSubview(inputPassView)
         contentView.addSubview(inputView)
         
-        let flagPassView = UIView(frame: CGRect(x: 40, y: UIScreen.main.bounds.height*2/5+120, width: 100, height: 20))
-        flagButton.frame =  CGRect(x: 0, y: 5, width: 10, height: 10)
-        let reminder = UILabel(frame: CGRect(x: 15, y: 0, width: 50, height: 20))
+        let flagPassView = UIView(frame: CGRect(x: 40, y: UIScreen.main.bounds.height*2/5+120, width: 150, height: 20))
+        flagButton.frame =  CGRect(x: 0, y: 2.5, width: 15, height: 15)
+        let reminder = UILabel(frame: CGRect(x: 20, y: 0, width: 100, height: 20))
         reminder.text = String("记住密码")
-        reminder.font = UIFont.boldSystemFont(ofSize: 10)
+        reminder.font = UIFont.boldSystemFont(ofSize: 15)
         reminder.textAlignment = .left
         reminder.textColor = UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1)
         flagPassView.addSubview(reminder)
@@ -140,7 +140,8 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         contentView.addSubview(flagPassView)
         
         
-        let buttonView = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height*2/5+145, width: view.frame.width-40, height: 40))
+        let buttonView = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height*2/5+150, width: view.frame.width-40, height: 40))
+        buttonView.titleLabel!.font = UIFont.boldSystemFont(ofSize: 15)
         buttonView.setTitle("登录", for: UIControlState.normal)
         buttonView.setTitle("登录", for: UIControlState.highlighted)
         buttonView.setTitleColor(UIColor.white,for: .normal) //普通状态下文字的颜色
@@ -150,13 +151,14 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         buttonView.addTarget(self, action: #selector(LoginViewController.startTouch(_:)), for: UIControlEvents.touchUpInside)
         contentView.addSubview(buttonView)
         
-        let portButtonView = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height*2/5+205, width: view.frame.width-40, height: 40))
+        let portButtonView = UIButton(frame: CGRect(x: 20, y: UIScreen.main.bounds.height*2/5+210, width: view.frame.width-40, height: 40))
+        portButtonView.titleLabel!.font = UIFont.boldSystemFont(ofSize: 15)
         portButtonView.setTitle("端口设置", for: UIControlState.normal)
         portButtonView.setTitle("端口设置", for: UIControlState.highlighted)
-        portButtonView.setTitleColor(UIColor.white, for: UIControlState.normal)
-        portButtonView.setTitleColor(UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1),for: UIControlState.highlighted)
+        portButtonView.setTitleColor(UIColor.gray, for: UIControlState.normal)
+        portButtonView.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.39),for: UIControlState.highlighted)
         portButtonView.layer.cornerRadius = 20
-        portButtonView.layer.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
+        portButtonView.layer.backgroundColor = UIColor.white.cgColor
         portButtonView.addTarget(self, action: #selector(changePort), for: UIControlEvents.touchUpInside)
         contentView.addSubview(portButtonView)
         //MARK:设置内容页大小
@@ -167,7 +169,6 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         view.addSubview(scrollView)
         let name1 = self.userDefault.string(forKey: "name")
         textNameField.text = (name1 != nil) ? name1 : ""
-        print(flageStatus)
         if flageStatus{//选中状态
             flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
             let Value = self.userDefault.string(forKey: "password")
@@ -218,7 +219,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         //self.present(PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)),animated:true,completion:nil)
 //        let alertView = PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 //        contentView.addSubview(alertView)
-//        self.persent(PortViewController())
+            self.present(PortViewController(), animated: false, completion: nil)
 //        contentView.addSubview(PortViewController.creatAlertView())
         //自定义弹框调用方式
         //AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
@@ -246,7 +247,8 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             return
         }
         //网络请求
-        let urlStr = "http://10.4.65.66:8086/interface"
+        let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
+        let urlStr = "\(userDefalutUrl ?? "10.4.65.103:8600")/interface"
         let headers: HTTPHeaders = [
             "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
             "Accept": "application/json"
