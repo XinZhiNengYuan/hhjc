@@ -26,6 +26,9 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "密码修改"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        
         let leftBar:UIBarButtonItem = UIBarButtonItem.init(title: "取消", style: UIBarButtonItemStyle.plain, target: self, action: #selector(backTolast))
         leftBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = leftBar
@@ -34,6 +37,9 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
         rightBar.isEnabled = false
         rightBar.tintColor = UIColor.blue
         self.navigationItem.rightBarButtonItem = rightBar
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
+        self.navigationController?.navigationBar.isTranslucent = false//去掉导航栏的半透明效果
         
         oldTextField.delegate = self
         newTextField.delegate = self
@@ -57,7 +63,7 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
     
     @objc func backTolast (){
         //由于本页面是push进来的所以用pop返回
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     @objc func changePassword () {
         if newTextField.text != confrimTextField.text{

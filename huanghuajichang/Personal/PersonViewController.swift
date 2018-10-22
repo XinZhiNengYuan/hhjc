@@ -12,7 +12,7 @@ let kWindowHeight: CGFloat = 205.0
 
 class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MBProgressHUDDelegate {
     
-    var headerView: UIView!
+    var headerView: UIButton!
     var personalTable:UITableView!
     var tableCellModels :[NSArray] = NSMutableArray() as! [NSArray]
     
@@ -35,10 +35,11 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        self.view.addSubview(headerView!)
 //    }
     func creteHeaderView(){
-        headerView = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 180))
+        headerView = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 180))
         //会拉伸图片覆盖
         let image = UIImage(imageLiteralResourceName: "BackGround")
         headerView.layer.contents = image.cgImage
+        headerView.addTarget(self, action: #selector(openDetail), for: UIControlEvents.touchUpInside)
 
         //由于图片较小，覆盖时有问题
 //        headerView.backgroundColor = UIColor(patternImage: UIImage(named: "Background")!)
@@ -81,6 +82,16 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         self.view.addSubview(headerView)
         createTableView()
+    }
+    
+    @objc func openDetail(){
+        headerView.alpha = 0.8
+        UIView.animate(withDuration: 2) {
+            self.headerView.alpha = 1
+        }
+        let personalDetailVc = PersonalDetailViewController()
+        let personalDetailNav = UINavigationController(rootViewController: personalDetailVc)
+        openChildVC(childNavName:personalDetailNav)
     }
     
     func createTableView () {
@@ -145,7 +156,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //
 //            print(cell)
         if indexPath.section == 0 && indexPath.row == 0 {
-            let changePassword = ChangePasswordViewController()
+            let changePassword = ChangeNumberPasswordViewController()
             let changeNav = UINavigationController(rootViewController: changePassword)
             openChildVC(childNavName:changeNav)
         }else if indexPath.section == 0, indexPath.row == 1 {
