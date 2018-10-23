@@ -114,6 +114,8 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         default:
             print("other")
         }
+        //点击后颜色恢复
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 
