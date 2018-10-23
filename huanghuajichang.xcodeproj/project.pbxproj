@@ -12,7 +12,6 @@
 		3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */; };
 		3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */; };
 		3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB321742BFC002F3C35 /* PersonViewController.swift */; };
-		3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
 		3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */; };
 		3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */; };
 		3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
@@ -29,12 +28,16 @@
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
 		3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
 		3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
-		3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
+		3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */; };
+		3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
+		3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
+		3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */; };
+		3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
+		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
 		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
-		3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
 		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
 		3DC58F3D217971910015A518 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* common.swift */; };
 		3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
@@ -47,7 +50,6 @@
 		FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */; };
 		FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */; };
 		FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */; };
-		FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */; };
 		FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0C215493B600F6D2AB /* AppDelegate.swift */; };
 		FB381B0F215493B600F6D2AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0E215493B600F6D2AB /* ViewController.swift */; };
 		FB381B12215493B600F6D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B10215493B600F6D2AB /* Main.storyboard */; };
@@ -85,6 +87,12 @@
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
 		3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
+		3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDailyRecordViewController.swift; sourceTree = "<group>"; };
+		3D48C7E8217EF11B0067705E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D48C7EE217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		3D48C7EF217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		3D48C7F3217EFD2B0067705E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -111,7 +119,6 @@
 		FB381B11215493B600F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB381B13215493B700F6D2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB381B16215493B700F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FB381B18215493B700F6D2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB381B1E215497FF00F6D2AB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTabViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +172,7 @@
 			children = (
 				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
 				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
+				3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
 				3D1598F62178778E00458C11 /* ThickButton.swift */,
 				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
 			);
@@ -257,9 +265,10 @@
 				FB381B10215493B600F6D2AB /* Main.storyboard */,
 				FB381B13215493B700F6D2AB /* Assets.xcassets */,
 				FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */,
-				FB381B18215493B700F6D2AB /* Info.plist */,
 				FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
 				FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */,
+				3D48C7E8217EF11B0067705E /* Info.plist */,
+				3D48C7F4217EFD2B0067705E /* InfoPlist.strings */,
 				3D48C7CD217ECC510067705E /* Index */,
 				3DFDC55E216F180A00A5CD62 /* CameraView.swift */,
 				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
@@ -317,6 +326,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = FB381B00215493B600F6D2AB;
 			productRefGroup = FB381B0A215493B600F6D2AB /* Products */;
@@ -334,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */,
+				3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */,
 				3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */,
 				FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */,
 				FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */,
@@ -405,6 +416,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
+				3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
+				3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */,
+				3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */,
 				FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */,
 				3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */,
 				FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */,
@@ -417,22 +432,14 @@
 				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
 				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
-				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
-				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
-				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
 				3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
 				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
-				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
-				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
 				3DC58F3D217971910015A518 /* common.swift in Sources */,
-				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
-				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
-				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
@@ -454,16 +461,27 @@
 				FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,
 				3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */,
 				3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */,
+				3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3D48C7F4217EFD2B0067705E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D48C7F3217EFD2B0067705E /* en */,
+				3D48C7F5217EFD300067705E /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		FB381B10215493B600F6D2AB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FB381B11215493B600F6D2AB /* Base */,
+				3D48C7EE217EFCFE0067705E /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -472,6 +490,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FB381B16215493B700F6D2AB /* Base */,
+				3D48C7EF217EFCFE0067705E /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -483,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -544,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -603,7 +624,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
+				DEVELOPMENT_TEAM = 5GVSBZG2D3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;
@@ -612,7 +633,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-0180320FNZS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hhjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
@@ -630,7 +651,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
+				DEVELOPMENT_TEAM = 5GVSBZG2D3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;
@@ -639,7 +660,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-0180320FNZS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hhjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";

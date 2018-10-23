@@ -1,0 +1,18 @@
+
+/* Class = "UINavigationItem"; title = "设备管理"; ObjectID = "44m-Vb-ORS"; */
+"44m-Vb-ORS.title" = "设备管理";
+
+/* Class = "UITabBarItem"; title = "我"; ObjectID = "5py-ux-7bL"; */
+"5py-ux-7bL.title" = "我";
+
+/* Class = "UITabBarItem"; title = "设备管理"; ObjectID = "UKH-S2-qyf"; */
+"UKH-S2-qyf.title" = "设备管理";
+
+/* Class = "UITabBarItem"; title = "首页"; ObjectID = "a7Q-w1-alk"; */
+"a7Q-w1-alk.title" = "首页";
+
+/* Class = "UINavigationItem"; title = "首页"; ObjectID = "tOq-LF-cRF"; */
+"tOq-LF-cRF.title" = "首页";
+
+/* Class = "UITabBarItem"; title = "日常记录"; ObjectID = "zGF-bo-8cg"; */
+"zGF-bo-8cg.title" = "日常记录";

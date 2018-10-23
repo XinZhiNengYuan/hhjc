@@ -74,7 +74,9 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func openAdd(){
-        print("打开新增页面")
+        let addVc = AddDailyRecordViewController()
+        let addNav = UINavigationController(rootViewController: addVc)
+        self.present(addNav, animated: true, completion: nil)
     }
     
     ///绘制日历工具栏
@@ -167,7 +169,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         spearLine.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         HeaderView.addSubview(spearLine)
         
-        buttonsView = thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 67), dataArr: buttons)
+        buttonsView = thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: buttons)
         thickbuttons.delegate = self
         HeaderView.addSubview(buttonsView)
     }
