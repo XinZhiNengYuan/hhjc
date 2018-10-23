@@ -1,9 +1,9 @@
 //
 //  QrCodeViewController.swift
-//  XinaoEnergy
+//  huanghuajichang
 //
 //  Created by zx on 2018/8/7.
-//  Copyright © 2018年 jun. All rights reserved.
+//  Copyright © 2018年 zx. All rights reserved.
 //
     /*
     // MARK: - Navigation
@@ -62,6 +62,12 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
         self.view.addSubview(leftView)
         
+        let backButton = UIButton(frame: CGRect(x: 40, y: 40, width: 40, height: 40))
+        backButton.setImage(UIImage(named: "返回"), for: UIControlState.normal)
+        backButton.layer.backgroundColor = UIColor.green.cgColor
+        backButton.layer.cornerRadius = 20
+        backButton.addTarget(self, action: #selector(goBack), for: UIControlEvents.touchUpInside)
+        self.view.addSubview(backButton)
         
         
         let rightView = UIView(frame: CGRect(x: screenWidth/2+100, y: 0, width: screenWidth-(screenWidth/2+100), height: screenHeight))
@@ -72,7 +78,7 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
         
         
-        let topView = UIView(frame: CGRect(x: screenWidth/2-100, y: 0, width: 200, height: 100))
+        let topView = UIView(frame: CGRect(x: screenWidth/2-100, y: 0, width: 200, height: screenHeight/2-100))
         
         topView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         
@@ -80,7 +86,7 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
         
         
-        let bottomView = UIView(frame: CGRect(x: screenWidth/2-100, y: 300, width: 200, height: screenHeight-300))
+        let bottomView = UIView(frame: CGRect(x: screenWidth/2-100, y: screenHeight/2+100, width: 200, height: screenHeight/2-100))
         
         bottomView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         
@@ -90,7 +96,10 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
     }
     
-    
+    //MARK: 返回按钮点击事件
+    @objc func goBack(){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
     

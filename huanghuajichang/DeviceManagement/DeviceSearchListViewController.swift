@@ -41,16 +41,24 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.title = "设备搜索"
         //search
+//        let historySearchListView = HistorySearchListView()
         countrySearchController = UISearchController(searchResultsController: nil)
         countrySearchController.searchBar.delegate = self
-        countrySearchController.dimsBackgroundDuringPresentation = true
+        countrySearchController.searchBar.frame = CGRect(x: 60, y: 0, width: KUIScreenWidth-60, height: 40)
+        //默认情况下，UISearchController暗化前一个view，这在我们使用另一个view controller来显示结果时非常有用，但当前情况我们并不想暗化当前view，即设置开始搜索时背景是否显示
+        countrySearchController.dimsBackgroundDuringPresentation = false
         countrySearchController.searchBar.placeholder = "搜索框"
+        //设置代理，searchResultUpdater是UISearchController的一个属性，它的值必须实现UISearchResultsUpdating协议，这个协议让我们的类在UISearchBar文字改变时被通知到，我们之后会实现这个协议。
         countrySearchController.searchResultsUpdater = self
         countrySearchController.searchBar.searchBarStyle = .minimal
-        // 设置开始搜索时导航条是否隐藏
+        
+//        countrySearchController.view.backgroundColor = UIColor.red
+//        print("打印：\(countrySearchController.view.subviews[0].subviews)")
+        
+//         设置开始搜索时导航条是否隐藏
         countrySearchController.hidesNavigationBarDuringPresentation = false
-        // 设置开始搜索时背景是否显示
-        countrySearchController.dimsBackgroundDuringPresentation = false
+        //设置definesPresentationContext为true，我们保证在UISearchController在激活状态下用户push到下一个view controller之后search bar不会仍留在界面上。
+        countrySearchController.definesPresentationContext = true
         
         //创建表视图 list
         tableViewFrame = CGRect(x: 0, y:0, width: view.frame.width,

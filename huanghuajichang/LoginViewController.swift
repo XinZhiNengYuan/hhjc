@@ -216,13 +216,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     //MARK:端口按钮
     @objc func changePort(){
-        //self.present(PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)),animated:true,completion:nil)
-//        let alertView = PortViewController(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-//        contentView.addSubview(alertView)
-            self.present(PortViewController(), animated: false, completion: nil)
-//        contentView.addSubview(PortViewController.creatAlertView())
+//            self.present(PortViewController(), animated: false, completion: nil)
         //自定义弹框调用方式
-        //AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
+        AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
     }
     //MARK:登录按钮
     @objc func startTouch(_ button:UIButton){

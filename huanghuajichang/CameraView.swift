@@ -1,9 +1,9 @@
 //
 //  CameraView.swift
-//  XinaoEnergy
+//  huanghuajichang
 //
 //  Created by zx on 1976/4/1.
-//  Copyright © 2018年 jun. All rights reserved.
+//  Copyright © 2018年 zx. All rights reserved.
 //
 
 import UIKit
