@@ -87,7 +87,6 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         collectionView.showsHorizontalScrollIndicator = false
         
         collectionView.register(IndexTopCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "topCollectionCell")
-        collectionView.register(RealTimeReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
     }
     
     
@@ -560,19 +559,6 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
             }
             return cell
         }
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView{
-        var reusableview:UICollectionReusableView!
-        
-        if kind == UICollectionElementKindSectionHeader
-        {
-            reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! RealTimeReusableView
-            
-            (reusableview as! RealTimeReusableView).label.text = String(format: "第 %d 个页眉", arguments: [indexPath.section])
-        }
-        
-        return reusableview
     }
     
     // UICollectionViewDelegateFlowLayout

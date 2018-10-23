@@ -8,20 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */; };
-		3D06EBBA21742BFC002F3C35 /* CoolNavi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAF21742BFC002F3C35 /* CoolNavi.swift */; };
 		3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */; };
 		3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */; };
 		3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */; };
 		3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB321742BFC002F3C35 /* PersonViewController.swift */; };
-		3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB421742BFC002F3C35 /* ChangePasswordViewController.swift */; };
 		3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
 		3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */; };
 		3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */; };
 		3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
 		3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCA21743B77002F3C35 /* PublicParamter.swift */; };
 		3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */; };
-		3D0DB86D2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */; };
-		3D0E4C41216F2E46005FFA2F /* RealTimeReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */; };
 		3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */; };
 		3D0F9FE321706A740041B746 /* LineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F9FE221706A740041B746 /* LineButton.swift */; };
 		3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */; };
@@ -31,6 +27,8 @@
 		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
 		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
+		3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
+		3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
 		3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
@@ -60,18 +58,15 @@
 		FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */; };
 		FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */; };
 		FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */; };
-		FB75FE942159E2D9007B4CBA /* PersonalCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE932159E2D9007B4CBA /* PersonalCenterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.debug.xcconfig"; sourceTree = "<group>"; };
 		3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxCardViewController.swift; sourceTree = "<group>"; };
-		3D06EBAF21742BFC002F3C35 /* CoolNavi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoolNavi.swift; sourceTree = "<group>"; };
 		3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNavViewController.swift; sourceTree = "<group>"; };
 		3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
 		3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCellModel.swift; sourceTree = "<group>"; };
 		3D06EBB321742BFC002F3C35 /* PersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
-		3D06EBB421742BFC002F3C35 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpDocumentViewController.swift; sourceTree = "<group>"; };
 		3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeNumberPasswordViewController.xib; sourceTree = "<group>"; };
 		3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeNumberPasswordViewController.swift; sourceTree = "<group>"; };
@@ -79,8 +74,6 @@
 		3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanghuajichang-Bridging-Header.h"; sourceTree = "<group>"; };
 		3D06EBCA21743B77002F3C35 /* PublicParamter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicParamter.swift; sourceTree = "<group>"; };
 		3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeviceListViewController.swift; sourceTree = "<group>"; };
-		3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+badge.swift"; sourceTree = "<group>"; };
-		3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealTimeReusableView.swift; sourceTree = "<group>"; };
 		3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTopCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D0F9FE221706A740041B746 /* LineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineButton.swift; sourceTree = "<group>"; };
 		3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopView.swift; sourceTree = "<group>"; };
@@ -90,6 +83,8 @@
 		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
+		3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
+		3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -122,7 +117,6 @@
 		FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTabViewController.swift; sourceTree = "<group>"; };
 		FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementViewController.swift; sourceTree = "<group>"; };
 		FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewController.swift; sourceTree = "<group>"; };
-		FB75FE932159E2D9007B4CBA /* PersonalCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCenterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,12 +142,10 @@
 		3D06EBAD21742BFC002F3C35 /* Personal */ = {
 			isa = PBXGroup;
 			children = (
-				3D06EBAF21742BFC002F3C35 /* CoolNavi.swift */,
 				3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */,
 				3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */,
 				3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */,
 				3D06EBB321742BFC002F3C35 /* PersonViewController.swift */,
-				3D06EBB421742BFC002F3C35 /* ChangePasswordViewController.swift */,
 				3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */,
 				3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */,
 				3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */,
@@ -162,8 +154,32 @@
 				3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */,
 				3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */,
 				3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */,
+				3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */,
+				3D48C7CA217EC68B0067705E /* MyRegex.swift */,
 			);
 			path = Personal;
+			sourceTree = "<group>";
+		};
+		3D48C7CC217ECB610067705E /* DailyRecord */ = {
+			isa = PBXGroup;
+			children = (
+				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
+				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
+				3D1598F62178778E00458C11 /* ThickButton.swift */,
+				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
+			);
+			path = DailyRecord;
+			sourceTree = "<group>";
+		};
+		3D48C7CD217ECC510067705E /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
+				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
+				3D0F9FE221706A740041B746 /* LineButton.swift */,
+				3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */,
+			);
+			path = Index;
 			sourceTree = "<group>";
 		};
 		3DBF24D7216C95A600CD675D /* PopController */ = {
@@ -244,21 +260,12 @@
 				FB381B18215493B700F6D2AB /* Info.plist */,
 				FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
 				FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */,
-				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
-				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
-				3D0DB86C2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift */,
-				3D0F9FE221706A740041B746 /* LineButton.swift */,
-				3D0E4C40216F2E45005FFA2F /* RealTimeReusableView.swift */,
+				3D48C7CD217ECC510067705E /* Index */,
 				3DFDC55E216F180A00A5CD62 /* CameraView.swift */,
 				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
 				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
-				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
-				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
-				3D1598F62178778E00458C11 /* ThickButton.swift */,
-				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
-				FB75FE932159E2D9007B4CBA /* PersonalCenterViewController.swift */,
+				3D48C7CC217ECB610067705E /* DailyRecord */,
 				3D94DFA5216B344D00EC892F /* BaseViewController.swift */,
-				3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */,
 				3D06EBAD21742BFC002F3C35 /* Personal */,
 				3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
 				3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
@@ -411,23 +418,21 @@
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
 				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
 				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
-				3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */,
 				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
 				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
 				3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
+				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
 				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
 				3D06EBC021742BFC002F3C35 /* HelpDocumentViewController.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
-				3D06EBBF21742BFC002F3C35 /* ChangePasswordViewController.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
 				3DC58F3D217971910015A518 /* common.swift in Sources */,
 				3D94DFA6216B344D00EC892F /* BaseViewController.swift in Sources */,
 				FB10A3C1215B882E009658C7 /* UITableViewControllerCellFore.swift in Sources */,
 				3DBF24D9216C95ED00CD675D /* PortViewController.swift in Sources */,
-				3D0E4C41216F2E46005FFA2F /* RealTimeReusableView.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
@@ -436,20 +441,18 @@
 				3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */,
 				3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,
 				FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
-				FB75FE942159E2D9007B4CBA /* PersonalCenterViewController.swift in Sources */,
 				FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,
 				3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */,
 				3D0F9FE321706A740041B746 /* LineButton.swift in Sources */,
 				FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */,
 				3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */,
 				3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */,
+				3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */,
 				FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */,
 				3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */,
-				3D0DB86D2171E6F8000AC1F5 /* UIBarButtonItem+badge.swift in Sources */,
 				3D1598F72178778E00458C11 /* ThickButton.swift in Sources */,
 				FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,
 				3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */,
-				3D06EBBA21742BFC002F3C35 /* CoolNavi.swift in Sources */,
 				3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

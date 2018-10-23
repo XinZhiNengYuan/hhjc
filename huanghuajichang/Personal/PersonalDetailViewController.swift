@@ -99,6 +99,18 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             let headerVc = HeaderViewController()
             let hederNav = UINavigationController(rootViewController: headerVc)
             self.present(hederNav, animated: false, completion: nil)
+        case 4:
+            let changePhoneVc = CommentChangeViewController()
+            let changePhoneNav = UINavigationController(rootViewController: changePhoneVc)
+            changePhoneVc.title = "修改手机号"
+            changePhoneVc.phoneText = (tableView.cellForRow(at: indexPath) as! PersonalDetailTableViewCell).itemRealMsg.text
+            self.present(changePhoneNav, animated: false, completion: nil)
+        case 5:
+            let changeEmailVc = CommentChangeViewController()
+            let changeEmailNav = UINavigationController(rootViewController: changeEmailVc)
+            changeEmailVc.title = "修改邮箱"
+            changeEmailVc.emailText = (tableView.cellForRow(at: indexPath) as! PersonalDetailTableViewCell).itemRealMsg.text
+            self.present(changeEmailNav, animated: false, completion: nil)
         default:
             print("other")
         }
