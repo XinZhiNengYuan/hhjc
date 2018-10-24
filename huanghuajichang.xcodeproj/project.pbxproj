@@ -17,6 +17,7 @@
 		3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
 		3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCA21743B77002F3C35 /* PublicParamter.swift */; };
 		3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */; };
+		3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */; };
 		3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */; };
 		3D0F9FE321706A740041B746 /* LineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F9FE221706A740041B746 /* LineButton.swift */; };
 		3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */; };
@@ -76,6 +77,7 @@
 		3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanghuajichang-Bridging-Header.h"; sourceTree = "<group>"; };
 		3D06EBCA21743B77002F3C35 /* PublicParamter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicParamter.swift; sourceTree = "<group>"; };
 		3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeviceListViewController.swift; sourceTree = "<group>"; };
+		3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAndEditViewController.swift; sourceTree = "<group>"; };
 		3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTopCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D0F9FE221706A740041B746 /* LineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineButton.swift; sourceTree = "<group>"; };
 		3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopView.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
 				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
 				3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
+				3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */,
 				3D1598F62178778E00458C11 /* ThickButton.swift */,
 				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
 			);
@@ -429,6 +432,7 @@
 				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
 				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
 				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
+				3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */,
 				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
 				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,

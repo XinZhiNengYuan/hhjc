@@ -301,5 +301,15 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         return cell!
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectdRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+        print((selectdRecordCell.itemTitle?.text)!)
+        
+        let scanVc = ScanAndEditViewController()
+        let scanNav = UINavigationController(rootViewController: scanVc)
+        self.present(scanNav, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
 }
