@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistorySearchListView: UIView {
+class HistorySearchListView: UIViewController {
     
     /*
      // Only override draw() if you perform custom drawing.
@@ -21,20 +21,18 @@ class HistorySearchListView: UIView {
     var mHistoryList : [String]!
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
-    //    var callBack = {
-    //        (hisList:[String])->UIView in
-    //        return
-    //    }
-    override func layoutSubviews(){
-        super.layoutSubviews()
-        mView.frame = CGRect(x: 0, y: 100, width: screenWidth, height: 100)
+    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mView.frame = CGRect(x: 0, y: 100, width: screenWidth, height: 400)
+        mView.backgroundColor = UIColor.white
         let mLabelTitle = UILabel(frame: CGRect(x: 40, y: 20, width: screenWidth, height: 40))
         mLabelTitle.font = UIFont.boldSystemFont(ofSize: 12)
         mLabelTitle.textColor = UIColor.black
         mLabelTitle.text = "历史搜索记录"
         mView.addSubview(mLabelTitle)
-        self.addSubview(mView)
-        
+        view.addSubview(mView)
     }
     
     func setHistory (historyList:Array<String>)->Void{
@@ -49,7 +47,6 @@ class HistorySearchListView: UIView {
             mLabel.layer.cornerRadius = 5
             mLabel.layer.backgroundColor = UIColor.white.cgColor
             mView.addSubview(mLabel)
-            self.addSubview(mView)
         }
     }
 }

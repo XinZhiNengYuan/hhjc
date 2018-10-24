@@ -77,7 +77,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     
     func setSearchView(){
-        let searchViewFrame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width-40, height: 30)
+        let searchViewFrame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width-100, height: 30)
         let gesture = UITapGestureRecognizer()
         gesture.delegate = self
         gesture.addTarget(self, action: #selector(toSearchData))
@@ -99,7 +99,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         searchView.addSubview(mImageView)
         let qCButton = UIButton()
         qCButton.setImage(UIImage(named: "扫描"), for: UIControlState.normal)
-        qCButton.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 7.5, width: 15, height: 15)
+        qCButton.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 5, width: 20, height: 20)
         qCButton.addTarget(self, action: #selector(toQC), for: UIControlEvents.touchUpInside)
         searchView.addSubview(qCButton)
         searchView.addGestureRecognizer(gesture)
@@ -111,8 +111,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     //MARK:搜索按钮
     @objc func toSearchData(){
 //        navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
-//        self.present(DeviceSearchListViewController(), animated: false, completion: nil)
-        self.navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
+        self.present(DeviceSearchListViewController(), animated: true, completion: nil)
+//        self.navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
     }
     
     @objc func toQC(){

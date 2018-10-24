@@ -37,23 +37,45 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     func setViewStyle(){
         top = UIApplication.shared.statusBarFrame.height
         view.backgroundColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.title = "设备搜索"
+        self.setStatusBarBackgroundColor(color: UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1))
+        //header
+        let headerView = UIView(frame: CGRect(x: 0, y: top, width: KUIScreenWidth, height: 40))
+        headerView.layer.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
+        self.view.addSubview(headerView)
+        
+        let backButton = UIButton(frame: CGRect(x: 20, y: 10, width: 20, height: 20))
+        backButton.setImage(UIImage(named: "返回"), for: UIControlState.normal)
+        backButton.addTarget(self, action: #selector(goBack), for: UIControlEvents.touchUpInside)
+        
+        let textLabel = UILabel(frame: CGRect(x: 40, y: 0, width: KUIScreenWidth-80, height: 40))
+        textLabel.text = "设备搜索"
+        textLabel.textAlignment = .center
+        textLabel.textColor = UIColor.white
+        
+        headerView.addSubview(backButton)
+        headerView.addSubview(textLabel)
         //search
+//        let historySearchListView = HistorySearchListView()
         countrySearchController = UISearchController(searchResultsController: nil)
         countrySearchController.searchBar.delegate = self
-        countrySearchController.dimsBackgroundDuringPresentation = true
+        countrySearchController.searchBar.frame = CGRect(x: 60, y: 0, width: KUIScreenWidth-60, height: 40)
+        //默认情况下，UISearchController暗化前一个view，这在我们使用另一个view controller来显示结果时非常有用，但当前情况我们并不想暗化当前view，即设置开始搜索时背景是否显示
+        countrySearchController.dimsBackgroundDuringPresentation = false
         countrySearchController.searchBar.placeholder = "搜索框"
+        //设置代理，searchResultUpdater是UISearchController的一个属性，它的值必须实现UISearchResultsUpdating协议，这个协议让我们的类在UISearchBar文字改变时被通知到，我们之后会实现这个协议。
         countrySearchController.searchResultsUpdater = self
         countrySearchController.searchBar.searchBarStyle = .minimal
-        // 设置开始搜索时导航条是否隐藏
+        
+//        countrySearchController.view.backgroundColor = UIColor.red
+//        print("打印：\(countrySearchController.view.subviews[0].subviews)")
+        
+//         设置开始搜索时导航条是否隐藏
         countrySearchController.hidesNavigationBarDuringPresentation = false
-        // 设置开始搜索时背景是否显示
-        countrySearchController.dimsBackgroundDuringPresentation = false
+        //设置definesPresentationContext为true，我们保证在UISearchController在激活状态下用户push到下一个view controller之后search bar不会仍留在界面上。
+        countrySearchController.definesPresentationContext = true
         
         //创建表视图 list
-        tableViewFrame = CGRect(x: 0, y:0, width: view.frame.width,
+        tableViewFrame = CGRect(x: 0, y:top+headerView.frame.height, width: view.frame.width,
                                 height: view.frame.height)
         self.mTableView = UITableView(frame: tableViewFrame, style:.plain)
         self.mTableView!.delegate = self
@@ -70,10 +92,21 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     @objc func goBack(){
         print("关闭当前页")
         if self.countrySearchController.isActive{
-            self.dismiss(animated: false, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
-        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+//        navigationController?.popViewController(animated: true)
     }
+    
+    //MARK：自定义状态栏的背景颜色
+    func setStatusBarBackgroundColor(color : UIColor) {
+        let statusBarWindow : UIView = UIApplication.shared.value(forKey: "statusBarWindow") as! UIView
+        let statusBar : UIView = statusBarWindow.value(forKey: "statusBar") as! UIView
+        if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = color
+        }
+    }
+    
     
     
 }
