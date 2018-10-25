@@ -82,6 +82,11 @@ extension DeviceDetailViewController:UITableViewDelegate,UITableViewDataSource{
     }
 
 
+    //tableView点击事件
+    func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
+        self.navigationController?.pushViewController(AlarmAnalysisViewController(), animated: true)
+        
+    }
 }
 
 
