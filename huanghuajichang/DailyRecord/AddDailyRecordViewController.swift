@@ -135,7 +135,7 @@ class AddDailyRecordViewController: AddNavViewController {
     
     ///关闭自定义日期选择器
     @objc func closePick(){
-        let dateTextField = titleView.viewWithTag(1) as! UITextField
+        let dateTextField = titleView.viewWithTag(201) as! UITextField
         dateTextField.resignFirstResponder()
     }
     
@@ -146,7 +146,7 @@ class AddDailyRecordViewController: AddNavViewController {
         let date = datePicker.date
         formatter.dateFormat = "yyyy年MM月dd日"
         let dateStr = formatter.string(from: date)
-        let dateTextField = titleView.viewWithTag(1) as! UITextField
+        let dateTextField = titleView.viewWithTag(201) as! UITextField
         dateTextField.text = dateStr
         dateTextField.resignFirstResponder()
     }
