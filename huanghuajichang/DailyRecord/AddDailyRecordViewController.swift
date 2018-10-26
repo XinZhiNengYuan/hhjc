@@ -46,6 +46,7 @@ class AddDailyRecordViewController: AddNavViewController {
         for i in 0...1{
             titleView = UIView.init(frame: CGRect(x: 0, y: CGFloat(i*50), width: kScreenWidth, height: 40))
             titleView.backgroundColor = UIColor.white
+            titleView.tag = 100+i
             self.view.addSubview(titleView)
             
             let titleLabel = UILabel.init(frame: CGRect(x: 10, y: 5, width: 35, height: 30))
@@ -56,7 +57,7 @@ class AddDailyRecordViewController: AddNavViewController {
             titleTextField = UITextField.init(frame: CGRect(x: 50, y: 5, width: kScreenWidth-50-10, height: 30))
             titleTextField.textColor = allFontColor
             titleTextField.delegate = self
-            titleTextField.tag = i
+            titleTextField.tag = 200+i
             titleView.addSubview(titleTextField)
             
             if i == 0 {
@@ -221,6 +222,11 @@ class AddDailyRecordViewController: AddNavViewController {
     */
     
     override func backItemPressed(){
+        let titleTextField = self.view.viewWithTag(100)?.viewWithTag(200) as! UITextField
+        titleTextField.resignFirstResponder()
+        let dateTextField = self.view.viewWithTag(101)?.viewWithTag(201) as! UITextField
+        dateTextField.resignFirstResponder()
+        describeTextView.resignFirstResponder()
         //present出的页面用dismiss不然会找不到上一页
         if pageType == "edit"{
             self.navigationController?.popViewController(animated: false)
