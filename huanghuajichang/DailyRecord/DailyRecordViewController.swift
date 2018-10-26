@@ -70,7 +70,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func openSearch(){
-        print("打开搜索页面")
+        let searchVc = DailySearchViewController()
+        self.present(searchVc, animated: true, completion: nil)
     }
     
     @objc func openAdd(){

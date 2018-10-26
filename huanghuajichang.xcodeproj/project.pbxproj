@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */; };
 		3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */; };
 		3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */; };
 		3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */; };
@@ -46,6 +47,7 @@
 		3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
 		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
 		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
+		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55E216F180A00A5CD62 /* CameraView.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
@@ -67,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.debug.xcconfig"; sourceTree = "<group>"; };
+		3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySearchViewController.swift; sourceTree = "<group>"; };
 		3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxCardViewController.swift; sourceTree = "<group>"; };
 		3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNavViewController.swift; sourceTree = "<group>"; };
 		3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 		3DC58F41217982F00015A518 /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
 		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
 		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
+		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55E216F180A00A5CD62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
 				3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
 				3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */,
+				3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */,
+				3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */,
 				3D1598F62178778E00458C11 /* ThickButton.swift */,
 				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
 			);
@@ -451,6 +457,7 @@
 				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
 				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
 				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
+				3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */,
 				3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
 				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
@@ -459,6 +466,7 @@
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
+				3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */,
 				3DC58F3D217971910015A518 /* common.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
