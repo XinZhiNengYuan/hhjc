@@ -94,13 +94,12 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         for i in 0..<3 {
             //设置柱状图
             if i == 0 {
-                
+                setBarChart(i)
             }else if i==1 {
-                
+                setBarChart(i)
             }else{
-                
+                setBarChart(i)
             }
-            setBarChart()
         }
     }
     
@@ -109,9 +108,16 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     }
     
     //MARK:设置柱状图
-    func setBarChart(){
+    func setBarChart(_ i:Int){
         //添加barChartView
-        self.barChartView = BarChartView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: scrollView.frame.height))
+        
+        if(i == 0){
+            self.barChartView = BarChartView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: scrollView.frame.height))
+        }else if(i == 1){
+            self.barChartView = BarChartView(frame: CGRect(x: KUIScreenWidth, y: 0, width: KUIScreenWidth, height: scrollView.frame.height))
+        }else{
+            self.barChartView = BarChartView(frame: CGRect(x: 2*KUIScreenWidth, y: 0, width: KUIScreenWidth, height: scrollView.frame.height))
+        }
         self.barChartView.delegate = self //设置代理
         scrollView.addSubview(barChartView)
         
@@ -271,6 +277,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
 extension AlarmAnalysisViewController:TabButtonDelagate{
     func clickChangePage(_ tabButton: TabButton, buttonIndex: NSInteger) {
         print(buttonIndex)
+        scrollView!.contentOffset = CGPoint(x:KUIScreenWidth * CGFloat(buttonIndex), y:0)
     }
 }
 
