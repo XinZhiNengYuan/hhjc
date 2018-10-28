@@ -110,9 +110,20 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     
     //MARK:搜索按钮
     @objc func toSearchData(){
-//        navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
-        self.present(DeviceSearchListViewController(), animated: true, completion: nil)
-//        self.navigationController?.pushViewController(DeviceSearchListViewController(), animated: true)
+
+        let navigationView = UINavigationController.init(rootViewController: DeviceSearchListViewController())
+        
+        UINavigationBar.appearance().barTintColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1) //修改导航栏背景色
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
+        
+        self.present(navigationView, animated: true, completion: nil)
+    }
+    
+    @objc func goBack(){
+        print("关闭当前页")
+
+        self.dismiss(animated: true, completion: nil)
+        //        navigationController?.popViewController(animated: true)
     }
     
     @objc func toQC(){

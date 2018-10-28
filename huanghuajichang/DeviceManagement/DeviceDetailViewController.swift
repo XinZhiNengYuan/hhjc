@@ -13,10 +13,6 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     let UiTableList = UITableView()
     let arrayForKey : Array<String> = ["设备名称"," 设备型号","所属位置","所属位置","所属位置","所属位置"]
 
-    //获取屏幕宽度
-    let screenWidth =  UIScreen.main.bounds.size.width
-    //获取屏幕高度
-    let screenHeight = UIScreen.main.bounds.size.height
 
 //    let arrayForValue : Array<String> = ["燃气蒸汽锅炉","","","","",""]
     override func viewDidLoad() {
@@ -33,12 +29,12 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         
         
         UiTableList.register(DeviceDetailCell.self, forCellReuseIdentifier: "DeviceDetail1")
-        UiTableList.frame = CGRect(x: 20, y: 10, width: screenWidth-40, height: screenHeight-screenWidth/4)
+        UiTableList.frame = CGRect(x: 20, y: 10, width: KUIScreenWidth-40, height: KUIScreenHeight-KUIScreenWidth/4)
         UiTableList.delegate = self
         UiTableList.dataSource = self
         //轮播图加载
         let pointY = 44 + UIApplication.shared.statusBarFrame.size.height
-        let cycleView : CycleView = CycleView(frame: CGRect(x: 0, y: pointY, width: UIScreen.main.bounds.size.width, height: 220))
+        let cycleView : CycleView = CycleView(frame: CGRect(x: 0, y: pointY, width: KUIScreenWidth, height: 220))
         cycleView.delegate = self
         cycleView.mode = .scaleAspectFill
         //本地图片测试--加载网络图片,请用第三方库如SDWebImage等
@@ -47,9 +43,6 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
     }
-
-
-
 
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)

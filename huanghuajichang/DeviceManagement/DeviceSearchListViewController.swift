@@ -8,13 +8,14 @@
 
 import UIKit
 
-class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
+class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGestureRecognizerDelegate {
     
     //原始数据集
     let schoolArray : NSMutableArray = ["清华大学","北京大学","中国人民大学","北京交通大学","北京工业大学",
                                         "北京航空航天大学","北京理工大学","北京科技大学","中国政法大学","中央财经大学","华北电力大学",
                                         "北京体育大学","上海外国语大学","复旦大学","华东师范大学","上海大学","河北工业大学"]
     let historyList :[String] = ["历史1","历史2","历史3","历史4","历史5"]
+    var historyView : UIView!
     
     var mTableView : UITableView!
     var shouldShowSearchResults = false
@@ -31,34 +32,25 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
+        setHistoryView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool){
+        self.title = "搜索设备"
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
     }
     
     //MARK:设置界面样式
     func setViewStyle(){
         top = UIApplication.shared.statusBarFrame.height
         view.backgroundColor = UIColor.white
-        self.setStatusBarBackgroundColor(color: UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1))
-        //header
-        let headerView = UIView(frame: CGRect(x: 0, y: top, width: KUIScreenWidth, height: 40))
-        headerView.layer.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
-        self.view.addSubview(headerView)
         
-        let backButton = UIButton(frame: CGRect(x: 20, y: 10, width: 20, height: 20))
-        backButton.setImage(UIImage(named: "返回"), for: UIControlState.normal)
-        backButton.addTarget(self, action: #selector(goBack), for: UIControlEvents.touchUpInside)
-        
-        let textLabel = UILabel(frame: CGRect(x: 40, y: 0, width: KUIScreenWidth-80, height: 40))
-        textLabel.text = "设备搜索"
-        textLabel.textAlignment = .center
-        textLabel.textColor = UIColor.white
-        
-        headerView.addSubview(backButton)
-        headerView.addSubview(textLabel)
         //search
 //        let historySearchListView = HistorySearchListView()
         countrySearchController = UISearchController(searchResultsController: nil)
         countrySearchController.searchBar.delegate = self
-        countrySearchController.searchBar.frame = CGRect(x: 60, y: 0, width: KUIScreenWidth-60, height: 40)
+//        countrySearchController.searchBar.frame = CGRect(x: 60, y: 0, width: KUIScreenWidth-60, height: 40)
         //默认情况下，UISearchController暗化前一个view，这在我们使用另一个view controller来显示结果时非常有用，但当前情况我们并不想暗化当前view，即设置开始搜索时背景是否显示
         countrySearchController.dimsBackgroundDuringPresentation = false
         countrySearchController.searchBar.placeholder = "搜索框"
@@ -70,17 +62,17 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
 //        print("打印：\(countrySearchController.view.subviews[0].subviews)")
         
 //         设置开始搜索时导航条是否隐藏
-        countrySearchController.hidesNavigationBarDuringPresentation = false
+        countrySearchController.hidesNavigationBarDuringPresentation = true
         //设置definesPresentationContext为true，我们保证在UISearchController在激活状态下用户push到下一个view controller之后search bar不会仍留在界面上。
         countrySearchController.definesPresentationContext = true
         
         //创建表视图 list
-        tableViewFrame = CGRect(x: 0, y:top+headerView.frame.height, width: view.frame.width,
+        tableViewFrame = CGRect(x: 0, y:0, width: view.frame.width,
                                 height: view.frame.height)
         self.mTableView = UITableView(frame: tableViewFrame, style:.plain)
         self.mTableView!.delegate = self
         self.mTableView!.dataSource = self
-        //        mTableView.separatorStyle = .none
+        self.mTableView.separatorStyle = .none
         //创建一个重用的单元格
         self.mTableView!.register(UITableViewCell.self,
                                   forCellReuseIdentifier: "MyCell")
@@ -88,6 +80,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
         self.view.addSubview(self.mTableView!)
         
     }
+    
     
     @objc func goBack(){
         print("关闭当前页")
@@ -107,17 +100,54 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
+    func setHistoryView(){
+        historyView = UIView(frame:CGRect(x: 0, y: 40+UIApplication.shared.statusBarFrame.size.height+(self.navigationController?.navigationBar.frame.height)!, width: KUIScreenWidth, height: 80))
+        let mLabelTitle = UILabel(frame: CGRect(x: 40, y: 10, width: KUIScreenWidth, height: 40))
+        mLabelTitle.font = UIFont.boldSystemFont(ofSize: 12)
+        mLabelTitle.textColor = UIColor.black
+        mLabelTitle.text = "历史搜索记录"
+        for i in 0..<5{
+            let mBut = UIButton(frame: CGRect(x: 40+i*60, y: 60, width: 50, height: 20))
+            mBut.setTitle(historyList[i], for: UIControlState.normal)
+            mBut.setTitleColor(UIColor.gray, for: UIControlState.normal)
+            mBut.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+            mBut.layer.cornerRadius = 5
+            mBut.layer.borderWidth = 1
+            mBut.layer.backgroundColor = UIColor.white.cgColor
+            mBut.layer.borderColor = UIColor.gray.cgColor
+            mBut.addTarget(self, action: #selector(toSearchData), for: UIControlEvents.touchUpInside)
+            historyView.addSubview(mBut)
+        }
+        
+        
+        historyView.addSubview(mLabelTitle)
+        self.view.addSubview(historyView)
+        
+    }
     
+    @objc func toSearchData(button:UIButton){
+        print(button.titleLabel?.text as Any)
+        countrySearchController.searchBar.becomeFirstResponder()
+        countrySearchController.searchBar.text = button.title(for: UIControlState.normal)
+    }
     
 }
 
 extension DeviceSearchListViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.countrySearchController.isActive {
-            return self.searchArray.count
+            if countrySearchController.searchBar.text == ""{
+                return self.schoolArray.count
+            }else{
+                return self.searchArray.count
+            }
         } else {
-
-            return self.schoolArray.count
+            if shouldShowSearchResults{
+                return self.searchArray.count
+            }else{
+                return 0
+            }
+            
 
         }
     }
@@ -130,11 +160,17 @@ extension DeviceSearchListViewController:UITableViewDataSource{
                                                  for: indexPath)
         
         if self.countrySearchController.isActive {
-            cell.textLabel?.text = self.searchArray[indexPath.row]
-            return cell
-        } else {
             cell.textLabel?.text = self.schoolArray[indexPath.row] as? String
             return cell
+        } else {
+            if shouldShowSearchResults{
+                cell.textLabel?.text = self.searchArray[indexPath.row]
+                return cell
+            }else{
+                cell.textLabel?.text = self.searchArray[indexPath.row]
+                return cell
+            }
+            
         }
     }
     
@@ -158,12 +194,16 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
     //开始进行文本编辑，设置显示搜索结果，刷新列表
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
+        historyView.isHidden = true
+        self.mTableView.separatorStyle = .singleLine
         mTableView.reloadData()
     }
 
     //点击Cancel按钮，设置不显示搜索结果并刷新列表
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowSearchResults = false
+        historyView.isHidden = false
+        self.mTableView.separatorStyle = .none
         mTableView.reloadData()
         //
     }
@@ -173,6 +213,9 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
 
         let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
         searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
+        shouldShowSearchResults = true
+        historyView.isHidden = true
+        self.mTableView.separatorStyle = .singleLine
         print(searchArray)
         mTableView.reloadData()
     }
