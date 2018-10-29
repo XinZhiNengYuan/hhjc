@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 let kWindowHeight: CGFloat = 205.0
 
@@ -15,7 +17,9 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var headerView: UIButton!
     var personalTable:UITableView!
     var tableCellModels :[NSArray] = NSMutableArray() as! [NSArray]
-    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
@@ -23,6 +27,9 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
 //        createCollNav()
         creteHeaderView()
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        getData()
     }
 //    func createCollNav(){
 //        createTableView()
@@ -34,6 +41,37 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        })
 //        self.view.addSubview(headerView!)
 //    }
+    
+    func getData(){
+        //网络请求
+        let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
+        let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
+        let headers: HTTPHeaders = [
+            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+            "Accept": "application/json"
+        ]
+        let contentData : [String : Any] = ["method":"getUserInfo","info":"","token":userToken,"user_id":userId]
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 60
+        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
+            
+            switch resultData.result {
+            case .success(let value):
+                let json = JSON(value)["data"]
+                print(json)
+                
+                
+            case .failure(let error):
+                self.windowAlert(msges: "数据请求失败")
+                print("error:\(error)")
+                return
+                
+            }
+            
+            }.session.finishTasksAndInvalidate()
+    }
+    
     func creteHeaderView(){
         headerView = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 180))
         //会拉伸图片覆盖
@@ -112,6 +150,10 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        self.personalTable.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
         
         self.view.addSubview(personalTable!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {//确保每次进入个人中心页面时，刷新缓存处的数据
+        personalTable.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -198,6 +240,10 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell?.selectionStyle = UITableViewCellSelectionStyle.none
 //            NSLog("初始化cell")
             
+        }else {
+            while cell?.contentView.subviews.last != nil {
+                (cell?.contentView.subviews.last)?.removeFromSuperview()
+            }
         }
         if indexPath.section < tableCellModels.count{
             
@@ -434,5 +480,12 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //MARK:alert弹框
+    func windowAlert(msges : String){
+        let alertView = UIAlertController(title: "提示", message: msges, preferredStyle: UIAlertControllerStyle.alert)
+        let yes = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: nil)
+        alertView.addAction(yes)
+        self.present(alertView,animated:true,completion:nil)
+    }
 }
