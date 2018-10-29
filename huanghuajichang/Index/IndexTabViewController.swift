@@ -33,13 +33,23 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     var rightBarButtonItem:UIBarButtonItem?
     
+    var rightBarButton:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "智慧能源管理系统"
         self.navigationController?.title = "首页"
-         rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(getNewMsg))
-        rightBarButtonItem?.tintColor = UIColor.white//必须设置颜色，不然不出现～
+//         rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(getNewMsg(sender:)))
+//        rightBarButtonItem?.tintColor = UIColor.white//必须设置颜色，不然不出现～
+//        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        rightBarButton = UIButton.init()
+        rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
+        rightBarButton.tintColor = UIColor.white
+        
+        rightBarButton.addTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.touchUpInside)
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        
         self.view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         // Do any additional setup after loading the view.
         deviceTotal()
@@ -47,11 +57,22 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         currentNew()
     }
     
-    @objc func getNewMsg(){
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem?.addMessage(msg: "95")
+    @objc func getNewMsg(sender:UIButton){
+        sender.removeTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.allEvents)
+        sender.addTarget(self, action: #selector(removeMsg(sender:)), for: UIControlEvents.touchUpInside)
+        self.navigationItem.rightBarButtonItem = sender.addMessage(operateBtn:sender, msg: "95")
     }
-    @objc func removeMsg(){
-//        self.navigationItem.rightBarButtonItem = rightBarButtonItem?.addMessage(msg: "95")ß
+    
+    @objc func removeMsg(sender:UIButton){
+        sender.removeTarget(self, action: #selector(removeMsg(sender:)), for: UIControlEvents.allEvents)
+        sender.addTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.touchUpInside)
+        self.navigationItem.rightBarButtonItem = sender.removeMessage(operateBtn: sender, msg: "")
+        
+        let AlarmListVc = AlarmListViewController()
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(AlarmListVc, animated: true)
+        self.hidesBottomBarWhenPushed = false
+        
     }
     
     
@@ -628,11 +649,8 @@ extension UIImage{
     }
 }
 
-extension UIBarButtonItem {
-    public func addMessage(msg:String) ->UIBarButtonItem{
-        let rightBarButton:UIButton = UIButton.init()
-        rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
-        rightBarButton.tintColor = UIColor.white
+extension UIButton {
+    public func addMessage(operateBtn:UIButton,msg:String) ->UIBarButtonItem{
         
         let msgView:UIButton = UIButton.init(frame: CGRect(x: 12.5, y: 0, width: 15, height: 15))
         msgView.backgroundColor = UIColor.red
@@ -640,17 +658,17 @@ extension UIBarButtonItem {
         msgView.setTitle(msg, for: UIControlState.normal)
         msgView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
         msgView.tintColor = UIColor.white
-        rightBarButton.addSubview(msgView)
+        msgView.tag = 500
+        operateBtn.addSubview(msgView)
         
-        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: operateBtn)
         return rightBarButtonItem
     }
-    public func removeMessage(msg:String) ->UIBarButtonItem{
-        let rightBarButton:UIButton = UIButton.init()
-        rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
-        rightBarButton.tintColor = UIColor.white
+    public func removeMessage(operateBtn:UIButton, msg:String) ->UIBarButtonItem{
+        let msgView = operateBtn.viewWithTag(500)
+        msgView?.removeFromSuperview()
         
-        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
+        let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: operateBtn)
         return rightBarButtonItem
     }
 }

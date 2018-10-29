@@ -36,6 +36,7 @@
 		3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */; };
 		3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
 		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
+		3D57CCC62183F789005A6658 /* AlarmListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D57CCC52183F789005A6658 /* AlarmListTableViewCell.swift */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
@@ -48,6 +49,7 @@
 		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
 		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
 		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
+		3DFBA5D42182E895007F9B4D /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55E216F180A00A5CD62 /* CameraView.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
@@ -100,6 +102,7 @@
 		3D48C7EF217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3D48C7F3217EFD2B0067705E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3D57CCC52183F789005A6658 /* AlarmListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListTableViewCell.swift; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
 		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
 		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55E216F180A00A5CD62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 			children = (
 				3DADFD2E21815D1300E47916 /* AlarmAnalysisViewController.swift */,
 				3DADFD3021815D9400E47916 /* TabButton.swift */,
+				3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */,
+				3D57CCC52183F789005A6658 /* AlarmListTableViewCell.swift */,
 			);
 			name = Alarm;
 			path = "New Group";
@@ -464,11 +470,13 @@
 				3DADFD2F21815D1300E47916 /* AlarmAnalysisViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
+				3DFBA5D42182E895007F9B4D /* AlarmListViewController.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
 				3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */,
 				3DC58F3D217971910015A518 /* common.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
+				3D57CCC62183F789005A6658 /* AlarmListTableViewCell.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
 				FB381B0F215493B600F6D2AB /* ViewController.swift in Sources */,
