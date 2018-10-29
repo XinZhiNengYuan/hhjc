@@ -20,6 +20,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     let eyes = UIButton()
     var flageStatus : Bool = false //是否记住密码
     var seePass : Bool = false //查看密码
+    
+    let popViewController = PortViewController()
+    var popView : UIView!
     //本地存储
     var userDefault = UserDefaults.standard
     override func viewDidLoad() {
@@ -176,6 +179,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         }else{//没有选中状态
             flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
         }
+        //MARK:设置端口按钮事件
+        popViewController.ok.addTarget(self, action: #selector(touchOk), for: UIControlEvents.touchUpInside)
+        popViewController.cancel.addTarget(self, action: #selector(touchCancel), for: UIControlEvents.touchUpInside)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -217,9 +223,29 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK:端口按钮
     @objc func changePort(){
 //            self.present(PortViewController(), animated: false, completion: nil)
+        
+        popView = popViewController.creatAlertView()
+        view.addSubview(popView)
         //自定义弹框调用方式
-        AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
+//        AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
     }
+    //MARK:端口按钮确认键
+    @objc fileprivate func touchOk(_ button:UIButton){
+        
+        if popViewController.portText.text != nil && popViewController.portText.text != ""{
+            userDefault.set(popViewController.portText.text, forKey: "AppUrlAndPort")
+            popView.removeFromSuperview()
+        }else{
+            windowAlert(msges: "端口号不能为空！")
+        }
+        
+    }
+    //MARK:端口按钮取消键
+    @objc fileprivate func touchCancel(_ button:UIButton){
+        
+        popView.removeFromSuperview()
+    }
+    
     //MARK:登录按钮
     @objc func startTouch(_ button:UIButton){
 //        UIView.animate(withDuration: 0.1, animations: {
