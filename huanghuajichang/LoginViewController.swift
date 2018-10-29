@@ -270,7 +270,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         }
         //网络请求
         let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
-        let urlStr = "\(userDefalutUrl ?? "10.4.65.103:8600")/interface"
+        let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
         let headers: HTTPHeaders = [
             "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
             "Accept": "application/json"
@@ -286,35 +286,28 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 //把账号和密码保存本地
                 self.userDefault.set(username, forKey: "name")
                 self.userDefault.set(password,forKey:"password")
-                let json = JSON(value)
+                let json = JSON(value)["data"]
                 print(json)
-                print(json["method"])
-                print(json["info"])
-                print(json["info"]["username"])
-                print(value)
-                //实例化将要跳转的controller
-//                let sb = UIStoryboard(name: "Main", bundle:nil)
-//                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-//                self.present(vc, animated: false, completion: nil)
+                //let token = String(json["token"])
+                //let userId = json["user_id"]
+                
+//                self.userDefault.set(token, forKey: "sdfkjasldkj")
+//                self.userDefault.set(userId, forKey: "userId")
+                return
+                ///实例化将要跳转的controller
+                let sb = UIStoryboard(name: "Main", bundle:nil)
+                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+                self.present(vc, animated: false, completion: nil)
+                
 
             case .failure(let error):
-                //self.windowAlert(msges: "数据请求失败")
-                self.userDefault.set(username, forKey: "name")
-                self.userDefault.set(password,forKey:"password")
-//                let sb = UIStoryboard(name: "Main", bundle:nil)
-//                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-//                self.navigationController?.pushViewController(vc, animated: false)
-                //self.present(vc, animated: false, completion: nil)
+                self.windowAlert(msges: "数据请求失败")
                 print("error:\(error)")
                 return
 
             }
 
         }.session.finishTasksAndInvalidate()
-        //实例化将要跳转的controller
-        let sb = UIStoryboard(name: "Main", bundle:nil)
-        let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-        self.present(vc, animated: false, completion: nil)
         
         
     }
