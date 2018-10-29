@@ -37,7 +37,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let userDefault = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-
         addData()
         drawerView()
         setContentView()
@@ -48,10 +47,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
 
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
-//        let indexPathForMean = IndexPath(row:meanAndContentLog["meanLog"]!["two"]!,section:1)
-//        tableView1.scrollToRow(at: indexPathForMean, at: UITableViewScrollPosition.top, animated: true)
-//        let indexPathForContent = IndexPath(row:meanAndContentLog["contentLog"]!["two"]!,section:1)
-//        tableView2.scrollToRow(at: indexPathForContent, at: UITableViewScrollPosition.top, animated: true)
         if meanAndContentLog["meanLog"]!["one"]! != -1{
             statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
             self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)

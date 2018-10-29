@@ -287,13 +287,10 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 self.userDefault.set(username, forKey: "name")
                 self.userDefault.set(password,forKey:"password")
                 let json = JSON(value)["data"]
-                print(json)
-                //let token = String(json["token"])
-                //let userId = json["user_id"]
-                
-//                self.userDefault.set(token, forKey: "sdfkjasldkj")
-//                self.userDefault.set(userId, forKey: "userId")
-                return
+                let token = json["token"].description
+                let userId = json["user_id"].description
+                self.userDefault.set(token, forKey: "userToken")
+                self.userDefault.set(userId, forKey: "userId")
                 ///实例化将要跳转的controller
                 let sb = UIStoryboard(name: "Main", bundle:nil)
                 let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
