@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
+import Alamofire
 
 let KNavBarHeight : CGFloat = 44.0
 let KStatusBarHeight : CGFloat = UIApplication.shared.statusBarFrame.size.height
@@ -24,3 +26,74 @@ let isIphone5 : Bool = (UIScreen.main.bounds.height == 568) //5/5s
 let isIphone6 : Bool = (UIScreen.main.bounds.height == 667) //6/6s/7/7s/8
 let isIphone6P : Bool = (UIScreen.main.bounds.height == 736) //6p/6sp/7p/7sp/8p
 let isIphoneX : Bool = (UIScreen.main.bounds.height == 812) //X
+
+/**
+ 字典转换为JSONString
+ 
+ - parameter dictionary: 字典参数
+ 
+ - returns: JSONString
+ */
+func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
+    if (!JSONSerialization.isValidJSONObject(dictionary)) {
+        print("无法解析出JSONString")
+        return ""
+    }
+    let data : NSData! = try? JSONSerialization.data(withJSONObject: dictionary, options: []) as NSData!
+    let JSONString = NSString(data:data as Data,encoding: String.Encoding.utf8.rawValue)
+    return JSONString! as String
+    
+}
+
+/// JSONString转换为字典
+///
+/// - Parameter jsonString: <#jsonString description#>
+/// - Returns: <#return value description#>
+func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
+    
+    let jsonData:Data = jsonString.data(using: .utf8)!
+    
+    let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
+    if dict != nil {
+        return dict as! NSDictionary
+    }
+    return NSDictionary()
+    
+    
+}
+
+
+/*
+ urlStr: 请求地址
+ outTime: 请求超时事件
+ info : 请求参数
+ finished : 请求成功的回调
+ finishedError : 请求不成功的回调
+ */
+func requestData(urlStr : String,outTime : Double ,info : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
+    //网络请求
+    let headers: HTTPHeaders = [
+        "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+        "Accept": "application/json"
+    ]
+    let configuration = URLSessionConfiguration.default
+    configuration.timeoutIntervalForRequest = outTime
+    let sessionManager = Alamofire.SessionManager(configuration: configuration)
+    sessionManager.request(urlStr, method: .post, parameters: info, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
+        
+        switch resultData.result {
+        case .success(let value):
+            let json = JSON(value)
+            print("成功:\(value)")
+            finished(json)
+        case .failure(let error):
+            print("失败:\(error)")
+            finishedError(error)
+            return
+            
+        }
+        
+        }.session.finishTasksAndInvalidate()
+    
+}
+

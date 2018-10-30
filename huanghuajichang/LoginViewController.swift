@@ -268,81 +268,32 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             windowAlert(msges: "密码不能为空")
             return
         }
-        //网络请求
         let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
         let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
-        let headers: HTTPHeaders = [
-            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
-            "Accept": "application/json"
-        ]
         let contentData : [String : Any] = ["method":"login","info":["username":username,"password":password]]
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60
-        let sessionManager = Alamofire.SessionManager(configuration: configuration)
-        sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
-
-            switch resultData.result {
-            case .success(let value):
-                //把账号和密码保存本地
-                self.userDefault.set(username, forKey: "name")
-                self.userDefault.set(password,forKey:"password")
-                let json = JSON(value)["data"]
-                let token = json["token"].description
-                let userId = json["user_id"].description
-                self.userDefault.set(token, forKey: "userToken")
-                self.userDefault.set(userId, forKey: "userId")
-                ///实例化将要跳转的controller
-                let sb = UIStoryboard(name: "Main", bundle:nil)
-                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-                self.present(vc, animated: false, completion: nil)
-                
-
-            case .failure(let error):
-                self.windowAlert(msges: "数据请求失败")
-                print("error:\(error)")
-                return
-
-            }
-
-        }.session.finishTasksAndInvalidate()
+        
+        //网络请求
+        requestData(urlStr: urlStr, outTime: 60, info: contentData, finished: { (resultData) in
+            let json = JSON(resultData)["data"]
+            let token = json["token"].description
+            let userId = json["user_id"].description
+            self.userDefault.set(urlStr, forKey: "AppUrl")
+            self.userDefault.set(token, forKey: "userToken")
+            self.userDefault.set(userId, forKey: "userId")
+            ///实例化将要跳转的controller
+            let sb = UIStoryboard(name: "Main", bundle:nil)
+            let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+            self.present(vc, animated: false, completion: nil)
+        }) { (errorData) in
+            self.windowAlert(msges: "数据请求失败")
+            print("error:\(errorData)")
+            return
+        }
+        
         
         
     }
     
-    /**
-     字典转换为JSONString
-     
-     - parameter dictionary: 字典参数
-     
-     - returns: JSONString
-     */
-    func getJSONStringFromDictionary(dictionary:NSDictionary) -> String {
-        if (!JSONSerialization.isValidJSONObject(dictionary)) {
-            print("无法解析出JSONString")
-            return ""
-        }
-        let data : NSData! = try? JSONSerialization.data(withJSONObject: dictionary, options: []) as NSData!
-        let JSONString = NSString(data:data as Data,encoding: String.Encoding.utf8.rawValue)
-        return JSONString! as String
-        
-    }
-    
-    /// JSONString转换为字典
-    ///
-    /// - Parameter jsonString: <#jsonString description#>
-    /// - Returns: <#return value description#>
-    func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
-        
-        let jsonData:Data = jsonString.data(using: .utf8)!
-        
-        let dict = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-        if dict != nil {
-            return dict as! NSDictionary
-        }
-        return NSDictionary()
-        
-        
-    }
     //MARK:alert弹框
     func windowAlert(msges : String){
         let alertView = UIAlertController(title: "提示", message: msges, preferredStyle: UIAlertControllerStyle.alert)
