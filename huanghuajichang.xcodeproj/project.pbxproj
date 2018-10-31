@@ -49,6 +49,7 @@
 		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
 		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
 		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
+		3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
 		3DFBA5D42182E895007F9B4D /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55E216F180A00A5CD62 /* CameraView.swift */; };
@@ -117,6 +118,7 @@
 		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
 		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
 		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
 		3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55E216F180A00A5CD62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				3D06EBAD21742BFC002F3C35 /* Personal */,
 				3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
 				3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
+				3DF203472188439A00F003A3 /* CommenRequest.swift */,
 			);
 			path = huanghuajichang;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
 				3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */,
 				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
+				3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,
 				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
 				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
 				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,

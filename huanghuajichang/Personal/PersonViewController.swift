@@ -20,13 +20,15 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var userDefault = UserDefaults.standard
     var userToken:String!
     var userId:String!
+    var json:JSON = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
 //        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         // Do any additional setup after loading the view.
 //        createCollNav()
-        creteHeaderView()
+        
         userToken = self.userDefault.object(forKey: "userToken") as? String
         userId = self.userDefault.object(forKey: "userId") as? String
         getData()
@@ -43,33 +45,22 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //    }
     
     func getData(){
-        //网络请求
-        let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
-        let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
-        let headers: HTTPHeaders = [
-            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
-            "Accept": "application/json"
-        ]
         let contentData : [String : Any] = ["method":"getUserInfo","info":"","token":userToken,"user_id":userId]
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60
-        let sessionManager = Alamofire.SessionManager(configuration: configuration)
-        sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
-            
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
             switch resultData.result {
             case .success(let value):
-                let json = JSON(value)["data"]
-                print(json)
-                
-                
+                self.json = JSON(value)["data"]
+                print(self.json)
+                self.creteHeaderView()
+
             case .failure(let error):
                 self.windowAlert(msges: "数据请求失败")
                 print("error:\(error)")
+                self.creteHeaderView()
                 return
-                
             }
-            
-            }.session.finishTasksAndInvalidate()
+        }
     }
     
     func creteHeaderView(){
@@ -108,7 +99,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         personName.textColor = UIColor.white
         personName.textAlignment = .left
         personName.font = UIFont.systemFont(ofSize: 18)
-        personName.text = "孙建玲"
+        personName.text = self.json["user_name"].description
         headerView.addSubview(personName)
 
         let personPosition:UILabel = UILabel.init(frame: CGRect(x: 110, y: 104, width: kScreenWidth-110, height: 20))
@@ -153,7 +144,9 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillAppear(_ animated: Bool) {//确保每次进入个人中心页面时，刷新缓存处的数据
-        personalTable.reloadData()
+        if personalTable != nil {
+            personalTable.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
