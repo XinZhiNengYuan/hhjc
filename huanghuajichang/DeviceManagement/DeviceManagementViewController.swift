@@ -35,6 +35,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
     //本地存储
     let userDefault = UserDefaults.standard
+    
+    let deviceManagementService = DeviceManagementService()
     override func viewDidLoad() {
         super.viewDidLoad()
         addData()
@@ -43,8 +45,15 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         setSearchView()
         readyGo()
         // Do any additional setup after loading the view.
+        requestForDataTest()
     }
 
+    func requestForDataTest(){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
+        deviceManagementService.getData(contentData: contentData)
+    }
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
         if meanAndContentLog["meanLog"]!["one"]! != -1{

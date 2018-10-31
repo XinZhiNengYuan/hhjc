@@ -63,37 +63,49 @@ func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
 }
 
 
-/*
- urlStr: 请求地址
- outTime: 请求超时事件
- info : 请求参数
- finished : 请求成功的回调
- finishedError : 请求不成功的回调
- */
-func requestData(urlStr : String,outTime : Double ,info : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
-    //网络请求
-    let headers: HTTPHeaders = [
-        "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
-        "Accept": "application/json"
-    ]
-    let configuration = URLSessionConfiguration.default
-    configuration.timeoutIntervalForRequest = outTime
-    let sessionManager = Alamofire.SessionManager(configuration: configuration)
-    sessionManager.request(urlStr, method: .post, parameters: info, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
-        
-        switch resultData.result {
-        case .success(let value):
-            let json = JSON(value)
-            print("成功:\(value)")
-            finished(json)
-        case .failure(let error):
-            print("失败:\(error)")
-            finishedError(error)
-            return
-            
-        }
-        
-        }.session.finishTasksAndInvalidate()
-    
-}
 
+
+class common : NSObject{
+    /*
+     urlStr: 请求地址
+     outTime: 请求超时事件
+     info : 请求参数
+     finished : 请求成功的回调
+     finishedError : 请求不成功的回调
+     */
+    func requestData(urlStr : String,outTime : Double ,contentData : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
+        //网络请求
+        let headers: HTTPHeaders = [
+            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+            "Accept": "application/json"
+        ]
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = outTime
+        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
+            
+            switch resultData.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("requestData成功:\(value)")
+                finished(json)
+            case .failure(let error):
+                print("requestData失败:\(error)")
+                finishedError(error)
+                return
+                
+            }
+            
+            }.session.finishTasksAndInvalidate()
+        
+    }
+    
+    //MARK:alert弹框
+    func windowAlert(msges : String,callback:(_ alertView : UIAlertController)->()){
+        let alertView = UIAlertController(title: "提示", message: msges, preferredStyle: UIAlertControllerStyle.alert)
+        let yes = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: nil)
+        alertView.addAction(yes)
+        callback(alertView)
+//        self.present(alertView,animated:true,completion:nil)
+    }
+}

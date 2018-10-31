@@ -20,7 +20,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     let eyes = UIButton()
     var flageStatus : Bool = false //是否记住密码
     var seePass : Bool = false //查看密码
-    
+    let commonClass = common()
     let popViewController = PortViewController()
     var popView : UIView!
     //本地存储
@@ -273,7 +273,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let contentData : [String : Any] = ["method":"login","info":["username":username,"password":password]]
         
         //网络请求
-        requestData(urlStr: urlStr, outTime: 60, info: contentData, finished: { (resultData) in
+        commonClass.requestData(urlStr: urlStr, outTime: 10, contentData: contentData, finished: { (resultData) in
             let json = resultData["data"]
             let token = json["token"].object
             let userId = json["user_id"].object
