@@ -274,9 +274,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
         //网络请求
         requestData(urlStr: urlStr, outTime: 60, info: contentData, finished: { (resultData) in
-            let json = JSON(resultData)["data"]
-            let token = json["token"].description
-            let userId = json["user_id"].description
+            let json = resultData["data"]
+            let token = json["token"].object
+            let userId = json["user_id"].object
             self.userDefault.set(urlStr, forKey: "AppUrl")
             self.userDefault.set(token, forKey: "userToken")
             self.userDefault.set(userId, forKey: "userId")
