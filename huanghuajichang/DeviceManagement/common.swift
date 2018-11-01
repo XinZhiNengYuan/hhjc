@@ -87,10 +87,8 @@ class common : NSObject{
             switch resultData.result {
             case .success(let value):
                 let json = JSON(value)
-                print("requestData成功:\(json)")
                 finished(json)
             case .failure(let error):
-                print("requestData失败:\(error)")
                 finishedError(error)
                 return
                 
@@ -108,6 +106,7 @@ class common : NSObject{
         callback(alertView)
 //        self.present(alertView,animated:true,completion:nil)
     }
+    
 }
 
 //MARK:将unicode编码转为汉字

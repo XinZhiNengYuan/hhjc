@@ -25,6 +25,7 @@
 		3D1598F72178778E00458C11 /* ThickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F62178778E00458C11 /* ThickButton.swift */; };
 		3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F8217880CF00458C11 /* ThickButtonModel.swift */; };
 		3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */; };
+		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
 		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
 		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
@@ -94,6 +95,7 @@
 		3D1598F62178778E00458C11 /* ThickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButton.swift; sourceTree = "<group>"; };
 		3D1598F8217880CF00458C11 /* ThickButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButtonModel.swift; sourceTree = "<group>"; };
 		3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
+		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
 		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,14 @@
 			path = Personal;
 			sourceTree = "<group>";
 		};
+		3D25DE3A218AC17F00A6CEBC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		3D48C7CC217ECB610067705E /* DailyRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +238,7 @@
 		3DBF24D7216C95A600CD675D /* PopController */ = {
 			isa = PBXGroup;
 			children = (
+				3D25DE3A218AC17F00A6CEBC /* Service */,
 				3DBF24D8216C95ED00CD675D /* PortViewController.swift */,
 				3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */,
 				3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */,
@@ -245,13 +256,13 @@
 			path = CycleView;
 			sourceTree = "<group>";
 		};
-		3DCF48F6218942C8005D51FB /* service */ = {
+		3DCF48F6218942C8005D51FB /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				3DCF48F721894304005D51FB /* DeviceManagementService.swift */,
 				3DCF48F921894345005D51FB /* DeviceDetailService.swift */,
 			);
-			path = service;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		92733A0B1D8E6AB28FD54EE1 /* Pods */ = {
@@ -266,7 +277,7 @@
 		FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3DCF48F6218942C8005D51FB /* service */,
+				3DCF48F6218942C8005D51FB /* Service */,
 				3DC58F40217982920015A518 /* CycleView */,
 				3DC58F3C217971910015A518 /* common.swift */,
 				FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
@@ -490,6 +501,7 @@
 				3DADFD2F21815D1300E47916 /* AlarmAnalysisViewController.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
+				3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */,
 				3DFBA5D42182E895007F9B4D /* AlarmListViewController.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
