@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
 
@@ -23,6 +24,10 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
     var confrimHave:Bool = false
     
     var rightBar:UIBarButtonItem!
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +58,9 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
         oldTextField.clearButtonMode = UITextFieldViewMode.whileEditing
         newTextField.clearButtonMode = UITextFieldViewMode.whileEditing
         confrimTextField.clearButtonMode = UITextFieldViewMode.whileEditing
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
         // Do any additional setup after loading the view.
     }
 
@@ -62,41 +70,34 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func backTolast (){
-        //由于本页面是push进来的所以用pop返回
+        //由于本页面是present进来的所以用dismiss返回
         self.dismiss(animated: true, completion: nil)
     }
     @objc func changePassword () {
         if newTextField.text != confrimTextField.text{
-            let alertview:UIAlertController = UIAlertController.init(title: "提示", message: "两次输入密码不同，请重新输入", preferredStyle: UIAlertControllerStyle.alert)
-            let okBtn:UIAlertAction = UIAlertAction.init(title: "确定", style: .cancel, handler: nil)
-            alertview.addAction(okBtn)
-            self.present(alertview, animated: true, completion: nil)
+            self.present(windowAlert(msges: "两次输入密码不同，请重新输入"), animated: true, completion: nil)
         }else {
             if oldTextField.text == newTextField.text{
-                let alertview:UIAlertController = UIAlertController.init(title: "提示", message: "新旧密码相同，请重新输入", preferredStyle: UIAlertControllerStyle.alert)
-                let okBtn:UIAlertAction = UIAlertAction.init(title: "确定", style: .cancel, handler: nil)
-                alertview.addAction(okBtn)
-                self.present(alertview, animated: true, completion: nil)
+                self.present(windowAlert(msges: "新旧密码相同，请重新输入"), animated: true, completion: nil)
             }else{
-                //利用GCD和UILabel实现,代码如下
-                //在label下面添加遮盖层
-                //设置修改成功提示
-                let zgc = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight))
-                zgc.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
-                self.view.addSubview(zgc)
-                let label = UILabel.init(frame: CGRect(x: (kScreenWidth-100)/2, y: (kScreenHeight-64-100)/2, width: 100, height: 100))
-                label.text = "修改成功"
-                label.font = UIFont.systemFont(ofSize: 15)
-                label.backgroundColor = UIColor.gray
-                label.textAlignment = .center
-                label.layer.cornerRadius = 4
-                label.layer.masksToBounds = true
-                zgc.addSubview(label)
-                DispatchQueue.global().async {
-                    Thread.sleep(forTimeInterval: 2)//延时2秒执行
-                    //回到主线程
-                    DispatchQueue.main.async {
-                        zgc.removeFromSuperview()
+                let infoData = ["newpassword":newTextField.text, "password":oldTextField.text]
+                let contentData : [String : Any] = ["method":"updatePassword","info":infoData,"token":userToken,"user_id":userId]
+                NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+                    print(resultData)
+                    switch resultData.result {
+                    case .success(let value):
+                        print(JSON(value).description)
+                        if JSON(value)["status"] == "success"{
+                            windowTotast(pageName: self, msg: "修改成功") {
+                                self.backTolast ()
+                            }
+                        }else{
+                            self.present(windowAlert(msges: JSON(value)["msg"].description), animated: true, completion: nil)
+                        }
+                    case .failure(let error):
+                        self.present(windowAlert(msges: "修改失败"), animated: true, completion: nil)
+                        print("error:\(error)")
+                        return
                     }
                 }
             }

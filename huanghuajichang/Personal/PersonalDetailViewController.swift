@@ -7,16 +7,45 @@
 //
 
 import UIKit
+import SwiftyJSON
+
 
 class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, UITableViewDataSource {
     
     var PersonalDetailList:UITableView!
     
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var json:JSON = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "个人信息"
         // Do any additional setup after loading the view.
-        createTabList()
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        getData()
+    }
+    
+    func getData(){
+        let contentData : [String : Any] = ["method":"getUserInfo","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                self.json = JSON(value)["data"]
+                print(self.json)
+                self.userDefault.set(self.json["email"], forKey: "UserEmail")
+                self.userDefault.set(self.json["mobile"], forKey: "UserMobile")
+                self.createTabList()
+            case .failure(let error):
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                self.createTabList()
+                return
+            }
+        }
     }
     
     func createTabList(){
@@ -54,39 +83,43 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         if indexPath.row == 0{
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
             cell?.itemTitle.text = "头像"
-            cell?.itemImage.image = UIImage(named: "Bitmap")
+            cell?.itemImage.image = UIImage(named: "Bitmap")//TODO
             tableView.allowsSelection = true
         }else if indexPath.row == 4 || indexPath.row == 5 {
             cell?.setUpUI(isHeaderView: false, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 50))
             switch indexPath.row {
             case 4:
                 cell?.itemTitle.text = "手机号"
+                cell?.itemRealMsg.text = json["mobile"].description
                 break
             case 5:
                 cell?.itemTitle.text = "邮箱"
+                cell?.itemRealMsg.text = json["email"].description
                 break
             default:
                 cell?.itemTitle.text = ""
+                cell?.itemRealMsg.text = "内容\(indexPath.row)"
             }
-            cell?.itemRealMsg.text = "内容\(indexPath.row)"
             tableView.allowsSelection = true
         }else {
             cell?.setUpUI(isHeaderView: false, hasRightIcon: false,cellSize:CGSize(width: kScreenWidth-10, height: 50))
             switch indexPath.row {
             case 1:
                 cell?.itemTitle.text = "登录名"
+                cell?.itemRealMsg.text = json["user_name"].description
                 break
             case 2:
                 cell?.itemTitle.text = "部门"
+                cell?.itemRealMsg.text = "内容\(indexPath.row)"//TODO
                 break
             case 3:
                 cell?.itemTitle.text = "客户"
+                cell?.itemRealMsg.text = "内容\(indexPath.row)"//TODO
                 break
             default:
                 cell?.itemTitle.text = ""
+                cell?.itemRealMsg.text = "内容\(indexPath.row)"
             }
-            
-            cell?.itemRealMsg.text = "内容\(indexPath.row)"
             tableView.allowsSelection = false
             cell?.selectionStyle = .none
         }

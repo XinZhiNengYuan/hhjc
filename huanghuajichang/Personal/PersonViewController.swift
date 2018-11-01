@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import SwiftyJSON
 
 let kWindowHeight: CGFloat = 205.0
@@ -55,7 +54,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.creteHeaderView()
 
             case .failure(let error):
-                self.windowAlert(msges: "数据请求失败")
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 self.creteHeaderView()
                 return
@@ -474,11 +473,4 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     */
     
-    //MARK:alert弹框
-    func windowAlert(msges : String){
-        let alertView = UIAlertController(title: "提示", message: msges, preferredStyle: UIAlertControllerStyle.alert)
-        let yes = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: nil)
-        alertView.addAction(yes)
-        self.present(alertView,animated:true,completion:nil)
-    }
 }

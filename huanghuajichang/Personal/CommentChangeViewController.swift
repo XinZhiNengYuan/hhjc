@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
     
+    var changeTextfield:UITextField!
     var phoneText:String!
     var emailText:String!
     var pageType:Int!
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +30,46 @@ class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
         
         // Do any additional setup after loading the view.
         
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        
         createUI()
     }
     
     @objc func changePost(){
         print("执行提交操作")
+        var infoData:[String:Any] = [:]
+        let oldEmail = self.userDefault.object(forKey: "UserEmail") as? String
+        let oldMobile = self.userDefault.object(forKey: "UserMobile") as? String
+        switch pageType {
+        case 1://修改手机
+            infoData = ["email":oldEmail!, "mobile":changeTextfield.text!]
+        default://修改邮箱
+            infoData = ["email":changeTextfield.text!, "mobile":oldMobile!]
+        }
+        let contentData : [String : Any] = ["method":"updateUserInfo","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                print(JSON(value).description)
+                if JSON(value)["status"] == "success"{
+                    windowTotast(pageName: self, msg: "修改成功") {
+//                        self.backTolast ()
+                    }
+                }else{
+                    self.present(windowAlert(msges: JSON(value)["msg"].description), animated: true, completion: nil)
+                }
+            case .failure(let error):
+                self.present(windowAlert(msges: "修改失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
     }
     
     func createUI(){
-        let changeTextfield = UITextField.init(frame: CGRect(x: 0, y: 50, width: kScreenWidth, height: 40))
+        changeTextfield = UITextField.init(frame: CGRect(x: 0, y: 50, width: kScreenWidth, height: 40))
         changeTextfield.delegate = self
         changeTextfield.borderStyle = UITextBorderStyle.none
         changeTextfield.clearButtonMode = .always
