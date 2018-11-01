@@ -17,7 +17,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var start:CGPoint!
     var move:Bool = false
     var showOrNo : Bool = false
-    let oneMeanArr : Array<String> = ["全部","基础类","进阶类","高级类","拔高类","终极类","究极类"]
+    var oneMeanArr : Array<Dictionary<String,String>> = []
     let listArr : Array<String> = ["人类起源","人类初级进化","人类中极进化","人类高级进化","人类终极进化","人类升华"]
     let listForArr : Array<Dictionary<String,String>> = [["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"]]
     var tableView1 = UITableView()
@@ -45,14 +45,19 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         setSearchView()
         readyGo()
         // Do any additional setup after loading the view.
-        requestForDataTest()
+        requestForData()
     }
 
-    func requestForDataTest(){
+    func requestForData(){
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
-        deviceManagementService.getData(contentData: contentData)
+        deviceManagementService.getData(contentData: contentData, finished: { (resultForOneMean,resultForSubMean) in
+//            print(result)
+            self.oneMeanArr = resultForOneMean
+        }) { (error) in
+            print(error)
+        }
     }
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
@@ -330,7 +335,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 view.setTopLine()
                 view.setBottomLine()
             }
-            view.mLabel.text = oneMeanArr[section]
+            view.mLabel.text = oneMeanArr[section]["text"]
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
@@ -362,7 +367,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 self.tableView2.reloadData()
 //                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
-            view.mLabel.text = oneMeanArr[section]
+            view.mLabel.text = oneMeanArr[section]["text"]
             return view
         }
         
