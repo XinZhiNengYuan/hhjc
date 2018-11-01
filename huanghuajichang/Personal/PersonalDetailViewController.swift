@@ -36,8 +36,8 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             case .success(let value):
                 self.json = JSON(value)["data"]
                 print(self.json)
-                self.userDefault.set(self.json["email"], forKey: "UserEmail")
-                self.userDefault.set(self.json["mobile"], forKey: "UserMobile")
+                self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
+                self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
                 self.createTabList()
             case .failure(let error):
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)

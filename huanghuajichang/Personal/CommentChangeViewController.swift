@@ -77,6 +77,10 @@ class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
         changeTextfield.backgroundColor = UIColor.white
         changeTextfield.becomeFirstResponder()
         changeTextfield.adjustsFontSizeToFitWidth = true
+        
+        //添加textfield监听
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldValueChanged(sender:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        
         //左侧缩进
         let leftView = UIView.init(frame: CGRect(x: 0, y: 0, width: 5, height: 40))
         changeTextfield.leftView = leftView
@@ -105,39 +109,37 @@ class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
         return true
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    @objc func textFieldValueChanged(sender: NSNotification){
         switch pageType {
         case 1:
-            if let text = textField.text {
-                let textLength = text.utf8CString.count + string.count - range.length
-//                print("\(text.utf8CString.count);"+"\(string.count);"+"\(range.length)")
-//                print(textLength)
-                if textLength == 12 {
+            if let text = self.changeTextfield.text {
+                if MyRegex.PhoneNumberIsValidated(vStr: text) {
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
-                }else if textLength > 12 {
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                    return false
-                }else {
+                }else{
                     self.navigationItem.rightBarButtonItem?.isEnabled = false
                 }
             }
         default:
-            if let text = textField.text {
-                let mailPattern = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$"
-                let matcher = MyRegex(mailPattern)
-                if matcher.match(input: text) {
+            if let text = self.changeTextfield.text {
+               if MyRegex.EmailIsValidated(vStr: text) {
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
                 }else{
                     self.navigationItem.rightBarButtonItem?.isEnabled = false
                 }
             }
         }
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
+    }
+    ///页面退出之前执行的操作
+    override func viewWillDisappear(_ animated: Bool) {
+        //推出键盘
+        changeTextfield.resignFirstResponder()
+        //移除通知
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
     }
 
     /*
