@@ -87,7 +87,7 @@ class common : NSObject{
             switch resultData.result {
             case .success(let value):
                 let json = JSON(value)
-                print("requestData成功:\(value)")
+                print("requestData成功:\(json)")
                 finished(json)
             case .failure(let error):
                 print("requestData失败:\(error)")
