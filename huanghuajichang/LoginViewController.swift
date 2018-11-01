@@ -332,10 +332,6 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
         let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
         let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
-        print(appDisplayName)
-        print(majorVersion)
-        print(minorVersion)
-        print(UIDevice.current.systemVersion)
         return majorVersion as! String
     }
     
