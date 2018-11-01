@@ -7,11 +7,21 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class AppUpdateAlertService : NSObject{
     
+    //数据请求地址
+    let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
+    let commonClass = common()
     //请求数据
-    func getData(){
-        
+    func getData(contentData:Dictionary<String,Any>,finished:@escaping (_ result : JSON)->(),finishedError:@escaping (_ : Error)->()){
+        commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+            print(result)
+            finished(result)
+        }) { (error) in
+            print(error)
+            finishedError(error)
+        }
     }
 }

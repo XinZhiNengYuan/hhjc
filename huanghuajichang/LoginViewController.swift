@@ -22,6 +22,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     var seePass : Bool = false //查看密码
     let commonClass = common()
     let popViewController = PortViewController()
+    let appUpdate = AppUpdateAlertService()
     var popView : UIView!
     //本地存储
     var userDefault = UserDefaults.standard
@@ -31,10 +32,29 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.delegate = self
         scrollView.delegate = self
         flageStatus = self.userDefault.bool(forKey: "buttonStatus")
+        getUpdate()
         setLayoutFrame()
         // Do any additional setup after loading the view.
     }
     
+    //MARK:app更新接口
+    func getUpdate(){
+        let contentData = ["method":"version","info":""]
+        appUpdate.getData(contentData: contentData, finished: { (resultData) in
+            let deviceInfo = self.DeviceInfo()
+            let vision = deviceInfo.split(separator: ".")
+            let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
+            for index in 0..<vision.count{
+                if vision[index] < tempVision[index]{
+                    //自定义弹框调用方式
+                    AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])")
+                }
+            }
+        }) { (error) in
+            self.windowAlert(msges: "更新数据获取失败!")
+        }
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
@@ -226,8 +246,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
         popView = popViewController.creatAlertView()
         view.addSubview(popView)
-        //自定义弹框调用方式
-//        AppUpdateAlert.showUpdateAlert(version: "1.1.1", description: "自动打字自动打字自动打字自动打字自动打字自动打字自动打字自动打字")
+
     }
     //MARK:端口按钮确认键
     @objc fileprivate func touchOk(_ button:UIButton){
@@ -307,14 +326,17 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func DeviceInfo() -> String{
+        let infoDictionary = Bundle.main.infoDictionary!
+        
+        let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
+        let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
+        let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
+        print(appDisplayName)
+        print(majorVersion)
+        print(minorVersion)
+        print(UIDevice.current.systemVersion)
+        return majorVersion as! String
+    }
     
 }
