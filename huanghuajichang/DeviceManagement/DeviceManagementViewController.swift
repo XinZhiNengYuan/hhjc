@@ -17,7 +17,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var start:CGPoint!
     var move:Bool = false
     var showOrNo : Bool = false
-    var oneMeanArr : Array<Dictionary<String,String>> = []
+    var oneMeanArr : NSMutableArray = []
     let listArr : Array<String> = ["人类起源","人类初级进化","人类中极进化","人类高级进化","人类终极进化","人类升华"]
     let listForArr : Array<Dictionary<String,String>> = [["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"]]
     var tableView1 = UITableView()
@@ -39,22 +39,27 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let deviceManagementService = DeviceManagementService()
     override func viewDidLoad() {
         super.viewDidLoad()
-        addData()
-        drawerView()
-        setContentView()
-        setSearchView()
-        readyGo()
+        
         // Do any additional setup after loading the view.
         requestForData()
     }
 
     func requestForData(){
+//        userDefault.removeObject(forKey: "DeviceManagementKey")
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
-        deviceManagementService.getData(contentData: contentData, finished: { (resultForOneMean,resultForSubMean) in
-//            print(result)
-            self.oneMeanArr = resultForOneMean
+        deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
+            print(successData)
+            for i in oneMean{
+                self.oneMeanArr.add(i)
+            }
+            print(self.oneMeanArr.count)
+            self.addData()
+            self.drawerView()
+            self.setContentView()
+            self.setSearchView()
+            self.readyGo()
         }) { (error) in
             print(error)
         }
@@ -80,7 +85,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         for _ in 0..<oneMeanArr.count{
             statusArr.add(false)
         }
-        for _ in 0..<6{
+        for _ in 0..<oneMeanArr.count{
             statusArrOfContent.add(false)
         }
     }
@@ -251,7 +256,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         if tableView1.isEqual(tableView) {
             return oneMeanArr.count
         }else{
-            return 6
+            return oneMeanArr.count
         }
     }
     
@@ -263,6 +268,8 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 return 0
             }
         }else{
+            print(statusArrOfContent.count)
+            print(statusArrOfContent)
             if statusArrOfContent[section] as! Bool{
                 return listArr.count
             }else{
@@ -335,7 +342,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 view.setTopLine()
                 view.setBottomLine()
             }
-            view.mLabel.text = oneMeanArr[section]["text"]
+            view.mLabel.text = oneMeanArr[section] as? String
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
@@ -367,7 +374,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 self.tableView2.reloadData()
 //                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
-            view.mLabel.text = oneMeanArr[section]["text"]
+            view.mLabel.text = oneMeanArr[section] as? String
             return view
         }
         

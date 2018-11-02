@@ -16,21 +16,22 @@ class DeviceManagementService : common{
     //数据请求地址
     let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
     let commonClass = common()
-    var oneMeanList : Array<Dictionary<String,String>> = []
-    var subMeanList : Array<Dictionary<String,String>> = []
-    func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultDataForOneMean : Array<Dictionary<String,String>>,_ resultDataForSubMean : Array<Dictionary<String,String>>) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
+    var oneMeanNameList : NSMutableArray=[]
+    var oneMeanIdList : Array<String>!
+    var subMeanNameList : Array<String>!
+    var subMeanIdList : Array<String>!
+    var subMeanList : NSMutableArray!
+    func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ successData:JSON,_ oneMeanList : NSMutableArray) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
         commonClass.requestData(urlStr: appUrl!, outTime: 60, contentData: contentData, finished: { (result) in
+            print(result)
+            print(result["data"].count)
             for i in 0..<result["data"].count{
-                //组装一级菜单
-                self.oneMeanList.append(["id":result["data"][i]["id"].description,"text":result["data"][i]["text"].description,"open":result["data"][i]["open"].description,"stationId":result["data"][i]["stationId"].description,"pid":result["data"][i]["pid"].description])
-                //二级菜单
-                for j in 0..<result["data"][i]["children"].count{
-                    
-                    self.subMeanList.append(["id":result["data"][i]["children"][j]["id"].description,"stationId":result["data"][i]["children"][j]["stationId"].description,"text":result["data"][i]["children"][j]["text"].description])
-                }
+                
+                print(result["data"][i]["text"].description)
+                self.oneMeanNameList.add(result["data"][i]["text"].stringValue)
             }
-            finished(self.oneMeanList,self.subMeanList)
-//            print(self.oneMeanList)
+            finished(result,self.oneMeanNameList)
+            
         }) { (errorData) in
             finishedError(errorData)
         }

@@ -25,6 +25,8 @@
 		3D1598F72178778E00458C11 /* ThickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F62178778E00458C11 /* ThickButton.swift */; };
 		3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F8217880CF00458C11 /* ThickButtonModel.swift */; };
 		3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */; };
+		3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
+		3D223A09218C447E00D570C7 /* AlarmAnalysisViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A08218C447E00D570C7 /* AlarmAnalysisViewService.swift */; };
 		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
 		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
 		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
@@ -95,6 +97,8 @@
 		3D1598F62178778E00458C11 /* ThickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButton.swift; sourceTree = "<group>"; };
 		3D1598F8217880CF00458C11 /* ThickButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButtonModel.swift; sourceTree = "<group>"; };
 		3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
+		3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
+		3D223A08218C447E00D570C7 /* AlarmAnalysisViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewService.swift; sourceTree = "<group>"; };
 		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
 		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -189,6 +193,22 @@
 			path = Personal;
 			sourceTree = "<group>";
 		};
+		3D223A04218BE78A00D570C7 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		3D223A07218C444600D570C7 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3D223A08218C447E00D570C7 /* AlarmAnalysisViewService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		3D25DE3A218AC17F00A6CEBC /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +246,7 @@
 		3DADFD2D21815CDC00E47916 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				3D223A07218C444600D570C7 /* Service */,
 				3DADFD2E21815D1300E47916 /* AlarmAnalysisViewController.swift */,
 				3DADFD3021815D9400E47916 /* TabButton.swift */,
 				3DFBA5D32182E895007F9B4D /* AlarmListViewController.swift */,
@@ -277,6 +298,7 @@
 		FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
 			isa = PBXGroup;
 			children = (
+				3D223A04218BE78A00D570C7 /* Module */,
 				3DCF48F6218942C8005D51FB /* Service */,
 				3DC58F40217982920015A518 /* CycleView */,
 				3DC58F3C217971910015A518 /* common.swift */,
@@ -476,6 +498,7 @@
 			files = (
 				3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
 				3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
+				3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */,
 				3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */,
 				3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */,
 				FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */,
@@ -515,6 +538,7 @@
 				3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */,
 				3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */,
 				3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,
+				3D223A09218C447E00D570C7 /* AlarmAnalysisViewService.swift in Sources */,
 				FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
 				3DADFD3121815D9400E47916 /* TabButton.swift in Sources */,
 				FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,

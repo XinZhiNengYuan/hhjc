@@ -23,6 +23,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     var scrollView : UIScrollView!
     
     var barChartView = BarChartView()
+    let alarmAnalysisService = AlarmAnalysisViewService()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.layer.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1).cgColor
@@ -31,6 +32,14 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
         setHeader()
         setContentView()
+        requestForData()
+    }
+    
+    func requestForData(){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")//getAlarmDesc
+        let contentData : [String : Any] = ["method":"getAlarmList","info":["station_id":"CA06ES02","level":"0","start":1,"length":5],"user_id":userId as Any,"token":token as Any]
+        alarmAnalysisService.gitData(contentData: contentData)
     }
     //MARK:设置头部
     func setHeader(){
