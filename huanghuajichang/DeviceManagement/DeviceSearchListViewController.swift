@@ -29,12 +29,20 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     var tableViewFrame :CGRect!
     let searchInput = UITextField()
     
+    let deviceSearchListViewService = DeviceSearchListViewService()
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
         setHistoryView()
+        getData()
     }
     
+    func getData(){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String:Any] = ["method":"getEquipmentList","user_id":userId as Any,"token":token as Any,"info":["oneId":"","twoId":"","equName":""]]
+        deviceSearchListViewService.getData(contentData: contentData)
+    }
     override func viewWillAppear(_ animated: Bool){
         self.title = "搜索设备"
         self.navigationController?.navigationBar.tintColor = UIColor.white
