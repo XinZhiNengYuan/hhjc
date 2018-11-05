@@ -33,6 +33,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     
     var recordTableView:UITableView!
     
+    let CellIdentifier = "Cell"
+    
     var userDefault = UserDefaults.standard
     var userToken:String!
     var userId:String!
@@ -236,7 +238,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         recordTableView.separatorStyle = .none
         recordTableView.backgroundColor = allListBackColor
         self.view.addSubview(recordTableView)
-        recordTableView.register(RecordListTableViewCell.self, forCellReuseIdentifier: "MyCell")
+        recordTableView.register(RecordListTableViewCell.self, forCellReuseIdentifier: CellIdentifier)
         initMJRefresh()
     }
     
@@ -391,9 +393,9 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? RecordListTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath) as? RecordListTableViewCell
         if cell == nil{
-            cell = RecordListTableViewCell(style: .default, reuseIdentifier: "MyCell")
+            cell = RecordListTableViewCell(style: .default, reuseIdentifier: CellIdentifier)
         }
         if self.json != nil {
 //            print(self.listData[indexPath.row])

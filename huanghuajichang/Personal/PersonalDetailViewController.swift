@@ -13,7 +13,6 @@ import SwiftyJSON
 class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, UITableViewDataSource {
     
     var PersonalDetailList:UITableView!
-    
     var userDefault = UserDefaults.standard
     var userToken:String!
     var userId:String!
@@ -47,6 +46,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
                     self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
                     self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
                     self.PersonalDetailList.reloadData()
+                    self.PersonalDetailList.layoutIfNeeded()
                 }else{
                     print(type(of: JSON(value)["msg"]))
                     self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
@@ -83,7 +83,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PersonalDetailTableViewCell
+        var cell = tableView.cellForRow(at: indexPath) as? PersonalDetailTableViewCell
         if cell == nil {
             
             cell = PersonalDetailTableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
@@ -91,6 +91,11 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
 //            cell?.selectionStyle = UITableViewCellSelectionStyle.none
             //            NSLog("初始化cell")
             
+        }else {
+//            cell?.removeFromSuperview()
+            while cell?.contentView.subviews.last != nil {
+                (cell?.contentView.subviews.last)?.removeFromSuperview()
+            }
         }
         if indexPath.row == 0{
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
@@ -102,11 +107,11 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             switch indexPath.row {
             case 4:
                 cell?.itemTitle.text = "手机号"
-                cell?.itemRealMsg.text = json["mobile"].description
+                cell?.itemRealMsg.text = json["mobile"].stringValue
                 break
             case 5:
                 cell?.itemTitle.text = "邮箱"
-                cell?.itemRealMsg.text = json["email"].description
+                cell?.itemRealMsg.text = json["email"].stringValue
                 break
             default:
                 cell?.itemTitle.text = ""
@@ -118,7 +123,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             switch indexPath.row {
             case 1:
                 cell?.itemTitle.text = "登录名"
-                cell?.itemRealMsg.text = json["user_name"].description
+                cell?.itemRealMsg.text = json["user_name"].stringValue
                 break
             case 2:
                 cell?.itemTitle.text = "部门"
