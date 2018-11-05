@@ -22,13 +22,13 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         super.viewDidLoad()
         self.title = "个人信息"
         // Do any additional setup after loading the view.
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
         self.createTabList()
     }
     
     //每次进入页面刷新数据
     override func viewWillAppear(_ animated: Bool) {
-        userToken = self.userDefault.object(forKey: "userToken") as? String
-        userId = self.userDefault.object(forKey: "userId") as? String
         if PersonalDetailList != nil {
             getData()
         }
@@ -42,7 +42,8 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             case .success(let value):
                 self.json = JSON(value)["data"]
                 print(self.json)
-                if JSON(value)["status"] == "success"{
+                print(JSON(value)["status"].description)
+                if JSON(value)["status"].stringValue == "success"{
                     self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
                     self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
                     self.PersonalDetailList.reloadData()

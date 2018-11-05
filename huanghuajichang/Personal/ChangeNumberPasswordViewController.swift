@@ -87,7 +87,7 @@ class ChangeNumberPasswordViewController: UIViewController, UITextFieldDelegate{
                     switch resultData.result {
                     case .success(let value):
                         print(JSON(value).description)
-                        if JSON(value)["status"] == "success"{
+                        if JSON(value)["status"].stringValue == "success"{
                             windowTotast(pageName: self, msg: "修改成功") {
                                 self.backTolast ()
                             }

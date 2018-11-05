@@ -14,6 +14,11 @@ let kWindowHeight: CGFloat = 205.0
 class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var headerView: UIButton!
+    
+    var headerImageView:UIImageView!
+    var personName:UILabel!
+    var personPosition:UILabel!
+    
     var personalTable:UITableView!
     var tableCellModels :[NSArray] = NSMutableArray() as! [NSArray]
     var userDefault = UserDefaults.standard
@@ -33,16 +38,6 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         creteHeaderView()
         
     }
-//    func createCollNav(){
-//        createTableView()
-//        headerView = CoolNavi()
-//        headerView!.myInit(CGRect(x: 0,y: 0,width: self.view.frame.size.width,height: kWindowHeight), backImageName: "Background", headerImageURL: "http://d.hiphotos.baidu.com/image/pic/item/0ff41bd5ad6eddc4f263b0fc3adbb6fd52663334.jpg", title: "妹子!", subTitle: "个性签名, 啦啦啦!")
-//        headerView?.scrollView = personalTable
-//        headerView?.initWithClosure({ () -> Void in
-//            print("headerImageAction")
-//        })
-//        self.view.addSubview(headerView!)
-//    }
     
     func getData(){
         let contentData : [String : Any] = ["method":"getUserInfo","info":"","token":userToken,"user_id":userId]
@@ -52,7 +47,17 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             case .success(let value):
                 self.json = JSON(value)["data"]
                 print(self.json)
-                if JSON(value)["status"] == "success"{
+                if JSON(value)["status"].stringValue == "success"{
+                    print(self.json["url"].stringValue)
+                    let urlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + self.json["url"].stringValue
+//                    let URL:NSURL = NSURL(string:urlStr)!
+//                    let imageData:NSData? = NSData(contentsOf:URL as URL)
+//                    if imageData != nil {
+//                        self.headerImageView.image = UIImage(data: imageData! as Data)
+//                    }
+                    self.headerImageView.dowloadFromServer(link: urlStr, contentMode: .scaleAspectFit)
+                    self.personName.text = self.json["user_name"].stringValue
+                    self.personPosition.text = "新智能源UI开发工程师"
                     self.headerView.layoutIfNeeded()
                 }else{
                     print(type(of: JSON(value)["msg"]))
@@ -80,7 +85,6 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        headerView.autoresizingMask = .flexibleWidth
 //        headerView.clipsToBounds = true
 
-        let headerImageView:UIImageView!
         headerImageView = UIImageView.init(frame: CGRect(x: 15, y: 64, width: 80, height: 80))
 //        headerImageView.center.x = self.view.center.x
 //        headerImageView.center.y = 75
@@ -99,18 +103,16 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        headerImageView.image = UIImage(contentsOfFile: "Group 17 Copy")
         headerView.addSubview(headerImageView)
 
-        let personName:UILabel = UILabel.init(frame: CGRect(x: 110, y: 74, width: kScreenWidth-110, height: 20))
+        personName = UILabel.init(frame: CGRect(x: 110, y: 74, width: kScreenWidth-110, height: 20))
         personName.textColor = UIColor.white
         personName.textAlignment = .left
         personName.font = UIFont.systemFont(ofSize: 18)
-        personName.text = self.json["user_name"].stringValue
         headerView.addSubview(personName)
 
-        let personPosition:UILabel = UILabel.init(frame: CGRect(x: 110, y: 104, width: kScreenWidth-110, height: 20))
+        personPosition = UILabel.init(frame: CGRect(x: 110, y: 104, width: kScreenWidth-110, height: 20))
         personPosition.textColor = UIColor.white
         personPosition.textAlignment = .left
         personPosition.font = UIFont.systemFont(ofSize: 15)
-        personPosition.text = "新智能源UI开发工程师"
         headerView.addSubview(personPosition)
 
         self.view.addSubview(headerView)
@@ -149,6 +151,9 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillAppear(_ animated: Bool) {//确保每次进入个人中心页面时，刷新缓存处的数据
+        if headerView != nil{
+            getData()
+        }
         if personalTable != nil {
             personalTable.reloadData()
         }

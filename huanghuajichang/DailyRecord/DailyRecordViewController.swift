@@ -255,7 +255,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
             print(resultData)
             switch resultData.result {
             case .success(let value):
-                if JSON(value)["status"] == "success"{
+                if JSON(value)["status"].stringValue == "success"{
                     self.json = JSON(value)["data"]["resultData"]
                     self.recordTableView.reloadData()
                     MyProgressHUD.dismiss()
