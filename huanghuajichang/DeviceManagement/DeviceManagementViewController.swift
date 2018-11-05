@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDelegate {
 
@@ -17,7 +18,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var start:CGPoint!
     var move:Bool = false
     var showOrNo : Bool = false
-    var oneMeanArr : NSMutableArray = []
+    var oneMeanArr : [Any] = [Any]()
+    var resultDataForJson : JSON!
     let listArr : Array<String> = ["人类起源","人类初级进化","人类中极进化","人类高级进化","人类终极进化","人类升华"]
     let listForArr : Array<Dictionary<String,String>> = [["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"]]
     var tableView1 = UITableView()
@@ -50,11 +52,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
         deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
-            print(successData)
-            for i in oneMean{
-                self.oneMeanArr.add(i)
-            }
-            print(self.oneMeanArr.count)
+            self.resultDataForJson = successData
+            self.oneMeanArr += oneMean
             self.addData()
             self.drawerView()
             self.setContentView()
@@ -262,14 +261,18 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView1.isEqual(tableView){
+            print(statusArr)
             if statusArr[section] as! Bool{
-                return listArr.count
+                if let arrForOneMeanSubList = resultDataForJson["data"][section]["children"].arrayObject{
+                    print(arrForOneMeanSubList.count)
+                    return arrForOneMeanSubList.count
+                }else{
+                    return 0
+                }
             }else{
                 return 0
             }
         }else{
-            print(statusArrOfContent.count)
-            print(statusArrOfContent)
             if statusArrOfContent[section] as! Bool{
                 return listArr.count
             }else{
@@ -332,17 +335,16 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 view.setBottomLine()
             }
             //画左侧菜单竖着的直线
-            
             if section == 0 {
                 view.setBottomLine()
                 
-            }else if section == self.listArr.count{
+            }else if section == self.oneMeanArr.count{
                 view.setTopLine()
             }else{
                 view.setTopLine()
                 view.setBottomLine()
             }
-            view.mLabel.text = oneMeanArr[section] as? String
+            view.mLabel.text = resultDataForJson["data"][section]["text"].stringValue
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
@@ -374,7 +376,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 self.tableView2.reloadData()
 //                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
-            view.mLabel.text = oneMeanArr[section] as? String
+            view.mLabel.text = resultDataForJson["data"][section]["text"].stringValue
             return view
         }
         
@@ -390,7 +392,14 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 cell = UITableViewControllerCellTwo(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            cell?.mLabel.text = listArr[rowNum]
+            print(rowNum)
+            if let arrForOneMeanSubList = resultDataForJson["data"][rowNum]["children"].arrayObject{
+                print(arrForOneMeanSubList)
+                cell?.mLabel.text = listArr[rowNum]//((arrForOneMeanSubList[rowNum] as! Dictionary<String,String>)["text"])
+            }else{
+                cell?.mLabel.text = ""
+            }
+            
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
             cell?.mNum.text = "3个"
             cell?.setTopLine()
