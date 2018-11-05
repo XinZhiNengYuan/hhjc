@@ -41,7 +41,7 @@ class RecordListTableViewCell: UITableViewCell {
 //        itemImage?.layer.cornerRadius = (itemImage?.frame.width)! / 2
         // image还需要加上这一句, 不然无效
         itemImage?.layer.masksToBounds = true
-        itemImage?.contentMode = UIViewContentMode.center
+        itemImage?.contentMode = UIViewContentMode.scaleToFill
         contentView.addSubview(itemImage!)
         
         itemTitle = UILabel.init(frame: CGRect(x: 100, y: 10, width: kScreenWidth-100-50, height: 30))
@@ -54,8 +54,8 @@ class RecordListTableViewCell: UITableViewCell {
         itemStatus = UILabel.init(frame: CGRect(x: kScreenWidth-50, y: 15, width: 40, height: 20))
         itemStatus?.layer.masksToBounds = true
         itemStatus?.layer.borderWidth = 1
-        itemStatus?.layer.borderColor = allUnitColor.cgColor
-        itemStatus?.textColor = allFontColor
+        itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
+        itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
         itemStatus?.textAlignment = .center
         itemStatus?.font = UIFont.systemFont(ofSize: 10)
         contentView.addSubview(itemStatus!)

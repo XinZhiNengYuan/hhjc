@@ -23,9 +23,16 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         super.viewDidLoad()
         self.title = "个人信息"
         // Do any additional setup after loading the view.
+        self.createTabList()
+    }
+    
+    //每次进入页面刷新数据
+    override func viewWillAppear(_ animated: Bool) {
         userToken = self.userDefault.object(forKey: "userToken") as? String
         userId = self.userDefault.object(forKey: "userId") as? String
-        getData()
+        if PersonalDetailList != nil {
+            getData()
+        }
     }
     
     func getData(){
@@ -36,13 +43,17 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             case .success(let value):
                 self.json = JSON(value)["data"]
                 print(self.json)
-                self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
-                self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
-                self.createTabList()
+                if JSON(value)["status"] == "success"{
+                    self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
+                    self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
+                    self.PersonalDetailList.reloadData()
+                }else{
+                    print(type(of: JSON(value)["msg"]))
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
             case .failure(let error):
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
-                self.createTabList()
                 return
             }
         }
@@ -56,6 +67,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         PersonalDetailList.backgroundColor = allListBackColor
         self.view.backgroundColor = allListBackColor
         self.view.addSubview(PersonalDetailList)
+        getData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

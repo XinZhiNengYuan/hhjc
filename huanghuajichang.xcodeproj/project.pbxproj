@@ -40,6 +40,7 @@
 		3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
 		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
 		3D57CCC62183F789005A6658 /* AlarmListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D57CCC52183F789005A6658 /* AlarmListTableViewCell.swift */; };
+		3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
@@ -112,6 +113,7 @@
 		3D48C7F3217EFD2B0067705E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3D57CCC52183F789005A6658 /* AlarmListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListTableViewCell.swift; sourceTree = "<group>"; };
+		3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgressHUD.swift; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
 				3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
 				3DF203472188439A00F003A3 /* CommenRequest.swift */,
+				3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */,
 			);
 			path = huanghuajichang;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
 				FB381B0F215493B600F6D2AB /* ViewController.swift in Sources */,
+				3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */,
 				3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */,
 				3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */,
 				3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,

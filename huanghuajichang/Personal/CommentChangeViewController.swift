@@ -55,7 +55,7 @@ class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
                 print(JSON(value).description)
                 if JSON(value)["status"] == "success"{
                     windowTotast(pageName: self, msg: "修改成功") {
-//                        self.backTolast ()
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }else{
                     self.present(windowAlert(msges: JSON(value)["msg"].description), animated: true, completion: nil)
@@ -96,6 +96,7 @@ class CommentChangeViewController: AddNavViewController,UITextFieldDelegate {
         }else{
             changeTextfield.text = emailText
             changeTextfield.keyboardType = .emailAddress
+            changeTextfield.autocapitalizationType = UITextAutocapitalizationType.none//关闭键盘默认首字母大写
             changeLabel.text = "邮箱账号"
             pageType = 2
         }

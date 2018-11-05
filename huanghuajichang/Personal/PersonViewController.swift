@@ -11,7 +11,7 @@ import SwiftyJSON
 
 let kWindowHeight: CGFloat = 205.0
 
-class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MBProgressHUDDelegate {
+class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var headerView: UIButton!
     var personalTable:UITableView!
@@ -30,7 +30,8 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         userToken = self.userDefault.object(forKey: "userToken") as? String
         userId = self.userDefault.object(forKey: "userId") as? String
-        getData()
+        creteHeaderView()
+        
     }
 //    func createCollNav(){
 //        createTableView()
@@ -51,12 +52,16 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             case .success(let value):
                 self.json = JSON(value)["data"]
                 print(self.json)
-                self.creteHeaderView()
+                if JSON(value)["status"] == "success"{
+                    self.headerView.layoutIfNeeded()
+                }else{
+                    print(type(of: JSON(value)["msg"]))
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
 
             case .failure(let error):
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
-                self.creteHeaderView()
                 return
             }
         }
@@ -98,7 +103,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         personName.textColor = UIColor.white
         personName.textAlignment = .left
         personName.font = UIFont.systemFont(ofSize: 18)
-        personName.text = self.json["user_name"].description
+        personName.text = self.json["user_name"].stringValue
         headerView.addSubview(personName)
 
         let personPosition:UILabel = UILabel.init(frame: CGRect(x: 110, y: 104, width: kScreenWidth-110, height: 20))
@@ -110,6 +115,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         self.view.addSubview(headerView)
         createTableView()
+        getData()
     }
     
     @objc func openDetail(){
@@ -358,31 +364,8 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //清除缓存
     func clearCache(selectedIndexPath:IndexPath) {
         var clearResult = false
-        //原生简易菊花旋转框
-//        let activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
-//
-//        activity.frame = CGRect(x: (kScreenWidth - 50)/2, y: (kScreenHeight-50)/2, width: 50, height: 50)
-//
-//        activity.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
-//
-//        //开始转动
-//
-//        activity.startAnimating()
-//
-//        self.view.addSubview(activity)
         //使用第三方库MB
-        let HUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-        HUD.delegate = self
-
-        //常用设置
-        //小矩形的背景色
-        HUD.bezelView.color = UIColor.clear
-        HUD.minSize = CGSize(width: 50, height: 50)
-        //显示的文字
-        HUD.label.text = "清理中..."
-        //设置背景,加遮罩
-        //HUD.backgroundView.style = .blur //或SolidColor
-        // 取出cache文件夹目录 缓存文件都在这个目录下
+        MyProgressHUD.showStatusInfo("清理中...")
         
         let cachePath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
         
@@ -412,10 +395,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let selectedCell = personalTable.cellForRow(at: selectedIndexPath)
             let  rightLabel = selectedCell?.viewWithTag(121) as! UILabel
             rightLabel.text = "0M"
-            //停止转动并且隐藏
-//            activity.hidesWhenStopped = true
-//            activity.stopAnimating()
-            HUD.hide(animated: true, afterDelay:0)
+            MyProgressHUD.dismiss()
         }
     }
     
