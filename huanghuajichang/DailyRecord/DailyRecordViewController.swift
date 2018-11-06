@@ -451,15 +451,18 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 photoNum.backgroundColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 0.5)
                 cell?.itemImage?.addSubview(photoNum)
             }
-            cell?.itemTitle?.text =  "\(indexPath.row)"//self.json[indexPath.row]["title"].description
-            cell?.itemStatus?.text = self.json[indexPath.row]["staName"].description
+            cell?.itemTitle?.text =  self.json[indexPath.row]["title"].stringValue
+            cell?.itemStatus?.text = self.json[indexPath.row]["staName"].boolValue ? self.json[indexPath.row]["staName"].stringValue : "未处理"
             cell?.itemId = self.json[indexPath.row]["id"].description
             //默认颜色是已处理的，所以在未处理时更改颜色
             if self.json[indexPath.row]["state"] == 0 {
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
                 cell?.itemStatus?.textColor = topValueColor
+            }else{
+                cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
+                cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
             }
-            cell?.itemDate?.text = self.json[indexPath.row]["staTime"].description
+            cell?.itemDate?.text = self.json[indexPath.row]["staTime"].stringValue
         }
         return cell!
     }
