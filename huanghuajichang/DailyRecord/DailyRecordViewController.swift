@@ -35,6 +35,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     
     let CellIdentifier = "Cell"
     
+    var pageStatus = ""
+    
     var userDefault = UserDefaults.standard
     var userToken:String!
     var userId:String!
@@ -348,7 +350,12 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         
         print("下拉刷新")
         //服务器请求数据的函数
-        getListData(searchStr:"", state:"")
+        if pageStatus == "" {
+            getListData(searchStr:"", state:"")
+        }else{
+            getListData(searchStr:"", state:Int(pageStatus)!-1)
+        }
+        
         //结束下拉刷新
         self.recordTableView.mj_header.endRefreshing()
     }
@@ -399,6 +406,7 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
+        pageStatus = "\(buttonIndex)"
         switch buttonIndex {
         case 0:
             getListData(searchStr: "", state: "")
