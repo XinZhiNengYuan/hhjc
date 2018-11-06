@@ -406,13 +406,15 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
-        pageStatus = "\(buttonIndex)"
         switch buttonIndex {
         case 0:
+            pageStatus = ""
             getListData(searchStr: "", state: "")
         case 1:
+            pageStatus = "\(buttonIndex)"
             getListData(searchStr: "", state: 0)
         default:
+            pageStatus = "\(buttonIndex)"
             getListData(searchStr: "", state: 1)
         }
         
