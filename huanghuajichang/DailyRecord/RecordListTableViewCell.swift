@@ -10,6 +10,7 @@ import UIKit
 
 class RecordListTableViewCell: UITableViewCell {
     
+    var itemId:String!
     var itemImage:UIImageView?
     var itemImageCount:UILabel?
     var itemTitle:UILabel?

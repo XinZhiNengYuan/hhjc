@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class DailySearchViewController: UIViewController {
     
@@ -18,10 +19,25 @@ class DailySearchViewController: UIViewController {
     
     var searchResultView:UITableView!
     
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var searchDate:String!
+    var listData:NSMutableArray = []
+    var json:JSON!
+    var pageStart = 0
+    let pageSize = 10
+    let CellIdentifier = "MyCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        searchDate = self.userDefault.object(forKey: "searchMonth") as? String
+        
         createSearchView()
         createHistoryUI()
         
@@ -72,7 +88,39 @@ class DailySearchViewController: UIViewController {
         searchResultView.separatorStyle = .none
         searchResultView.backgroundColor = allListBackColor
         self.view.addSubview(searchResultView)
-        searchResultView.register(RecordListTableViewCell.self, forCellReuseIdentifier: "MyCell")
+        searchResultView.register(RecordListTableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+        
+    }
+    
+    ///5.获取tabList需要的数据（日常记录条数）
+    /// - Parameter searchStr: 搜索的字符串
+    /// - Parameter state：是否被处理的状态码
+    /// - Parameter pageNum：起始页吗数
+    /// - Parameter pageSize：每页条数
+    func getListData(searchStr:String, state:Any) {
+        MyProgressHUD.showStatusInfo("加载中...")
+        let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startday":"\(searchDate!)-01", "endDay":"\(changeDate(chageType: 2))-01"] as [String : Any]
+        let contentData : [String : Any] = ["method":"getOptionlist","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.json = JSON(value)["data"]["resultData"]
+                    self.createTabList()
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    print(type(of: JSON(value)["msg"]))
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
     }
 
     /*
@@ -88,6 +136,40 @@ class DailySearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         searchBar.resignFirstResponder()
     }
+    
+    func changeDate(chageType:Int)->String{
+        var year = ((searchDate?.split(separator: "-")[0])! as NSString).integerValue
+        var month = ((searchDate?.split(separator: "-")[1])! as NSString).integerValue
+        switch chageType {
+        case 1://减
+            if month == 01 {
+                year = year - 1
+                month = 12
+            }else{
+                month = month - 1
+            }
+            
+        default://增
+            if month == 12 {
+                year = year + 1
+                month = 01
+            }else{
+                month = month + 1
+            }
+        }
+        let newDate = "\(year)" + "-" + formateNum(num: month)
+        return newDate
+    }
+    
+    func formateNum(num:Int) ->String{
+        var formateString:String = ""
+        if num < 10 {
+            formateString = "0\(num)"
+        }else{
+            formateString = "\(num)"
+        }
+        return formateString
+    }
 
 }
 
@@ -98,7 +180,7 @@ extension DailySearchViewController:UISearchBarDelegate{
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        createTabList()
+        getListData(searchStr:searchBar.text!, state:"")
     }
     //Including clear
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
@@ -124,7 +206,7 @@ extension DailySearchViewController:UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.cellForItem(at: indexPath) as! DailyNearlyCollectionViewCell
         searchBar.text = cell.label.text
         historyView.removeFromSuperview()
-        createTabList()
+        getListData(searchStr:searchBar.text!, state:"")
 //        collectionView.deselectItem(at: indexPath, animated: false)
     }
     
@@ -157,7 +239,11 @@ extension DailySearchViewController:UICollectionViewDelegate, UICollectionViewDa
 extension DailySearchViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        if self.json == nil {
+            return 0
+        }else{
+            return self.json.count
+        }
     }
     
     //设置每行的单元格的高度
@@ -166,21 +252,45 @@ extension DailySearchViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as? RecordListTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier, for: indexPath) as? RecordListTableViewCell
         if cell == nil{
-            cell = RecordListTableViewCell(style: .default, reuseIdentifier: "MyCell")
+            cell = RecordListTableViewCell(style: .default, reuseIdentifier: CellIdentifier)
         }
-        //        cell?.textLabel?.text = "\(indexPath.row)"
-        cell?.itemImage?.image = UIImage(named: "默认图片")
-        cell?.itemTitle?.text = "标题能源管配电站航空港110KV变电变站\(indexPath.row)"
-        cell?.itemStatus?.text = "已处理"
-        cell?.itemDate?.text = "2018-10-19"
+        if self.json != nil {
+            //            print(self.listData[indexPath.row])
+            print(type(of: self.json[indexPath.row]))
+            //        cell?.textLabel?.text = "\(indexPath.row)"
+            //当无图片时显示默认图片
+            if self.json[indexPath.row]["filesId"].array?.count == 0 {
+                print(self.json[indexPath.row]["filesId"])
+                cell?.itemImage?.image = UIImage(named: "默认图片")
+            }else{
+                cell?.itemImage?.image = UIImage(named: "默认图片")
+                let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
+                photoNum.text = "共\(self.json[indexPath.row]["filesId"].count)张"
+                photoNum.textColor = UIColor.white
+                photoNum.textAlignment = .center
+                photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
+                photoNum.backgroundColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 0.5)
+                cell?.itemImage?.addSubview(photoNum)
+            }
+            cell?.itemTitle?.text =  "\(indexPath.row)"//self.json[indexPath.row]["title"].description
+            cell?.itemStatus?.text = self.json[indexPath.row]["staName"].description
+            cell?.itemId = self.json[indexPath.row]["id"].description
+            //默认颜色是已处理的，所以在未处理时更改颜色
+            if self.json[indexPath.row]["state"] == 0 {
+                cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
+                cell?.itemStatus?.textColor = topValueColor
+            }
+            cell?.itemDate?.text = self.json[indexPath.row]["staTime"].description
+        }
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectdRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
         print((selectdRecordCell.itemTitle?.text)!)
+        userDefault.set(selectdRecordCell.itemId, forKey: "recordId")
         
         let scanVc = ScanAndEditViewController()
         let scanNav = UINavigationController(rootViewController: scanVc)

@@ -21,10 +21,11 @@ class DailyNearlyCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 10
         
         
-        self.label = UILabel(frame: CGRect(x: 10, y: 5, width: kScreenWidth-20, height: 15))
+        self.label = UILabel(frame: CGRect(x: 0, y: 5, width: (kScreenWidth-70)/4, height: 15))
         //        label.tintColor =
         label.textColor = UIColor.white
         label.alpha = 0.5951
+        label.textAlignment = .center
         self.addSubview(self.label)
     }
     

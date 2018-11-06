@@ -90,6 +90,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func openSearch(){
+        userDefault.set(dateLabel.text, forKey: "searchMonth")
         let searchVc = DailySearchViewController()
         self.present(searchVc, animated: true, completion: nil)
     }
@@ -157,6 +158,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
 //        print("year:\(year)"+";"+"month:"+formateNum(num:month))
         dateLabel.text = changeDate(chageType: (sender?.tag)!)
         getHeaderData()
+        getListData(searchStr: "", state: "")
     }
     
     func changeDate(chageType:Int)->String{
@@ -267,6 +269,40 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
             case .failure(let error):
                 MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///删除日常记录项
+    func deleteListItem(itemId:String, itemIndexPath:IndexPath){
+        MyProgressHUD.showStatusInfo("删除中...")
+        let infoData = ["id":itemId]
+        let contentData : [String : Any] = ["method":"delOptionById","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.recordTableView.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.automatic)
+                    //重新请求页面数据
+                    //TODO
+                    self.getHeaderData()
+                    self.getListData(searchStr:"", state:"")
+                    
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    print(type(of: JSON(value)["msg"]))
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "删除失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                self.present(windowAlert(msges: "删除请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
             }
@@ -409,11 +445,15 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemImage?.image = UIImage(named: "默认图片")
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
                 photoNum.text = "共\(self.json[indexPath.row]["filesId"].count)张"
+                photoNum.textColor = UIColor.white
+                photoNum.textAlignment = .center
+                photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
                 photoNum.backgroundColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 0.5)
                 cell?.itemImage?.addSubview(photoNum)
             }
-            cell?.itemTitle?.text = self.json[indexPath.row]["title"].description
+            cell?.itemTitle?.text =  "\(indexPath.row)"//self.json[indexPath.row]["title"].description
             cell?.itemStatus?.text = self.json[indexPath.row]["staName"].description
+            cell?.itemId = self.json[indexPath.row]["id"].description
             //默认颜色是已处理的，所以在未处理时更改颜色
             if self.json[indexPath.row]["state"] == 0 {
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
@@ -427,6 +467,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectdRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
         print((selectdRecordCell.itemTitle?.text)!)
+        userDefault.set(selectdRecordCell.itemId, forKey: "recordId")
         
         let scanVc = ScanAndEditViewController()
         let scanNav = UINavigationController(rootViewController: scanVc)
@@ -434,5 +475,21 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+        if editingStyle == .delete {
+            //TODO
+            let dailyRecordVc = DailyRecordViewController()
+            dailyRecordVc.deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath:indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
+        return "删除"
+    }
     
 }
