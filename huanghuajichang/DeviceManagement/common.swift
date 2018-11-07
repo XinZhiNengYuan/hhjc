@@ -74,6 +74,7 @@ class common : NSObject{
      finishedError : 请求不成功的回调
      */
     func requestData(urlStr : String,outTime : Double ,contentData : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
+        MyProgressHUD.showStatusInfo("加载中...")
         //网络请求
         let headers: HTTPHeaders = [
             "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
@@ -87,8 +88,10 @@ class common : NSObject{
             switch resultData.result {
             case .success(let value):
                 let json = JSON(value)
+                MyProgressHUD.dismiss()
                 finished(json)
             case .failure(let error):
+                MyProgressHUD.dismiss()
                 finishedError(error)
                 return
                 

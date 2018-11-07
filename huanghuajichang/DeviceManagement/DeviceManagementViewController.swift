@@ -60,6 +60,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
             self.setSearchView()
             self.readyGo()
         }) { (error) in
+            self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
             print(error)
         }
     }

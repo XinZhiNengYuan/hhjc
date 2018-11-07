@@ -7,15 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGestureRecognizerDelegate {
     
     //原始数据集
-    let schoolArray : NSMutableArray = ["清华大学","北京大学","中国人民大学","北京交通大学","北京工业大学",
-                                        "北京航空航天大学","北京理工大学","北京科技大学","中国政法大学","中央财经大学","华北电力大学",
-                                        "北京体育大学","上海外国语大学","复旦大学","华东师范大学","上海大学","河北工业大学"]
-    let historyList :[String] = ["历史1","历史2","历史3","历史4","历史5"]
-    var historyView : UIView!
+    var schoolArray : NSMutableArray = []
+    var historyList :[String] = []
+    var historyView : UIView?
     
     var mTableView : UITableView!
     var shouldShowSearchResults = false
@@ -30,18 +29,31 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     let searchInput = UITextField()
     
     let deviceSearchListViewService = DeviceSearchListViewService()
+    let userDefult = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
-        setHistoryView()
-        getData()
+        historyList += userDefult.array(forKey: "appHistoryListForDevice") as? [String] ?? []
+        if historyList.count > 0{
+            setHistoryView()
+        }
     }
     
-    func getData(){
+    func getData(searchName:String,call:@escaping ()->()){
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String:Any] = ["method":"getEquipmentList","user_id":userId as Any,"token":token as Any,"info":["oneId":"","twoId":"","equName":""]]
-        deviceSearchListViewService.getData(contentData: contentData)
+        let contentData : [String:Any] = ["method":"getEquipmentList","user_id":userId as Any,"token":token as Any,"info":["oneId":"","twoId":"","equName":searchName]]
+        deviceSearchListViewService.getData(contentData: contentData, finished: { (result, resultDataList) in
+            self.searchArray.removeAll()
+            for i in 0..<resultDataList.count{
+                let item = result["data"]["resultData"][i]["equName"]
+                self.searchArray.append(item.stringValue)
+            }
+            call()
+        }) { (errorData) in
+            self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+            print(errorData)
+        }
     }
     override func viewWillAppear(_ animated: Bool){
         self.title = "搜索设备"
@@ -114,7 +126,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
         mLabelTitle.font = UIFont.boldSystemFont(ofSize: 12)
         mLabelTitle.textColor = UIColor.black
         mLabelTitle.text = "历史搜索记录"
-        for i in 0..<5{
+        for i in 0..<historyList.count{
             let mBut = UIButton(frame: CGRect(x: 40+i*60, y: 60, width: 50, height: 20))
             mBut.setTitle(historyList[i], for: UIControlState.normal)
             mBut.setTitleColor(UIColor.gray, for: UIControlState.normal)
@@ -124,19 +136,34 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
             mBut.layer.backgroundColor = UIColor.white.cgColor
             mBut.layer.borderColor = UIColor.gray.cgColor
             mBut.addTarget(self, action: #selector(toSearchData), for: UIControlEvents.touchUpInside)
-            historyView.addSubview(mBut)
+            historyView?.addSubview(mBut)
         }
-        
-        
-        historyView.addSubview(mLabelTitle)
-        self.view.addSubview(historyView)
+        historyView?.addSubview(mLabelTitle)
+        self.view.addSubview(historyView!)
         
     }
     
+    //MARK:删除历史搜索图层
+    func remHistoryView(){
+        historyView?.removeFromSuperview()
+    }
     @objc func toSearchData(button:UIButton){
         print(button.titleLabel?.text as Any)
         countrySearchController.searchBar.becomeFirstResponder()
         countrySearchController.searchBar.text = button.title(for: UIControlState.normal)
+        getData(searchName: button.title(for: UIControlState.normal)!) {
+            //            let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
+            //            self.searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
+            self.shouldShowSearchResults = true
+            self.historyView?.isHidden = true
+            self.mTableView.separatorStyle = .singleLine
+            self.historyList.insert(String(button.title(for: UIControlState.normal)!), at: 0)
+            if self.historyList.count > 5{
+                self.historyList.remove(at: 4)
+            }
+            self.userDefult.set(self.historyList, forKey: "appHistoryListForDevice")
+            self.mTableView.reloadData()
+        }
     }
     
 }
@@ -144,11 +171,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
 extension DeviceSearchListViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.countrySearchController.isActive {
-            if countrySearchController.searchBar.text == ""{
-                return self.schoolArray.count
-            }else{
-                return self.searchArray.count
-            }
+           return self.searchArray.count
         } else {
             if shouldShowSearchResults{
                 return self.searchArray.count
@@ -167,15 +190,16 @@ extension DeviceSearchListViewController:UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: identify,
                                                  for: indexPath)
         
+        let rowNum = indexPath.row
         if self.countrySearchController.isActive {
-            cell.textLabel?.text = self.schoolArray[indexPath.row] as? String
+            cell.textLabel?.text = self.searchArray[rowNum]
             return cell
         } else {
             if shouldShowSearchResults{
-                cell.textLabel?.text = self.searchArray[indexPath.row]
+                cell.textLabel?.text = self.searchArray[rowNum]
                 return cell
             }else{
-                cell.textLabel?.text = self.searchArray[indexPath.row]
+                cell.textLabel?.text = ""//self.searchArray[rowNum]
                 return cell
             }
             
@@ -202,7 +226,7 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
     //开始进行文本编辑，设置显示搜索结果，刷新列表
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
-        historyView.isHidden = true
+        historyView?.isHidden = true
         self.mTableView.separatorStyle = .singleLine
         mTableView.reloadData()
     }
@@ -210,7 +234,10 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
     //点击Cancel按钮，设置不显示搜索结果并刷新列表
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowSearchResults = false
-        historyView.isHidden = false
+        if historyList.count > 0{
+            setHistoryView()
+        }
+        historyView?.isHidden = false
         self.mTableView.separatorStyle = .none
         mTableView.reloadData()
         //
@@ -218,14 +245,20 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
 
     //点击搜索按钮，触发该代理方法，如果已经显示搜索结果，那么直接去除键盘，否则刷新列表
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
-        searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
-        shouldShowSearchResults = true
-        historyView.isHidden = true
-        self.mTableView.separatorStyle = .singleLine
-        print(searchArray)
-        mTableView.reloadData()
+        getData(searchName: searchBar.text!) {
+//            let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
+//            self.searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
+            self.shouldShowSearchResults = true
+            self.historyView?.isHidden = true
+            self.mTableView.separatorStyle = .singleLine
+            self.historyList.insert(String(searchBar.text!), at: 0)
+            if self.historyList.count > 5{
+                self.historyList.remove(at: 4)
+            }
+            self.userDefult.set(self.historyList, forKey: "appHistoryListForDevice")
+            self.mTableView.reloadData()
+        }
+       
     }
 
     //点击书签按钮，触发该代理方法
