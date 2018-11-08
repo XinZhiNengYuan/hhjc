@@ -11,16 +11,57 @@ import UIKit
 class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 
     let UiTableList = UITableView()
-    let arrayForKey : Array<String> = ["设备名称"," 设备型号","所属位置","所属位置","所属位置","所属位置"]
-
-
-//    let arrayForValue : Array<String> = ["燃气蒸汽锅炉","","","","",""]
+    var arrayForKey : Array<String> = []
+    var arrayForVal : Array<String> = []
+    var equId : Int = -1
+    let deviceDetailViewService = DeviceDetailViewService()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayout()
         // Do any additional setup after loading the view.
+        getData(id: equId)
     }
-
+    //MARK:数据请求
+    func getData(id:Int){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String:Any] = ["method":"getEquipmentById","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","id":id]]
+        deviceDetailViewService.getData(contentData: contentData, finishedData: { (resultData) in
+            self.setVal(val: resultData, call: {
+                self.setLayout()
+            })
+        }) { (errorData) in
+            print(errorData)
+            self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+        }
+    }
+    
+    //MARK:组装页面所需的数据
+    func setVal(val:DeviceDetailViewModule,call:()->()){
+        //这两个数组顺序要保持一致
+        arrayForVal.append(val.categoryNameSmall) //所属单位
+        arrayForVal.append(val.equName) //设备名称
+        arrayForVal.append(val.coOneAndcoTwo) //所属单位
+        arrayForVal.append(val.specification) //规格型号
+        arrayForVal.append(String(val.power)) //功率
+        arrayForVal.append(val.kksCode) //设备标识
+        arrayForVal.append(val.spName) //供应商
+        arrayForVal.append(val.manufactureDate) //生产日期
+        arrayForVal.append(val.installDate) //安装日期
+        
+        
+        arrayForKey.append("所属类型")
+        arrayForKey.append("设备名称")
+        arrayForKey.append("所属单位")
+        arrayForKey.append("规格型号")
+        arrayForKey.append("功率")
+        arrayForKey.append("设备标识")
+        arrayForKey.append("供应商")
+        arrayForKey.append("生产日期")
+        arrayForKey.append("安装日期")
+        call()
+        
+    }
+    //MARK:样式设计
     func setLayout(){
         self.title = "设备详情"
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -29,11 +70,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         
         
         UiTableList.register(DeviceDetailCell.self, forCellReuseIdentifier: "DeviceDetail1")
-        UiTableList.frame = CGRect(x: 20, y: 10, width: KUIScreenWidth-40, height: KUIScreenHeight-KUIScreenWidth/4)
+        UiTableList.frame = CGRect(x: 20, y: 0, width: KUIScreenWidth-40, height: KUIScreenHeight)
         UiTableList.delegate = self
         UiTableList.dataSource = self
         //轮播图加载
-        let pointY = 44 + UIApplication.shared.statusBarFrame.size.height
+        let pointY = 54 + UIApplication.shared.statusBarFrame.size.height
         let cycleView : CycleView = CycleView(frame: CGRect(x: 0, y: pointY, width: KUIScreenWidth, height: 220))
         cycleView.delegate = self
         cycleView.mode = .scaleAspectFill
@@ -42,6 +83,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
+        UiTableList.showsVerticalScrollIndicator = false
     }
 
     @objc func goBack(){
@@ -59,7 +101,7 @@ extension DeviceDetailViewController {
 
 extension DeviceDetailViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return arrayForKey.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,7 +112,7 @@ extension DeviceDetailViewController:UITableViewDelegate,UITableViewDataSource{
         }
         let index = indexPath.row
         cell?.mLabelLeft.text = arrayForKey[index]
-        cell?.mLabelRight.text = "燃气蒸汽锅炉"
+        cell?.mLabelRight.text = arrayForVal[index]
         return cell!
     }
 

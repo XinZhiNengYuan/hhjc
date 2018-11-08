@@ -30,6 +30,8 @@
 		3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
 		3D223A09218C447E00D570C7 /* AlarmAnalysisViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A08218C447E00D570C7 /* AlarmAnalysisViewService.swift */; };
 		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
+		3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */; };
+		3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */; };
 		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
 		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
@@ -105,6 +107,8 @@
 		3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
 		3D223A08218C447E00D570C7 /* AlarmAnalysisViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewService.swift; sourceTree = "<group>"; };
 		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
+		3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewService.swift; sourceTree = "<group>"; };
+		3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModule.swift; sourceTree = "<group>"; };
 		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 			children = (
 				3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */,
 				3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */,
+				3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				3DCF48F721894304005D51FB /* DeviceManagementService.swift */,
 				3DCF48F921894345005D51FB /* DeviceDetailService.swift */,
 				3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */,
+				3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
 				3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */,
 				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
+				3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */,
 				3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,
 				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
 				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
@@ -531,6 +538,7 @@
 				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
 				3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */,
 				3DADFD2F21815D1300E47916 /* AlarmAnalysisViewController.swift in Sources */,
+				3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
 				3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */,

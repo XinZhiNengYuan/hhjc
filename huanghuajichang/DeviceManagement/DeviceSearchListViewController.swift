@@ -27,7 +27,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     var top : CGFloat = 0
     var tableViewFrame :CGRect!
     let searchInput = UITextField()
-    
+    var searchArrayIdList : [Int] = [Int]()
     let deviceSearchListViewService = DeviceSearchListViewService()
     let userDefult = UserDefaults.standard
     override func viewDidLoad() {
@@ -42,12 +42,15 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     func getData(searchName:String,call:@escaping ()->()){
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String:Any] = ["method":"getEquipmentList","user_id":userId as Any,"token":token as Any,"info":["oneId":"","twoId":"","equName":searchName]]
+        let contentData : [String:Any] = ["method":"getEquipmentList","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","equName":searchName]]
         deviceSearchListViewService.getData(contentData: contentData, finished: { (result, resultDataList) in
             self.searchArray.removeAll()
+            self.searchArrayIdList.removeAll()
             for i in 0..<resultDataList.count{
-                let item = result["data"]["resultData"][i]["equName"]
-                self.searchArray.append(item.stringValue)
+                let itemName = result["data"]["resultData"][i]["equName"]
+                self.searchArray.append(itemName.stringValue)
+                let itemId = result["data"]["resultData"][i]["equId"]
+                self.searchArrayIdList.append(Int(itemId.stringValue)!)
             }
             call()
         }) { (errorData) in
@@ -193,6 +196,7 @@ extension DeviceSearchListViewController:UITableViewDataSource{
         let rowNum = indexPath.row
         if self.countrySearchController.isActive {
             cell.textLabel?.text = self.searchArray[rowNum]
+            cell.tag = Int(self.searchArrayIdList[rowNum]) ?? -1
             return cell
         } else {
             if shouldShowSearchResults{
@@ -211,12 +215,12 @@ extension DeviceSearchListViewController:UITableViewDataSource{
 extension DeviceSearchListViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath.row)
         if self.countrySearchController.isActive{
             self.dismiss(animated: false, completion: nil)
         }
-        navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
+        let deviceDetaillController = DeviceDetailViewController()
+        deviceDetaillController.equId = self.searchArrayIdList[indexPath.row]
+        navigationController?.pushViewController(deviceDetaillController, animated: true)
     }
     
 }

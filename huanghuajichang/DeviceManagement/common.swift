@@ -73,7 +73,7 @@ class common : NSObject{
      finished : 请求成功的回调
      finishedError : 请求不成功的回调
      */
-    func requestData(urlStr : String,outTime : Double ,contentData : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
+    func requestData(urlStr : String,outTime : Double , contentData : Dictionary<String, Any>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
         MyProgressHUD.showStatusInfo("加载中...")
         //网络请求
         let headers: HTTPHeaders = [

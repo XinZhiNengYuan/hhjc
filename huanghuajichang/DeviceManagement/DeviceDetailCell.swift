@@ -37,7 +37,7 @@ class DeviceDetailCell: UITableViewCell {
         mLabelCenter.text = ":"
         mView.addSubview(mLabelCenter)
         
-        mLabelRight.frame = CGRect(x: 95, y: 0, width: (UIScreen.main.bounds.size.width - 30)*1/4, height: 40)
+        mLabelRight.frame = CGRect(x: 95, y: 0, width: UIScreen.main.bounds.size.width - 95, height: 40)
         mLabelRight.textAlignment = .left
         mLabelRight.font = UIFont.boldSystemFont(ofSize: 12)
         mView.addSubview(mLabelRight)
