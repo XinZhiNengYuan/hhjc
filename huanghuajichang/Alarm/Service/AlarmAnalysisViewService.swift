@@ -14,7 +14,7 @@ class AlarmAnalysisViewService : NSObject{
     
     func gitData(contentData : Dictionary<String,Any>){
         commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
-            print(type(of: result))
+            print(result)
         }) { (error) in
             print(error)
         }

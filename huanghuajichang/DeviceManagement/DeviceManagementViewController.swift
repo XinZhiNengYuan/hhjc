@@ -262,10 +262,8 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView1.isEqual(tableView){
-            print(statusArr)
             if statusArr[section] as! Bool{
                 if let arrForOneMeanSubList = resultDataForJson["data"][section]["children"].arrayObject{
-                    print(arrForOneMeanSubList.count)
                     return arrForOneMeanSubList.count
                 }else{
                     return 0
@@ -393,9 +391,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 cell = UITableViewControllerCellTwo(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            print(rowNum)
             if let arrForOneMeanSubList = resultDataForJson["data"][rowNum]["children"].arrayObject{
-                print(arrForOneMeanSubList)
                 cell?.mLabel.text = listArr[rowNum]//((arrForOneMeanSubList[rowNum] as! Dictionary<String,String>)["text"])
             }else{
                 cell?.mLabel.text = ""
@@ -432,7 +428,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
             self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
         }
-        print(self.userDefault.dictionary(forKey: "DeviceManagementKey") as Any)
 //        print(indexPath.row)
 //        reLoadCollectionView(option:"区域行被电击")
         
