@@ -55,7 +55,6 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
             call()
         }) { (errorData) in
             self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
-            print(errorData)
         }
     }
     override func viewWillAppear(_ animated: Bool){
