@@ -1,6 +1,7 @@
 //
 //  DeviceSearchListViewService.swift
 //  huanghuajichang
+//对网络请求所得数据直接解析，没有存module
 //
 //  Created by zx on 2018/11/5.
 //  Copyright © 2018年 EnnergySuperHero. All rights reserved.
@@ -13,7 +14,6 @@ class DeviceSearchListViewService : NSObject{
     let commonClass = common()
     //数据请求地址
     let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
-    var arrDic : Array<Dictionary<String,Any>> = []
     func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:JSON,_ newArr : Array<Dictionary<String,Any>>)->(),finishedError:@escaping (_ errorData : Error)->()){
         commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
             //JSON转化为Dictionary字典（[String: AnyObject]?）
@@ -24,11 +24,12 @@ class DeviceSearchListViewService : NSObject{
                 }
                 //JSON转化为Array数组（[AnyObject]?）
                 let arr = result["data"]["resultData"].arrayValue
+                var arrDic : Array<Dictionary<String,Any>> = []
                 if !arr.isEmpty {
                     for item in arr{
-                        self.arrDic.append(item.dictionaryObject!)
+                        arrDic.append(item.dictionaryObject!)
                     }
-                    finished(result,self.arrDic)
+                    finished(result,arrDic)
                 }
             }
         }) { (error) in

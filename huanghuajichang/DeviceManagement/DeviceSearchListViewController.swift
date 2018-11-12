@@ -47,10 +47,10 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
             self.searchArray.removeAll()
             self.searchArrayIdList.removeAll()
             for i in 0..<resultDataList.count{
-                let itemName = result["data"]["resultData"][i]["equName"]
-                self.searchArray.append(itemName.stringValue)
-                let itemId = result["data"]["resultData"][i]["equId"]
-                self.searchArrayIdList.append(Int(itemId.stringValue)!)
+                let itemName = resultDataList[i]["equName"]
+                self.searchArray.append(itemName as! String)
+                let itemId = resultDataList[i]["equId"]
+                self.searchArrayIdList.append(itemId as! Int)
             }
             call()
         }) { (errorData) in
