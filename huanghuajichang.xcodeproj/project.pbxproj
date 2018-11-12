@@ -62,7 +62,6 @@
 		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
 		3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
-		3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55E216F180A00A5CD62 /* CameraView.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
 		90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */; };
 		FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */; };
@@ -141,7 +140,6 @@
 		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
-		3DFDC55E216F180A00A5CD62 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanghuajichang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.release.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.release.xcconfig"; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 				3D48C7E8217EF11B0067705E /* Info.plist */,
 				3D48C7F4217EFD2B0067705E /* InfoPlist.strings */,
 				3D48C7CD217ECC510067705E /* Index */,
-				3DFDC55E216F180A00A5CD62 /* CameraView.swift */,
 				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
 				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
 				3D48C7CC217ECB610067705E /* DailyRecord */,
@@ -520,7 +517,6 @@
 				3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */,
 				FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */,
 				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
-				3DFDC561216F180A00A5CD62 /* CameraView.swift in Sources */,
 				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
 				3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */,
 				3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,

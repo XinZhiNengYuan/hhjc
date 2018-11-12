@@ -63,8 +63,6 @@ func getDictionaryFromJSONString(jsonString:String) ->NSDictionary{
 }
 
 
-
-
 class common : NSObject{
     /*
      urlStr: 请求地址
