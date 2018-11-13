@@ -58,7 +58,13 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         createFixedUI()
         createHeader()
         createTabList()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: "updateList"), object: nil)
 //        getData()
+    }
+    
+    @objc func updateList(){
+        self.getHeaderData()
+        self.getListData(searchStr: "", state: "")
     }
     
     ///1.绘制navigationBar的右侧按钮组
@@ -188,7 +194,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     ///3.获取表头需要的数据（日常记录条数）
-    func getHeaderData() {
+    @objc func getHeaderData() {
         let infoData = ["startday":"\(dateLabel.text!)-01","endDay":"\(changeDate(chageType: 2))-01"]
         let contentData : [String : Any] = ["method":"getOptionNum","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
@@ -204,6 +210,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 }
                 
             case .failure(let error):
+                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -287,16 +294,13 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
-                    self.recordTableView.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.automatic)
                     //重新请求页面数据
-                    //TODO
                     self.getHeaderData()
                     self.getListData(searchStr:"", state:"")
                     
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-                    print(type(of: JSON(value)["msg"]))
                     if JSON(value)["msg"].string == nil {
                         self.present(windowAlert(msges: "删除失败"), animated: true, completion: nil)
                     }else{
@@ -304,6 +308,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                     }
                 }
             case .failure(let error):
+                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "删除请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -321,7 +326,6 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
          refresHeader.setTitle("释放更新", for: .pulling)
          refresHeader.setTitle("正在刷新...", for: .refreshing)
          self.recordTableView.mj_header = refresHeader
-        getListData(searchStr: "", state: "")
         //初始化上拉加载
         init_bottomFooter()
     }
@@ -341,7 +345,6 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         refreshFooter.setTitle("没有没有更多数据了", for: .noMoreData)//数据加载完毕的状态
         //将上拉加载的控件与 tableView控件绑定起来
         self.recordTableView.mj_footer = refreshFooter
-        //页面加载完后再请求数据
         getListData(searchStr:"", state:"")
     }
     
@@ -349,6 +352,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     @objc func headerRefresh(){
         
         print("下拉刷新")
+        pageStart = 0
         //服务器请求数据的函数
         if pageStatus == "" {
             getListData(searchStr:"", state:"")
@@ -364,6 +368,13 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     @objc func footerRefresh(){
         
         print("上拉刷新")
+        pageStart += 10
+        //服务器请求数据的函数
+        if pageStatus == "" {
+            getListData(searchStr:"", state:"")
+        }else{
+            getListData(searchStr:"", state:Int(pageStatus)!-1)
+        }
         //结束下拉刷新
         self.recordTableView.mj_footer.endRefreshing()
     }
@@ -399,6 +410,11 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    //最后要记得移除通知
+    /// 移除通知
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
 }
 extension DailyRecordViewController:ThickButtonDelagate{
@@ -406,6 +422,7 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
+        pageStart = 0
         switch buttonIndex {
         case 0:
             pageStatus = ""
@@ -445,16 +462,16 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         }
         if self.json != nil {
 //            print(self.listData[indexPath.row])
-            print(type(of: self.json[indexPath.row]))
-            //        cell?.textLabel?.text = "\(indexPath.row)"
+//            print(type(of: self.json[indexPath.row]))
             //当无图片时显示默认图片
-            if self.json[indexPath.row]["filesId"].array?.count == 0 {
+            if self.json[indexPath.row]["filesId"].stringValue == "" {
                 print(self.json[indexPath.row]["filesId"])
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
-                cell?.itemImage?.image = UIImage(named: "默认图片")
+                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",")[0])
+                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
-                photoNum.text = "共\(self.json[indexPath.row]["filesId"].count)张"
+                photoNum.text = "共\(self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",").count)张"
                 photoNum.textColor = UIColor.white
                 photoNum.textAlignment = .center
                 photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
@@ -462,8 +479,12 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemImage?.addSubview(photoNum)
             }
             cell?.itemTitle?.text =  self.json[indexPath.row]["title"].stringValue
-            cell?.itemStatus?.text = self.json[indexPath.row]["staName"].boolValue ? self.json[indexPath.row]["staName"].stringValue : "未处理"
-            cell?.itemId = self.json[indexPath.row]["id"].description
+            if self.json[indexPath.row]["state"].stringValue == "1" {
+                cell?.itemStatus?.text = "已处理"
+            }else{
+                cell?.itemStatus?.text = "未处理"
+            }
+            cell?.itemId = self.json[indexPath.row]["id"].stringValue
             //默认颜色是已处理的，所以在未处理时更改颜色
             if self.json[indexPath.row]["state"] == 0 {
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
@@ -491,9 +512,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
         if editingStyle == .delete {
-            //TODO
-            let dailyRecordVc = DailyRecordViewController()
-            dailyRecordVc.deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath:indexPath)
+            deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath: indexPath)
         }
     }
     

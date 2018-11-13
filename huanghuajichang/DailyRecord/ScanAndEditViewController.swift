@@ -30,10 +30,7 @@ class ScanAndEditViewController: AddNavViewController {
         self.title = "记录详情"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white, NSAttributedStringKey.font:(UIFont(name: "PingFangSC-Regular", size: 18))!]
         self.view.backgroundColor = UIColor.white
-        rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
-        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font:UIFont(name: "PingFangSC-Regular", size: 6)!], for: UIControlState.normal)//未生效
-        rightEditBtn.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = rightEditBtn
+        NotificationCenter.default.addObserver(self, selector: #selector(getDetailData), name: NSNotification.Name(rawValue: "updateDetail"), object: nil)
         // Do any additional setup after loading the view.
         userToken = self.userDefault.object(forKey: "userToken") as? String
         userId = self.userDefault.object(forKey: "userId") as? String
@@ -48,7 +45,7 @@ class ScanAndEditViewController: AddNavViewController {
         self.navigationController?.pushViewController(editVc, animated: false)
     }
     
-    func getDetailData(){
+    @objc func getDetailData(){
         MyProgressHUD.showStatusInfo("加载中...")
         let infoData = ["id":itemId]
         let contentData : [String : Any] = ["method":"getOptionById","info":infoData,"token":userToken,"user_id":userId]
@@ -70,6 +67,7 @@ class ScanAndEditViewController: AddNavViewController {
                     }
                 }
             case .failure(let error):
+                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -117,14 +115,12 @@ class ScanAndEditViewController: AddNavViewController {
         //重置textView的高度
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)
-        
-        imageData = self.detailJson["filesId"].stringValue.components(separatedBy: ",") as NSArray
-        
-        for detailImage in imageData.enumerated(){
+            
+        for detailImage in self.detailJson["filePhotos"].enumerated(){
             let topHeight = describeTextView.frame.size.height+describeTextView.frame.origin.y
             let imageView = UIImageView.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 160) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 150))
             imageView.backgroundColor = UIColor.white
-            let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (detailImage.element as! String)
+            let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
             imageView.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFit)
             imageView.layer.borderColor = UIColor.red.cgColor
             imageView.layer.borderWidth = 1
@@ -135,6 +131,13 @@ class ScanAndEditViewController: AddNavViewController {
         scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(imageData.count*(160))+20)
         
         if self.detailJson["state"].intValue == 0 {
+            ///编辑按钮
+            rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
+            self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font:UIFont(name: "PingFangSC-Regular", size: 6)!], for: UIControlState.normal)//未生效
+            rightEditBtn.tintColor = UIColor.white
+            self.navigationItem.rightBarButtonItem = rightEditBtn
+            
+            ///处理按钮视图
             dealView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight-64-44, width: kScreenWidth, height: 44))
             dealView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.28)
             self.view.addSubview(dealView)
@@ -154,7 +157,7 @@ class ScanAndEditViewController: AddNavViewController {
     @objc func dealPost(){
         print("执行处理操作")
         MyProgressHUD.showStatusInfo("处理中...")
-        let infoData = ["id":itemId]
+        let infoData = ["id":itemId,"user_id":userId]
         let contentData : [String : Any] = ["method":"updateOptionState","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
             print(resultData)
@@ -162,6 +165,8 @@ class ScanAndEditViewController: AddNavViewController {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.dealView.removeFromSuperview()
+                    self.navigationItem.rightBarButtonItem = nil
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateList"), object: nil)
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
@@ -173,11 +178,18 @@ class ScanAndEditViewController: AddNavViewController {
                     }
                 }
             case .failure(let error):
+                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "处理请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
             }
         }
+    }
+    
+    //最后要记得移除通知
+    /// 移除通知
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     /*

@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SwiftyJSON
+import AVFoundation
+import Photos
 
-class AddDailyRecordViewController: AddNavViewController {
+class AddDailyRecordViewController: AddNavViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate  {
     
     var pageType:String!
     var rightSaveBtn:UIBarButtonItem!
@@ -20,26 +23,217 @@ class AddDailyRecordViewController: AddNavViewController {
     var imgsView:UIView!
     var imagsData:NSMutableArray! = []
     var haveImagsData:NSMutableArray! = []
+    var imagesData:NSMutableArray! = []
+    var fieldsData:NSMutableArray! = []
+    var fieldsStr:String!
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var editItemId:String!
+    var editJson:JSON!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white, NSAttributedStringKey.font:(UIFont(name: "PingFangSC-Regular", size: 18))!]
+        self.view.backgroundColor = allListBackColor
+        
+        rightSaveBtn = UIBarButtonItem.init(title: "保存", style: UIBarButtonItemStyle.done, target: self, action: #selector(uploadImgs))
+        rightSaveBtn.isEnabled = true
+        rightSaveBtn.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = rightSaveBtn
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        
+        createUI()
+        
         if pageType == "edit" {
             self.title = "编辑记录"
+            editItemId = self.userDefault.object(forKey: "recordId") as? String
+            
+            editGetDetailData()
         }else{
             self.title = "新增记录"
         }
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white, NSAttributedStringKey.font:(UIFont(name: "PingFangSC-Regular", size: 18))!]
-        self.view.backgroundColor = allListBackColor
-        rightSaveBtn = UIBarButtonItem.init(title: "保存", style: UIBarButtonItemStyle.done, target: self, action: #selector(addPost))
-        rightSaveBtn.isEnabled = false
-        rightSaveBtn.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = rightSaveBtn
         // Do any additional setup after loading the view.
-        createUI()
+        
     }
+    
+    ///编辑页面时，获取详情
+    func editGetDetailData(){
+        let titleView = self.view.viewWithTag(100)
+        let titleTF = titleView?.viewWithTag(200) as! UITextField
+        let timeView = self.view.viewWithTag(101)
+        let timeTF = timeView?.viewWithTag(201) as! UITextField
+        MyProgressHUD.showStatusInfo("加载中...")
+        let infoData = ["id":editItemId]
+        let contentData : [String : Any] = ["method":"getOptionById","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.editJson = JSON(value)["data"]
+//                    self.createDetailContent()
+                    titleTF.text = self.editJson["title"].stringValue
+                    timeTF.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.editJson["opeTime"].stringValue)
+                    self.describeTextView.text = self.editJson["describe"].stringValue
+                    print(self.editJson["filePhotos"].arrayValue)
+                    self.imagsData = []
+                    self.imagesData = []
+                    self.haveImagsData = []
+                    if self.editJson["filePhotos"].arrayValue != [] {
+                        for editImage in self.editJson["filePhotos"].enumerated(){
+                            let editImgBtn = UIButton.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
+                            let imgurl = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
+                            let imgData = NSData.init(contentsOfFile: imgurl)
+                            let editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
+                            editImgBtn.setImage(editUIImage, for: .normal)
+                            editImgBtn.layer.borderWidth = 1
+                            editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
+                            editImgBtn.tag = 1001 + editImage.offset
+                            self.imgsView.addSubview(editImgBtn)
+                            self.imagsData.add(editImgBtn)
+                            self.imagesData.add(editUIImage!)
+                            
+                            let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
+                            deleteBtn.setImage(UIImage(named: "删除"), for: UIControlState.normal)
+                            deleteBtn.tag = 2001 + editImage.offset
+                            deleteBtn.addTarget(self, action: #selector(self.deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
+                            editImgBtn.addSubview(deleteBtn)
+                            self.haveImagsData.add(editImgBtn)
+                            
+                            
+                        }
+                        if self.editJson["filePhotos"].arrayValue.count < 3 {
+                            self.drawImgBtn(imgBtnIndex: self.editJson["filePhotos"].arrayValue.count + 1)
+                        }
+                    }else{
+                        self.drawImgBtn(imgBtnIndex: 1)
+                    }
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    print(type(of: JSON(value)["msg"]))
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///上传图片
+    @objc func uploadImgs() {
+        MyProgressHUD.showStatusInfo("新增中...")
+        NetworkTools.upload(urlString: "http", params: nil , images: imagesData as! [UIImage], success: { (successBack) in
+            print(successBack ?? "default value")
+            self.fieldsData = []
+            if JSON(successBack!)["status"].stringValue == "success"{
+                //关闭页面，通知列表刷新
+                let successData = JSON(successBack!)["data"]
+                for i in successData.enumerated(){
+                    self.fieldsData.add(successData[i.offset]["fileId"])
+                }
+                self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
+                if self.pageType == "edit"{
+                    self.editPost()
+                }else{
+                    self.addPost()
+                }
+            }else{
+                MyProgressHUD.dismiss()
+                if JSON(successBack!)["msg"].string == nil {
+                    self.present(windowAlert(msges: "新增失败"), animated: true, completion: nil)
+                }else{
+                    self.present(windowAlert(msges: JSON(successBack!)["msg"].stringValue), animated: true, completion: nil)
+                }
+            }
+        }) { (ErrorBack) in
+            MyProgressHUD.dismiss()
+            self.present(windowAlert(msges: "新增请求失败"), animated: true, completion: nil)
+            print("error:\(ErrorBack)")
+            return
+        }
+    }
+    
     ///新增日常记录
-    @objc func addPost(){
+    func addPost(){
         print("执行新增操作")
+        let titleView = self.view.viewWithTag(100)
+        let titleTF = titleView?.viewWithTag(200) as! UITextField
+        let timeView = self.view.viewWithTag(101)
+        let timeTF = timeView?.viewWithTag(201) as! UITextField
+        let infoData = ["title":titleTF.text ?? "", "desc":describeTextView.text, "user_id":userId, "opeTime":timeTF.text ?? "", "fileIds":fieldsStr] as [String : Any]
+        let contentData : [String : Any] = ["method":"addOption","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    //关闭页面，通知列表刷新
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateList"), object: nil)
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "新增失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "新增请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///编辑日常记录
+    func editPost(){
+        print("执行编辑操作")
+        let titleView = self.view.viewWithTag(100)
+        let titleTF = titleView?.viewWithTag(200) as! UITextField
+        let timeView = self.view.viewWithTag(101)
+        let timeTF = timeView?.viewWithTag(201) as! UITextField
+        let infoData = ["title":titleTF.text ?? "", "desc":describeTextView.text, "id":editItemId, "opeTime":timeTF.text ?? "", "fileIds":fieldsStr] as [String : Any]
+        let contentData : [String : Any] = ["method":"updateOption","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    //关闭页面，通知列表刷新
+                    self.navigationController?.popViewController(animated: false)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDetail"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateList"), object: nil)
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "新增失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "新增请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
     }
     
     func createUI(){
@@ -75,7 +269,7 @@ class AddDailyRecordViewController: AddNavViewController {
                 pickerView.addSubview(okBtn)
                 
                 let datePicker = UIDatePicker.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: 160))
-                datePicker.datePickerMode = .date
+                datePicker.datePickerMode = .dateAndTime
                 //        datePicker.setDate(NSDate., animated: da)
                 datePicker.locale = Locale.init(identifier: "zh_CN")
                 datePicker.calendar = Calendar.current
@@ -119,14 +313,34 @@ class AddDailyRecordViewController: AddNavViewController {
         imgsView.backgroundColor = UIColor.white
         self.view.addSubview(imgsView)
         
-        let addImgBtn = UIButton.init(frame: CGRect(x: 10, y: 15, width: 75, height: 75))
+        if pageType != "edit" {
+            drawImgBtn(imgBtnIndex: 1)
+        } 
+    }
+    
+    func drawImgBtn(imgBtnIndex:Int){
+        let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat((imgBtnIndex-1)*(75+15)+10), y: 15, width: 75, height: 75))
         addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
         addImgBtn.layer.borderWidth = 1
         addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
-        addImgBtn.tag = 1001
+        addImgBtn.tag = imgBtnIndex + 1000
         addImgBtn.addTarget(self, action: #selector(addImgBtn(sender:)), for: UIControlEvents.touchUpInside)
         imgsView.addSubview(addImgBtn)
         imagsData.add(addImgBtn)
+    }
+    
+   static func timeStampToString(timeStamp:String)->String {
+        
+        let string = NSString(string: timeStamp)
+        
+        let timeSta:TimeInterval = string.doubleValue
+        let dfmatter = DateFormatter()
+        dfmatter.dateFormat="yyyy年MM月dd日"
+        
+        let date = NSDate(timeIntervalSince1970: timeSta)
+        
+        print(dfmatter.string(from: date as Date))
+        return dfmatter.string(from: date as Date)
     }
     
     @objc func doneButtonAction() {
@@ -142,9 +356,10 @@ class AddDailyRecordViewController: AddNavViewController {
     /// MARK: - 日期选择器选择处理方法
     @objc func getDate() {
         let datePicker = pickerView.viewWithTag(1001) as! UIDatePicker
+        datePicker.datePickerMode = .dateAndTime
         let formatter = DateFormatter()
         let date = datePicker.date
-        formatter.dateFormat = "yyyy年MM月dd日"
+        formatter.dateFormat = "yyyy/MM/dd HH:mm"
         let dateStr = formatter.string(from: date)
         let dateTextField = titleView.viewWithTag(201) as! UITextField
         dateTextField.text = dateStr
@@ -152,27 +367,7 @@ class AddDailyRecordViewController: AddNavViewController {
     }
     
     @objc func addImgBtn (sender:UIButton) {
-        //对按钮自身进行操作
-        let index = sender.tag - 1000
-        let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
-        deleteBtn.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-        deleteBtn.tag = 2000+index
-        deleteBtn.addTarget(self, action: #selector(deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
-        sender.addSubview(deleteBtn)
-        sender.removeTarget(self, action: #selector(addImgBtn(sender:)), for: UIControlEvents.allEvents)
-        haveImagsData.add(sender)
-        if index == 3{
-            return
-        }
-        //新增的按钮
-        let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat(index*(75+15)+10), y: 15, width: 75, height: 75))
-        addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
-        addImgBtn.layer.borderWidth = 1
-        addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
-        addImgBtn.tag = index + 1001
-        addImgBtn.addTarget(self, action: #selector(addImgBtn(sender:)), for: UIControlEvents.touchUpInside)
-        imgsView.addSubview(addImgBtn)
-        imagsData.add(addImgBtn)
+        openSelector()
     }
     
     @objc func deleteImgBtn(sender:UIButton){
@@ -181,6 +376,7 @@ class AddDailyRecordViewController: AddNavViewController {
         let endIndex = imagsData.count + 1000
         //1.首先移除自身所在图片按钮
         let superBtn = imgsView.viewWithTag(index + 1000) as! UIButton
+        imagesData.removeObject(at: index-1)
         imagsData.remove(superBtn)
         haveImagsData.remove(superBtn)
         superBtn.removeFromSuperview()
@@ -209,6 +405,179 @@ class AddDailyRecordViewController: AddNavViewController {
             imgsView.addSubview(addImgBtn)
             imagsData.add(addImgBtn)
         }
+    }
+    
+    @objc func openSelector(){
+        let actionSheet = UIAlertController.init(title: "请选择", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
+        // 命令（样式：退出Cancel，警告Destructive-按钮标题为红色，默认Default）
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler:{
+            action in
+            print("关闭")
+        })
+        let deleteAction = UIAlertAction(title: "拍摄照片", style: UIAlertActionStyle.default, handler: {
+            action in
+            print("拍摄照片")
+            if self.cameraPermission() == true {
+                self.cameraEvent()
+            }else{
+                self.gotoSetting()
+            }
+            
+        })
+        let archiveAction = UIAlertAction(title: "本地相册", style: UIAlertActionStyle.default, handler: {
+            action in
+            print("本地相册")
+            if self.PhotoLibraryPermission() == true{
+                self.photoEvent()
+            }else{
+                self.gotoSetting()
+            }
+        })
+        actionSheet.addAction(cancelAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(archiveAction)
+        self.present(actionSheet, animated: false, completion: nil)
+    }
+    /*
+     判断相机是否有权限
+     return:有权限返回true，无权限返回false
+     */
+    func cameraPermission() -> Bool{
+        let authStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        if (authStatus == AVAuthorizationStatus.denied || authStatus == AVAuthorizationStatus.restricted){
+            return false
+        }else{
+            return true
+        }
+    }
+    
+    func cameraEvent(){
+        let pickerCamera = UIImagePickerController()
+        pickerCamera.sourceType = .camera
+        pickerCamera.allowsEditing = true
+        pickerCamera.delegate = self
+        self.present(pickerCamera, animated: true, completion: nil)
+    }
+    
+    /*
+     判断相册是否有权限
+     return:有权限返回true，无权限返回false
+     */
+    func PhotoLibraryPermission() -> Bool{
+        let libraryStatus:PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        if (libraryStatus == PHAuthorizationStatus.denied || libraryStatus == PHAuthorizationStatus.restricted){
+            return false
+        }else{
+            return true
+        }
+    }
+    
+    func photoEvent(){
+        
+        let pickerPhoto = UIImagePickerController()
+        pickerPhoto.sourceType = .photoLibrary
+        pickerPhoto.allowsEditing = true
+        pickerPhoto.delegate = self
+        self.present(pickerPhoto, animated: true, completion: nil)
+        
+    }
+    
+    //去设置权限
+    
+    func gotoSetting(){
+        
+        let alertController:UIAlertController=UIAlertController.init(title: "去设置", message: "设置-》通用-》", preferredStyle: UIAlertControllerStyle.alert)
+        let sure:UIAlertAction=UIAlertAction.init(title: "去开启权限", style: UIAlertActionStyle.default) { (ac) in
+            
+            let url=URL.init(string: UIApplicationOpenSettingsURLString)
+            
+            if UIApplication.shared.canOpenURL(url!){
+                UIApplication.shared.open(url!, options: [:], completionHandler: { (ist) in
+                    
+                })
+            }
+            
+        }
+        
+        alertController.addAction(sure)
+        
+        self.present(alertController, animated: true) {
+            
+        }
+        
+    }
+    
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        self.dismiss(animated: true) {
+            var img:UIImage? = info[UIImagePickerControllerOriginalImage] as? UIImage
+            if picker.allowsEditing {
+                img = info[UIImagePickerControllerEditedImage] as? UIImage
+            }
+            //对按钮自身进行操作
+            let currentBtn = self.imagsData.lastObject as! UIButton
+            currentBtn.setImage(img, for: UIControlState.normal)
+           /* //修正图片的位置
+//            let image = self.fixOrientation((info[UIImagePickerControllerOriginalImage] as! UIImage))
+            //先把图片转成NSData
+            let data = UIImageJPEGRepresentation(img!, 0.5)
+            //图片保存的路径
+            //这里将图片放在沙盒的documents文件夹中
+            
+            //Home目录
+            let homeDirectory = NSHomeDirectory()
+            let documentPath = homeDirectory + "/Documents"
+            //文件管理器
+            let fileManager: FileManager = FileManager.default
+            //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
+            do {
+                try fileManager.createDirectory(atPath: documentPath, withIntermediateDirectories: true, attributes: nil)
+            }
+            catch let error {
+                print(error)
+            }
+            fileManager.createFile(atPath: documentPath.appendingFormat("/image.png"), contents: data, attributes: nil)
+            //得到选择后沙盒中图片的完整路径
+            let filePath: String = String(format: "%@%@", documentPath, "/image.png")
+            print("filePath:" + filePath)
+             */
+            
+            self.imagesData.add(img!)
+            
+            let index = currentBtn.tag - 1000
+            let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
+            deleteBtn.setImage(UIImage(named: "删除"), for: UIControlState.normal)
+            deleteBtn.tag = 2000+index
+            deleteBtn.addTarget(self, action: #selector(self.deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
+            currentBtn.addSubview(deleteBtn)
+            currentBtn.removeTarget(self, action: #selector(self.addImgBtn(sender:)), for: UIControlEvents.allEvents)
+            self.haveImagsData.add(currentBtn)
+            if index == 3{
+                return
+            }
+            //新增的按钮
+            let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat(index*(75+15)+10), y: 15, width: 75, height: 75))
+            addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
+            addImgBtn.layer.borderWidth = 1
+            addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
+            addImgBtn.tag = index + 1001
+            addImgBtn.addTarget(self, action: #selector(self.addImgBtn(sender:)), for: UIControlEvents.touchUpInside)
+            self.imgsView.addSubview(addImgBtn)
+            self.imagsData.add(addImgBtn)
+//            self.largeHeaderView.image = img
+            //将img转为data
+            //            let imageData = UIImagePNGRepresentation(img)
+        }
+        
+    }
+    
+    //点击系统自定义取消按钮的回调
+    
+    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     /*
