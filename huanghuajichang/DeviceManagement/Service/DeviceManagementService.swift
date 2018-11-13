@@ -13,8 +13,6 @@ import SwiftyJSON
 
 class DeviceManagementService : common{
     
-    //数据请求地址
-    let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
     let commonClass = common()
     var oneMeanNameList : NSMutableArray=[]
     var oneMeanIdList : NSMutableArray=[]

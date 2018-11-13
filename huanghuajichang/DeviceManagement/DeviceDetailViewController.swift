@@ -15,6 +15,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     var arrayForVal : Array<String> = []
     var equId : Int = -1
     let deviceDetailViewService = DeviceDetailViewService()
+    var cycleView : CycleView! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,8 +27,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String:Any] = ["method":"getEquipmentById","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","id":id]]
         deviceDetailViewService.getData(contentData: contentData, finishedData: { (resultData) in
-            self.setVal(val: resultData, call: {
-                self.setLayout()
+            self.setVal(val: resultData, call: { (arrPic) in
+                self.setLayout(arrPic: arrPic)
             })
         }) { (errorData) in
             self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
@@ -35,7 +36,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     }
     
     //MARK:组装页面所需的数据
-    func setVal(val:DeviceDetailViewModule,call:()->()){
+    func setVal(val:DeviceDetailViewModule,call:(_ picArr:[equPhotos])->()){
         //这两个数组顺序要保持一致
         arrayForVal.append(val.categoryNameSmall) //所属单位
         arrayForVal.append(val.equName) //设备名称
@@ -57,11 +58,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         arrayForKey.append("供应商")
         arrayForKey.append("生产日期")
         arrayForKey.append("安装日期")
-        call()
+        call(val.photoList)
         
     }
     //MARK:样式设计
-    func setLayout(){
+    func setLayout(arrPic imageListObjc : [equPhotos]){
         self.title = "设备详情"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
@@ -74,10 +75,21 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         UiTableList.dataSource = self
         //轮播图加载
         let pointY = 54 + UIApplication.shared.statusBarFrame.size.height
-        let cycleView : CycleView = CycleView(frame: CGRect(x: 0, y: pointY, width: KUIScreenWidth, height: 220))
+        cycleView  = CycleView(frame: CGRect(x: 0, y: pointY, width: KUIScreenWidth, height: 220))
         cycleView.delegate = self
         cycleView.mode = .scaleAspectFill
         //本地图片测试--加载网络图片,请用第三方库如SDWebImage等
+        for i in 0..<imageListObjc.count{
+            print("\(appUrl!)"+"\(imageListObjc[i].filePath)")
+            let b  = appUrl!.index(appUrl!.endIndex, offsetBy: 9)
+            let c = appUrl![appUrl!.startIndex..<b]
+            print(c)
+            //开发到拼接图片的下载地址了
+            return
+            let a = URL(string: "\(String(describing: appUrl))\(imageListObjc[i].filePath)")!
+            print(a)
+        }
+        
         cycleView.imageURLStringArr = ["banner01.jpg", "banner02.jpg", "banner03.jpg", "banner04.jpg"]
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)

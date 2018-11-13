@@ -11,8 +11,6 @@ import SwiftyJSON
 
 class AppUpdateAlertService : NSObject{
     
-    //数据请求地址
-    let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
     let commonClass = common()
     //请求数据
     func getData(contentData:Dictionary<String,Any>,finished:@escaping (_ result : JSON)->(),finishedError:@escaping (_ : Error)->()){

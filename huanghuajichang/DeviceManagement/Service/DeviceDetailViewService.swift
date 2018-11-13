@@ -10,8 +10,6 @@ import Foundation
 import SwiftyJSON
 
 class DeviceDetailViewService : common {
-    //数据请求地址
-    let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
     var deviceDetailViewModule = DeviceDetailViewModule()
     func getData(contentData : Dictionary<String,Any>,finishedData:@escaping (_ resultDataOption:DeviceDetailViewModule)->(),finishedError:@escaping (_ errorData:Error)->()){
         super.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
