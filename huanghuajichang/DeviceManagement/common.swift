@@ -101,6 +101,58 @@ class common : NSObject{
         
     }
     
+//    图片上传
+    ///
+    /// - Parameters:
+    ///   - urlString: 服务器地址
+    ///   - params: 参数 ["token": "89757", "userid": "nb74110"]
+    ///   - images: image数组
+    ///   - success: 成功闭包
+    ///   - failture: 失败闭包
+    func upload(params:[String:String]?, images: [UIImage], success: @escaping (_ response : Any?) -> (), failture : @escaping (_ error : Error)->()) {
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            if params != nil {
+                for (key, value) in params! {
+                    //参数的上传
+                    multipartFormData.append((value.data(using: String.Encoding.utf8)!), withName: key)
+                }
+            }
+            for (index, value) in images.enumerated() {
+                let imageData = UIImageJPEGRepresentation(value, 1.0)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyyMMddHHmmss"
+                let str = formatter.string(from: Date())
+                let fileName = str+"\(index)"+".jpg"
+                
+                // 以文件流格式上传
+                // 批量上传与单张上传，后台语言为java或.net等
+                multipartFormData.append(imageData!, withName: "fileupload", fileName: fileName, mimeType: "image/jpeg")
+                // 单张上传，后台语言为PHP
+//                multipartFormData.append(imageData!, withName: "fileupload", fileName: fileName, mimeType: "image/jpeg")
+                // 批量上传，后台语言为PHP。 注意：此处服务器需要知道，前台传入的是一个图片数组
+//                multipartFormData.append(imageData!, withName: "fileupload[\(index)]", fileName: fileName, mimeType: "image/jpeg")
+            }
+        },
+                         to: appUrl!,
+                         headers: nil,
+                         encodingCompletion: { encodingResult in
+                            switch encodingResult {
+                            case .success(let upload, _, _):
+                                upload.responseJSON { response in
+                                    print("response = \(response)")
+                                    let result = response.result
+                                    if result.isSuccess {
+                                        success(response.value)
+                                    }
+                                }
+                            case .failure(let encodingError):
+                                failture(encodingError)
+                            }
+        }
+        )
+    }
+    
+    
     //MARK:alert弹框
     func windowAlert(msges : String,callback:(_ alertView : UIAlertController)->()){
         let alertView = UIAlertController(title: "提示", message: msges, preferredStyle: UIAlertControllerStyle.alert)

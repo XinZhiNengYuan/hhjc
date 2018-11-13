@@ -106,7 +106,9 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 //MARK: CycleViewDelegate
 extension DeviceDetailViewController {
     func cycleViewDidSelectedItemAtIndex(_ index: NSInteger) {
-        navigationController?.pushViewController(CameraViewController(), animated: true)
+        let cameraViewController = CameraViewController()
+        cameraViewController.equId = equId
+        navigationController?.pushViewController(cameraViewController, animated: true)
     }
 }
 

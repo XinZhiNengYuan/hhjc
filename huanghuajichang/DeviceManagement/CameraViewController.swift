@@ -16,7 +16,9 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     var photoListr : [UIImage] = []
     var imageView = UIView()
     var addBut : UIButton!
+    var equId : Int = -1
     var  viewOption : UIView!
+    let cameraViewService = CameraViewService()
     override func viewWillAppear(_ animated: Bool){
         self.title = "图片编辑"
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -145,7 +147,23 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     func imagePickerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info:[String:Any]){
         let imagePickerc = info[UIImagePickerControllerOriginalImage] as!UIImage
-        print(imagePickerc)
+        let imageList = [info[UIImagePickerControllerOriginalImage] as!UIImage]
+        print(info)
+        
+        
+        let imageInfo = info[UIImagePickerControllerImageURL]!
+//            let imageUrl = imageInfo.split(separator: "/").last
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String:Any] = ["method":"uploadfile","user_id": userId as Any,"token": token as Any,"info":["file":imageInfo]]
+        print(contentData)
+        cameraViewService.upLoadPic(contentData: contentData, finished: {
+            print("成功")
+        }) {
+            print("失败")
+        }
+        
+        
 //        photoListr.append(imagePickerc)
         //添加图片
         addPic(pic : imagePickerc)

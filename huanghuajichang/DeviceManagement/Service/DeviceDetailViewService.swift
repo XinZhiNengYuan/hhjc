@@ -39,12 +39,5 @@ class DeviceDetailViewService : common {
         }
     }
     
-    //图片上传接口
-    func upLoadPic(contentData : Dictionary<String,Any>,finished:()->(),finishedError:()->()){
-        super.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
-            print(result)
-        }) { (error) in
-            print(error)
-        }
-    }
+
 }
