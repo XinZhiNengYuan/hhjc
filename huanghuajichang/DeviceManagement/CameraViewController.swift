@@ -10,7 +10,7 @@ import UIKit
 
 import AVFoundation
 import Photos
-
+import Kingfisher
 
 class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCapturePhotoCaptureDelegate {
     var photoListr : [UIImage] = []
@@ -18,11 +18,13 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     var addBut : UIButton!
     var equId : Int = -1
     var  viewOption : UIView!
+    var deviceDetailPageImageList : [String] = []
     let cameraViewService = CameraViewService()
     override func viewWillAppear(_ animated: Bool){
         self.title = "图片编辑"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
     }
     
     override func viewDidLoad() {
@@ -37,13 +39,36 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func uploadImgs(){
+        print(photoListr)
+        if photoListr.count > 0{
+            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
+                print(fileId)
+                let userId = userDefault.string(forKey: "userId")
+                let token = userDefault.string(forKey: "userToken")
+                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":fileId]]
+                self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
+                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
+                }, errorCall: {
+                    self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
+                })
+            }) {
+                print("错误")
+            }
+        }
+        if deviceDetailPageImageList.count > 0{
+            print(deviceDetailPageImageList)
+        }
+        
+    }
+    
     //MARK:设置设置添加按钮
     func setAddBut(){
-        addBut = UIButton(frame: CGRect(x: 75*photoListr.count, y: 10, width: 40, height: 40))
+        addBut = UIButton(frame: CGRect(x: 75*(photoListr.count+deviceDetailPageImageList.count), y: 10, width: 40, height: 40))
         addBut.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
         addBut.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
         addBut.layer.borderWidth = 1
-        addBut.tag = 3001
+        addBut.tag = 3001 // 添加按钮
         addBut.setTitleColor(UIColor.white, for: UIControlState.normal)
         addBut.addTarget(self, action: #selector(actionSheet), for: .touchUpInside)
 //        view.addSubview(addBut)
@@ -51,25 +76,41 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     }
     
     func imageMethods(){
+        if deviceDetailPageImageList.count > 0{
+            for j in 0..<deviceDetailPageImageList.count{
+                let viewOption = UIView()
+                viewOption.frame = CGRect(x: 75*j, y: 0, width: 60, height: Int(imageView.frame.height))
+                let image = UIImageView()
+                image.tag = j+1000 // 图片
+                image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
+                image.kf.setImage(with: ImageResource(downloadURL:
+                    URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "test"), options: nil, progressBlock: nil,completionHandler: nil)
+                viewOption.addSubview(image)
+                let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
+                deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
+                deleteBut.tag = j+5000 // 删除按钮
+                deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
+                viewOption.addSubview(deleteBut)
+                imageView.addSubview(viewOption)
+            }
+        }
         for i in 0..<photoListr.count{
             let viewOption = UIView()
-            viewOption.frame = CGRect(x: 75*i, y: 0, width: 60, height: Int(imageView.frame.height))
+            viewOption.frame = CGRect(x: 75*i+deviceDetailPageImageList.count*75, y: 0, width: 60, height: Int(imageView.frame.height))
             let image = UIImageView()
-            image.tag = i+1000
+            image.tag = i+1000+deviceDetailPageImageList.count // 图片
             image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
             image.image = photoListr[i]
             viewOption.addSubview(image)
             let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
             deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-//            deleteBut.layer.borderColor = UIColor.black.cgColor
-//            deleteBut.layer.borderWidth = 2
-            deleteBut.tag = i+2000
+            deleteBut.tag = i+6000 // 删除按钮
             deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
         }
         
-        if photoListr.count >= 3{
+        if photoListr.count+deviceDetailPageImageList.count >= 3{
             addBut.removeFromSuperview()
         }else{
             setAddBut()
@@ -83,24 +124,22 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         addBtn.removeTarget(self, action: #selector(actionSheet), for: .touchUpInside)
         addBtn.removeFromSuperview()
         let viewOption = UIView()
-        viewOption.tag = 4000+photoListr.count
-        viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 60, height: Int(imageView.frame.height))
+        viewOption.tag = 4000+photoListr.count // 图片所在图层
+        viewOption.frame = CGRect(x: 75*(photoListr.count+deviceDetailPageImageList.count), y: 0, width: 60, height: Int(imageView.frame.height))
         let image = UIImageView()
         image.image = UIImage(named: "image")
-        image.tag = photoListr.count + 1000
+        image.tag = photoListr.count + 1000+deviceDetailPageImageList.count //图片
         image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
         image.image = pic
         viewOption.addSubview(image)
         let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
         deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-        deleteBut.tag = photoListr.count + 2000
-//        deleteBut.layer.borderColor = UIColor.black.cgColor
-//        deleteBut.layer.borderWidth = 2
+        deleteBut.tag = photoListr.count + 6000 // 删除按钮
         deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
         photoListr.append(pic)
-        if photoListr.count >= 3{
+        if photoListr.count+deviceDetailPageImageList.count >= 3{
             addBut.removeFromSuperview()
         }else{
             setAddBut()
@@ -109,9 +148,14 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     @objc func deleteImg(button:UIButton){
         print(button.tag)
-        let index = button.tag - 2000
+        var index = button.tag - 5000 //根据下标的大小判断这个要删除的图片在那个数组里面 5000是deviceDetailPageImageList数组，6000是photoListr
         button.superview?.superview?.removeFromSuperview()
-        photoListr.remove(at: index)
+        if index >= 1000{
+            index = index - 1000
+            photoListr.remove(at: index)
+        }else{
+            deviceDetailPageImageList.remove(at: index)
+        }
         clearImages(btn: button)
         //重新加载图片图层
         imageMethods()
@@ -147,24 +191,6 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     func imagePickerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info:[String:Any]){
         let imagePickerc = info[UIImagePickerControllerOriginalImage] as!UIImage
-        let imageList = [info[UIImagePickerControllerOriginalImage] as!UIImage]
-        print(info)
-        
-        
-        let imageInfo = info[UIImagePickerControllerImageURL]!
-//            let imageUrl = imageInfo.split(separator: "/").last
-        let userId = userDefault.string(forKey: "userId")
-        let token = userDefault.string(forKey: "userToken")
-        let contentData : [String:Any] = ["method":"uploadfile","user_id": userId as Any,"token": token as Any,"info":["file":imageInfo]]
-        print(contentData)
-        cameraViewService.upLoadPic(contentData: contentData, finished: {
-            print("成功")
-        }) {
-            print("失败")
-        }
-        
-        
-//        photoListr.append(imagePickerc)
         //添加图片
         addPic(pic : imagePickerc)
         self.dismiss(animated:true,completion:nil)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 
     let UiTableList = UITableView()
@@ -15,6 +16,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     var arrayForVal : Array<String> = []
     var equId : Int = -1
     let deviceDetailViewService = DeviceDetailViewService()
+    let cameraViewController = CameraViewController()
     var cycleView : CycleView! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,18 +81,18 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         cycleView.delegate = self
         cycleView.mode = .scaleAspectFill
         //本地图片测试--加载网络图片,请用第三方库如SDWebImage等
+        //拼装图片地址
+        var imgList : [String] = []
         for i in 0..<imageListObjc.count{
-            print("\(appUrl!)"+"\(imageListObjc[i].filePath)")
-            let b  = appUrl!.index(appUrl!.endIndex, offsetBy: 9)
+            //截取app接口地址
+            let b  = appUrl!.index(appUrl!.endIndex, offsetBy: -10)
             let c = appUrl![appUrl!.startIndex..<b]
-            print(c)
-            //开发到拼接图片的下载地址了
-            return
-            let a = URL(string: "\(String(describing: appUrl))\(imageListObjc[i].filePath)")!
-            print(a)
+            
+            // 拼成可读取的图片地址到数组中
+            imgList.append("\(String(describing: c))\(imageListObjc[i].filePath)")
         }
-        
-        cycleView.imageURLStringArr = ["banner01.jpg", "banner02.jpg", "banner03.jpg", "banner04.jpg"]
+        cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
+        cycleView.imageURLStringArr =  imgList
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
@@ -106,7 +108,6 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 //MARK: CycleViewDelegate
 extension DeviceDetailViewController {
     func cycleViewDidSelectedItemAtIndex(_ index: NSInteger) {
-        let cameraViewController = CameraViewController()
         cameraViewController.equId = equId
         navigationController?.pushViewController(cameraViewController, animated: true)
     }

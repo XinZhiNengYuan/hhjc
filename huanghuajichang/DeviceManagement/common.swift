@@ -109,7 +109,10 @@ class common : NSObject{
     ///   - images: image数组
     ///   - success: 成功闭包
     ///   - failture: 失败闭包
-    func upload(params:[String:String]?, images: [UIImage], success: @escaping (_ response : Any?) -> (), failture : @escaping (_ error : Error)->()) {
+    func upload(params:[String:String]?, images: [UIImage], success: @escaping (_ response : JSON) -> (), failture : @escaping (_ error : Error)->()) {
+        MyProgressHUD.showStatusInfo("上传中...")
+        let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
+        let urlStrPic = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/app/uploadfile"
         Alamofire.upload(multipartFormData: { multipartFormData in
             if params != nil {
                 for (key, value) in params! {
@@ -126,26 +129,27 @@ class common : NSObject{
                 
                 // 以文件流格式上传
                 // 批量上传与单张上传，后台语言为java或.net等
-                multipartFormData.append(imageData!, withName: "fileupload", fileName: fileName, mimeType: "image/jpeg")
+                multipartFormData.append(imageData!, withName: "file", fileName: fileName, mimeType: "image/jpeg")
                 // 单张上传，后台语言为PHP
 //                multipartFormData.append(imageData!, withName: "fileupload", fileName: fileName, mimeType: "image/jpeg")
                 // 批量上传，后台语言为PHP。 注意：此处服务器需要知道，前台传入的是一个图片数组
 //                multipartFormData.append(imageData!, withName: "fileupload[\(index)]", fileName: fileName, mimeType: "image/jpeg")
             }
         },
-                         to: appUrl!,
+                         to: urlStrPic,
                          headers: nil,
                          encodingCompletion: { encodingResult in
                             switch encodingResult {
                             case .success(let upload, _, _):
                                 upload.responseJSON { response in
-                                    print("response = \(response)")
                                     let result = response.result
                                     if result.isSuccess {
-                                        success(response.value)
+                                        success(JSON(response.value as Any))
                                     }
+                                    MyProgressHUD.dismiss()
                                 }
                             case .failure(let encodingError):
+                                MyProgressHUD.dismiss()
                                 failture(encodingError)
                             }
         }
