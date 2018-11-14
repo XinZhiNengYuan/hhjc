@@ -49,7 +49,7 @@ class DailySearchViewController: UIViewController {
         searchBar.showsCancelButton = true
         searchBar.delegate = self
         self.view.addSubview(searchBar)
-        
+        searchBar.becomeFirstResponder()//进入页面使搜索框进入选中状态
     }
     
     func createHistoryUI(){

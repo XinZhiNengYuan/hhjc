@@ -45,6 +45,7 @@ class ScanAndEditViewController: AddNavViewController {
         self.navigationController?.pushViewController(editVc, animated: false)
     }
     
+    ///获取详细信息
     @objc func getDetailData(){
         MyProgressHUD.showStatusInfo("加载中...")
         let infoData = ["id":itemId]
@@ -153,7 +154,7 @@ class ScanAndEditViewController: AddNavViewController {
         }
         
     }
-    
+    ///处理日常记录操作
     @objc func dealPost(){
         print("执行处理操作")
         MyProgressHUD.showStatusInfo("处理中...")

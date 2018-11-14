@@ -87,8 +87,9 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     if self.editJson["filePhotos"].arrayValue != [] {
                         for editImage in self.editJson["filePhotos"].enumerated(){
                             let editImgBtn = UIButton.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
-                            let imgurl = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
-                            let imgData = NSData.init(contentsOfFile: imgurl)
+                            let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
+                            let imgUrl = NSURL.init(string: imgurlStr)
+                            let imgData = NSData.init(contentsOf: imgUrl! as URL)
                             let editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
                             editImgBtn.setImage(editUIImage, for: .normal)
                             editImgBtn.layer.borderWidth = 1
@@ -134,7 +135,11 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     
     ///上传图片
     @objc func uploadImgs() {
-        MyProgressHUD.showStatusInfo("新增中...")
+        if pageType == "edit"{
+            MyProgressHUD.showStatusInfo("修改中...")
+        }else{
+           MyProgressHUD.showStatusInfo("新增中...")
+        }
         NetworkTools.upload(urlString: "http", params: nil , images: imagesData as! [UIImage], success: { (successBack) in
             print(successBack ?? "default value")
             self.fieldsData = []
@@ -207,7 +212,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         let titleTF = titleView?.viewWithTag(200) as! UITextField
         let timeView = self.view.viewWithTag(101)
         let timeTF = timeView?.viewWithTag(201) as! UITextField
-        let infoData = ["title":titleTF.text ?? "", "desc":describeTextView.text, "id":editItemId, "opeTime":timeTF.text ?? "", "fileIds":fieldsStr] as [String : Any]
+        let infoData = ["title":titleTF.text ?? "", "desc":describeTextView.text, "user_id":userId, "id":editItemId, "opeTime":timeTF.text ?? "", "fileIds":fieldsStr] as [String : Any]
         let contentData : [String : Any] = ["method":"updateOption","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
             print(resultData)
@@ -222,14 +227,14 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                 }else{
                     MyProgressHUD.dismiss()
                     if JSON(value)["msg"].string == nil {
-                        self.present(windowAlert(msges: "新增失败"), animated: true, completion: nil)
+                        self.present(windowAlert(msges: "修改失败"), animated: true, completion: nil)
                     }else{
                         self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
                     }
                 }
             case .failure(let error):
                 MyProgressHUD.dismiss()
-                self.present(windowAlert(msges: "新增请求失败"), animated: true, completion: nil)
+                self.present(windowAlert(msges: "修改请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
             }
@@ -330,12 +335,12 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     }
     
    static func timeStampToString(timeStamp:String)->String {
-        
-        let string = NSString(string: timeStamp)
+        let timeNormal = Int(timeStamp)!/1000
+        let string = NSString(string: timeNormal.description)
         
         let timeSta:TimeInterval = string.doubleValue
         let dfmatter = DateFormatter()
-        dfmatter.dateFormat="yyyy年MM月dd日"
+    dfmatter.dateFormat="yyyy/MM/dd HH:mm"
         
         let date = NSDate(timeIntervalSince1970: timeSta)
         

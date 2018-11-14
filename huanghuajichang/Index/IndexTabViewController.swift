@@ -9,11 +9,17 @@
 import UIKit
 import Charts.Swift
 import Alamofire
+import SwiftyJSON
 
 class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate {
     
     var collectionView:UICollectionView!
     var bottomCollectionView:UICollectionView!
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var mainPointData:JSON = []
     
     let buttons:NSMutableArray = ["功率构成", "电量曲线", "负荷曲线"]
     // 把类定义成属性
@@ -51,10 +57,15 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
         self.view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        
         // Do any additional setup after loading the view.
         deviceTotal()
         createMiddleTab()
         currentNew()
+        getCurrentNew()
     }
     
     @objc func getNewMsg(sender:UIButton){
@@ -215,6 +226,38 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         bottomCollectionView.showsHorizontalScrollIndicator = false
         
         bottomCollectionView.register(IndexTopCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "topCollectionCell")
+    }
+    
+    ///获取设备用电监控模块、本月新增模块信息
+    func getCurrentNew(){
+        print("执行更换头像操作")
+        MyProgressHUD.showStatusInfo("数据加载中...")
+        let contentData : [String : Any] = ["method":"getEquipmentDetail","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.mainPointData = JSON(value)["data"]
+                    //刷新页面数据
+                    self.collectionView.reloadData()
+                    self.bottomCollectionView.reloadData()
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
     }
     
     @objc func openNewList() {
@@ -541,44 +584,49 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     @available(iOS 6.0, *)
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCollectionCell", for: indexPath) as! IndexTopCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "topCollectionCell", for: indexPath) as? IndexTopCollectionViewCell
         
-        
+        //因为直接加到cell里面的视图，所以获取cell子视图再清除即可；
+        //如果加到contentview里面则需cell?.contentView.subviews
+        let prevAddedSubViews = cell?.subviews
+        for eachPreAddedSubView in prevAddedSubViews! {
+            eachPreAddedSubView.removeFromSuperview()
+        }
         switch collectionView.tag {
         case 1:
             if indexPath.row == 0 {
-                cell.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "设备台数")
-                cell.value.text = "100000"
-                cell.label.text = "设备台数"
-                cell.unitLabel.text = "(台)"
-                return cell
+                cell?.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "设备台数")
+                cell?.value.text = self.mainPointData["equipmentCount"].stringValue
+                cell?.label.text = "设备台数"
+                cell?.unitLabel.text = "(台)"
+                return cell!
             }else if indexPath.row == 1 {
-                cell.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "额定总功率")
-                cell.value.text = "100000"
-                cell.unitLabel.text = "(kW)"
-                cell.label.text = "额定总功率"
-                return cell
+                cell?.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "额定总功率")
+                cell?.value.text = self.mainPointData["powerTotal"].stringValue
+                cell?.unitLabel.text = "(kW)"
+                cell?.label.text = "额定总功率"
+                return cell!
             }else{
-                cell.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "设备台数")
-                cell.value.text = "100000"
-                cell.unitLabel.text = "(kW)"
-                cell.label.text = "实时功率"
-                return cell
+                cell?.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "实时功率")
+                cell?.value.text = self.mainPointData["powerRealTotal"].stringValue
+                cell?.unitLabel.text = "(kW)"
+                cell?.label.text = "实时功率"
+                return cell!
             }
             
         default:
             if indexPath.row == 0 {
-                cell.setup(textColors: [allFontColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor(red: 226/255, green: 242/255, blue: 255/255, alpha: 1), title: "新增台数")
-                cell.value.text = "100000"
-                cell.unitLabel.text = "(台)"
-                cell.label.text = "新增台数"
+                cell?.setup(textColors: [allFontColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor(red: 226/255, green: 242/255, blue: 255/255, alpha: 1), title: "新增台数")
+                cell?.value.text = self.mainPointData["newAddCount"].stringValue
+                cell?.unitLabel.text = "(台)"
+                cell?.label.text = "新增台数"
             }else{
-                cell.setup(textColors: [allFontColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor(red: 213/255, green: 240/255, blue: 227/255, alpha: 1), title: "新增功率")
-                cell.value.text = "100000"
-                cell.label.text = "新增功率"
-                cell.unitLabel.text = "(kW)"
+                cell?.setup(textColors: [allFontColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor(red: 213/255, green: 240/255, blue: 227/255, alpha: 1), title: "新增功率")
+                cell?.value.text = self.mainPointData["newAddPower"].stringValue
+                cell?.label.text = "新增功率"
+                cell?.unitLabel.text = "(kW)"
             }
-            return cell
+            return cell!
         }
     }
     

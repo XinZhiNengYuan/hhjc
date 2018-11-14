@@ -9,10 +9,19 @@
 import UIKit
 import AVFoundation
 import Photos
+import SwiftyJSON
 
 class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     let largeHeaderView = UIImageView.init()
+    
+    var headerImageData:NSMutableArray = []
+    var fieldsStr:String!
+    var fileUrl:String!
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
     
     override func viewDidLoad() {
         self.title = "头像"
@@ -27,7 +36,10 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightBtn)
         super.viewDidLoad()
-
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        
         // Do any additional setup after loading the view.
         createContent()
     }
@@ -37,7 +49,8 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         largeHeaderView.frame.size = CGSize(width: kScreenWidth, height: 100)
         largeHeaderView.frame.origin.x = 0
         largeHeaderView.center.y = self.view.center.y
-        largeHeaderView.image = UIImage(named: "Bitmap")
+        let imageUrlStr = self.userDefault.object(forKey: "UserHeaderImg") as! String
+        largeHeaderView.dowloadFromServer(link: imageUrlStr, contentMode: UIViewContentMode.scaleAspectFit)
         largeHeaderView.contentMode = .scaleAspectFill
         self.view.addSubview(largeHeaderView)
     }
@@ -150,7 +163,9 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
             if picker.allowsEditing {
                 img = info[UIImagePickerControllerEditedImage] as? UIImage
             }
-            self.largeHeaderView.image = img
+            
+            self.headerImageData.add(img!)
+            self.uploadHeaderImg()
             //将img转为data
 //            let imageData = UIImagePNGRepresentation(img)
         }
@@ -165,6 +180,63 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         
     }
     
+    ///上传头像图片
+    @objc func uploadHeaderImg() {
+        MyProgressHUD.showStatusInfo("更换头像中...")
+        NetworkTools.upload(urlString: "http", params: nil , images: headerImageData as! [UIImage], success: { (successBack) in
+            print(successBack ?? "default value")
+            if JSON(successBack!)["status"].stringValue == "success"{
+                //关闭页面，通知列表刷新
+                let successData = JSON(successBack!)["data"]
+                self.fileUrl = successData[0]["filePath"].stringValue
+                self.fieldsStr = successData[0]["fileId"].stringValue
+                self.updateHeader()
+            }else{
+                MyProgressHUD.dismiss()
+                if JSON(successBack!)["msg"].string == nil {
+                    self.present(windowAlert(msges: "更换失败"), animated: true, completion: nil)
+                }else{
+                    self.present(windowAlert(msges: JSON(successBack!)["msg"].stringValue), animated: true, completion: nil)
+                }
+            }
+        }) { (ErrorBack) in
+            MyProgressHUD.dismiss()
+            self.present(windowAlert(msges: "更换请求失败"), animated: true, completion: nil)
+            print("error:\(ErrorBack)")
+            return
+        }
+    }
+    
+    ///更换头像
+    func updateHeader(){
+        print("执行更换头像操作")
+        let infoData = ["user_id":userId,"file_ids":fieldsStr,"photo_url":fileUrl] as [String : Any]
+        let contentData : [String : Any] = ["method":"uploadHeadPortrait","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    MyProgressHUD.dismiss()
+                    let overUrl = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + self.fileUrl
+                    self.largeHeaderView.dowloadFromServer(link: overUrl, contentMode: UIViewContentMode.scaleAspectFit)
+                    MyProgressHUD.showSuccess("修改成功")
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "修改失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "修改请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
 
 
     /*

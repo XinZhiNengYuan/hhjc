@@ -46,6 +46,8 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
                 if JSON(value)["status"].stringValue == "success"{
                     self.userDefault.set(self.json["email"].object, forKey: "UserEmail")
                     self.userDefault.set(self.json["mobile"].object, forKey: "UserMobile")
+                    let imgurl = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.json["url"].stringValue)
+                    self.userDefault.set(imgurl, forKey: "UserHeaderImg")
                     self.PersonalDetailList.reloadData()
                     self.PersonalDetailList.layoutIfNeeded()
                 }else{
@@ -101,7 +103,8 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         if indexPath.row == 0{
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
             cell?.itemTitle.text = "头像"
-            cell?.itemImage.image = UIImage(named: "Bitmap")//TODO
+            let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (json["url"].stringValue)
+            cell?.itemImage.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFit)
             tableView.allowsSelection = true
         }else if indexPath.row == 4 || indexPath.row == 5 {
             cell?.setUpUI(isHeaderView: false, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 50))
