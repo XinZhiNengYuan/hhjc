@@ -27,8 +27,10 @@ class CameraViewService : common{
                     for i in fileIdList{
                         filesIdStr = filesIdStr + String(i) + ","
                     }
-                    let endIndex = filesIdStr.index(filesIdStr.endIndex,offsetBy:-1)
-                    filesIdStr = String(filesIdStr.prefix(upTo: endIndex))
+                    if filesIdStr.count > 0{
+                        let endIndex = filesIdStr.index(filesIdStr.endIndex,offsetBy:-1)
+                        filesIdStr = String(filesIdStr.prefix(upTo: endIndex))
+                    }
                     finished(filesIdStr)
                 }
             }

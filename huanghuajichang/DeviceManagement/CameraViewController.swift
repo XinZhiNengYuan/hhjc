@@ -19,6 +19,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     var equId : Int = -1
     var  viewOption : UIView!
     var deviceDetailPageImageList : [String] = []
+    var imgIdListStr : String = ""
     let cameraViewService = CameraViewService()
     override func viewWillAppear(_ animated: Bool){
         self.title = "图片编辑"
@@ -40,13 +41,14 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     }
     
     @objc func uploadImgs(){
-        print(photoListr)
         if photoListr.count > 0{
             cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
-                print(fileId)
+                if fileId.count > 0{
+                    self.imgIdListStr = self.imgIdListStr + "," + fileId
+                }
                 let userId = userDefault.string(forKey: "userId")
                 let token = userDefault.string(forKey: "userToken")
-                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":fileId]]
+                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":self.imgIdListStr]]
                 self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
                     self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
                 }, errorCall: {

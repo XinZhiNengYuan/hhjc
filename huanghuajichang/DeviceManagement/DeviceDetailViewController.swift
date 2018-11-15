@@ -83,14 +83,20 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         //本地图片测试--加载网络图片,请用第三方库如SDWebImage等
         //拼装图片地址
         var imgList : [String] = []
+        var imgIdListStr : String = ""
         for i in 0..<imageListObjc.count{
             //截取app接口地址
             let b  = appUrl!.index(appUrl!.endIndex, offsetBy: -10)
             let c = appUrl![appUrl!.startIndex..<b]
-            
+            imgIdListStr = imgIdListStr + String(imageListObjc[i].fileId) + ","
             // 拼成可读取的图片地址到数组中
             imgList.append("\(String(describing: c))\(imageListObjc[i].filePath)")
         }
+        if imgIdListStr.count > 0{
+            let imgIndex = imgIdListStr.index(imgIdListStr.endIndex, offsetBy: -1)
+            imgIdListStr = String(imgIdListStr.prefix(upTo: imgIndex))
+        }
+        cameraViewController.imgIdListStr = cameraViewController.imgIdListStr + imgIdListStr
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
         cycleView.imageURLStringArr =  imgList
         UiTableList.tableHeaderView = cycleView
