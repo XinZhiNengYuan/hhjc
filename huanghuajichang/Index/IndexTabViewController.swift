@@ -20,6 +20,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     var userToken:String!
     var userId:String!
     var mainPointData:JSON = []
+    var mainEchartsData:JSON = []
     
     let buttons:NSMutableArray = ["功率构成", "电量曲线", "负荷曲线"]
     // 把类定义成属性
@@ -66,6 +67,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         createMiddleTab()
         currentNew()
         getCurrentNew()
+//        getElectricControl()
     }
     
     @objc func getNewMsg(sender:UIButton){
@@ -228,13 +230,45 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         bottomCollectionView.register(IndexTopCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "topCollectionCell")
     }
     
+    ///获取设备用电监控模块曲线图信息
+    func getElectricControl(){
+        MyProgressHUD.showStatusInfo("数据加载中...")
+        let contentData : [String : Any] = ["method":"getEquipmentRunData","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+//            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.mainEchartsData = JSON(value)["data"]
+//                    print(self.mainEchartsData)
+                    self.drawPieChartView()
+                    self.drawLineViewData(lineChartView:self.electricLineChartView, originX:1)
+                    self.drawLineViewData(lineChartView:self.fuheLineChartView, originX:2)
+                    //刷新页面数据
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
     ///获取设备用电监控模块、本月新增模块信息
     func getCurrentNew(){
-        print("执行更换头像操作")
         MyProgressHUD.showStatusInfo("数据加载中...")
         let contentData : [String : Any] = ["method":"getEquipmentDetail","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -332,9 +366,9 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         
         //添加限制线
-        let litmitLine = ChartLimitLine(limit: 260, label: "限制线")
-        litmitLine.lineWidth = 2
-        litmitLine.lineColor = UIColor.green
+        let litmitLine = ChartLimitLine(limit: 5, label: "限制线")
+        litmitLine.lineWidth = 1
+        litmitLine.lineColor = UIColor.red
         litmitLine.lineDashLengths = [5.0,5.0] //虚线样式
         litmitLine.labelPosition = .rightTop  // 限制线位置
         litmitLine.valueTextColor = UIColor.brown
@@ -350,37 +384,48 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         lineChartView.legend.form = .line  // 图例的样式
         lineChartView.legend.formSize = 20  //图例中线条的长度
         lineChartView.legend.textColor = UIColor.darkGray
-        
-        
+    }
+    
+    ///折线图加载数据
+    func drawLineViewData(lineChartView:LineChartView, originX:Int){
         //设置折线图的数据
-        let xValues = ["x1","x2","x3","x4","x5","x6","x7","x8","x9","x10","x11","x12","x13","x14","x15","x16","x17","x18","x19","x20","x21","x22","x23","x24","x25","x26"]
+        var lineValues:JSON
+        var originalColor:UIColor
+        if originX == 1{
+            lineValues = self.mainEchartsData["electricUseLine"]
+            originalColor = UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1)
+        }else{
+            lineValues = self.mainEchartsData["powerDataLine"]
+            originalColor = UIColor(red: 247/255, green: 122/255, blue: 4/255, alpha: 1)
+        }
+        
         var newxValues:[String] = []
-        for xValue in xValues{
-            let newValue = xValue.components(separatedBy: "x")[1].appending("日")
+        for xValue in lineValues.enumerated(){
+            let newValue = lineValues[xValue.offset]["lineName"].stringValue.components(separatedBy: " ")[0]
             newxValues.append(newValue)
         }
         //        lineChartView.xAxis.valueFormatter = KMChartAxisValueFormatter.init(xValues as NSArray)
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: newxValues)
         //ineChartView.xAxis.labelCount = 12
         //lineChartView.leftAxis.valueFormatter = KMChartAxisValueFormatter.init()
-        let leftValueFormatter = NumberFormatter()  //自定义格式
-        leftValueFormatter.positiveSuffix = "亿"  //数字后缀单位
-        
-        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
+//        let leftValueFormatter = NumberFormatter()  //自定义格式
+//        leftValueFormatter.positiveSuffix = "亿"  //数字后缀单位
+//
+//        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
         
         //曲线1
         var yDataArray1 = [ChartDataEntry]()
-        for i in 0...xValues.count-1 {
-            let y = arc4random()%100//暂时用100内的随机数填充数据
-            let entry = ChartDataEntry.init(x: Double(i), y: Double(y))
+        for i in 0...lineValues.count-1 {
+            let y = lineValues[i]["lineData"].stringValue//arc4random()%100//暂时用100内的随机数填充数据
+            let entry = ChartDataEntry.init(x: Double(i), y: Double(y) ?? 0.00)
             
             yDataArray1.append(entry)
             
-            lineCircleColors.append(UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1))
+            lineCircleColors.append(originalColor)
         }
         
         let set1 = LineChartDataSet.init(values: yDataArray1, label: "test1")
-        set1.colors = [UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1)]
+        set1.colors = [originalColor]
         set1.drawCirclesEnabled = true //是否绘制转折点
         //set1.setCircleColor(UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1))//转折点圆圈的颜色
         set1.circleColors = lineCircleColors//为选中点变色做准备
@@ -389,40 +434,44 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         set1.circleRadius = 5//外圆半径
         set1.circleHoleRadius = 4//内圆半径
         set1.mode = .cubicBezier  //设置曲线是否平滑
-        set1.drawValuesEnabled = false //设置是否显示折线上的数据        
+        set1.drawValuesEnabled = false //设置是否显示折线上的数据
         //开启填充色绘制
         set1.drawFilledEnabled = true
         //渐变颜色数组
-        let gradientColors = [UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1).cgColor, UIColor.white.cgColor] as CFArray
+        let gradientColors = [originalColor.cgColor, UIColor.white.cgColor] as CFArray
         //每组颜色所在位置（范围0~1)
         let colorLocations:[CGFloat] = [1.0, 0.0]
         //生成渐变色
         let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(),
                                        colors: gradientColors, locations: colorLocations)
         //将渐变色作为填充对象s
-        set1.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0)
+        set1.fill = Fill.fillWithLinearGradient(gradient!, angle: 100.0)
         
-        //曲线2
-        var yDataArray2 = [ChartDataEntry]();
-        for i in 0...(xValues.count-1) {
-            let y = arc4random()%100
-            let entry = ChartDataEntry.init(x: Double(i), y: Double(y))
-            
-            yDataArray2.append(entry);
-        }
-        let set2 = LineChartDataSet.init(values: yDataArray2, label: "test2")
-        set2.colors = [UIColor(red: 247/255, green: 122/255, blue: 4/255, alpha: 1)]
-        set2.drawCirclesEnabled = false
-        set2.lineWidth = 1.0
-        set2.mode = .cubicBezier  //设置曲线是否平滑
-        set2.drawValuesEnabled = false //设置是否显示折线上的数据
-        
-        let data = LineChartData.init(dataSets: [set1, set2])//更改dataSets,决定曲线数量
+        /*//曲线2
+         var yDataArray2 = [ChartDataEntry]();
+         for i in 0...(xValues.count-1) {
+         let y = arc4random()%100
+         let entry = ChartDataEntry.init(x: Double(i), y: Double(y))
+         
+         yDataArray2.append(entry);
+         }
+         let set2 = LineChartDataSet.init(values: yDataArray2, label: "test2")
+         set2.colors = [UIColor(red: 247/255, green: 122/255, blue: 4/255, alpha: 1)]
+         set2.drawCirclesEnabled = false
+         set2.lineWidth = 1.0
+         set2.mode = .cubicBezier  //设置曲线是否平滑
+         set2.drawValuesEnabled = false //设置是否显示折线上的数据
+         */
+        let data = LineChartData.init(dataSets: [set1])//更改dataSets,决定曲线数量
         
         lineChartView.data = data
         //lineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBack)
         lineChartView.animate(xAxisDuration: 1)  //设置动画时间
         
+        //图表最多显示10个点
+        lineChartView.setVisibleXRangeMaximum(10)
+        //默认显示最一个数据
+        lineChartView.moveViewToX(99)
     }
     
     //点选中时的标注
@@ -511,20 +560,26 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         self.pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBack)
         
-        self.drawPieChartView()
+        self.getElectricControl()
         
     }
     
     func drawPieChartView()
     {
-        let titles = ["0-1kW","1-5kW","5kW以上"]
-        let yData = [40,30,30]
         var yVals = [PieChartDataEntry]()
         
-        for i in 0...titles.count - 1
+        for pieItem in self.mainEchartsData["powerDataPie"].enumerated()
         {
-            let entry = PieChartDataEntry.init(value: Double(yData[i]), label: titles[i])
+            let entry = PieChartDataEntry.init(value: Double(self.mainEchartsData["powerDataPie"][pieItem.offset]["lineData"].intValue), label: self.mainEchartsData["powerDataPie"][pieItem.offset]["lineName"].stringValue)
             yVals.append(entry)
+        }
+        
+        if yVals.count == 0 {
+            pieChartView.data = nil
+            pieChartView.data?.notifyDataChanged()
+            pieChartView.notifyDataSetChanged()
+            pieChartView.noDataText = "暂无数据，请重新刷新"
+            return
         }
         
         let dataSet = PieChartDataSet.init(values: yVals, label:"")

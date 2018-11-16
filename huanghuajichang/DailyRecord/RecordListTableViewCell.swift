@@ -63,6 +63,7 @@ class RecordListTableViewCell: UITableViewCell {
         
         itemDate = UILabel.init(frame: CGRect(x: 100, y: 50, width: kScreenWidth-60, height: 20))
         itemDate?.font = UIFont.systemFont(ofSize: 12)
+        itemDate?.textColor = UIColor(red: 113/255, green: 112/255, blue: 112/255, alpha: 1)
         contentView.addSubview(itemDate!)
         
     }

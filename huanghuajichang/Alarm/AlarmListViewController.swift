@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import SwiftyJSON
 
 class AlarmListViewController: AddNavViewController {
     
@@ -23,27 +24,43 @@ class AlarmListViewController: AddNavViewController {
     var selector:UIPickerView!
     var clickedBtnTag:Int!
     
-    var selectorData:NSMutableArray! = []
+    var selectorData:[[String:AnyObject]] = []
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var pageStart = 0
+    let pageSize = 10
+    var alarmListjson:JSON = []
+    var alarmEquipmentListData:JSON = []
+    var alarmTypeListData:JSON = []
+    
+    var selectedEquipmentId:String!
+    var selectedTypeId:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "报警列表"
         self.view.backgroundColor = allListBackColor
         // Do any additional setup after loading the view.
-        createUI()
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        getAlarmEquipmentListData()
+        
     }
     
     func createUI(){
         leftSelect = UIButton.init(frame: CGRect(x: 0, y: 0, width: (kScreenWidth-1)/2, height: 40))
         leftSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        leftSelect.set(image: UIImage(named: "下拉"), title: "设备单位", titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
+        leftSelect.set(image: UIImage(named: "下拉"), title: self.alarmEquipmentListData[0]["text"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
         leftSelect.tag = 3001
         leftSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(leftSelect)
         
         rightSelect = UIButton.init(frame: CGRect(x: (kScreenWidth-1)/2+1, y: 0, width: (kScreenWidth-1)/2, height: 40))
         rightSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        rightSelect.set(image: UIImage(named: "下拉"), title: "报警类型", titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
+        rightSelect.set(image: UIImage(named: "下拉"), title: self.alarmTypeListData[0]["name"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
         rightSelect.tag = 3002
         rightSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(rightSelect)
@@ -115,10 +132,9 @@ class AlarmListViewController: AddNavViewController {
     @objc func headerRefresh(){
         
         print("下拉刷新")
+        pageStart = 0
         //服务器请求数据的函数
-        //        self.getTableViewData()
-        //重新加载tableView数据
-        //self.my_tableview.reloadData()
+        self.getAlarmListData(alarmOrganizationId:self.selectedEquipmentId ,alarmType:self.selectedTypeId)
         //结束下拉刷新
         self.alarmTableList.mj_header.endRefreshing()
     }
@@ -127,17 +143,105 @@ class AlarmListViewController: AddNavViewController {
     @objc func footerRefresh(){
         
         print("上拉刷新")
+        pageStart = pageStart+10
+        self.getAlarmListData(alarmOrganizationId:self.selectedEquipmentId ,alarmType:self.selectedTypeId)
         //结束下拉刷新
         self.alarmTableList.mj_footer.endRefreshing()
     }
     
+    ///获取报警单位列表数据
+    @objc func getAlarmEquipmentListData() {
+        let contentData : [String : Any] = ["method":"getEquTreeList","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+//            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.alarmEquipmentListData = JSON(value)["data"]
+                    //                    self.recordTableView.reloadData()
+                    self.selectedEquipmentId = self.alarmEquipmentListData[0]["id"].stringValue
+                    self.getAlarmTypeListData()
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///获取报警类型列表数据
+    @objc func getAlarmTypeListData() {
+        let contentData : [String : Any] = ["method":"getAlarmType","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.alarmTypeListData = JSON(value)["data"]
+                    self.selectedTypeId = self.alarmTypeListData[0]["value"].stringValue
+                    self.createUI()
+                    self.getAlarmListData(alarmOrganizationId:self.selectedEquipmentId ,alarmType:self.selectedTypeId)
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///获取报警列表数据
+    @objc func getAlarmListData(alarmOrganizationId:String,alarmType:String) {
+        let infoData = ["organizationId":alarmOrganizationId,"alarmType":alarmType,"start":pageStart,"length":pageSize] as [String : Any]
+        let contentData : [String : Any] = ["method":"getAlarmList","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.alarmListjson = JSON(value)["data"]["resultData"]
+                    print(self.alarmListjson)
+                    self.alarmTableList.reloadData()
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    //                    print(type(of: JSON(value)["msg"]))
+                    self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                }
+            case .failure(let error):
+                //                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
     @objc func customSelector(sender:UIButton){
         clickedBtnTag = sender.tag
+        selectorData = []
         switch clickedBtnTag {
         case 3001:
-            selectorData = [12,13,14,15,16,17]
+            for i in self.alarmEquipmentListData.enumerated(){
+                let elementDic:[String:AnyObject] = ["typeName":self.alarmEquipmentListData[i.offset]["text"].stringValue as AnyObject,"typeId":self.alarmEquipmentListData[i.offset]["id"].stringValue as AnyObject]
+                selectorData.append(elementDic)
+            }
         default:
-            selectorData = [22,23,24,25,26,27]
+            for i in self.alarmTypeListData.enumerated(){
+                let elementDic:[String:AnyObject] = ["typeName":self.alarmTypeListData[i.offset]["name"].stringValue as AnyObject,"typeId":self.alarmTypeListData[i.offset]["value"].stringValue as AnyObject]
+                selectorData.append(elementDic)
+            }
         }
         
         selector.reloadAllComponents()
@@ -151,10 +255,19 @@ class AlarmListViewController: AddNavViewController {
     @objc func doneButtonAction(){
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
-        let selectText = "\(selectorData[selectIndex])"
+        let selectText = selectorData[selectIndex]["typeName"]?.description
         selectBtn.setTitle(selectText, for: UIControlState.normal)
         
         selectorView.isHidden = true
+        
+        pageStart = 0
+        switch clickedBtnTag {
+        case 3001:
+            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+        default:
+            selectedTypeId = selectorData[selectIndex]["typeId"]?.description
+        }
+        getAlarmListData(alarmOrganizationId: selectedEquipmentId, alarmType: selectedTypeId)
     }
     /*
     // MARK: - Navigation
@@ -178,7 +291,11 @@ extension AlarmListViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 5
+        if self.selectorData.count == 0 {
+            return 0
+        }else {
+            return selectorData.count
+        }
     }
     //MARk - delegate
 //    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
@@ -190,15 +307,16 @@ extension AlarmListViewController:UIPickerViewDelegate,UIPickerViewDataSource{
 //    }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if selectorData == []{
+        if self.selectorData.count == 0 {
             return nil
         }else {
-            return (selectorData?[row] as! Int).description
+            return selectorData[row]["typeName"]?.description
         }
     }
     
 //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        <#code#>
+//        let typeId = selectorData[row]["typeId"]?.description
+//        print(typeId)
 //    }
     
 }
@@ -206,19 +324,25 @@ extension AlarmListViewController:UIPickerViewDelegate,UIPickerViewDataSource{
 extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
     //MARK - dataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        if self.alarmListjson == []{
+            return 0
+        }else{
+            return self.alarmListjson.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var alarmListCell = tableView.dequeueReusableCell(withIdentifier: "alarmCell") as? AlarmListTableViewCell
+        var alarmListCell = tableView.dequeueReusableCell(withIdentifier: "alarmCell", for: indexPath) as? AlarmListTableViewCell
         if alarmListCell == nil {
             alarmListCell = AlarmListTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "alarmCell")
         }
-        alarmListCell?.itemTitle.text = "节能器吸热能力明显下降"
-        alarmListCell?.itemStatus.text = "一般告警"
-        alarmListCell?.itemName.text = "安兴彩纤光伏站"
-        alarmListCell?.itemTime.text = "2018-06-05 12:09:45"
+        let cellData = self.alarmListjson[indexPath.row]
+        alarmListCell?.itemTitle.text = cellData["objCode"].stringValue
+        alarmListCell?.itemStatus.text = cellData["alarmTypeName"].stringValue
+        alarmListCell?.itemName.text = cellData["alarmRaName"].stringValue
+        alarmListCell?.itemTime.text = AddDailyRecordViewController.timeStampToString(timeStamp: cellData["alarmTime"].stringValue)
         alarmListCell?.changUI(realTitle:(alarmListCell?.itemTitle.text)!,realStatus:(alarmListCell?.itemStatus.text)!)
+        alarmListCell?.itemId = cellData["id"].stringValue
         return alarmListCell!
     }
     
@@ -228,6 +352,8 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedAlarmId = (tableView.cellForRow(at: indexPath) as! AlarmListTableViewCell).itemId
+        print(selectedAlarmId)
         let alarmAnalysisVc = AlarmAnalysisViewController()
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(alarmAnalysisVc, animated: true)

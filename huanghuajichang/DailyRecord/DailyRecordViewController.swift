@@ -210,7 +210,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 }
                 
             case .failure(let error):
-                MyProgressHUD.dismiss()
+//                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -272,7 +272,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-                    print(type(of: JSON(value)["msg"]))
+//                    print(type(of: JSON(value)["msg"]))
                     self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
                 }
             case .failure(let error):
@@ -460,10 +460,15 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         if cell == nil{
             cell = RecordListTableViewCell(style: .default, reuseIdentifier: CellIdentifier)
         }
+        
         if self.json != nil {
 //            print(self.listData[indexPath.row])
 //            print(type(of: self.json[indexPath.row]))
             //当无图片时显示默认图片
+            let views = cell?.itemImage?.subviews
+            for itemImageSub in views! {
+                itemImageSub.removeFromSuperview()
+            }
             if self.json[indexPath.row]["filesId"].stringValue == "" {
                 print(self.json[indexPath.row]["filesId"])
                 cell?.itemImage?.image = UIImage(named: "默认图片")
@@ -493,7 +498,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
                 cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
             }
-            cell?.itemDate?.text = self.json[indexPath.row]["staTime"].stringValue
+            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.json[indexPath.row]["opeTime"].stringValue)
         }
         return cell!
     }

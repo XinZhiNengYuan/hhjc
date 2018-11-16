@@ -92,7 +92,8 @@ class ScanAndEditViewController: AddNavViewController {
         
         timeLabel = UILabel.init(frame:CGRect(x: 131, y: 50, width: kScreenWidth-262, height: 14))
         timeLabel.font = UIFont(name: "PingFangSC-Regular", size:10)
-        timeLabel.text = self.detailJson["staTime"].stringValue
+        timeLabel.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.detailJson["opeTime"].stringValue)
+        timeLabel.textAlignment = .center
         timeLabel.textColor = UIColor(red: 176/255, green: 176/255, blue: 176/255, alpha: 1)
         scrollView.addSubview(timeLabel)
         

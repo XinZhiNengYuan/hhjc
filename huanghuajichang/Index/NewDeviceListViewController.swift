@@ -7,23 +7,31 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class NewDeviceListViewController: AddNavViewController {
+    
+    var userDefault = UserDefaults.standard
+    var userToken:String!
+    var userId:String!
+    var allListData:JSON = []
+    
     var ss:Bool = false
     let newDeviceList:UITableView = UITableView()
     var statusArrOfContent : NSMutableArray = [false, true, false]
-    let oneMeanArr : Array<String> = ["全部","基础类","进阶类","高级类","拔高类","终极类","究极类"]
-    let listArr : Array<String> = ["人类起源","人类初级进化","人类中极进化","人类高级进化","人类终极进化","人类升华"]
-    let listForArr : Array<Dictionary<String,String>> = [["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"]]
+    var oneMeanArr : [NewEquipmentListModel] = []
+    
     //存储最后选中的行（包括菜单和清单主页）
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
-    //本地存储
-    let userDefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "新增设备"
         self.view.backgroundColor = UIColor.white
+        
+        userToken = self.userDefault.object(forKey: "userToken") as? String
+        userId = self.userDefault.object(forKey: "userId") as? String
+        
         // Do any additional setup after loading the view.
         createUI()
     }
@@ -35,9 +43,66 @@ class NewDeviceListViewController: AddNavViewController {
         newDeviceList.backgroundColor = allListBackColor
         self.view.addSubview(newDeviceList)
         newDeviceList.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: "tableCell2")
+        getNewEquiptmentList()
     }
     
-
+    ///获取新增设备列表
+    func getNewEquiptmentList(){
+        MyProgressHUD.showStatusInfo("数据加载中...")
+        let contentData : [String : Any] = ["method":"getCurrentMonthEquipmentList","info":"","token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+//                        print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    self.allListData = JSON(value)["data"]["resultData"]
+                    print(self.allListData)
+                    for equitCategory in self.allListData.enumerated(){
+                        var childs:[[String:AnyObject]] = []
+                        childs.append(self.allListData[equitCategory.offset].dictionary! as Dictionary<String, AnyObject>)
+                        
+                        let equitParentCategoryModel = NewEquipmentListModel(equCategory: self.allListData[equitCategory.offset]["equCategorySmall"].stringValue, categoryName: self.allListData[equitCategory.offset]["categoryNameSmall"].stringValue, childsNum: 1, childs: childs)
+                        
+                        var hasParent = false
+                        if self.oneMeanArr != []{
+                            for haveEquitCategory in self.oneMeanArr.enumerated(){
+                                if self.oneMeanArr[haveEquitCategory.offset].equCategory == self.allListData[equitCategory.offset]["equCategorySmall"].stringValue {
+                                    hasParent = true
+                                    self.oneMeanArr[haveEquitCategory.offset].childs.append(self.allListData[equitCategory.offset].dictionary! as Dictionary<String, AnyObject>)
+                                    self.oneMeanArr[haveEquitCategory.offset].childsNum = equitParentCategoryModel.childsNum+1
+                                }else{
+                                    hasParent = false
+                                }
+                            }
+                        }else{
+                            hasParent = false
+                        }
+                        
+                        if !hasParent {
+                            self.oneMeanArr.append(equitParentCategoryModel)
+                        }
+                    }
+                    print(self.oneMeanArr)
+                    self.newDeviceList.reloadData()
+                    //刷新页面数据
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -51,12 +116,20 @@ class NewDeviceListViewController: AddNavViewController {
 }
 extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView:UITableView) ->Int {
-        return 3
+        if self.oneMeanArr == [] {
+            return 1
+        }else{
+            return self.oneMeanArr.count
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.statusArrOfContent[section] as! Bool {
-            return 3
+            if self.oneMeanArr == [] {
+                return 0
+            }else{
+                return oneMeanArr[section].childsNum
+            }
         }else{
             return 0
         }
@@ -73,7 +146,7 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 2000
-            view.mNum.text = "3个"
+        
             view.isSelected = self.statusArrOfContent[section] as! Bool
         
             view.callBack = {(index : Int,isSelected : Bool) in
@@ -99,7 +172,10 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
 
                 self.newDeviceList.reloadData()
             }
-            view.mLabel.text = oneMeanArr[section]
+            if oneMeanArr != []{
+                view.mLabel.text = oneMeanArr[section].categoryName
+                view.mNum.text = oneMeanArr[section].childsNum.description
+            }
             return view
         
     }
@@ -113,24 +189,23 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
                 cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            cell?.topLeft.text = listForArr[rowNum]["deviceName"]
-            cell?.topRight.text = listForArr[rowNum]["deviceType"]
-            cell?.midelLeft.text = listForArr[rowNum]["deviceW"]
-            cell?.midelCenter.text = listForArr[rowNum]["wp"]
-            cell?.bottomRight.text = listForArr[rowNum]["position"]
+            let sectionNum = indexPath.section
+            let cellData = oneMeanArr[sectionNum].childs[rowNum]
+            cell?.topLeft.text = cellData["equName"]?.description //listForArr[rowNum]["deviceName"]
+            cell?.topRight.text = cellData["specification"]?.description
+            cell?.midelLeft.text = "额定功率"
+            cell?.midelCenter.text = cellData["power"]?.description
+            cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!
+        
             return cell!
         
     }
     //tableView点击事件
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         
-//            self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
-//            self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
-//            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
-//
-//        print(self.userDefault.dictionary(forKey: "DeviceManagementKey") as Any)
-                print(indexPath.row)
-        //        reLoadCollectionView(option:"区域行被电击")
+        let detailVc = DeviceDetailViewController()
+        detailVc.equId = JSON(oneMeanArr[indexPath.section].childs[indexPath.row])["equId"].intValue
+        self.navigationController?.pushViewController(detailVc, animated: true)
         
     }
     

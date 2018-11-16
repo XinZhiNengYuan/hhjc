@@ -105,8 +105,6 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             deleteBtn.addTarget(self, action: #selector(self.deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
                             editImgBtn.addSubview(deleteBtn)
                             self.haveImagsData.add(editImgBtn)
-                            
-                            
                         }
                         if self.editJson["filePhotos"].arrayValue.count < 3 {
                             self.drawImgBtn(imgBtnIndex: self.editJson["filePhotos"].arrayValue.count + 1)
@@ -188,6 +186,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     //关闭页面，通知列表刷新
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateList"), object: nil)
                     MyProgressHUD.dismiss()
+                    self.dismiss(animated: true, completion: nil)
                 }else{
                     MyProgressHUD.dismiss()
                     if JSON(value)["msg"].string == nil {
@@ -340,11 +339,11 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         
         let timeSta:TimeInterval = string.doubleValue
         let dfmatter = DateFormatter()
-    dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+        dfmatter.dateFormat="yyyy/MM/dd HH:mm"
         
         let date = NSDate(timeIntervalSince1970: timeSta)
         
-        print(dfmatter.string(from: date as Date))
+//        print(dfmatter.string(from: date as Date))
         return dfmatter.string(from: date as Date)
     }
     

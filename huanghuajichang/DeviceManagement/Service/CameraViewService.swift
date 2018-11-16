@@ -37,6 +37,8 @@ class CameraViewService : common{
         }) { (error) in
             print(error)
         }
+    func upLoadPic(contentData : Dictionary<String,Any>,finished:()->(),finishedError:()->()){
+//        super.upload(params: <#T##[String : String]?#>, images: <#T##[UIImage]#>, success: <#T##(Any?) -> ()#>, failture: <#T##(Error) -> ()#>)
     }
 
     //MARK:图片id和设备id相互绑定

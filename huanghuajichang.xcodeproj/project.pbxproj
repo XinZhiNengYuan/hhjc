@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D053069219D72040021BB42 /* NewEquipmentListModel.swift */; };
 		3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */; };
 		3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */; };
 		3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */; };
@@ -82,6 +83,7 @@
 
 /* Begin PBXFileReference section */
 		1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.debug.xcconfig"; sourceTree = "<group>"; };
+		3D053069219D72040021BB42 /* NewEquipmentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEquipmentListModel.swift; sourceTree = "<group>"; };
 		3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySearchViewController.swift; sourceTree = "<group>"; };
 		3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxCardViewController.swift; sourceTree = "<group>"; };
 		3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNavViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			children = (
 				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
 				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
+				3D053069219D72040021BB42 /* NewEquipmentListModel.swift */,
 				3D0F9FE221706A740041B746 /* LineButton.swift */,
 				3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */,
 			);
@@ -541,6 +544,7 @@
 				3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */,
 				3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */,
 				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
+				3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */,
 				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
 				3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */,
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,

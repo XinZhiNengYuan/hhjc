@@ -15,6 +15,7 @@ class AlarmListTableViewCell: UITableViewCell {
     var itemStatus:UILabel!
     var itemName:UILabel!
     var itemTime:UILabel!
+    var itemId:String!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
