@@ -99,7 +99,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         print(imgList)
         cameraViewController.imgIdListStr = cameraViewController.imgIdListStr + imgIdListStr
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
-        cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["banner01.jpg"]//imgList ?? ["banner01.jpg"]
+        cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["拍照"]//imgList ?? ["banner01.jpg"]
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
