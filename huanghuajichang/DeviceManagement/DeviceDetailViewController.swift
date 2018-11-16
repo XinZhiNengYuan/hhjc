@@ -67,7 +67,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     func setLayout(arrPic imageListObjc : [equPhotos]){
         self.title = "设备详情"
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceDetailViewController))
         view.backgroundColor = UIColor.white
         
         
@@ -96,16 +96,17 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
             let imgIndex = imgIdListStr.index(imgIdListStr.endIndex, offsetBy: -1)
             imgIdListStr = String(imgIdListStr.prefix(upTo: imgIndex))
         }
+        print(imgList)
         cameraViewController.imgIdListStr = cameraViewController.imgIdListStr + imgIdListStr
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
-        cycleView.imageURLStringArr =  imgList
+        cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["banner01.jpg"]//imgList ?? ["banner01.jpg"]
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
         UiTableList.showsVerticalScrollIndicator = false
     }
 
-    @objc func goBack(){
+    @objc func goBackFromDeviceDetailViewController(){
         self.navigationController?.popViewController(animated: true)
     }
 

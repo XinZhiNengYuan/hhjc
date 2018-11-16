@@ -18,10 +18,11 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var start:CGPoint!
     var move:Bool = false
     var showOrNo : Bool = false
-    var oneMeanArr : [Any] = [Any]()
-    var resultDataForJson : JSON!
-    let listArr : Array<String> = ["人类起源","人类初级进化","人类中极进化","人类高级进化","人类终极进化","人类升华"]
-    let listForArr : Array<Dictionary<String,String>> = [["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"],["deviceName":"1#笔记本电脑","deviceType":"华硕X42FZ43JZ","deviceW":"额定功率：","wp":"0.75KW","position":"能源管理部供配电站航空港110KV变电站"]]
+    var oneMeanArr : [String] = [String]()
+    var oneSelected : Int = 0
+    var twoSelected : Int = 0
+    var resultDataForArr : [DeviceManagementModule] = []
+    var contentList : Array<DeviceManagementContentListDiyModule> = []
     var tableView1 = UITableView()
     var tableView2 = UITableView()
     var statusArr : NSMutableArray = NSMutableArray()
@@ -41,7 +42,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let deviceManagementService = DeviceManagementService()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         requestForData()
     }
@@ -52,13 +52,20 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
         deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
-            self.resultDataForJson = successData
+            self.resultDataForArr += successData
             self.oneMeanArr += oneMean
-            self.addData()
-            self.drawerView()
-            self.setContentView()
-            self.setSearchView()
-            self.readyGo()
+            let deviceListData : [String : Any] = ["method":"getEquipmentList","info":["oneId":"","twoId":"","equName":""],"user_id":userId as Any,"token":token as Any]
+            self.deviceManagementService.getDeviceListData(contentData : deviceListData, finished: { (contentListData) in
+                self.contentList += contentListData
+                self.addData()
+                self.drawerView()
+                self.setContentView()
+                self.setSearchView()
+                self.readyGo()
+            }, finishedError: {(contentError) in
+                print(contentError)
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+            })
         }) { (error) in
             self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
             print(error)
@@ -85,7 +92,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         for _ in 0..<oneMeanArr.count{
             statusArr.add(false)
         }
-        for _ in 0..<oneMeanArr.count{
+        for _ in 0..<contentList.count{
             statusArrOfContent.add(false)
         }
     }
@@ -124,25 +131,21 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     
     //MARK:搜索按钮
     @objc func toSearchData(){
-
         let navigationView = UINavigationController.init(rootViewController: DeviceSearchListViewController())
-        
         UINavigationBar.appearance().barTintColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1) //修改导航栏背景色
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
-        
         self.present(navigationView, animated: true, completion: nil)
     }
     
     @objc func goBack(){
         print("关闭当前页")
-
         self.dismiss(animated: true, completion: nil)
-        //        navigationController?.popViewController(animated: true)
     }
     
     @objc func toQC(){
         self.present(QrCodeViewController(), animated: false, completion: nil)
     }
+    
     func drawerView(){
         self.tabBarController?.view.isMultipleTouchEnabled = true
         self.tabBarController?.view.isUserInteractionEnabled = true
@@ -165,12 +168,9 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     
     //MARK: 手势滑动方法
     @objc func pan(_ pan: UIPanGestureRecognizer){
-        
         switch pan.state{
-            
         case UIGestureRecognizerState.began:
             start = pan.translation(in: self.view)//手指移动的实时点
-            
         case UIGestureRecognizerState.changed:
             //            print("----Changed----")
             let tran = pan.translation(in: self.view)//手指移动的实时点
@@ -225,8 +225,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         tableView2.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - (navigationController?.navigationBar.frame.height)! - UIApplication.shared.statusBarFrame.height - (tabBarController?.tabBar.frame.height)! - 40)
         tableView2.dataSource = self
         tableView2.delegate = self
-//        let indexPath = IndexPath(row:1,section:1)
-//        tableView2.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
         tableView2.separatorStyle = UITableViewCellSeparatorStyle.none
         self.contentView.addSubview(tableView2)
         self.view.addSubview(contentView)
@@ -256,40 +254,34 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         if tableView1.isEqual(tableView) {
             return oneMeanArr.count
         }else{
-            return oneMeanArr.count
+            return contentList.count
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView1.isEqual(tableView){
             if statusArr[section] as! Bool{
-                if let arrForOneMeanSubList = resultDataForJson["data"][section]["children"].arrayObject{
-                    return arrForOneMeanSubList.count
-                }else{
-                    return 0
-                }
+                return resultDataForArr[section].children.count
             }else{
                 return 0
             }
         }else{
             if statusArrOfContent[section] as! Bool{
-                return listArr.count
+                return contentList[section].deviceManagementContentList.count
             }else{
                 return 0
             }
         }
-        
-        
     }
+    
     func tableView(_ tableView:UITableView, heightForRowAt indexPath:IndexPath) ->CGFloat {
         if tableView1.isEqual(tableView){
             return 40
         }else{
             return 100
         }
-        
-        
     }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView1.isEqual(tableView){
             return 40
@@ -303,11 +295,10 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             let view : UITableViewControllerCellOne = UITableViewControllerCellOne()
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 1000
-            view.mNum.text = "3个"
+            view.mNum.text = "\(resultDataForArr[section].equipmentCount)个"
             view.isSelected = statusArr[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 1000
-                
                 //设置选中状态
                 if self.statusArr[i] as! Bool{
                     self.statusArr[i] = false
@@ -323,33 +314,36 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                             self.statusArr[j] = true
                             self.meanAndContentLog["meanLog"]!["one"] = j
                             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
-                            self.reloadContent()//重新z加载主页
+                            //点击一级菜单的时候不刷新列表页
+//                            self.reloadContent()//重新z加载主页
                         }
                     }
                 }
+                self.oneSelected = section
                 self.tableView1.reloadData()
-                //self.tableView1.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
+            
             if self.meanAndContentLog["meanLog"]!["one"] == statusArr.count-1{
                 view.setBottomLine()
             }
+            
             //画左侧菜单竖着的直线
             if section == 0 {
                 view.setBottomLine()
-                
             }else if section == self.oneMeanArr.count{
                 view.setTopLine()
             }else{
                 view.setTopLine()
                 view.setBottomLine()
             }
-            view.mLabel.text = resultDataForJson["data"][section]["text"].stringValue
+            
+            view.mLabel.text = resultDataForArr[section].text
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 2000
-            view.mNum.text = "3个"
+            view.mNum.text = "\(contentList[section].deviceManagementContentList.count)"
             view.isSelected = statusArrOfContent[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 2000
@@ -371,34 +365,25 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                         }
                     }
                 }
-                
+                self.twoSelected = section
                 self.tableView2.reloadData()
-//                self.tableView2.reloadSections(IndexSet.init(integer: i), with: UITableViewRowAnimation.automatic)
             }
-            view.mLabel.text = resultDataForJson["data"][section]["text"].stringValue
+            view.mLabel.text = resultDataForArr[section].text
             return view
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if tableView1.isEqual(tableView){
-            
             let identifier = "reusedCell1"
             var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellTwo
             if cell == nil{
                 cell = UITableViewControllerCellTwo(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            if let arrForOneMeanSubList = resultDataForJson["data"][rowNum]["children"].arrayObject{
-                cell?.mLabel.text = listArr[rowNum]//((arrForOneMeanSubList[rowNum] as! Dictionary<String,String>)["text"])
-            }else{
-                cell?.mLabel.text = ""
-            }
-            
+            cell?.mLabel.text = resultDataForArr[self.oneSelected].children[rowNum].text
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
-            cell?.mNum.text = "3个"
+            cell?.mNum.text = "\(resultDataForArr[self.oneSelected].children[rowNum].equipmentCount)个"
             cell?.setTopLine()
             cell?.setBottomLine()
             return cell!
@@ -409,37 +394,55 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            cell?.topLeft.text = listForArr[rowNum]["deviceName"]
-            cell?.topRight.text = listForArr[rowNum]["deviceType"]
-            cell?.midelLeft.text = listForArr[rowNum]["deviceW"]
-            cell?.midelCenter.text = listForArr[rowNum]["wp"]
-            cell?.bottomRight.text = listForArr[rowNum]["position"]
+            cell?.topLeft.text = contentList[twoSelected].deviceManagementContentList[rowNum].equName
+            cell?.topRight.text = contentList[twoSelected].deviceManagementContentList[rowNum].specification
+            cell?.midelLeft.text = "额定功率："
+            cell?.midelCenter.text = "\(contentList[twoSelected].deviceManagementContentList[rowNum].power)w"//contentList[rowNum]["w"]
+            cell?.bottomRight.text = contentList[twoSelected].deviceManagementContentList[rowNum].coOneAndcoTwo
             return cell!
         }
         
     }
+    
     //tableView点击事件
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         if tableView1.isEqual(tableView){
             self.meanAndContentLog["meanLog"]!["two"] = indexPath.row
-            reloadContent()
+            reloadContent(oId: resultDataForArr[oneSelected].id, tId: resultDataForArr[oneSelected].children[indexPath.row].id)
         }else{
+            let deviceDetailViewController = DeviceDetailViewController()
+            deviceDetailViewController.equId = self.contentList[twoSelected].deviceManagementContentList[indexPath.row].equId as Int
             self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
-            self.navigationController?.pushViewController(DeviceDetailViewController(), animated: true)
+            self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
         }
-//        print(indexPath.row)
-//        reLoadCollectionView(option:"区域行被电击")
-        
     }
-    func reloadContent(){
+    
+    func reloadContent(oId oneId:String,tId twoId:String){
         //点击菜单之后要重新记录主页被选中的状态
         self.meanAndContentLog["contentLog"]!["one"] = -1
         self.meanAndContentLog["contentLog"]!["two"] = -1
         for j in 0..<self.statusArrOfContent.count{//设置主页所有行为未选中状态
             self.statusArrOfContent[j] = false
         }
-        self.tableView2.reloadData()
         self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
+        getContentDataList(oId: oneId, tId: twoId)
     }
+    
+    //MARK:获取列表数据
+    func getContentDataList(oId oneId:String,tId twoId:String){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let deviceListData : [String : Any] = ["method":"getEquipmentList","info":["oneId":oneId,"twoId":twoId,"equName":""],"user_id":userId as Any,"token":token as Any]
+        self.deviceManagementService.getDeviceListData(contentData : deviceListData, finished: { (contentListData) in
+            self.contentList = []
+            self.contentList += contentListData
+            self.tableView2.reloadData()
+        }, finishedError: {(contentError) in
+            print(contentError)
+            self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+        })
+        
+    }
+    
 }

@@ -24,20 +24,20 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     override func viewWillAppear(_ animated: Bool){
         self.title = "图片编辑"
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromCameraViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+60), width: Int(KUIScreenWidth-20), height: 60)
+        imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!), width: Int(KUIScreenWidth-20), height: 60)
         imageMethods()
         // Do any additional setup after loading the view.
     }
     
-    @objc func goBack(){
-        self.dismiss(animated: true, completion: nil)
+    @objc func goBackFromCameraViewController(){
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func uploadImgs(){
