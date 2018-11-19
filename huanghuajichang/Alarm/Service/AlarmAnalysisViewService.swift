@@ -7,14 +7,17 @@
 //
 
 import Foundation
-class AlarmAnalysisViewService : NSObject{
+class AlarmAnalysisViewService : common{
     //数据请求地址
     let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
-    let commonClass = common()
     
     func gitData(contentData : Dictionary<String,Any>){
-        commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
-            print(result)
+        super.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+            if result["status"] == "success"{
+                print("报警详情：\(result["data"])")
+            }else{
+                print("网络错误提示:\(result["status"])")
+            }
         }) { (error) in
             print(error)
         }

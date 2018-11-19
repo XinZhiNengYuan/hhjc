@@ -55,7 +55,7 @@
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
 		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
 		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
-		3DC58F3D217971910015A518 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* common.swift */; };
+		3DC58F3D217971910015A518 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* Common.swift */; };
 		3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
 		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
 		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
@@ -65,6 +65,7 @@
 		3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
+		3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */; };
 		90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */; };
 		FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */; };
 		FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */; };
@@ -135,7 +136,7 @@
 		3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
 		3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
 		3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
-		3DC58F3C217971910015A518 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
+		3DC58F3C217971910015A518 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		3DC58F41217982F00015A518 /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
 		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
 		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 		3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewModule.swift; sourceTree = "<group>"; };
 		6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanghuajichang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.release.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.release.xcconfig"; sourceTree = "<group>"; };
 		FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellTwo.swift; sourceTree = "<group>"; };
@@ -226,11 +228,11 @@
 		3D389C642194553D0094C6B1 /* Alarm */ = {
 			isa = PBXGroup;
 			children = (
-				3D389C652194553D0094C6B1 /* AlarmListViewController.swift */,
-				3D389C662194553D0094C6B1 /* TabButton.swift */,
-				3D389C672194553D0094C6B1 /* Service */,
 				3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */,
-				3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */,
+				3D389C652194553D0094C6B1 /* AlarmListViewController.swift */,
+				3DFE359821A2D9250039EB50 /* Controller */,
+				3DFE359421A2D5D70039EB50 /* Module */,
+				3D389C672194553D0094C6B1 /* Service */,
 			);
 			path = Alarm;
 			sourceTree = "<group>";
@@ -303,6 +305,41 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		3DFE359421A2D5D70039EB50 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		3DFE359721A2D8FB0039EB50 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
+				FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */,
+				FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */,
+				FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */,
+				FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */,
+				3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */,
+				3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */,
+				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
+				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
+				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
+				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3DFE359821A2D9250039EB50 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */,
+				3D389C662194553D0094C6B1 /* TabButton.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		92733A0B1D8E6AB28FD54EE1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,21 +352,11 @@
 		FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
 			isa = PBXGroup;
 			children = (
+				3DFE359721A2D8FB0039EB50 /* Controller */,
 				3D223A04218BE78A00D570C7 /* Module */,
 				3DCF48F6218942C8005D51FB /* Service */,
 				3DC58F40217982920015A518 /* CycleView */,
-				3DC58F3C217971910015A518 /* common.swift */,
-				FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
-				FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */,
-				FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */,
-				FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */,
-				FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */,
-				3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */,
-				3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */,
-				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
-				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
-				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
-				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
+				3DC58F3C217971910015A518 /* Common.swift */,
 			);
 			path = DeviceManagement;
 			sourceTree = "<group>";
@@ -550,8 +577,9 @@
 				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
 				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
 				3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */,
-				3DC58F3D217971910015A518 /* common.swift in Sources */,
+				3DC58F3D217971910015A518 /* Common.swift in Sources */,
 				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
+				3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */,
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,

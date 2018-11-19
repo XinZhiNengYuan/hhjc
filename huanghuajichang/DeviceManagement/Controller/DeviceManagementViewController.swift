@@ -330,7 +330,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             //画左侧菜单竖着的直线
             if section == 0 {
                 view.setBottomLine()
-            }else if section == self.oneMeanArr.count{
+            }else if section == self.oneMeanArr.count-1{
                 view.setTopLine()
             }else{
                 view.setTopLine()

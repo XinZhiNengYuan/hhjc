@@ -40,8 +40,9 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     
     func requestForData(){
         let userId = userDefault.string(forKey: "userId")
-        let token = userDefault.string(forKey: "userToken")//getAlarmDesc
-        let contentData : [String : Any] = ["method":"getAlarmList","info":["station_id":"CA06ES02","level":"0","start":1,"length":5],"user_id":userId as Any,"token":token as Any]
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String : Any] = ["method":"getAlarmAnalysis","info":["objCode":alarmDetailId],"user_id":userId as Any,"token":token as Any]
+        print(contentData)
         alarmAnalysisService.gitData(contentData: contentData)
     }
     //MARK:设置头部

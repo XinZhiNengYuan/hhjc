@@ -59,7 +59,6 @@ class DeviceManagementService : common{
     func getDeviceListData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:[DeviceManagementContentListDiyModule])->(),finishedError:@escaping(_ errorData : Error)->()){
         super.requestData(urlStr: appUrl!, outTime: 60, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
-                var contentList : [DeviceManagementContentListModule] = []
                 var contentListDiyData : [DeviceManagementContentListDiyModule] = []
                 for item in result["data"]["resultData"].arrayValue{
                     if contentListDiyData.count > 0{
@@ -146,31 +145,6 @@ class DeviceManagementService : common{
                         deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
                         contentListDiyData.append(deviceManagemengContentListDiyModule)
                     }
-                    
-                    
-                    
-                    
-                    
-                    var deviceManagementContentListModule = DeviceManagementContentListModule()
-                    deviceManagementContentListModule.specification = item["specification"].stringValue
-                    deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
-                    deviceManagementContentListModule.coTwo = item["coTwo"].stringValue
-                    deviceManagementContentListModule.equId = item["equId"].intValue
-                    deviceManagementContentListModule.dataStatus = item["dataStatus"].stringValue
-                    deviceManagementContentListModule.departmentIdTwo = item["departmentIdTwo"].intValue
-                    deviceManagementContentListModule.filesId = item["filesId"].stringValue
-                    deviceManagementContentListModule.spName = item["spName"].stringValue
-                    deviceManagementContentListModule.coOne = item["coOne"].stringValue
-                    deviceManagementContentListModule.departmentIdOne = item["departmentIdOne"].intValue
-                    deviceManagementContentListModule.equCategoryBig = item["equCategoryBig"].intValue
-                    deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
-                    deviceManagementContentListModule.equNo = item["equNo"].stringValue
-                    deviceManagementContentListModule.coType = item["coType"].stringValue
-                    deviceManagementContentListModule.power = item["power"].intValue
-                    deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
-                    deviceManagementContentListModule.equName = item["equName"].stringValue
-                    deviceManagementContentListModule.status = item["status"].stringValue
-                    contentList.append(deviceManagementContentListModule)
                 }
                 finished(contentListDiyData)
             }
