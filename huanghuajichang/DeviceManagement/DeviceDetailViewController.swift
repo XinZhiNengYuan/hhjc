@@ -77,7 +77,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         UiTableList.dataSource = self
         //轮播图加载
         let pointY = 54 + UIApplication.shared.statusBarFrame.size.height
-        cycleView  = CycleView(frame: CGRect(x: 0, y: pointY, width: KUIScreenWidth, height: 220))
+        cycleView  = CycleView(frame: CGRect(x: 0, y: pointY, width: UiTableList.frame.width, height: 220))
         cycleView.delegate = self
         cycleView.mode = .scaleAspectFill
         //本地图片测试--加载网络图片,请用第三方库如SDWebImage等
@@ -96,10 +96,9 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
             let imgIndex = imgIdListStr.index(imgIdListStr.endIndex, offsetBy: -1)
             imgIdListStr = String(imgIdListStr.prefix(upTo: imgIndex))
         }
-        print(imgList)
         cameraViewController.imgIdListStr = cameraViewController.imgIdListStr + imgIdListStr
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
-        cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["拍照"]//imgList ?? ["banner01.jpg"]
+        cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["拍照"]
         UiTableList.tableHeaderView = cycleView
         view.addSubview(UiTableList)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
