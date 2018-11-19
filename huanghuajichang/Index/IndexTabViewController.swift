@@ -21,6 +21,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     var userId:String!
     var mainPointData:JSON = []
     var mainEchartsData:JSON = []
+    var maxId:Int = 0
     
     let buttons:NSMutableArray = ["功率构成", "电量曲线", "负荷曲线"]
     // 把类定义成属性
@@ -52,8 +53,8 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         rightBarButton = UIButton.init()
         rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
         rightBarButton.tintColor = UIColor.white
-        
-        rightBarButton.addTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.touchUpInside)
+        rightBarButton.tag = 8000
+        rightBarButton.addTarget(self, action: #selector(openAlarm), for: UIControlEvents.touchUpInside)
         let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: rightBarButton)
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         
@@ -70,22 +71,63 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
 //        getElectricControl()
     }
     
-    @objc func getNewMsg(sender:UIButton){
-        sender.removeTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.allEvents)
-        sender.addTarget(self, action: #selector(removeMsg(sender:)), for: UIControlEvents.touchUpInside)
-        self.navigationItem.rightBarButtonItem = sender.addMessage(operateBtn:sender, msg: "95")
+    override func viewDidAppear(_ animated: Bool) {
+        maxId = self.userDefault.integer(forKey: "maxId")
+        getALarmCount()
     }
     
-    @objc func removeMsg(sender:UIButton){
-        sender.removeTarget(self, action: #selector(removeMsg(sender:)), for: UIControlEvents.allEvents)
-        sender.addTarget(self, action: #selector(getNewMsg(sender:)), for: UIControlEvents.touchUpInside)
-        self.navigationItem.rightBarButtonItem = sender.removeMessage(operateBtn: sender, msg: "")
-        
+    func getALarmCount(){
+        MyProgressHUD.showStatusInfo("数据加载中...")
+        let infoData = ["id":maxId]
+        let contentData : [String : Any] = ["method":"getNewAlarmCount","info":infoData,"token":userToken,"user_id":userId]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            //            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+//                    print(JSON(value)["data"])
+                    self.userDefault.set(JSON(value)["data"]["maxAlarmId"].intValue, forKey: "maxId")
+                    //刷新页面数据
+                    if JSON(value)["data"]["newAlarmCount"].intValue > 0{
+                        self.addNewMsg(msgNum: JSON(value)["data"]["newAlarmCount"].intValue)
+                    }else{
+                        self.removeMsg()
+                    }
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
+    
+    ///有新消息时，添加消息展示
+    @objc func addNewMsg(msgNum:Int){
+        let alarmBtn = self.navigationItem.rightBarButtonItem?.customView?.viewWithTag(8000) as! UIButton
+        self.navigationItem.rightBarButtonItem = alarmBtn.addMessage(operateBtn:alarmBtn, msg: msgNum.description)
+    }
+    
+    ///无新消息展示，或者已被点击过后
+    @objc func removeMsg(){
+        let alarmBtn = self.navigationItem.rightBarButtonItem?.customView?.viewWithTag(8000) as! UIButton
+        self.navigationItem.rightBarButtonItem = alarmBtn.removeMessage(operateBtn: alarmBtn, msg: "")
+    }
+    
+    @objc func openAlarm(){
         let AlarmListVc = AlarmListViewController()
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(AlarmListVc, animated: true)
         self.hidesBottomBarWhenPushed = false
-        
     }
     
     
@@ -754,6 +796,10 @@ extension UIImage{
 
 extension UIButton {
     public func addMessage(operateBtn:UIButton,msg:String) ->UIBarButtonItem{
+        let oldMsgView = operateBtn.viewWithTag(500)
+        if oldMsgView != nil {
+            oldMsgView?.removeFromSuperview()
+        }
         
         let msgView:UIButton = UIButton.init(frame: CGRect(x: 12.5, y: 0, width: 15, height: 15))
         msgView.backgroundColor = UIColor.red
@@ -769,7 +815,9 @@ extension UIButton {
     }
     public func removeMessage(operateBtn:UIButton, msg:String) ->UIBarButtonItem{
         let msgView = operateBtn.viewWithTag(500)
-        msgView?.removeFromSuperview()
+        if msgView != nil {
+            msgView?.removeFromSuperview()
+        }
         
         let rightBarButtonItem:UIBarButtonItem = UIBarButtonItem.init(customView: operateBtn)
         return rightBarButtonItem
