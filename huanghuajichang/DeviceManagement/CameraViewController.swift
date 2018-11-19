@@ -17,7 +17,9 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     var imageView = UIView()
     var addBut : UIButton!
     var equId : Int = -1
+    var flagePageFrom : Int = 1 //1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
     var  viewOption : UIView!
+    var mView = UIView()
     var deviceDetailPageImageList : [String] = []
     var imgIdListStr : String = ""
     let cameraViewService = CameraViewService()
@@ -30,10 +32,15 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!), width: Int(KUIScreenWidth-20), height: 60)
+        mView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
+        mView.backgroundColor = UIColor.white
+        if flagePageFrom == 1{
+            imageView.frame = CGRect(x: 10, y: 20, width: Int(KUIScreenWidth-20), height: 60)
+        }else{
+            imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!)+20, width: Int(KUIScreenWidth-20), height: 60)
+        }
+        
         imageMethods()
-        // Do any additional setup after loading the view.
     }
     
     @objc func goBackFromCameraViewController(){
@@ -73,7 +80,6 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         addBut.tag = 3001 // 添加按钮
         addBut.setTitleColor(UIColor.white, for: UIControlState.normal)
         addBut.addTarget(self, action: #selector(actionSheet), for: .touchUpInside)
-//        view.addSubview(addBut)
         imageView.addSubview(addBut)
     }
     
@@ -117,7 +123,8 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         }else{
             setAddBut()
         }
-        view.addSubview(imageView)
+        mView.addSubview(imageView)
+        view.addSubview(mView)
         
     }
     

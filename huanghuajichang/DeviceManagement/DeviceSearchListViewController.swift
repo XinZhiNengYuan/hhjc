@@ -195,7 +195,7 @@ extension DeviceSearchListViewController:UITableViewDataSource{
         let rowNum = indexPath.row
         if self.countrySearchController.isActive {
             cell.textLabel?.text = self.searchArray[rowNum]
-            cell.tag = Int(self.searchArrayIdList[rowNum]) ?? -1
+            cell.tag = Int(self.searchArrayIdList[rowNum])
             return cell
         } else {
             if shouldShowSearchResults{
@@ -218,6 +218,7 @@ extension DeviceSearchListViewController: UITableViewDelegate
             self.dismiss(animated: false, completion: nil)
         }
         let deviceDetaillController = DeviceDetailViewController()
+        deviceDetaillController.flagePageFrom = 2
         deviceDetaillController.equId = self.searchArrayIdList[indexPath.row]
         navigationController?.pushViewController(deviceDetaillController, animated: true)
     }

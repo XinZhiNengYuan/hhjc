@@ -14,6 +14,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     let UiTableList = UITableView()
     var arrayForKey : Array<String> = []
     var arrayForVal : Array<String> = []
+    var flagePageFrom : Int = 1 //1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
     var equId : Int = -1
     let deviceDetailViewService = DeviceDetailViewService()
     let cameraViewController = CameraViewController()
@@ -25,6 +26,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     }
     //MARK:数据请求
     func getData(id:Int){
+        navigationController?.tabBarController?.tabBar.isHidden = true
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String:Any] = ["method":"getEquipmentById","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","id":id]]
@@ -69,10 +71,16 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceDetailViewController))
         view.backgroundColor = UIColor.white
+        var mView : UIView!
+        if flagePageFrom == 1{
+            mView = UIView(frame: CGRect(x: 0, y: 20, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+        }else{
+            mView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)!+UIApplication.shared.statusBarFrame.height+20, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+        }
         
-        
+        mView.backgroundColor = UIColor.white
         UiTableList.register(DeviceDetailCell.self, forCellReuseIdentifier: "DeviceDetail1")
-        UiTableList.frame = CGRect(x: 20, y: 0, width: KUIScreenWidth-40, height: KUIScreenHeight)
+        UiTableList.frame = CGRect(x: 20, y: 0, width: mView.frame.width-40, height: mView.frame.height)
         UiTableList.delegate = self
         UiTableList.dataSource = self
         //轮播图加载
@@ -100,12 +108,14 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
         cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["拍照"]
         UiTableList.tableHeaderView = cycleView
-        view.addSubview(UiTableList)
+        mView.addSubview(UiTableList)
+        view.addSubview(mView)
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
         UiTableList.showsVerticalScrollIndicator = false
     }
 
     @objc func goBackFromDeviceDetailViewController(){
+        navigationController?.tabBarController?.tabBar.isHidden = false
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -114,6 +124,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 //MARK: CycleViewDelegate
 extension DeviceDetailViewController {
     func cycleViewDidSelectedItemAtIndex(_ index: NSInteger) {
+        cameraViewController.flagePageFrom = self.flagePageFrom
         cameraViewController.equId = equId
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
@@ -139,7 +150,7 @@ extension DeviceDetailViewController:UITableViewDelegate,UITableViewDataSource{
 
     //tableView点击事件
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
-        self.navigationController?.pushViewController(AlarmAnalysisViewController(), animated: true)
+//        self.navigationController?.pushViewController(AlarmAnalysisViewController(), animated: true)
         
     }
 }
