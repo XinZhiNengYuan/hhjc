@@ -23,6 +23,9 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     var scrollView : UIScrollView!
     
     var barChartView = BarChartView()
+    //报警详情ID
+    var alarmDetailId:String!
+    
     let alarmAnalysisService = AlarmAnalysisViewService()
     override func viewDidLoad() {
         super.viewDidLoad()

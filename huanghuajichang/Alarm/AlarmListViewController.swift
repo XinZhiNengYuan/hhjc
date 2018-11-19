@@ -353,8 +353,8 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAlarmId = (tableView.cellForRow(at: indexPath) as! AlarmListTableViewCell).itemId
-        print(selectedAlarmId)
         let alarmAnalysisVc = AlarmAnalysisViewController()
+        alarmAnalysisVc.alarmDetailId = selectedAlarmId
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(alarmAnalysisVc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
