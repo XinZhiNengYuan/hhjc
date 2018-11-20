@@ -25,6 +25,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     var barChartView = BarChartView()
     //报警详情ID
     var alarmDetailId:String!
+    //从设备列表传值过来
+    var alarmDetailInfo : [String:String]!
     
     let alarmAnalysisService = AlarmAnalysisViewService()
     override func viewDidLoad() {
@@ -34,7 +36,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
         setHeader()
-        setContentView()
+        
         requestForData()
     }
     
@@ -42,8 +44,9 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getAlarmAnalysis","info":["objCode":alarmDetailId],"user_id":userId as Any,"token":token as Any]
-        print(contentData)
-        alarmAnalysisService.gitData(contentData: contentData)
+        alarmAnalysisService.getData(contentData: contentData) { (successData) in
+            self.setContentView(successData: successData)
+        }
     }
     //MARK:设置头部
     func setHeader(){
@@ -68,7 +71,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     }
     
     //MARK:设置页面内容
-    func setContentView(){
+    func setContentView(successData:AlarmAnalysisViewModule){
         contentView = UIView(frame: CGRect(x: 0, y: 110, width: KUIScreenWidth, height: 200))
         contentView.layer.backgroundColor = UIColor.white.cgColor
         // 先删除
@@ -107,11 +110,11 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         for i in 0..<3 {
             //设置柱状图
             if i == 0 {
-                setBarChart(i)
+                setBarChart(i,successData: successData)
             }else if i==1 {
-                setBarChart(i)
+                setBarChart(i,successData: successData)
             }else{
-                setBarChart(i)
+                setBarChart(i,successData: successData)
             }
         }
     }
@@ -121,7 +124,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     }
     
     //MARK:设置柱状图
-    func setBarChart(_ i:Int){
+    func setBarChart(_ i:Int,successData:AlarmAnalysisViewModule){
         //添加barChartView
         
         if(i == 0){
@@ -201,27 +204,54 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         //右下角的description文字样式
         self.barChartView.chartDescription?.text = "" //不显示，就设为空字符串即可
         
-        setData()
+        setData(i,successData: successData)
     }
     
-    func setData()
+    func setData(_ index : Int,successData:AlarmAnalysisViewModule)
     {
         var xVals = [String]()
-        for i in 0...10
-        {
-            xVals.append(NSString(format: "%d年", i+2010) as String)
+        var yVals = [BarChartDataEntry]()
+        
+        switch index {
+        case 0:
+            for i in 0..<successData.dayData.count
+            {
+//                xVals.append(NSString(format: "%d年", "\(successData.dayData[i].lineName)") as String)
+                xVals.append("\(successData.dayData[i].lineName)时")
+                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.dayData[i].lineData)!))
+            }
+        case 1:
+            for i in 0..<successData.monthData.count
+            {
+//                xVals.append(NSString(format: "%d年", "\(successData.monthData[i].lineName)") as String)
+                xVals.append("\(successData.monthData[i].lineName)日")
+                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.monthData[i].lineData)!))
+            }
+        case 2:
+            for i in 0..<successData.yearData.count
+            {
+//                xVals.append(NSString(format: "%d年", "\(successData.yearData[i].lineName)") as String)
+                xVals.append("\(successData.yearData[i].lineName)年")
+                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.yearData[i].lineData)!))
+            }
+        default:
+            for i in 0..<10
+            {
+                xVals.append(NSString(format: "%d年", i+2010) as String)
+            }
+            for j in 0...10
+            {
+                let val = (Double)(arc4random_uniform(4000))
+                
+                yVals.append(BarChartDataEntry.init(x: Double(j), y: val))
+            }
         }
+        
         //chartView.xAxis.valueFormatter = KMChartAxisValueFormatter.init(xValues as NSArray)
         
         
         
-        var yVals = [BarChartDataEntry]()
-        for j in 0...10
-        {
-            let val = (Double)(arc4random_uniform(4000))
-            
-            yVals.append(BarChartDataEntry.init(x: Double(j), y: val))
-        }
+       
         
         //创建BarChartDataSet对象，其中包含有Y轴数据信息，以及可以设置柱形样式
         let set1 = BarChartDataSet(values: yVals, label: "test")
@@ -240,7 +270,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         dataSets.append(set1)
         
         //创建BarChartData对象, 此对象就是barChartView需要最终数据对象
-        
+        print(xVals)
+        print(yVals)
         self.barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xVals)
         
         let data:BarChartData = BarChartData(dataSets: dataSets)
