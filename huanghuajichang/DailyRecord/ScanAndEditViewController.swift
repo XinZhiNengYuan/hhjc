@@ -22,7 +22,6 @@ class ScanAndEditViewController: AddNavViewController {
     var titleLabel:UILabel!
     var timeLabel:UILabel!
     var describeTextView:UITextView!
-    var imageData:NSArray = []
     var dealView:UIView!
     
     override func viewDidLoad() {
@@ -130,8 +129,7 @@ class ScanAndEditViewController: AddNavViewController {
         }
         
         //重置scrollView的高度
-        scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(imageData.count*(160))+20)
-        
+        scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(self.detailJson["filePhotos"].count*(160))+20)
         if self.detailJson["state"].intValue == 0 {
             ///编辑按钮
             rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
