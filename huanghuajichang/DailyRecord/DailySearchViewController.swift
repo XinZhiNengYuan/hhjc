@@ -179,14 +179,31 @@ extension DailySearchViewController:UISearchBarDelegate{
         searchBar.resignFirstResponder()
         self.dismiss(animated: true, completion: nil)
     }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        self.changeSearchBarCancelBtnTitleColor(view: searchBar)
         getListData(searchStr:searchBar.text!, state:"")
     }
+    
     //Including clear
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
         if searchText == ""{
             self.view.addSubview(historyView)
+        }
+    }
+    
+    func changeSearchBarCancelBtnTitleColor(view:UIView){
+        if view.isKind(of: UIButton.self) {
+            let getBtn = view as! UIButton
+            getBtn.isEnabled = true
+            getBtn.isUserInteractionEnabled = true
+            getBtn.setTitleColor(UIColor.pg_color(withHexString: "#0374f2"), for: UIControlState.reserved)
+            getBtn.setTitleColor(UIColor.pg_color(withHexString: "#0374f2"), for: UIControlState.disabled)
+        }else{
+            for subview in view.subviews{
+                self.changeSearchBarCancelBtnTitleColor(view: subview)
+            }
         }
     }
 }
