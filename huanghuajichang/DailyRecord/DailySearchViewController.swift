@@ -49,7 +49,7 @@ class DailySearchViewController: UIViewController {
         searchBar.showsCancelButton = true
         searchBar.delegate = self
         self.view.addSubview(searchBar)
-//        searchBar.autocapitalizationType = UITextAutocapitalizationType.none//关闭首字母大写
+        searchBar.autocapitalizationType = UITextAutocapitalizationType.none//关闭首字母大写
         searchBar.becomeFirstResponder()//进入页面使搜索框进入选中状态
     }
     
