@@ -381,6 +381,10 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // 遍历删除
         
         for file in fileArr! {
+            //下面两句是为了避免可能出现的崩溃现象
+            if file.contains("Snapshots") { continue}
+            
+            if file.contains("com.fix.task") { continue}
             
             let path = (cachePath! as NSString).appending("/\(file)")
             

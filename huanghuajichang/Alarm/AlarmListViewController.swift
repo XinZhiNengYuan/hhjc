@@ -220,7 +220,7 @@ class AlarmListViewController: AddNavViewController {
                     self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
                 }
             case .failure(let error):
-                //                MyProgressHUD.dismiss()
+                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -231,20 +231,30 @@ class AlarmListViewController: AddNavViewController {
     @objc func customSelector(sender:UIButton){
         clickedBtnTag = sender.tag
         selectorData = []
+        var selectedIndex = 0
+        let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
+        let selectText = selectBtn.title(for: UIControlState.normal)
         switch clickedBtnTag {
         case 3001:
             for i in self.alarmEquipmentListData.enumerated(){
                 let elementDic:[String:AnyObject] = ["typeName":self.alarmEquipmentListData[i.offset]["text"].stringValue as AnyObject,"typeId":self.alarmEquipmentListData[i.offset]["id"].stringValue as AnyObject]
                 selectorData.append(elementDic)
+                if selectText == self.alarmEquipmentListData[i.offset]["text"].stringValue{
+                    selectedIndex = i.offset
+                }
             }
         default:
             for i in self.alarmTypeListData.enumerated(){
                 let elementDic:[String:AnyObject] = ["typeName":self.alarmTypeListData[i.offset]["name"].stringValue as AnyObject,"typeId":self.alarmTypeListData[i.offset]["value"].stringValue as AnyObject]
                 selectorData.append(elementDic)
+                if selectText == self.alarmTypeListData[i.offset]["name"].stringValue{
+                    selectedIndex = i.offset
+                }
             }
         }
         
         selector.reloadAllComponents()
+        selector.selectRow(selectedIndex, inComponent: 0, animated: false)
         selectorView.isHidden = false
         
     }

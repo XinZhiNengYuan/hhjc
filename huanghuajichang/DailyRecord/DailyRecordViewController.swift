@@ -389,6 +389,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         dateLabel.text = "\(dateComponents.year!)" + "-" + formateNum(num: dateComponents.month!)
         print("dateComponents = ", dateComponents)
         getHeaderData()
+        getListData(searchStr: "", state: "")
     }
     
     func formateNum(num:Int) ->String{

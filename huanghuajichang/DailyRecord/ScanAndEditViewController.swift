@@ -113,6 +113,8 @@ class ScanAndEditViewController: AddNavViewController {
         describeTextView.attributedText = NSAttributedString(string: describeTextView.text, attributes: attributes)
         describeTextView.textColor = UIColor(red: 125/255, green: 125/255, blue: 125/255, alpha: 1)//在上面设置之前使用不起效果
         describeTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        describeTextView.isEditable = false
+        describeTextView.isScrollEnabled = false
         //重置textView的高度
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)

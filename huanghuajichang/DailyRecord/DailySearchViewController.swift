@@ -49,6 +49,7 @@ class DailySearchViewController: UIViewController {
         searchBar.showsCancelButton = true
         searchBar.delegate = self
         self.view.addSubview(searchBar)
+        searchBar.autocapitalizationType = UITextAutocapitalizationType.none//关闭首字母大写
         searchBar.becomeFirstResponder()//进入页面使搜索框进入选中状态
     }
     
@@ -260,13 +261,14 @@ extension DailySearchViewController:UITableViewDelegate,UITableViewDataSource{
             //            print(self.listData[indexPath.row])
 //            print(self.json[indexPath.row)
             //当无图片时显示默认图片
-            if self.json[indexPath.row]["filesId"].array?.count == 0 {
+            if self.json[indexPath.row]["filesId"].stringValue == "" {
                 print(self.json[indexPath.row]["filesId"])
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
-                cell?.itemImage?.image = UIImage(named: "默认图片")
+                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",")[0])
+                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
-                photoNum.text = "共\(self.json[indexPath.row]["filesId"].count)张"
+                photoNum.text = "共\(self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",").count)张"
                 photoNum.textColor = UIColor.white
                 photoNum.textAlignment = .center
                 photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
