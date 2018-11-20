@@ -77,7 +77,12 @@ extension UIImageView {
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let image = UIImage(data: data)
-                else { return }
+                else {
+                    DispatchQueue.main.async() {
+                        self.image = UIImage(named: "默认图片")
+                    }
+                    return 
+                }
             DispatchQueue.main.async() {
                 self.image = image
             }

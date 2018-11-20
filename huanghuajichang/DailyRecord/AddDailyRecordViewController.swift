@@ -90,8 +90,13 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
-                            let editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
-                            editImgBtn.setImage(editUIImage, for: .normal)
+                            var editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
+                            if editUIImage == nil {//当图片被损坏时
+                                editUIImage = UIImage(named: "默认图片")
+                                editImgBtn.setBackgroundImage(editUIImage, for: .normal)
+                            }else{
+                                editImgBtn.setImage(editUIImage, for: .normal)
+                            }
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
                             editImgBtn.tag = 1001 + editImage.offset
