@@ -14,6 +14,8 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     let rectPath = UIBezierPath()
     var isSelected : Bool = false
     let mNum : UILabel = UILabel()
+    let mainTopPath = UIBezierPath()
+    let mainButtonPath = UIBezierPath()
     var callBack = {(index : Int,isSelected : Bool)->Void in
     }
     override init(frame: CGRect) {
@@ -55,7 +57,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
          7.画圆时，没有坐标这个概念，根据弧度来定位起始点和结束点位置。M_PI即是圆周率。画半圆即(0,M_PI),代表0到180度。全圆则是(0,M_PI*2)，代表0到360度
          */
         let areShapeLayer = CAShapeLayer()
-        let arcPath = UIBezierPath(arcCenter: CGPoint(x: 10, y: 15), radius: 5, startAngle: CGFloat(M_PI) * 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
+        let arcPath = UIBezierPath(arcCenter: CGPoint(x: 10, y: 15), radius: 5, startAngle: CGFloat(Double.pi) * 0, endAngle: CGFloat(Double.pi) * 2, clockwise: true)
         areShapeLayer.path = arcPath.cgPath //存入UIBezierPath的路径
         areShapeLayer.fillColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor //设置填充色
         areShapeLayer.lineWidth = 2  //设置路径线的宽度
@@ -83,7 +85,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     func setBottomLine(){
         
         let rectButtonShapeLayer = CAShapeLayer()
-        let mainButtonPath = UIBezierPath()
+        
         mainButtonPath.move(to: CGPoint(x: 10, y: 15))//开始绘制，表示这个点是起点
         mainButtonPath.addLine(to: CGPoint(x: 10, y: 40))//设置终点
         rectButtonShapeLayer.path = mainButtonPath.cgPath
@@ -96,7 +98,7 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     
     func setTopLine(){
         let rectTopShapeLayer = CAShapeLayer()
-        let mainTopPath = UIBezierPath()
+        
         mainTopPath.move(to: CGPoint(x: 10, y: 15))//开始绘制，表示这个点是起点
         mainTopPath.addLine(to: CGPoint(x: 10, y: 0))//设置终点
         rectTopShapeLayer.path = mainTopPath.cgPath
@@ -104,5 +106,8 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
         rectTopShapeLayer.strokeColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor//路径颜色
         mView.layer.addSublayer(rectTopShapeLayer)
         //        mainPath.removeAllPoints() //删除所有点和线
+    }
+    func removeButtomLine(){
+        mainButtonPath.removeAllPoints()
     }
 }

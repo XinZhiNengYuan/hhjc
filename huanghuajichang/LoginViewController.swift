@@ -299,6 +299,10 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             self.userDefault.set(urlStr, forKey: "AppUrl")
             self.userDefault.set(token, forKey: "userToken")
             self.userDefault.set(userId, forKey: "userId")
+            self.userDefault.set(username,forKey: "name")
+            if self.flageStatus {//判断是否保存密码
+                self.userDefault.set(password,forKey: "password")
+            }
             ///实例化将要跳转的controller
             let sb = UIStoryboard(name: "Main", bundle:nil)
             let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
@@ -328,10 +332,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     
     func DeviceInfo() -> String{
         let infoDictionary = Bundle.main.infoDictionary!
-        
-        let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
-        let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
-        let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
+//        let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
+        let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
+//        let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
         return majorVersion as! String
     }
     

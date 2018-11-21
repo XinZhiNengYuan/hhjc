@@ -19,8 +19,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var move:Bool = false
     var showOrNo : Bool = false
     var oneMeanArr : [String] = [String]()
-    var oneSelected : Int = 0
-    var twoSelected : Int = 0
     var resultDataForArr : [DeviceManagementModule] = []
     var contentList : Array<DeviceManagementContentListDiyModule> = []
     var tableView1 = UITableView()
@@ -33,7 +31,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let IdentifierC = "MyUICollectionViewCell"
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
-    let searchView = UIView()
     //存储最后选中的行（包括菜单和清单主页）
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
     //本地存储
@@ -98,10 +95,14 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     
     func setSearchView(){
-        let searchViewFrame = CGRect(x: 0, y: 10, width: UIScreen.main.bounds.width-100, height: 30)
+        let headerView = UIView()
+        headerView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: 40)
+        let searchView = UIView()
+        let searchViewFrame = CGRect(x: 0, y: 10, width: KUIScreenWidth-100, height: 30)
         let gesture = UITapGestureRecognizer()
         gesture.delegate = self
         gesture.addTarget(self, action: #selector(toSearchData))
+        searchView.addGestureRecognizer(gesture)
         searchView.frame = searchViewFrame
         searchView.layer.borderWidth = 1
         searchView.layer.borderColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
@@ -120,25 +121,25 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         searchView.addSubview(mImageView)
         let qCButton = UIButton()
         qCButton.setImage(UIImage(named: "扫描"), for: UIControlState.normal)
-        qCButton.frame = CGRect(x: UIScreen.main.bounds.size.width - 80, y: 5, width: 20, height: 20)
+        qCButton.frame = CGRect(x: KUIScreenWidth - 40, y: 5, width: 30, height: 30)
         qCButton.addTarget(self, action: #selector(toQC), for: UIControlEvents.touchUpInside)
-        searchView.addSubview(qCButton)
-        searchView.addGestureRecognizer(gesture)
+        headerView.addSubview(qCButton)
         searchView.center.x = UIScreen.main.bounds.size.width/2
         searchView.center.y = 20
-        view.addSubview(searchView)
+        headerView.addSubview(searchView)
+        view.addSubview(headerView)
     }
     
     //MARK:搜索按钮
     @objc func toSearchData(){
         let navigationView = UINavigationController.init(rootViewController: DeviceSearchListViewController())
-        UINavigationBar.appearance().barTintColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1) //修改导航栏背景色
+        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
         self.present(navigationView, animated: true, completion: nil)
     }
     
     @objc func goBack(){
-        print("关闭当前页")
+
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -319,7 +320,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                         }
                     }
                 }
-                self.oneSelected = section
                 self.tableView1.reloadData()
             }
             
@@ -365,7 +365,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                         }
                     }
                 }
-                self.twoSelected = section
                 self.tableView2.reloadData()
             }
             view.mLabel.text = resultDataForArr[section].text
@@ -381,9 +380,9 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 cell = UITableViewControllerCellTwo(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            cell?.mLabel.text = resultDataForArr[self.oneSelected].children[rowNum].text
+            cell?.mLabel.text = resultDataForArr[indexPath.section].children[rowNum].text
             cell?.mLabel.font = UIFont.boldSystemFont(ofSize: 12)
-            cell?.mNum.text = "\(resultDataForArr[self.oneSelected].children[rowNum].equipmentCount)个"
+            cell?.mNum.text = "\(resultDataForArr[indexPath.section].children[rowNum].equipmentCount)个"
             cell?.setTopLine()
             cell?.setBottomLine()
             return cell!
@@ -394,11 +393,11 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
             }
             let rowNum = indexPath.row
-            cell?.topLeft.text = contentList[twoSelected].deviceManagementContentList[rowNum].equName
-            cell?.topRight.text = contentList[twoSelected].deviceManagementContentList[rowNum].specification
+            cell?.topLeft.text = contentList[indexPath.section].deviceManagementContentList[rowNum].equName
+            cell?.topRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].specification
             cell?.midelLeft.text = "额定功率："
-            cell?.midelCenter.text = "\(contentList[twoSelected].deviceManagementContentList[rowNum].power)w"//contentList[rowNum]["w"]
-            cell?.bottomRight.text = contentList[twoSelected].deviceManagementContentList[rowNum].coOneAndcoTwo
+            cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)w"//contentList[rowNum]["w"]
+            cell?.bottomRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].coOneAndcoTwo
             return cell!
         }
         
@@ -408,10 +407,10 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         if tableView1.isEqual(tableView){
             self.meanAndContentLog["meanLog"]!["two"] = indexPath.row
-            reloadContent(oId: resultDataForArr[oneSelected].id, tId: resultDataForArr[oneSelected].children[indexPath.row].id)
+            reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
         }else{
             let deviceDetailViewController = DeviceDetailViewController()
-            deviceDetailViewController.equId = self.contentList[twoSelected].deviceManagementContentList[indexPath.row].equId as Int
+            deviceDetailViewController.equId = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equId as Int
             self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
             self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
