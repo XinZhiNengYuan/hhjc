@@ -36,8 +36,6 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         self.title = "报警分析"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
-        setHeader()
-        
         requestForData()
     }
     
@@ -46,6 +44,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : Any] = ["method":"getAlarmAnalysis","info":["objCode":alarmDetailId],"user_id":userId as Any,"token":token as Any]
         alarmAnalysisService.getData(contentData: contentData) { (successData) in
+            self.setHeader()
             self.setContentView(successData: successData)
         }
     }
@@ -58,16 +57,16 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         headerView.addSubview(image)
         let textLabel = UILabel(frame: CGRect(x: 45, y: 15, width: 200, height: 20))
         textLabel.textColor = UIColor.white
-        textLabel.text = "2018-05-01 12:23:34"
+        textLabel.text = String.timeStampToString(timeStamp: self.alarmDetailInfo["alarmTime"].stringValue)
         headerView.addSubview(textLabel)
         let dec = UILabel(frame: CGRect(x: 20, y: 60, width: KUIScreenWidth-100, height: 20))
-        dec.text = "1#发电机缸套水出口温度过高"
+        dec.text = self.alarmDetailInfo["objCode"].stringValue
         dec.textColor = UIColor.white
         headerView.addSubview(dec)
-        let status = UILabel(frame: CGRect(x: KUIScreenWidth-100, y: 30, width: 80, height: 40))
-        status.text = "已恢复"
-        status.textColor = UIColor.blue
-        headerView.addSubview(status)
+//        let status = UILabel(frame: CGRect(x: KUIScreenWidth-100, y: 30, width: 80, height: 40))
+//        status.text = "已恢复"
+//        status.textColor = UIColor.blue
+//        headerView.addSubview(status)
         view.addSubview(headerView)
     }
     
@@ -271,8 +270,6 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         dataSets.append(set1)
         
         //创建BarChartData对象, 此对象就是barChartView需要最终数据对象
-        print(xVals)
-        print(yVals)
         self.barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xVals)
         
         let data:BarChartData = BarChartData(dataSets: dataSets)

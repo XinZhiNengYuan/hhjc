@@ -168,8 +168,9 @@ class common : NSObject{
     
 }
 
-//MARK:将unicode编码转为汉字
+
 extension String {
+    //MARK:将unicode编码转为汉字
     var unicodeStr:String {
         let tempStr1 = self.replacingOccurrences(of: "\\u", with: "\\U")
         let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
@@ -182,5 +183,19 @@ extension String {
             print(error)
         }
         return returnStr.replacingOccurrences(of: "\\r\\n", with: "\n")
+    }
+    //MARK:将时间戳转换成字符串
+    static func timeStampToString(timeStamp:String)->String {
+        let timeNormal = Int(timeStamp)!/1000
+        let string = NSString(string: timeNormal.description)
+        
+        let timeSta:TimeInterval = string.doubleValue
+        let dfmatter = DateFormatter()
+        dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+        
+        let date = NSDate(timeIntervalSince1970: timeSta)
+        
+        //        print(dfmatter.string(from: date as Date))
+        return dfmatter.string(from: date as Date)
     }
 }
