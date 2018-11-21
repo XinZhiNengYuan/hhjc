@@ -14,7 +14,7 @@ class AppUpdateAlertService : NSObject{
     let commonClass = common()
     //请求数据
     func getData(contentData:Dictionary<String,Any>,finished:@escaping (_ result : JSON)->(),finishedError:@escaping (_ : Error)->()){
-        commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+        commonClass.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             print(result)
             finished(result)
         }) { (error) in

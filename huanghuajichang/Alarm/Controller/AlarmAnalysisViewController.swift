@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts.Swift
+import SwiftyJSON
 
 class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     
@@ -26,7 +27,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     //报警详情ID
     var alarmDetailId:String!
     //从设备列表传值过来
-    var alarmDetailInfo : [String:String]!
+    var alarmDetailInfo : JSON!
     
     let alarmAnalysisService = AlarmAnalysisViewService()
     override func viewDidLoad() {

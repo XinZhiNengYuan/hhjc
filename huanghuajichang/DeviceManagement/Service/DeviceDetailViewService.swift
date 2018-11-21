@@ -12,7 +12,7 @@ import SwiftyJSON
 class DeviceDetailViewService : common {
     var deviceDetailViewModule = DeviceDetailViewModule()
     func getData(contentData : Dictionary<String,Any>,finishedData:@escaping (_ resultDataOption:DeviceDetailViewModule)->(),finishedError:@escaping (_ errorData:Error)->()){
-        super.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 self.deviceDetailViewModule.equName = result["data"]["equName"].stringValue
                 self.deviceDetailViewModule.power = Int(result["data"]["power"].stringValue)!

@@ -94,8 +94,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         var imgIdListStr : String = ""
         for i in 0..<imageListObjc.count{
             //截取app接口地址
-            let b  = appUrl!.index(appUrl!.endIndex, offsetBy: -10)
-            let c = appUrl![appUrl!.startIndex..<b]
+            let b  = appUrl.index(appUrl.endIndex, offsetBy: -10)
+            let c = appUrl[appUrl.startIndex..<b]
             imgIdListStr = imgIdListStr + String(imageListObjc[i].fileId) + ","
             // 拼成可读取的图片地址到数组中
             imgList.append("\(String(describing: c))\(imageListObjc[i].filePath)")

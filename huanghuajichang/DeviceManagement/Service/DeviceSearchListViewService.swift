@@ -13,7 +13,7 @@ import SwiftyJSON
 class DeviceSearchListViewService : NSObject{
     let commonClass = common()
     func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:JSON,_ newArr : Array<Dictionary<String,Any>>)->(),finishedError:@escaping (_ errorData : Error)->()){
-        commonClass.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+        commonClass.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             //JSON转化为Dictionary字典（[String: AnyObject]?）
             if let dic = result.dictionaryObject {
                 //Do something you want

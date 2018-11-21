@@ -41,7 +41,7 @@ class CameraViewService : common{
 
     //MARK:图片id和设备id相互绑定
     func picIdAndEquId(contentData : Dictionary<String, Any>,successCall:@escaping ()->(),errorCall:@escaping()->()){
-        super.requestData(urlStr: appUrl!, outTime: 10, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"] == "success"{
                 successCall()
             }

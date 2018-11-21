@@ -16,7 +16,7 @@ class DeviceManagementService : common{
     //MARK:获取一二级菜单
     var dataList : [DeviceManagementModule] = []
     func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ dataList:Array<DeviceManagementModule>,_ meanList : Array<String>) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
-        super.requestData(urlStr: appUrl!, outTime: 60, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 60, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var oneMeanList : [String] = []
                 for item in result["data"].arrayValue{
@@ -57,7 +57,7 @@ class DeviceManagementService : common{
     
     //MARK:获取设备列表
     func getDeviceListData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:[DeviceManagementContentListDiyModule])->(),finishedError:@escaping(_ errorData : Error)->()){
-        super.requestData(urlStr: appUrl!, outTime: 60, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 60, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var contentListDiyData : [DeviceManagementContentListDiyModule] = []
                 for item in result["data"]["resultData"].arrayValue{

@@ -20,7 +20,7 @@ let KNavStausHeight : CGFloat = KNavBarHeight + KStatusBarHeight
 //tableView,collectionView,scrollView的frame
 let KUIDefaultFrame : CGRect = CGRect(x: 0, y: KNavStausHeight, width: KUIScreenWidth, height: KUIScreenHeight - KNavStausHeight)
 //数据请求地址
-let appUrl = UserDefaults.standard.string(forKey: "AppUrl")
+let appUrl = UserDefaults.standard.string(forKey: "AppUrl") ?? "http://10.4.65.103:8086/interface"
 
 //判断机型
 let isIphone4 : Bool = (UIScreen.main.bounds.height == 480) //4/4s
