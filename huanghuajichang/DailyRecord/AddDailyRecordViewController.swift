@@ -78,7 +78,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     self.editJson = JSON(value)["data"]
 //                    self.createDetailContent()
                     titleTF.text = self.editJson["title"].stringValue
-                    timeTF.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.editJson["opeTime"].stringValue)
+                    timeTF.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.editJson["opeTime"].stringValue, timeAccurate: "minute")
                     self.describeTextView.text = self.editJson["describe"].stringValue
                     print(self.editJson["filePhotos"].arrayValue)
                     self.imagsData = []
@@ -338,13 +338,24 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         imagsData.add(addImgBtn)
     }
     
-   static func timeStampToString(timeStamp:String)->String {
+    ///时间戳转字符串
+    static func timeStampToString(timeStamp:String,timeAccurate:String)->String {
         let timeNormal = Int(timeStamp)!/1000
         let string = NSString(string: timeNormal.description)
         
         let timeSta:TimeInterval = string.doubleValue
         let dfmatter = DateFormatter()
-        dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+        switch timeAccurate {
+        case "hour":
+            dfmatter.dateFormat="yyyy/MM/dd HH"
+        case "minute":
+            dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+        case "second":
+            dfmatter.dateFormat="yyyy/MM/dd HH:mm:ss"
+        default:
+            dfmatter.dateFormat="yyyy/MM/dd"
+        }
+        
         
         let date = NSDate(timeIntervalSince1970: timeSta)
         

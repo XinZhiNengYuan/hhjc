@@ -499,7 +499,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
                 cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
             }
-            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.json[indexPath.row]["opeTime"].stringValue)
+            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.json[indexPath.row]["opeTime"].stringValue,timeAccurate: "minute")
         }
         return cell!
     }
