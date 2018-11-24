@@ -31,6 +31,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let IdentifierC = "MyUICollectionViewCell"
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
+    let commonClass = common()
     //存储最后选中的行（包括菜单和清单主页）
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
     //本地存储
@@ -337,7 +338,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 view.setBottomLine()
             }
             
-            view.mLabel.text = resultDataForArr[section].text
+            view.mLabel.setTitle(resultDataForArr[section].text, for: UIControlState.normal)
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
@@ -394,6 +395,11 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             }
             let rowNum = indexPath.row
             cell?.topLeft.text = contentList[indexPath.section].deviceManagementContentList[rowNum].equName
+            let topLeftWidth = commonClass.getLabelWidth(str: contentList[indexPath.section].deviceManagementContentList[rowNum].equName, font: UIFont.boldSystemFont(ofSize: 12), height: 20) > KUIScreenWidth/3 ? KUIScreenWidth/3 : commonClass.getLabelWidth(str: contentList[indexPath.section].deviceManagementContentList[rowNum].equName, font: UIFont.boldSystemFont(ofSize: 12), height: 20)
+            cell?.topLeft.frame = CGRect(x: 20, y: 10, width: topLeftWidth, height: 20)
+            
+            let topRightWdith = (commonClass.getLabelWidth(str: contentList[indexPath.section].deviceManagementContentList[rowNum].specification, font: UIFont.boldSystemFont(ofSize: 12), height: 20) > KUIScreenWidth/3 ? KUIScreenWidth/3 : commonClass.getLabelWidth(str: contentList[indexPath.section].deviceManagementContentList[rowNum].specification, font: UIFont.boldSystemFont(ofSize: 12), height: 20)) + 10
+            cell?.topRight.frame = CGRect(x: 30 + topLeftWidth, y: 10, width: topRightWdith, height: 20)
             cell?.topRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].specification
             cell?.midelLeft.text = "额定功率："
             cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)w"//contentList[rowNum]["w"]

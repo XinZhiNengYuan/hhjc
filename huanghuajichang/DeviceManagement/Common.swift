@@ -166,6 +166,38 @@ class common : NSObject{
 //        self.present(alertView,animated:true,completion:nil)
     }
     
+    /// 动态计算Label宽度
+    
+    func getLabelWidth(str: String, font: UIFont, height: CGFloat)-> CGFloat {
+        
+        let statusLabelText: NSString = str as NSString
+        
+        let size = CGSize(width: CGFloat(MAXFLOAT), height: height)
+        
+        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font : font], context: nil).size
+        
+        return strSize.width
+        
+    }
+    
+    
+    
+    /// 动态计算Label高度
+    
+    func getLabelHegit(str: String, font: UIFont, width: CGFloat)-> CGFloat {
+        
+        let statusLabelText: NSString = str as NSString
+        
+        let size = CGSize(width: width, height: CGFloat(MAXFLOAT))
+        
+        let dic = NSDictionary(object: font, forKey: NSAttributedStringKey.font as NSCopying)
+        
+        let strSize = statusLabelText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [NSAttributedStringKey : AnyObject], context: nil).size
+        
+        return strSize.height
+        
+    }
+    
 }
 
 

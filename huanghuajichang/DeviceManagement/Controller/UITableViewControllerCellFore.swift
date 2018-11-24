@@ -47,12 +47,12 @@ class UITableViewControllerCellFore: UITableViewCell {
         self.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         mView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 90)
         mView.backgroundColor = UIColor.white
-        topLeft.frame = CGRect(x: 20, y: 10, width: UIScreen.main.bounds.width*1/4, height: 25)
+//        topLeft.frame = CGRect(x: 20, y: 10, width: UIScreen.main.bounds.width*1/4, height: 25)
         topLeft.textColor = UIColor.black
         topLeft.font = UIFont.boldSystemFont(ofSize: 12)
         mView.addSubview(topLeft)
         
-        topRight.frame = CGRect(x: UIScreen.main.bounds.width*1/4+20, y: 10, width: UIScreen.main.bounds.width*1/3, height: 20)
+//        topRight.frame = CGRect(x: UIScreen.main.bounds.width*1/4+20, y: 10, width: UIScreen.main.bounds.width*1/3, height: 20)
         topRight.textColor = UIColor(red: 8/255, green: 128/255, blue: 237/255, alpha: 1)
         topRight.layer.borderColor = UIColor(red: 8/255, green: 128/255, blue: 237/255, alpha: 1).cgColor
         topRight.layer.borderWidth = 2
@@ -67,6 +67,7 @@ class UITableViewControllerCellFore: UITableViewCell {
         midelCenter.frame = CGRect(x: 90, y: 40, width: 50, height: 20)
         midelCenter.backgroundColor = UIColor(red: 226/255, green: 242/255, blue: 255/255, alpha: 1)
         midelCenter.font = UIFont.boldSystemFont(ofSize: 12)
+        midelCenter.textAlignment = .center
         mView.addSubview(midelCenter)
         
         midelRight.frame = CGRect(x: UIScreen.main.bounds.width-40, y: 40, width: 10, height: 10)

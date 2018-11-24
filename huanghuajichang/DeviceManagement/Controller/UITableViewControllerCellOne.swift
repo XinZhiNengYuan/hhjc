@@ -9,7 +9,7 @@
 import UIKit
 
 class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
-    let mLabel : UILabel = UILabel()
+    let mLabel : UIButton = UIButton()
     let mView : UIView = UIView()
     let rectPath = UIBezierPath()
     var isSelected : Bool = false
@@ -33,16 +33,18 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        mView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width, height: 35)
-        mLabel.frame = CGRect(x: 30, y: 0, width: mView.frame.width*1/4, height: mView.frame.height)
-        mLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        mLabel.textColor = UIColor.white
+        mView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width*3/5-10, height: 35)
+        mLabel.frame = CGRect(x: 25, y: 0, width: mView.frame.width*3/5, height: mView.frame.height)
+        mLabel.tintColor = UIColor.white
         mLabel.layer.borderColor = UIColor(red: 64/255, green: 155/255, blue: 239/255, alpha: 1).cgColor
         mLabel.layer.borderWidth = 1
         mLabel.layer.cornerRadius = 5
+//        mLabel.setTitleColor(UIColor(red: 64/255, green: 155/255, blue: 239/255, alpha: 1), for: UIControlState.selected)
+        
         mLabel.layer.backgroundColor = UIColor(red: 64/255, green: 155/255, blue: 239/255, alpha: 1).cgColor
-        mLabel.textAlignment = .center
-        mNum.frame = CGRect(x: mView.frame.width*1/3+40 , y: 0, width: 40, height: 40)
+        mLabel.title(for: UIControlState.normal)
+        mLabel.addTarget(self, action: #selector(touched), for: UIControlEvents.touchUpInside)
+        mNum.frame = CGRect(x: mView.frame.width*3/5+30, y: 0, width: 40, height: 40)
         mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
         mNum.font = UIFont.boldSystemFont(ofSize: 11)
         mView.addSubview(mNum)
@@ -70,11 +72,11 @@ class UITableViewControllerCellOne: UIView,UIGestureRecognizerDelegate {
 //        setBottomLine()// 设置菜单左边的蓝色竖线
         mView.addSubview(mLabel)
         self.addSubview(mView)
-        let gestureOption = UITapGestureRecognizer()
-        gestureOption.delegate = self
-        gestureOption.isEnabled = true
-        gestureOption.addTarget(self, action: #selector(touched))
-        mView.addGestureRecognizer(gestureOption)
+//        let gestureOption = UITapGestureRecognizer()
+//        gestureOption.delegate = self
+//        gestureOption.isEnabled = true
+//        gestureOption.addTarget(self, action: #selector(touched))
+//        mView.addGestureRecognizer(gestureOption)
     }
     
     @objc func touched(){
