@@ -266,7 +266,7 @@ class AlarmListViewController: AddNavViewController {
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
         let selectText = selectorData[selectIndex]["typeName"]?.description
-        selectBtn.setTitle(selectText, for: UIControlState.normal)
+        selectBtn.set(image: UIImage(named: "下拉"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
         
         selectorView.isHidden = true
         

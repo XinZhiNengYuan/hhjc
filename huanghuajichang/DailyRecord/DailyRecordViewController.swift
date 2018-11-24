@@ -204,7 +204,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 self.buttons = [ThickButtonModel(value: JSON(value)["data"]["all"].intValue, describe: "全部"), ThickButtonModel(value: JSON(value)["data"]["noope"].intValue, describe: "未处理"), ThickButtonModel(value:JSON(value)["data"]["ope"].intValue, describe:"已处理")]
                 if self.buttonsView != nil{
                     self.buttonsView.removeFromSuperview()
-                    self.self.buttonsView = self.thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: self.buttons)
+                    self.buttonsView = self.thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: self.buttons)
                     self.thickbuttons.delegate = self
                     self.HeaderView.addSubview(self.buttonsView)
                 }
