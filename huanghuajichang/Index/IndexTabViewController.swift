@@ -609,7 +609,6 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     func drawPieChartView()
     {
         var yVals = [PieChartDataEntry]()
-        
         for pieItem in self.mainEchartsData["powerDataPie"].enumerated()
         {
             let entry = PieChartDataEntry.init(value: Double(self.mainEchartsData["powerDataPie"][pieItem.offset]["lineData"].intValue), label: self.mainEchartsData["powerDataPie"][pieItem.offset]["lineName"].stringValue)
@@ -640,7 +639,8 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         dataSet.valueLineColor = UIColor(red: 113/255, green: 214/255, blue: 194/255, alpha: 1) //折线颜色
         
         let data = PieChartData.init(dataSets: [dataSet])
-        //data.setValueFormatter(KMChartAxisValueFormatter.init()) //格式化值（添加个%）
+        let formatter = ChartDataValueFormatter.init()
+        data.setValueFormatter(formatter)//格式化值（添加个%）
         data.setValueFont(UIFont.systemFont(ofSize: 10.0))
         data.setValueTextColor(UIColor.lightGray)
         pieChartView.data = data

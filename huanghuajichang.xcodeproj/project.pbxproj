@@ -50,6 +50,7 @@
 		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
 		3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */; };
 		3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */; };
+		3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */; };
 		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
 		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
 		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
@@ -129,6 +130,7 @@
 		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgressHUD.swift; sourceTree = "<group>"; };
 		3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewService.swift; sourceTree = "<group>"; };
+		3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataValueFormatter.swift; sourceTree = "<group>"; };
 		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
+				3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */,
 				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
 				3D053069219D72040021BB42 /* NewEquipmentListModel.swift */,
 				3D0F9FE221706A740041B746 /* LineButton.swift */,
@@ -542,6 +545,7 @@
 			files = (
 				3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
 				3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
+				3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */,
 				3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */,
 				3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */,
 				3D389C6F2194553D0094C6B1 /* AlarmAnalysisViewController.swift in Sources */,
