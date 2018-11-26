@@ -92,7 +92,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
                 image.tag = j+1000 // 图片
                 image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
                 image.kf.setImage(with: ImageResource(downloadURL:
-                    URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "test"), options: nil, progressBlock: nil,completionHandler: nil)
+                    URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "拍照"), options: nil, progressBlock: nil,completionHandler: nil)
                 viewOption.addSubview(image)
                 let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
                 deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
@@ -117,9 +117,8 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
         }
-        
         if photoListr.count+deviceDetailPageImageList.count >= 3{
-            addBut.removeFromSuperview()
+//            addBut.removeFromSuperview()
         }else{
             setAddBut()
         }

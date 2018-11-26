@@ -28,7 +28,7 @@ class CycleCell: UICollectionViewCell {
             if (imageURLString?.hasPrefix("http"))! {
                 //网络图片:使用SDWebImage下载即可
                 imageView.kf.setImage(with: ImageResource(downloadURL:
-                    URL.init(string:imageURLString!)!),placeholder: UIImage(named: "test"), options: nil, progressBlock: nil,completionHandler: nil)
+                    URL.init(string:imageURLString!)!),placeholder: UIImage(named: "拍照"), options: nil, progressBlock: nil,completionHandler: nil)
             } else {
                 //本地图片
                 imageView.image = UIImage(named: imageURLString!)

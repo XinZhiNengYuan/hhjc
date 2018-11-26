@@ -170,7 +170,7 @@ extension CycleView {
 extension CycleView {
     fileprivate func setUpUI() {
         addSubview(collectionView)
-        addSubview(pageControl)
+//        addSubview(pageControl)
         //启动定时器
         timer.fireDate = Date(timeIntervalSinceNow: 2.0)
     }
