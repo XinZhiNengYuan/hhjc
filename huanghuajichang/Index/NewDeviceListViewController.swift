@@ -193,6 +193,11 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
             let cellData = oneMeanArr[sectionNum].childs[rowNum]
             cell?.topLeft.text = cellData["equName"]?.description //listForArr[rowNum]["deviceName"]
             cell?.topRight.text = cellData["specification"]?.description
+            let topLeftWidth = (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20))
+            cell?.topLeft.frame = CGRect(x: 20, y: 10, width: topLeftWidth!, height: 20)
+        
+            let topRightWdith = (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50) + 10.0
+            cell?.topRight.frame = CGRect(x: 30 + topLeftWidth!, y: 10, width: topRightWdith, height: 20)
             cell?.midelLeft.text = "额定功率"
             cell?.midelCenter.text = cellData["power"]?.description
             cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!

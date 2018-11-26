@@ -53,14 +53,14 @@ class AlarmListViewController: AddNavViewController {
     func createUI(){
         leftSelect = UIButton.init(frame: CGRect(x: 0, y: 0, width: (kScreenWidth-1)/2, height: 40))
         leftSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        leftSelect.set(image: UIImage(named: "下拉"), title: self.alarmEquipmentListData[0]["text"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
+        leftSelect.set(image: UIImage(named: "下拉"), title: self.alarmEquipmentListData[0]["text"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         leftSelect.tag = 3001
         leftSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(leftSelect)
         
         rightSelect = UIButton.init(frame: CGRect(x: (kScreenWidth-1)/2+1, y: 0, width: (kScreenWidth-1)/2, height: 40))
         rightSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        rightSelect.set(image: UIImage(named: "下拉"), title: self.alarmTypeListData[0]["name"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
+        rightSelect.set(image: UIImage(named: "下拉"), title: self.alarmTypeListData[0]["name"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         rightSelect.tag = 3002
         rightSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(rightSelect)
@@ -206,12 +206,11 @@ class AlarmListViewController: AddNavViewController {
         let infoData = ["organizationId":alarmOrganizationId,"alarmType":alarmType,"start":pageStart,"length":pageSize] as [String : Any]
         let contentData : [String : Any] = ["method":"getAlarmList","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.alarmListjson = JSON(value)["data"]["resultData"]
-                    print(self.alarmListjson)
                     self.alarmTableList.reloadData()
                     MyProgressHUD.dismiss()
                 }else{
@@ -266,7 +265,7 @@ class AlarmListViewController: AddNavViewController {
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
         let selectText = selectorData[selectIndex]["typeName"]?.description
-        selectBtn.set(image: UIImage(named: "下拉"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 2, state: UIControlState.normal)
+        selectBtn.set(image: UIImage(named: "下拉"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         
         selectorView.isHidden = true
         
@@ -390,14 +389,17 @@ extension UIButton {
         var imageInsets: UIEdgeInsets
         switch (position){
         case .top:
-            titleInsets = UIEdgeInsets(top: -(imageSize.height + titleSize.height + spacing),                left: -(imageSize.width), bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
+            titleInsets = UIEdgeInsets(top: 0, left: -(imageSize.width), bottom: imageSize.height+spacing, right: 0)
+            imageInsets = UIEdgeInsets(top: titleSize.height+spacing, left: 0, bottom: 0, right: -titleSize.width)
         case .bottom:
-                titleInsets = UIEdgeInsets(top: (imageSize.height + titleSize.height + spacing),                left: -(imageSize.width), bottom: 0, right: 0)
-                imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -titleSize.width)
+            titleInsets = UIEdgeInsets(top: (imageSize.height + spacing), left: -(imageSize.width), bottom: 0, right: 0)
+            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: titleSize.height+spacing, right: -titleSize.width)
         case .left:
-            titleInsets = UIEdgeInsets(top: 0, left: -(imageSize.width * 2), bottom: 0, right: 0)
-            imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -(titleSize.width * 2 + spacing))
+            //当文本内容过长时进行处理
+            let titleWidth = title.size(withAttributes: [NSAttributedStringKey.font: titleFont!]).width > kScreenWidth/2-imageSize.width-spacing ? kScreenWidth/2-imageSize.width-spacing : title.size(withAttributes: [NSAttributedStringKey.font: titleFont!]).width
+            
+            titleInsets = UIEdgeInsets(top: 0, left: -(imageSize.width), bottom: 0, right: imageSize.width+spacing)
+            imageInsets = UIEdgeInsets(top: 0, left: titleWidth+spacing, bottom: 0, right: -(titleWidth))
         case .right:
             titleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -spacing)
             imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
