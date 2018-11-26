@@ -35,9 +35,9 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         mView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
         mView.backgroundColor = UIColor.white
         if flagePageFrom == 1{
-            imageView.frame = CGRect(x: 10, y: 20, width: Int(KUIScreenWidth-20), height: 60)
+            imageView.frame = CGRect(x: 10, y: 20, width: Int(KUIScreenWidth-20), height: 70)
         }else{
-            imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!)+20, width: Int(KUIScreenWidth-20), height: 60)
+            imageView.frame = CGRect(x: 10, y: Int(UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!)+20, width: Int(KUIScreenWidth-20), height: 70)
         }
         
         imageMethods()
@@ -87,17 +87,14 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         if deviceDetailPageImageList.count > 0{
             for j in 0..<deviceDetailPageImageList.count{
                 let viewOption = UIView()
-                viewOption.frame = CGRect(x: 75*j, y: 0, width: 60, height: Int(imageView.frame.height))
+                viewOption.frame = CGRect(x: 75*j, y: 0, width: 70, height: Int(imageView.frame.height))
                 let image = UIImageView()
                 image.tag = j+1000 // 图片
-                image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
+                image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
                 image.kf.setImage(with: ImageResource(downloadURL:
                     URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "拍照"), options: nil, progressBlock: nil,completionHandler: nil)
                 viewOption.addSubview(image)
-                let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
-                deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-                deleteBut.tag = j+5000 // 删除按钮
-                deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
+                let deleteBut = deleteBtn(tag: j + 5000)
                 viewOption.addSubview(deleteBut)
                 imageView.addSubview(viewOption)
             }
@@ -107,13 +104,10 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             viewOption.frame = CGRect(x: 75*i+deviceDetailPageImageList.count*75, y: 0, width: 60, height: Int(imageView.frame.height))
             let image = UIImageView()
             image.tag = i+1000+deviceDetailPageImageList.count // 图片
-            image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
+            image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
             image.image = photoListr[i]
             viewOption.addSubview(image)
-            let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
-            deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-            deleteBut.tag = i+6000 // 删除按钮
-            deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
+            let deleteBut = deleteBtn(tag: i + 6000)
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
         }
@@ -137,13 +131,10 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         let image = UIImageView()
         image.image = UIImage(named: "image")
         image.tag = photoListr.count + 1000+deviceDetailPageImageList.count //图片
-        image.frame = CGRect(x: 0, y: 0, width: 60, height: Int(imageView.frame.height))
+        image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
         image.image = pic
         viewOption.addSubview(image)
-        let deleteBut = UIButton(frame: CGRect(x: 57, y: -7, width: 20, height: 20))
-        deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
-        deleteBut.tag = photoListr.count + 6000 // 删除按钮
-        deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
+        let deleteBut = deleteBtn(tag: photoListr.count + 6000)
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
         photoListr.append(pic)
@@ -154,6 +145,13 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         }
     }
     
+    func deleteBtn(tag : Int)->UIButton{
+        let deleteBut = UIButton(frame: CGRect(x: 50, y: 0, width: 20, height: 20))
+        deleteBut.setImage(UIImage(named: "删除"), for: UIControlState.normal)
+        deleteBut.tag = tag // 删除按钮
+        deleteBut.addTarget(self, action: #selector(deleteImg), for: UIControlEvents.touchUpInside)
+        return deleteBut
+    }
     @objc func deleteImg(button:UIButton){
         print(button.tag)
         var index = button.tag - 5000 //根据下标的大小判断这个要删除的图片在那个数组里面 5000是deviceDetailPageImageList数组，6000是photoListr
