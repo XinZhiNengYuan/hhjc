@@ -50,6 +50,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     }
     //MARK:设置头部
     func setHeader(){
+        print(alarmDetailInfo)
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: 100))
         headerView.layer.backgroundColor = UIColor(red: 166/255, green: 201/255, blue: 237/255, alpha: 1).cgColor
         let image = UIImageView(frame: CGRect(x: 15, y: 15, width: 20, height: 20))
@@ -60,13 +61,13 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         textLabel.text = String.timeStampToString(timeStamp: self.alarmDetailInfo["alarmTime"].stringValue)
         headerView.addSubview(textLabel)
         let dec = UILabel(frame: CGRect(x: 20, y: 60, width: KUIScreenWidth-100, height: 20))
-        dec.text = self.alarmDetailInfo["objCode"].stringValue
+        dec.text = self.alarmDetailInfo["cimCode"].stringValue
         dec.textColor = UIColor.white
         headerView.addSubview(dec)
-//        let status = UILabel(frame: CGRect(x: KUIScreenWidth-100, y: 30, width: 80, height: 40))
-//        status.text = "已恢复"
-//        status.textColor = UIColor.blue
-//        headerView.addSubview(status)
+        let status = UILabel(frame: CGRect(x: KUIScreenWidth-100, y: 30, width: 80, height: 40))
+        status.text = self.alarmDetailInfo["alarmTypeName"].stringValue
+        status.textColor = UIColor.blue
+        headerView.addSubview(status)
         view.addSubview(headerView)
     }
     
