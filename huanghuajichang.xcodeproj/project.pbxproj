@@ -40,6 +40,7 @@
 		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
 		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
+		3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */; };
 		3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
 		3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
 		3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */; };
@@ -120,6 +121,7 @@
 		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
+		3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementViewController.swift; sourceTree = "<group>"; };
 		3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
 		3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
 		3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDailyRecordViewController.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
 				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
 				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
+				3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
 				3D389C6E2194553D0094C6B1 /* AlarmListTableViewCell.swift in Sources */,
 				3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */,
+				3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */,
 				3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
 				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
 				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
