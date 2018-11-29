@@ -25,14 +25,24 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     var imageView = UIView()
     var addBut : UIButton!
     var mView = UIView()
-    // 顶部刷新
-    let refresHeader = MJRefreshNormalHeader()
+    let addDeviceManagementService = AddDeviceManagementService()
     override func viewDidLoad() {
         super.viewDidLoad()
+        getOneAndTwo()
         setLayout()
         // Do any additional setup after loading the view.
     }
     
+    func getOneAndTwo(){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String:Any] = ["method":"getEquipmentAndOrganization","user_id": userId as Any,"token": token as Any,"info":""]
+        addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
+            print("--------------------------------")
+        }, finishedError: {(errorData) in
+            print("--------------------------------")
+        })
+    }
    
     func setLayout(){
         self.title = "新增设备"

@@ -11,7 +11,7 @@ import Alamofire
 import UIKit
 import SwiftyJSON
 
-class DeviceManagementService : common{
+class DeviceManagementService : common{//token失效的字段:sign_app_err
     
     //MARK:获取一二级菜单
     var dataList : [DeviceManagementModule] = []

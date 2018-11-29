@@ -29,7 +29,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         navigationController?.tabBarController?.tabBar.isHidden = true
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String:Any] = ["method":"getEquipmentById","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","id":id]]
+        let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["id":id]]
         deviceDetailViewService.getData(contentData: contentData, finishedData: { (resultData) in
             self.setVal(val: resultData, call: { (arrPic) in
                 self.setLayout(arrPic: arrPic)
