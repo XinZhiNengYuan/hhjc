@@ -8,34 +8,37 @@
 
 import UIKit
 import PGDatePicker
+import MJRefresh
 import Photos
 import Kingfisher
 
 class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-    
+    let cameraViewService = CameraViewService()
     var photoListr : [UIImage] = []
     let contentView : UIView = UIView()
     var selectorView:UIView = UIView()
     var selector:UIPickerView = UIPickerView()
     var clickedBtnTag:Int!
+    var equId = -1
     var selectorData:[[String:AnyObject]] = []
     var imageView = UIView()
     var addBut : UIButton!
     var mView = UIView()
+    // 顶部刷新
+    let refresHeader = MJRefreshNormalHeader()
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         // Do any additional setup after loading the view.
     }
     
-    
    
     func setLayout(){
         self.title = "新增设备"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
         contentView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.size.height)!, width: KUIScreenWidth, height: KUIScreenHeight-UIApplication.shared.statusBarFrame.height-(navigationController?.navigationBar.frame.size.height)!)
         contentView.backgroundColor = UIColor.white
         
@@ -91,9 +94,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         //数据绑定
         setSelectView(top: 409, contentForMode: contentForMode, text: "数据是否绑定", tag: 700)
         //是否有效
-        setSelectView(top: 450, contentForMode: contentForMode, text: "是否有效", tag: 800)
+        setSelectView(top: 470, contentForMode: contentForMode, text: "是否有效", tag: 800)
         //图片上传
-        setPicView(top: 500, contentForMode: contentForMode, tag: 900)
+        setPicView(top: 520, contentForMode: contentForMode, tag: 900)
         
         contentView.addSubview(contentForMode)
         
@@ -128,7 +131,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let contentForModeRow2 = UIView(frame: CGRect(x: 0, y: top, width: Int(optionMode.frame.width), height: 40))
         contentForModeRow2.backgroundColor = UIColor.white
         let contentForModeLeftStar2 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        contentForModeLeftStar2.image = UIImage(named: "test")
+        contentForModeLeftStar2.image = UIImage(named: "必填项")
         contentForModeRow2.addSubview(contentForModeLeftStar2)
         
         let contentForModeName2 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
@@ -155,7 +158,11 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        contentForModeLeftStar3.image = UIImage(named: "test")
+        if tag == 404{
+            contentForModeLeftStar3.image = UIImage(named: "test")
+        }else{
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
+        }
         contentForModeRow3.addSubview(contentForModeLeftStar3)
         
         let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
@@ -193,7 +200,11 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        contentForModeLeftStar3.image = UIImage(named: "test")
+        if tag == 500{
+            contentForModeLeftStar3.image = UIImage(named: "test")
+        }else{
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
+        }
         contentForModeRow3.addSubview(contentForModeLeftStar3)
         
         let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
@@ -223,6 +234,109 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         dateChangeView.addSubview(dateBtn)
         contentForModeRow3.addSubview(dateChangeView)
         contentForMode.addSubview(contentForModeRow3)
+    }
+    
+    func setSelectView(top:Int,contentForMode:UIView,text:String,tag:Int){
+        let contentForModeRow3 = UIView()
+        let rightView = UIView(frame: CGRect(x: 130, y: 5, width: KUIScreenWidth - 160, height: 30))
+        let rightViewOfButtom = UIView(frame: CGRect(x: 0, y: 30, width: rightView.frame.width, height: 30))
+        let rightViewOfLabel = UILabel()
+        
+        //判断是“数据绑定”还是“是否有效”
+        if tag == 800{
+            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40)
+            rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
+            rightViewOfLabel.text = ""
+        }else{
+            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 60)
+            rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
+            rightViewOfLabel.text = "（注：数据绑定情况下选否，会删除绑定数据）"
+            rightViewOfLabel.font = UIFont.boldSystemFont(ofSize: 10)
+            rightViewOfLabel.textColor = UIColor(red: 208/255, green: 19/255, blue: 19/255, alpha: 0.58)
+            rightViewOfButtom.addSubview(rightViewOfLabel)
+        }
+        
+        contentForModeRow3.backgroundColor = UIColor.white
+        let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
+        contentForModeLeftStar3.image = UIImage(named: "必填项")
+        contentForModeRow3.addSubview(contentForModeLeftStar3)
+        
+        let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 120, height: 30))
+        contentForModeName3.textColor = UIColor(red: 93/255, green: 93/255, blue: 93/255, alpha: 1)
+        contentForModeName3.text = "\(text)："
+        contentForModeName3.font = UIFont.boldSystemFont(ofSize: 14)
+        contentForModeRow3.addSubview(contentForModeName3)
+        
+        let rightViewOfTop = UIView(frame: CGRect(x: 0, y: 5, width: rightView.frame.width, height: 30))
+        let trueBtn = UIButton(frame: CGRect(x: 30, y: 0, width: 20, height: 20))
+        trueBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
+        trueBtn.tag = tag
+        trueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+        trueBtn.addTarget(self, action: #selector(selectAction), for: UIControlEvents.touchUpInside)
+        
+        let falseBtn = UIButton(frame: CGRect(x: rightView.frame.width-60, y: 0, width: 20, height: 20))
+        falseBtn.tag = tag+1
+        falseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+        
+        falseBtn.addTarget(self, action: #selector(selectAction), for: UIControlEvents.touchUpInside)
+        falseBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
+        rightViewOfTop.addSubview(trueBtn)
+        rightViewOfTop.addSubview(falseBtn)
+        
+        
+        
+        
+        //        let trueLabel = UILabel(frame: CGRect(x: 35, y: 5, width: 20, height: 20))
+        rightView.addSubview(rightViewOfButtom)
+        rightView.addSubview(rightViewOfTop)
+        contentForModeRow3.addSubview(rightView)
+        contentForMode.addSubview(contentForModeRow3)
+    }
+    
+    @objc func selectAction(btn:UIButton){
+        
+        if btn.tag >= 800{//是判断是否有效的按钮
+            if btn.tag == 800{
+                let actionSelectTrueBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                let actionSelectFalseBtn = self.view.viewWithTag(btn.tag+1) as! UIButton
+                actionSelectTrueBtn.set(image: UIImage(named: "选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+                actionSelectFalseBtn.set(image: UIImage(named: "未选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            }else{
+                let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
+                let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+                actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            }
+        }else{//是判断是否绑定的按钮
+            if btn.tag == 700{
+                let actionSelectTrueBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                let actionSelectFalseBtn = self.view.viewWithTag(btn.tag+1) as! UIButton
+                actionSelectTrueBtn.set(image: UIImage(named: "选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+                actionSelectFalseBtn.set(image: UIImage(named: "未选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            }else{
+                let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
+                let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+                actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            }
+        }
+    }
+    @objc func uploadImgs(){
+        if photoListr.count > 0{
+            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
+                let userId = userDefault.string(forKey: "userId")
+                let token = userDefault.string(forKey: "userToken")
+                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":fileId]]
+                self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
+                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
+                }, errorCall: {
+                    self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
+                })
+            }) {
+                print("错误")
+            }
+        }
+        
     }
     
     func setPicView(top:Int,contentForMode:UIView,tag:Int) {
@@ -344,57 +458,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         self.present(datePickerManager, animated: false, completion: nil)
     }
     
-    func setSelectView(top:Int,contentForMode:UIView,text:String,tag:Int){
-        let contentForModeRow3 = UIView()
-        let rightView = UIView(frame: CGRect(x: 130, y: 5, width: KUIScreenWidth - 160, height: 30))
-        let rightViewOfButtom = UIView(frame: CGRect(x: 0, y: 30, width: rightView.frame.width, height: 30))
-        let rightViewOfLabel = UILabel()
-        
-        //判断是“数据绑定”还是“是否有效”
-        if tag == 800{
-            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40)
-            rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
-            rightViewOfLabel.text = ""
-        }else{
-            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 60)
-            rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
-            rightViewOfLabel.text = "（注：数据绑定情况下选否，会删除绑定数据）"
-            rightViewOfLabel.font = UIFont.boldSystemFont(ofSize: 10)
-            rightViewOfLabel.textColor = UIColor(red: 208/255, green: 19/255, blue: 19/255, alpha: 0.58)
-            rightViewOfButtom.addSubview(rightViewOfLabel)
-        }
-        
-        contentForModeRow3.backgroundColor = UIColor.white
-        let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        contentForModeLeftStar3.image = UIImage(named: "test")
-        contentForModeRow3.addSubview(contentForModeLeftStar3)
-        
-        let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 120, height: 30))
-        contentForModeName3.textColor = UIColor(red: 93/255, green: 93/255, blue: 93/255, alpha: 1)
-        contentForModeName3.text = "\(text)："
-        contentForModeName3.font = UIFont.boldSystemFont(ofSize: 14)
-        contentForModeRow3.addSubview(contentForModeName3)
-        
-        let rightViewOfTop = UIView(frame: CGRect(x: 0, y: 5, width: rightView.frame.width, height: 30))
-        let trueBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        trueBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
-        trueBtn.set(image: UIImage(named: "复选1"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
-        
-        let falseBtn = UIButton(frame: CGRect(x: rightView.frame.width-60, y: 0, width: 20, height: 20))
-        falseBtn.set(image: UIImage(named: "复选2"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
-        falseBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
-        rightViewOfTop.addSubview(trueBtn)
-        rightViewOfTop.addSubview(falseBtn)
-        
-        
-        
-        
-//        let trueLabel = UILabel(frame: CGRect(x: 35, y: 5, width: 20, height: 20))
-        rightView.addSubview(rightViewOfButtom)
-        rightView.addSubview(rightViewOfTop)
-        contentForModeRow3.addSubview(rightView)
-        contentForMode.addSubview(contentForModeRow3)
-    }
+
     
    
     //MARK:设置actionSheet
