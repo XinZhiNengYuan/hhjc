@@ -19,7 +19,7 @@
 import UIKit
 
 import AVFoundation
-
+import SwiftyJSON
 import WebKit
 
 class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
@@ -233,8 +233,25 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
             
             qrCodeService.getQrCode(contentData: contentData, finishedData: { (resultData) in
                 print(resultData)
+                if resultData["status"].stringValue == "success"{
+                    if resultData["data"].stringValue == "101"{
+                        self.present(windowAlert(msges: "非法二维码"), animated: false, completion: nil)
+                    }else if resultData["data"].stringValue == "102"{
+                        let navigationView = UINavigationController.init(rootViewController: AddDeviceManagementViewController())
+                        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
+                        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
+                        self.present(navigationView, animated: true, completion: nil)
+                    }else{
+                        let deviceDetailViewController = DeviceDetailViewController()
+                        deviceDetailViewController.equId = 232
+                        self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
+                    }
+                    self.dismiss(animated: false, completion: nil)
+                }else{
+                     self.present(windowAlert(msges: "暂未获取到有用信息！"), animated: false, completion: nil)
+                }
             }) { (errorData) in
-                print(errorData)
+               self.present(windowAlert(msges: "网络请求失败"), animated: false, completion: nil)
             }
 //            let url = URL(string: str)
 //
