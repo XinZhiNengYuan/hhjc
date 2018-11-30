@@ -59,7 +59,7 @@ class PortViewController: UIView,UITextFieldDelegate {
         portViewForPortText.layer.borderColor = UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha: 1).cgColor
         portViewForPortText.layer.borderWidth = 1
         portViewForPortText.layer.cornerRadius = 20
-        portText.keyboardType = .asciiCapableNumberPad
+        portText.keyboardType = .default
         portText.returnKeyType = .done
         portViewForPortText.addSubview(portText)
         
