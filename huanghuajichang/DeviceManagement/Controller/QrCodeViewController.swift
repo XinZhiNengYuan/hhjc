@@ -32,7 +32,7 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
     
     var screenHeight:CGFloat!
     
-    
+    let qrCodeService = QrCodeService()
     
     override func viewDidLoad() {
         
@@ -225,21 +225,30 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
             
             
             
-            let str = readableObject.stringValue!
+            let resultStr = readableObject.stringValue!
             
-            let url = URL(string: str)
+            let userId = userDefault.string(forKey: "userId")
+            let token = userDefault.string(forKey: "userToken")
+            let contentData : [String : Any] = ["method":"checkEquipmentByCode","info":["code":resultStr],"user_id":userId as Any,"token":token as Any]
             
-            //用网页打开扫描的信息
-            
-            if #available(iOS 10, *){
-                
-                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                
-            }else{
-                
-                UIApplication.shared.openURL(url!)
-                
+            qrCodeService.getQrCode(contentData: contentData, finishedData: { (resultData) in
+                print(resultData)
+            }) { (errorData) in
+                print(errorData)
             }
+//            let url = URL(string: str)
+//
+//            //用网页打开扫描的信息
+//
+//            if #available(iOS 10, *){
+//
+//                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//
+//            }else{
+//
+//                UIApplication.shared.openURL(url!)
+//
+//            }
             
         }
         
