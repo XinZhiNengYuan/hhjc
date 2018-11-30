@@ -26,6 +26,8 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     var addBut : UIButton!
     var mView = UIView()
     let addDeviceManagementService = AddDeviceManagementService()
+    var addDeviceManagementModule = AddDeviceManagementModule()
+    var selectedEquipmentId:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
@@ -38,6 +40,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String:Any] = ["method":"getEquipmentAndOrganization","user_id": userId as Any,"token": token as Any,"info":""]
         addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
+            print("--------------------------------")
+            self.addDeviceManagementModule = returnData
+            print(self.addDeviceManagementModule)
             print("--------------------------------")
         }, finishedError: {(errorData) in
             print("--------------------------------")
@@ -523,10 +528,24 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         
         switch clickedBtnTag {
         case 301:
-            print(301)
-//            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            let organizationTwoBtn = self.view.viewWithTag(302) as! UIButton
+            organizationTwoBtn.setNewStyle(image: UIImage(named: "下拉"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         case 302:
-            print(302)
+            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+        case 303:
+            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            let equCategorySmall = self.view.viewWithTag(304) as! UIButton
+            equCategorySmall.setNewStyle(image: UIImage(named: "下拉"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
+        case 304:
+            print(304)
+            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+        case 305:
+            print(305)
+        case 306:
+            print(306)
+        case 307:
+            print(307)
         default:
             print("未知按钮")
 //            selectedTypeId = selectorData[selectIndex]["typeId"]?.description
@@ -542,16 +561,47 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let selectText = selectBtn.title(for: UIControlState.normal)
         switch clickedBtnTag {
         case 301:
-            print(301)
-//            for i in self.alarmEquipmentListData.enumerated(){
-//                let elementDic:[String:AnyObject] = ["typeName":self.alarmEquipmentListData[i.offset]["text"].stringValue as AnyObject,"typeId":self.alarmEquipmentListData[i.offset]["id"].stringValue as AnyObject]
-//                selectorData.append(elementDic)
-//                if selectText == self.alarmEquipmentListData[i.offset]["text"].stringValue{
-//                    selectedIndex = i.offset
-//                }
-//            }
+            for i in 0..<self.addDeviceManagementModule.organizatinoOneList.count{
+                let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.organizatinoOneList[i].organizationName as AnyObject,"typeId":self.addDeviceManagementModule.organizatinoOneList[i].organizationId as AnyObject]
+                selectorData.append(elementDic)
+                if selectText == self.addDeviceManagementModule.organizatinoOneList[i].organizationName{
+                    selectedIndex = i
+                }
+            }
         case 302:
-            print(302)
+            let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(selectedEquipmentId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
+            for i in 0..<tempOrganizationTwoList.count{
+                let elementDic:[String:AnyObject] = ["typeName":tempOrganizationTwoList[i].organizationName as AnyObject,"typeId":tempOrganizationTwoList[i].organizationId as AnyObject]
+                selectorData.append(elementDic)
+                if selectText == tempOrganizationTwoList[i].organizationName{
+                    selectedIndex = i
+                }
+            }
+        case 303:
+            print(303)
+            for i in 0..<self.addDeviceManagementModule.equCategoryBig.count{
+                let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.equCategoryBig[i].categoryName as AnyObject,"typeId":self.addDeviceManagementModule.equCategoryBig[i].categoryId as AnyObject]
+                selectorData.append(elementDic)
+                if selectText == self.addDeviceManagementModule.equCategoryBig[i].categoryName{
+                    selectedIndex = i
+                }
+            }
+        case 304:
+            print(304)
+            let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(selectedEquipmentId)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
+            for i in 0..<tempEquCategorySmallList.count{
+                let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].bigType as AnyObject]
+                selectorData.append(elementDic)
+                if selectText == tempEquCategorySmallList[i].cimName{
+                    selectedIndex = i
+                }
+            }
+        case 305:
+            print(305)
+        case 306:
+            print(306)
+        case 307:
+            print(307)
         default:
             print("未知按钮1")
 //            for i in self.alarmTypeListData.enumerated(){

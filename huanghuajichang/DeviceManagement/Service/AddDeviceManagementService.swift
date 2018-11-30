@@ -12,13 +12,11 @@ import SwiftyJSON
 class AddDeviceManagementService:common{
     var addDeviceManagementModule = AddDeviceManagementModule()
     //获取设备类别和单位
-    func getEquipmentAndOrganization(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:JSON)->(),finishedError:@escaping (_ retErrorData:Error)->()) {
+    func getEquipmentAndOrganization(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:AddDeviceManagementModule)->(),finishedError:@escaping (_ retErrorData:Error)->()) {
         super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
-            print("--------------------------------")
-            print(result)
             if result["status"].stringValue == "success"{
                 for item in result["data"]["organizationInfoList"].arrayValue{
-                    if item["parentId"].intValue == 0{//j一级单位
+                    if item["parentId"].intValue == 0{//一级单位
                         var organizationOneList = OrganizationOneList()
                         organizationOneList.description = item["description"].stringValue
                         organizationOneList.organizationNo = item["organizationNo"].stringValue
@@ -65,7 +63,7 @@ class AddDeviceManagementService:common{
                     }
                 }
                 //设备大类
-                for item in result["equCategoryBig"].arrayValue{
+                for item in result["data"]["equCategoryBig"].arrayValue{
                     var equCategoryBig = EquCategoryBig()
                     equCategoryBig.displayNo = item["displayNo"].intValue
                     equCategoryBig.categoryId = item["categoryId"].intValue
@@ -74,7 +72,7 @@ class AddDeviceManagementService:common{
                     self.addDeviceManagementModule.equCategoryBig.append(equCategoryBig)
                 }
                 //设备小类
-                for item in result["equCategorySmall"].arrayValue{
+                for item in result["data"]["equCategorySmall"].arrayValue{
                     var equCategorySmall = EquCategorySmall()
                     equCategorySmall.cimCode = item["cimCode"].stringValue
                     equCategorySmall.bigType = item["bigType"].intValue
@@ -89,11 +87,29 @@ class AddDeviceManagementService:common{
             }else{
                 
             }
-            finished(result)
+            finished(self.addDeviceManagementModule)
         }) { (error) in
             print("--------------------------------")
             print(error)
             finishedError(error)
         }
+    }
+    func getOrganizationTwoList(organizationOneId organizationId:Int,organizationTwoList twoList :[OrganizationTwoList])->[OrganizationTwoList]{
+        var newTwoList : [OrganizationTwoList] = []
+        for option in twoList {
+            if organizationId == option.parentId{//根据一级单位的organizationId匹配相对应的二级单位
+                newTwoList.append(option)
+            }
+        }
+        return newTwoList
+    }
+    func getEquCategorySmallList(categoryId categoryIdEquCategoryBig : Int,equCategorySmallList equCategorySmall:[EquCategorySmall])->[EquCategorySmall]{
+        var newEquCategorySmallList : [EquCategorySmall] = []
+        for option in equCategorySmall{
+            if categoryIdEquCategoryBig == option.bigType{//根据设备大类的id匹配设备小类
+                newEquCategorySmallList.append(option)
+            }
+        }
+        return newEquCategorySmallList
     }
 }
