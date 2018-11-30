@@ -12,7 +12,7 @@ import MJRefresh
 import Photos
 import Kingfisher
 
-class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate {
     
     let cameraViewService = CameraViewService()
     var photoListr : [UIImage] = []
@@ -28,6 +28,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     let addDeviceManagementService = AddDeviceManagementService()
     var addDeviceManagementModule = AddDeviceManagementModule()
     var selectedEquipmentId:String!
+    var scrollView : UIScrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
@@ -54,8 +55,16 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
-        contentView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.size.height)!, width: KUIScreenWidth, height: KUIScreenHeight-UIApplication.shared.statusBarFrame.height-(navigationController?.navigationBar.frame.size.height)!)
+        contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-UIApplication.shared.statusBarFrame.height-(navigationController?.navigationBar.frame.height)!)
+        scrollView.delegate = self
+        scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
+        scrollView.contentSize.height = UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+650
+        scrollView.backgroundColor = UIColor.white
+        scrollView.addSubview(contentView)
+        
         contentView.backgroundColor = UIColor.white
+        
+        view.addSubview(scrollView)
         
 //       单位选择部分
         let contentViewHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: 121))
@@ -120,7 +129,6 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         selectorView.frame = CGRect(x: 0, y: KUIScreenHeight-64-240, width: KUIScreenWidth, height: 240)
         selectorView.isHidden = true
         contentView.addSubview(selectorView)
-        view.addSubview(contentView)
         
         let selectorToolBar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: 40))
         selectorToolBar.backgroundColor = UIColor.white

@@ -34,6 +34,8 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
     
     let qrCodeService = QrCodeService()
     
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -235,7 +237,13 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 print(resultData)
                 if resultData["status"].stringValue == "success"{
                     if resultData["data"].stringValue == "101"{
-                        self.present(windowAlert(msges: "非法二维码"), animated: false, completion: nil)
+                        let alertView = UIAlertController(title: "提示", message: "非法二维码", preferredStyle: UIAlertControllerStyle.alert)
+                        let yes = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: {
+                            action in
+                            self.dismiss(animated: false, completion: nil)
+                        })
+                        alertView.addAction(yes)
+                        self.present(alertView, animated: false, completion: nil)
                     }else if resultData["data"].stringValue == "102"{
                         let navigationView = UINavigationController.init(rootViewController: AddDeviceManagementViewController())
                         UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
@@ -246,7 +254,6 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                         deviceDetailViewController.equId = 232
                         self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
                     }
-                    self.dismiss(animated: false, completion: nil)
                 }else{
                      self.present(windowAlert(msges: "暂未获取到有用信息！"), animated: false, completion: nil)
                 }
