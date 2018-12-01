@@ -101,7 +101,7 @@ class ThickButton: NSObject {
             
             let childDescribe:UILabel = (b as! UIButton).subviews[1] as! UILabel
             if (b as! UIButton) == button{
-                print("index+\(button.tag)")
+//                print("index+\(button.tag)")
                 if (self.delegate?.responds(to: #selector(LineButtonDelagate.clickChangePage(_:buttonIndex:))))!{
                     self.delegate?.clickChangePage(self, buttonIndex: button.tag)
                 }

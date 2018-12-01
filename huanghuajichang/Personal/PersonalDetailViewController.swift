@@ -82,7 +82,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,16 +104,19 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
             cell?.itemTitle.text = "头像"
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (json["url"].stringValue)
-            cell?.itemImage.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFit)
+            cell?.itemImage.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFill)
+            cell?.itemImage.layer.cornerRadius = (cell?.itemImage.frame.width)! / 2
+            // image还需要加上这一句, 不然无效
+            cell?.itemImage.layer.masksToBounds = true
             tableView.allowsSelection = true
-        }else if indexPath.row == 4 || indexPath.row == 5 {
+        }else if indexPath.row == 3 || indexPath.row == 4 {
             cell?.setUpUI(isHeaderView: false, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 50))
             switch indexPath.row {
-            case 4:
+            case 3:
                 cell?.itemTitle.text = "手机号"
                 cell?.itemRealMsg.text = json["mobile"].stringValue
                 break
-            case 5:
+            case 4:
                 cell?.itemTitle.text = "邮箱"
                 cell?.itemRealMsg.text = json["email"].stringValue
                 break
@@ -131,11 +134,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
                 break
             case 2:
                 cell?.itemTitle.text = "部门"
-                cell?.itemRealMsg.text = "内容\(indexPath.row)"//TODO
-                break
-            case 3:
-                cell?.itemTitle.text = "客户"
-                cell?.itemRealMsg.text = "内容\(indexPath.row)"//TODO
+                cell?.itemRealMsg.text = ""//TODO
                 break
             default:
                 cell?.itemTitle.text = ""
@@ -153,13 +152,13 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             let headerVc = HeaderViewController()
             let hederNav = UINavigationController(rootViewController: headerVc)
             self.present(hederNav, animated: false, completion: nil)
-        case 4:
+        case 3:
             let changePhoneVc = CommentChangeViewController()
             let changePhoneNav = UINavigationController(rootViewController: changePhoneVc)
             changePhoneVc.title = "修改手机号"
             changePhoneVc.phoneText = (tableView.cellForRow(at: indexPath) as! PersonalDetailTableViewCell).itemRealMsg.text
             self.present(changePhoneNav, animated: false, completion: nil)
-        case 5:
+        case 4:
             let changeEmailVc = CommentChangeViewController()
             let changeEmailNav = UINavigationController(rootViewController: changeEmailVc)
             changeEmailVc.title = "修改邮箱"

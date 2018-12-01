@@ -30,6 +30,7 @@
 		3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */; };
 		3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
 		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
+		3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */; };
 		3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */; };
 		3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */; };
 		3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C652194553D0094C6B1 /* AlarmListViewController.swift */; };
@@ -114,6 +115,7 @@
 		3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
 		3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
 		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
+		3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewModel.swift; sourceTree = "<group>"; };
 		3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewService.swift; sourceTree = "<group>"; };
 		3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModule.swift; sourceTree = "<group>"; };
 		3D389C652194553D0094C6B1 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
+				3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */,
 				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
 				3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
 				3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */,
@@ -566,6 +569,7 @@
 				3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */,
 				FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */,
 				3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */,
+				3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */,
 				FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */,
 				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
 				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,

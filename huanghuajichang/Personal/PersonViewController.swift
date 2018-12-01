@@ -55,7 +55,11 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //                    if imageData != nil {
 //                        self.headerImageView.image = UIImage(data: imageData! as Data)
 //                    }
-                    self.headerImageView.dowloadFromServer(link: urlStr, contentMode: .scaleAspectFit)
+                    self.headerImageView.dowloadFromServer(link: urlStr, contentMode: .scaleAspectFill)
+                    //此处需要重写下将图片变成圆形的方法
+                    self.headerImageView.layer.cornerRadius = (self.headerImageView.frame.width)/2
+                    // image还需要加上这一句, 不然无效
+                    self.headerImageView.layer.masksToBounds = true
                     self.personName.text = self.json["user_name"].stringValue
                     self.personPosition.text = "新智能源UI开发工程师"
                     self.headerView.layoutIfNeeded()
@@ -138,7 +142,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        personalTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine
         //注册UITableView，cellID为重复使用cell的Identifier
        // personalTable.register(PersonalTableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "passWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "erweima", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"erweima1")],[PersonTableViewCellModel(itemId: "1", itemImage: "help", itemTitle: "帮助说明", itemRightIcon: "进入" ,itemRightTitle:""),PersonTableViewCellModel(itemId: "1", itemImage: "clear", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "version", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
+        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "personalPassWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "personalQRCode", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"erweima1")],[PersonTableViewCellModel(itemId: "1", itemImage: "personalHelp", itemTitle: "帮助说明", itemRightIcon: "进入" ,itemRightTitle:""),PersonTableViewCellModel(itemId: "1", itemImage: "personalClean", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "personalUpdate", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
 
         //必须将高度重置，不然下面设置header无效
         self.personalTable.estimatedRowHeight = 0;
@@ -261,7 +265,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             cell?.itemTitle?.text = tableCellModel.itemTitle//String(indexPath.section)+","+String(indexPath.row)
             if indexPath.section == 0 && indexPath.row == 0 {
-                cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
+                //cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
                 
                 let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20))
                 rightLable.textAlignment = NSTextAlignment.right
@@ -272,7 +276,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }else if indexPath.section == 0 && indexPath.row == 1 {
                 
-                cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
+                //cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
                 
                 //添加二维码小图标
                 let rightImg: UIImageView = UIImageView.init(frame: CGRect(x: kScreenWidth-70, y: 15, width: 20, height: 20))
@@ -291,14 +295,15 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 switch (indexPath.row) {
                 case 0:
-                    cell?.itemImage?.backgroundColor = UIColor.init(red: 239/255, green: 179/255, blue: 42/255, alpha: 1)
+                    //cell?.itemImage?.backgroundColor = UIColor.init(red: 239/255, green: 179/255, blue: 42/255, alpha: 1)
+                    break
                 case 1:
-                    cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
+                    //cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
                     rightLable.frame = CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20)
                     rightLable.text = String(fileSizeOfCache())+"M"
                     cell?.contentView.addSubview(rightLable)
                 case 2:
-                    cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
+                    //cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
                     //应用程序信息
                     let infoDictionary = Bundle.main.infoDictionary!
                     let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号

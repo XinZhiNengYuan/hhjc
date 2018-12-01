@@ -40,10 +40,11 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     var userDefault = UserDefaults.standard
     var userToken:String!
     var userId:String!
-    var listData:NSMutableArray = []
+    var listData:[DailyRecordViewModel] = []
     var json:JSON!
-    var pageStart = 0
+    var pageStart = 1
     let pageSize = 10
+    var dataToEnd = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func updateList(){
+        pageStart = 1
         self.getHeaderData()
         self.getListData(searchStr: "", state: "")
     }
@@ -164,6 +166,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     @objc func changeDateByButton(sender:UIButton?){
         
 //        print("year:\(year)"+";"+"month:"+formateNum(num:month))
+        pageStart = 1
         dateLabel.text = changeDate(chageType: (sender?.tag)!)
         getHeaderData()
         getListData(searchStr: "", state: "")
@@ -198,7 +201,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         let infoData = ["startday":"\(dateLabel.text!)-01","endDay":"\(changeDate(chageType: 2))-01"]
         let contentData : [String : Any] = ["method":"getOptionNum","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 self.buttons = [ThickButtonModel(value: JSON(value)["data"]["all"].intValue, describe: "全部"), ThickButtonModel(value: JSON(value)["data"]["noope"].intValue, describe: "未处理"), ThickButtonModel(value:JSON(value)["data"]["ope"].intValue, describe:"已处理")]
@@ -259,16 +262,34 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     /// - Parameter pageNum：起始页吗数
     /// - Parameter pageSize：每页条数
     func getListData(searchStr:String, state:Any) {
+        self.dataToEnd = false
         MyProgressHUD.showStatusInfo("加载中...")
         let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startday":"\(dateLabel.text!)-01", "endDay":"\(changeDate(chageType: 2))-01"] as [String : Any]
+        if pageStart == 1 {
+            self.listData = []
+        }
         let contentData : [String : Any] = ["method":"getOptionlist","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+            //print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.json = JSON(value)["data"]["resultData"]
+                    
+                    for recordItem in self.json.enumerated(){
+                        let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["describe"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
+                        self.listData.append(recordModel)
+                    }
+                    if self.listData.count == JSON(value)["data"]["iTotalRecords"].intValue {
+                        self.dataToEnd = true
+                        self.refreshFooter.state = .noMoreData
+                    }else{
+                        self.refreshFooter.state = .idle
+                    }
                     self.recordTableView.reloadData()
+                    if self.pageStart == 1 && self.json.arrayValue.count > 0{
+                        self.recordTableView.scrollToRow(at: IndexPath.init(item: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
+                    }
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
@@ -290,7 +311,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         let infoData = ["id":itemId]
         let contentData : [String : Any] = ["method":"delOptionById","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+            //print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -339,10 +360,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         refreshFooter.isAutomaticallyRefresh = false
         refreshFooter.isAutomaticallyChangeAlpha = true //自动更改透明度
         //修改文字
-        refreshFooter.setTitle("上拉上拉上拉", for: .idle)//普通闲置的状态
+        refreshFooter.setTitle("上拉加载更多数据", for: .idle)//普通闲置的状态
 //        refreshFooter.setTitle("释放更新", for: .pulling)
-        refreshFooter.setTitle("加载加载加载", for: .refreshing)//正在刷新的状态
-        refreshFooter.setTitle("没有没有更多数据了", for: .noMoreData)//数据加载完毕的状态
+        refreshFooter.setTitle("加载中...", for: .refreshing)//正在刷新的状态
+        refreshFooter.setTitle("没有更多数据了", for: .noMoreData)//数据加载完毕的状态
         //将上拉加载的控件与 tableView控件绑定起来
         self.recordTableView.mj_footer = refreshFooter
         getListData(searchStr:"", state:"")
@@ -351,8 +372,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     // 顶部刷新
     @objc func headerRefresh(){
         
-        print("下拉刷新")
-        pageStart = 0
+//        print("下拉刷新")
+        pageStart = 1
         //服务器请求数据的函数
         if pageStatus == "" {
             getListData(searchStr:"", state:"")
@@ -367,13 +388,15 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     // 底部刷新
     @objc func footerRefresh(){
         
-        print("上拉刷新")
-        pageStart += 10
-        //服务器请求数据的函数
-        if pageStatus == "" {
-            getListData(searchStr:"", state:"")
-        }else{
-            getListData(searchStr:"", state:Int(pageStatus)!-1)
+//        print("上拉加载")
+        if dataToEnd == false {
+            pageStart += 10
+            //服务器请求数据的函数
+            if pageStatus == "" {
+                getListData(searchStr:"", state:"")
+            }else{
+                getListData(searchStr:"", state:Int(pageStatus)!-1)
+            }
         }
         //结束下拉刷新
         self.recordTableView.mj_footer.endRefreshing()
@@ -387,7 +410,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     //PGDatePickerDelegate
     func datePicker(_ datePicker: PGDatePicker!, didSelectDate dateComponents: DateComponents!) {
         dateLabel.text = "\(dateComponents.year!)" + "-" + formateNum(num: dateComponents.month!)
-        print("dateComponents = ", dateComponents)
+//        print("dateComponents = ", dateComponents)
+        pageStart = 1
         getHeaderData()
         getListData(searchStr: "", state: "")
     }
@@ -402,15 +426,6 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         return formateString
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     //最后要记得移除通知
     /// 移除通知
     deinit {
@@ -423,7 +438,7 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
-        pageStart = 0
+        pageStart = 1
         switch buttonIndex {
         case 0:
             pageStatus = ""
@@ -435,7 +450,6 @@ extension DailyRecordViewController:ThickButtonDelagate{
             pageStatus = "\(buttonIndex)"
             getListData(searchStr: "", state: 1)
         }
-        
     }
 }
 extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
@@ -444,10 +458,10 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.json == nil {
+        if self.listData == [] {
             return 0
         }else{
-            return self.json.count
+            return self.listData.count
         }
     }
     
@@ -462,7 +476,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
             cell = RecordListTableViewCell(style: .default, reuseIdentifier: CellIdentifier)
         }
         
-        if self.json != nil {
+        if self.listData != [] {
 //            print(self.listData[indexPath.row])
 //            print(type(of: self.json[indexPath.row]))
             //当无图片时显示默认图片
@@ -470,36 +484,36 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
             for itemImageSub in views! {
                 itemImageSub.removeFromSuperview()
             }
-            if self.json[indexPath.row]["filesId"].stringValue == "" {
-                print(self.json[indexPath.row]["filesId"])
+            if self.listData[indexPath.row].filesId == "" {
+//                print(self.listData[indexPath.row].filesId)
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
-                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",")[0])
+                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.listData[indexPath.row].filesId.components(separatedBy: ",")[0])
                 cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
-                photoNum.text = "共\(self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",").count)张"
+                photoNum.text = "共\(self.listData[indexPath.row].filesId.components(separatedBy: ",").count)张"
                 photoNum.textColor = UIColor.white
                 photoNum.textAlignment = .center
                 photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
                 photoNum.backgroundColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 0.5)
                 cell?.itemImage?.addSubview(photoNum)
             }
-            cell?.itemTitle?.text =  self.json[indexPath.row]["title"].stringValue
-            if self.json[indexPath.row]["state"].stringValue == "1" {
+            cell?.itemTitle?.text =  self.listData[indexPath.row].title
+            if self.listData[indexPath.row].state.description == "1" {
                 cell?.itemStatus?.text = "已处理"
             }else{
                 cell?.itemStatus?.text = "未处理"
             }
-            cell?.itemId = self.json[indexPath.row]["id"].stringValue
+            cell?.itemId = self.listData[indexPath.row].id.description
             //默认颜色是已处理的，所以在未处理时更改颜色
-            if self.json[indexPath.row]["state"] == 0 {
+            if self.listData[indexPath.row].state == 0 {
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
                 cell?.itemStatus?.textColor = topValueColor
             }else{
                 cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
                 cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
             }
-            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.json[indexPath.row]["opeTime"].stringValue,timeAccurate: "minute")
+            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.listData[indexPath.row].opeTime.description,timeAccurate: "minute")
         }
         return cell!
     }

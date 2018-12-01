@@ -340,6 +340,9 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     
     ///时间戳转字符串
     static func timeStampToString(timeStamp:String,timeAccurate:String)->String {
+        if (timeStamp as NSString).intValue < 0{
+            return ""
+        }
         let timeNormal = Int(timeStamp)!/1000
         let string = NSString(string: timeNormal.description)
         
@@ -355,7 +358,6 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         default:
             dfmatter.dateFormat="yyyy/MM/dd"
         }
-        
         
         let date = NSDate(timeIntervalSince1970: timeSta)
         
