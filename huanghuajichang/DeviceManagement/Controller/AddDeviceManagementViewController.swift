@@ -29,6 +29,11 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     var addDeviceManagementModule = AddDeviceManagementModule()
     var selectedEquipmentId:String!
     var scrollView : UIScrollView = UIScrollView()
+    
+    var oneMeanId = ""
+    var twoMeanId = ""
+    var bigType = ""
+    var smallType = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
@@ -43,18 +48,21 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
             print("--------------------------------")
             self.addDeviceManagementModule = returnData
-            print(self.addDeviceManagementModule)
             print("--------------------------------")
         }, finishedError: {(errorData) in
             print("--------------------------------")
         })
     }
    
-    func setLayout(){
+    override func viewWillAppear(_ animated: Bool){
         self.title = "新增设备"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
+    }
+    
+    func setLayout(){
+        
         contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-UIApplication.shared.statusBarFrame.height-(navigationController?.navigationBar.frame.height)!)
         scrollView.delegate = self
         scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
@@ -80,9 +88,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         labelRightcontent.textAlignment = .left
         contentViewHeader.addSubview(labelRightcontent)
         //一级单位
-        setContentOfSelectedListRow(top: 40, optionMode: contentViewHeader, text: "一级单位", selectTitle: "消防", tag: 301)
+        setContentOfSelectedListRow(top: 40, optionMode: contentViewHeader, text: "一级单位", selectTitle: "", tag: 301)
         //二级单位
-        setContentOfSelectedListRow(top: 81, optionMode: contentViewHeader, text: "二级单位", selectTitle: "消防护卫部消防大队1246号消防车", tag: 302)
+        setContentOfSelectedListRow(top: 81, optionMode: contentViewHeader, text: "二级单位", selectTitle: "", tag: 302)
         contentView.addSubview(contentViewHeader)
         
 //        设备基本信息
@@ -114,13 +122,13 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         //生产日期
         setDateView(top: 327, contentForMode: contentForMode, text: "生产日期", tag: 500)
         //安装日期
-        setDateView(top: 368, contentForMode: contentForMode, text: "安装日期", tag: 600)
+        setDateView(top: 368, contentForMode: contentForMode, text: "安装日期", tag: 501)
         //数据绑定
-        setSelectView(top: 409, contentForMode: contentForMode, text: "数据是否绑定", tag: 700)
+        setSelectView(top: 409, contentForMode: contentForMode, text: "数据是否绑定", tag: 600)
         //是否有效
-        setSelectView(top: 470, contentForMode: contentForMode, text: "是否有效", tag: 800)
+        setSelectView(top: 470, contentForMode: contentForMode, text: "是否有效", tag: 620)
         //图片上传
-        setPicView(top: 520, contentForMode: contentForMode, tag: 900)
+        setPicView(top: 520, contentForMode: contentForMode, tag: 700)
         
         contentView.addSubview(contentForMode)
         
@@ -209,6 +217,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         //textNameField.becomeFirstResponder()
         input.font = UIFont.boldSystemFont(ofSize: 15)
         input.tag = tag
+        input.text = ""
         input.returnKeyType = UIReturnKeyType.next
         inputView.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
         inputView.layer.borderWidth = 1
@@ -223,11 +232,6 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        if tag == 500{
-            contentForModeLeftStar3.image = UIImage(named: "test")
-        }else{
-            contentForModeLeftStar3.image = UIImage(named: "必填项")
-        }
         contentForModeRow3.addSubview(contentForModeLeftStar3)
         
         let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
@@ -245,7 +249,14 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let currentMonth = NSDate()
         let dateFormater = DateFormatter.init()
         dateFormater.dateFormat = "yyyy-MM-dd"
-        inProducedDateLabel.text = dateFormater.string(from: currentMonth as Date) as String
+        if tag == 500{
+            contentForModeLeftStar3.image = UIImage(named: "test")
+            inProducedDateLabel.text = ""
+        }else{
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
+            inProducedDateLabel.text = dateFormater.string(from: currentMonth as Date) as String
+        }
+        
         dateChangeView.addSubview(inProducedDateLabel)
         dateChangeView.layer.borderWidth = 1
         dateChangeView.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
@@ -266,7 +277,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let rightViewOfLabel = UILabel()
         
         //判断是“数据绑定”还是“是否有效”
-        if tag == 800{
+        if tag == 620{
             contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40)
             rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
             rightViewOfLabel.text = ""
@@ -300,7 +311,10 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let falseBtn = UIButton(frame: CGRect(x: rightView.frame.width-60, y: 0, width: 20, height: 20))
         falseBtn.tag = tag+1
         falseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
-        
+        let statusData = UILabel()
+        statusData.text = "0" // 0否 1是
+        statusData.tag = tag+5
+        rightViewOfTop.addSubview(statusData)
         falseBtn.addTarget(self, action: #selector(selectAction), for: UIControlEvents.touchUpInside)
         falseBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         rightViewOfTop.addSubview(trueBtn)
@@ -318,32 +332,41 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     
     @objc func selectAction(btn:UIButton){
         
-        if btn.tag >= 800{//是判断是否有效的按钮
-            if btn.tag == 800{
+        if btn.tag >= 620{//是判断是否有效的按钮
+            if btn.tag == 620{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag+1) as! UIButton
+                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                statusData.text = "1"
                 actionSelectTrueBtn.set(image: UIImage(named: "选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "未选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
             }else{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                statusData.text = "0"
                 actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
             }
         }else{//是判断是否绑定的按钮
-            if btn.tag == 700{
+            if btn.tag == 600{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag+1) as! UIButton
+                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                statusData.text = "1"
                 actionSelectTrueBtn.set(image: UIImage(named: "选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "未选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
             }else{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
+                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                statusData.text = "0"
                 actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
             }
         }
     }
+    //MARK:提交所有数据
     @objc func uploadImgs(){
         if photoListr.count > 0{
             cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
@@ -351,7 +374,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 let token = userDefault.string(forKey: "userToken")
                 let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":fileId]]
                 self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
-                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
+                    self.getCommitData(userId: userId!, token: token!, fileId: fileId)
+                    
+//                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
                 }, errorCall: {
                     self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
                 })
@@ -361,7 +386,50 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }
         
     }
-    
+    //MARK:获取将要提交的数据
+    func getCommitData(userId : String,token : String,fileId : String){
+        
+        let biaoShi = self.view.viewWithTag(400) as! UITextField
+        let mingCheng = self.view.viewWithTag(401) as! UITextField
+        let xingHao = self.view.viewWithTag(402) as! UITextField
+        let eDingGongLu = self.view.viewWithTag(403) as! UITextField
+        let gongYingShang = self.view.viewWithTag(404) as! UITextField
+        let shengChanRiQi = self.view.viewWithTag(500) as! UILabel
+        let anZhuangRiQi = self.view.viewWithTag(501) as! UILabel
+        let bangDingStatus = self.view.viewWithTag(605) as! UILabel
+        let youXiaoStatus = self.view.viewWithTag(625) as! UILabel
+        if oneMeanId == ""{
+            self.present(windowAlert(msges: "请选择一级单位"), animated: false, completion: nil)
+        }
+        if twoMeanId == ""{
+            self.present(windowAlert(msges: "请选择二级单位"), animated: false, completion: nil)
+        }
+        if bigType == ""{
+            self.present(windowAlert(msges: "请选择设备大类"), animated: false, completion: nil)
+        }
+        if smallType == ""{
+            self.present(windowAlert(msges: "请选择设备小类"), animated: false, completion: nil)
+        }
+        if biaoShi.text == ""{
+            self.present(windowAlert(msges: "请添加设备标识"), animated: false, completion: nil)
+        }
+        if mingCheng.text == ""{
+            self.present(windowAlert(msges: "请添加设备名称"), animated: false, completion: nil)
+        }
+        if xingHao.text == ""{
+            self.present(windowAlert(msges: "请添加设备型号"), animated: false, completion: nil)
+        }
+        if eDingGongLu.text == ""{
+            self.present(windowAlert(msges: "请添加设备额定功率"), animated: false, completion: nil)
+        }
+        if anZhuangRiQi.text == ""{
+            self.present(windowAlert(msges: "请选择安装日期"), animated: false, completion: nil)
+        }
+        let bangDingStatusVal = bangDingStatus.text
+        let youXiaoStatusVal = youXiaoStatus.text
+        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["equId":equId,"equName":mingCheng.text,"equNo":biaoShi.text,"specification":xingHao.text,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text,"spName":gongYingShang,"filesId":fileId,"installDate":anZhuangRiQi.text,"power":eDingGongLu.text,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal,"updateTime":""]]
+        print(commitData)
+    }
     func setPicView(top:Int,contentForMode:UIView,tag:Int) {
         mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 90)
         mView.backgroundColor = UIColor.white
@@ -525,7 +593,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     @objc func cancelButtonAction(){
         selectorView.isHidden = true
     }
-    //下拉菜单列表
+    //MARK:下拉菜单列表
     @objc func doneButtonAction(){
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
@@ -536,18 +604,17 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         
         switch clickedBtnTag {
         case 301:
-            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            oneMeanId = (selectorData[selectIndex]["typeId"]?.description)!
             let organizationTwoBtn = self.view.viewWithTag(302) as! UIButton
             organizationTwoBtn.setNewStyle(image: UIImage(named: "下拉"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         case 302:
-            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            twoMeanId = (selectorData[selectIndex]["typeId"]?.description)!
         case 303:
-            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            bigType = (selectorData[selectIndex]["typeId"]?.description)!
             let equCategorySmall = self.view.viewWithTag(304) as! UIButton
             equCategorySmall.setNewStyle(image: UIImage(named: "下拉"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         case 304:
-            print(304)
-            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
+            smallType = (selectorData[selectIndex]["typeId"]?.description)!
         case 305:
             print(305)
         case 306:
@@ -577,7 +644,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 }
             }
         case 302:
-            let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(selectedEquipmentId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
+            let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(oneMeanId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
             for i in 0..<tempOrganizationTwoList.count{
                 let elementDic:[String:AnyObject] = ["typeName":tempOrganizationTwoList[i].organizationName as AnyObject,"typeId":tempOrganizationTwoList[i].organizationId as AnyObject]
                 selectorData.append(elementDic)
@@ -596,7 +663,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             }
         case 304:
             print(304)
-            let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(selectedEquipmentId)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
+            let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(bigType)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
             for i in 0..<tempEquCategorySmallList.count{
                 let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].bigType as AnyObject]
                 selectorData.append(elementDic)
