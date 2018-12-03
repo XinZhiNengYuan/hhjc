@@ -234,7 +234,6 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
             let contentData : [String : Any] = ["method":"checkEquipmentByCode","info":["code":resultStr],"user_id":userId as Any,"token":token as Any]
             
             qrCodeService.getQrCode(contentData: contentData, finishedData: { (resultData) in
-                print(resultData)
                 if resultData["status"].stringValue == "success"{
                     if resultData["data"].stringValue == "101"{
                         let alertView = UIAlertController(title: "提示", message: "非法二维码", preferredStyle: UIAlertControllerStyle.alert)
@@ -244,12 +243,14 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                         })
                         alertView.addAction(yes)
                         self.present(alertView, animated: false, completion: nil)
-                    }else if resultData["data"].stringValue == "102"{
-                        let navigationView = UINavigationController.init(rootViewController: AddDeviceManagementViewController())
+                    }else if resultData["data"].stringValue == "102"{//未绑定的新设备
+                        let addDeviceManagementViewController = AddDeviceManagementViewController()
+                        addDeviceManagementViewController.eqCode = resultStr
+                        let navigationView = UINavigationController.init(rootViewController: addDeviceManagementViewController)
                         UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
                         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
                         self.present(navigationView, animated: true, completion: nil)
-                    }else{
+                    }else{//已经绑定过的设备
                         let deviceDetailViewController = DeviceDetailViewController()
                         deviceDetailViewController.eqCode = resultStr
                         self.navigationController?.pushViewController(deviceDetailViewController, animated: true)

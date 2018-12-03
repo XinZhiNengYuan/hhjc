@@ -13,6 +13,9 @@ struct AddDeviceManagementModule {
     var organizationTwoList : [OrganizationTwoList] = []
     var equCategoryBig : [EquCategoryBig] = []
     var equCategorySmall : [EquCategorySmall] = []
+    var building : [Building] = []
+    var floor : [Floor] = []
+    var room : [Room] = []
 }
 //一级单位
 struct OrganizationOneList {
@@ -73,4 +76,29 @@ struct EquCategorySmall{
     var classType = ""
     var cimName = ""
     var cimNameEn = ""
+}
+//楼
+struct Building{
+    var buildName = ""
+    var id = -1
+    var img = ""
+    var landlord = ""
+    var buildLat = -1
+    var buildLng = -1
+    var position = ""
+}
+//层
+struct Floor{
+    var buildId = -1
+    var floorName = ""
+    var id = -1
+}
+//房间
+struct Room{
+    var roomNum = ""
+    var id = -1
+    var notes = ""
+    var contactor = ""
+    var roomName = ""
+    var floorId = -1
 }
