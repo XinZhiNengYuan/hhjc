@@ -16,7 +16,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     var photoListr : [UIImage] = []
     var imageView = UIView()
     var addBut : UIButton!
-    var equId : Int = -1
+    var equNo : String = ""
     var flagePageFrom : Int = 1 //1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
     var  viewOption : UIView!
     var mView = UIView()
@@ -55,7 +55,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
                 }
                 let userId = userDefault.string(forKey: "userId")
                 let token = userDefault.string(forKey: "userToken")
-                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":self.imgIdListStr]]
+                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equNo":self.equNo,"files_id":self.imgIdListStr]]
                 self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
                     self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
                 }, errorCall: {

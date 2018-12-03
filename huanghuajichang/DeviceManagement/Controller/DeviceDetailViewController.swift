@@ -15,21 +15,22 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     var arrayForKey : Array<String> = []
     var arrayForVal : Array<String> = []
     var flagePageFrom : Int = 1 //1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
-    var equId : Int = -1
+    var eqCode : String = ""
     let deviceDetailViewService = DeviceDetailViewService()
     let cameraViewController = CameraViewController()
     var cycleView : CycleView! = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        getData(id: equId)
+        getData(eqCode: eqCode)
     }
+    
     //MARK:数据请求
-    func getData(id:Int){
+    func getData(eqCode:String){
         navigationController?.tabBarController?.tabBar.isHidden = true
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["id":id]]
+        let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["id":eqCode]]
         deviceDetailViewService.getData(contentData: contentData, finishedData: { (resultData) in
             self.setVal(val: resultData, call: { (arrPic) in
                 self.setLayout(arrPic: arrPic)
@@ -65,6 +66,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         call(val.photoList)
         
     }
+    
     //MARK:样式设计
     func setLayout(arrPic imageListObjc : [equPhotos]){
         self.title = "设备详情"
@@ -125,7 +127,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 extension DeviceDetailViewController {
     func cycleViewDidSelectedItemAtIndex(_ index: NSInteger) {
         cameraViewController.flagePageFrom = self.flagePageFrom
-        cameraViewController.equId = equId
+        cameraViewController.equNo = eqCode
         navigationController?.pushViewController(cameraViewController, animated: true)
     }
 }

@@ -20,7 +20,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     var selectorView:UIView = UIView()
     var selector:UIPickerView = UIPickerView()
     var clickedBtnTag:Int!
-    var equId = -1
+    var eqCode = ""
     var selectorData:[[String:AnyObject]] = []
     var imageView = UIView()
     var addBut : UIButton!
@@ -210,6 +210,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         input.textAlignment = .left
         /** 垂直对齐 **/
         input.contentVerticalAlignment = .center
+        if tag == 400{//设备标识不可编辑
+            input.isEnabled = false
+        }
         input.clearButtonMode = .whileEditing  //编辑时出现清除按钮
         //textField.clearButtonMode = .unlessEditing  //编辑时不出现，编辑后才出现清除按钮
         //textNameField.clearButtonMode = .always  //一直显示清除按钮
@@ -372,7 +375,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
                 let userId = userDefault.string(forKey: "userId")
                 let token = userDefault.string(forKey: "userToken")
-                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equ_id":self.equId,"files_id":fileId]]
+                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equNo":self.eqCode,"files_id":fileId]]
                 self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
                     self.getCommitData(userId: userId!, token: token!, fileId: fileId)
                     
@@ -427,7 +430,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
-        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["equId":equId,"equName":mingCheng.text,"equNo":biaoShi.text,"specification":xingHao.text,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text,"spName":gongYingShang,"filesId":fileId,"installDate":anZhuangRiQi.text,"power":eDingGongLu.text,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal,"updateTime":""]]
+        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["equName":mingCheng.text,"equNo":biaoShi.text,"specification":xingHao.text,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text,"spName":gongYingShang,"filesId":fileId,"installDate":anZhuangRiQi.text,"power":eDingGongLu.text,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal]]
         print(commitData)
     }
     func setPicView(top:Int,contentForMode:UIView,tag:Int) {

@@ -27,7 +27,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     var top : CGFloat = 0
     var tableViewFrame :CGRect!
     let searchInput = UITextField()
-    var searchArrayIdList : [Int] = [Int]()
+    var searchArrayCodeList : [String] = [String]()
     let deviceSearchListViewService = DeviceSearchListViewService()
     let userDefult = UserDefaults.standard
     override func viewDidLoad() {
@@ -45,12 +45,12 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
         let contentData : [String:Any] = ["method":"getEquipmentList","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","equName":searchName]]
         deviceSearchListViewService.getData(contentData: contentData, finished: { (result, resultDataList) in
             self.searchArray.removeAll()
-            self.searchArrayIdList.removeAll()
+            self.searchArrayCodeList.removeAll()
             for i in 0..<resultDataList.count{
                 let itemName = resultDataList[i]["equName"]
                 self.searchArray.append(itemName as! String)
-                let itemId = resultDataList[i]["equId"]
-                self.searchArrayIdList.append(itemId as! Int)
+                let itemId = resultDataList[i]["equNo"]
+                self.searchArrayCodeList.append(itemId as! String)
             }
             call()
         }) { (errorData) in
@@ -195,7 +195,7 @@ extension DeviceSearchListViewController:UITableViewDataSource{
         let rowNum = indexPath.row
         if self.countrySearchController.isActive {
             cell.textLabel?.text = self.searchArray[rowNum]
-            cell.tag = Int(self.searchArrayIdList[rowNum])
+//            cell.tag = Int(self.searchArrayIdList[rowNum])!
             return cell
         } else {
             if shouldShowSearchResults{
@@ -219,7 +219,7 @@ extension DeviceSearchListViewController: UITableViewDelegate
         }
         let deviceDetaillController = DeviceDetailViewController()
         deviceDetaillController.flagePageFrom = 2
-        deviceDetaillController.equId = self.searchArrayIdList[indexPath.row]
+        deviceDetaillController.eqCode = self.searchArrayCodeList[indexPath.row]
         navigationController?.pushViewController(deviceDetaillController, animated: true)
     }
     

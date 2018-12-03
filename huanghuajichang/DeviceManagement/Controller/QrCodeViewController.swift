@@ -251,7 +251,7 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                         self.present(navigationView, animated: true, completion: nil)
                     }else{
                         let deviceDetailViewController = DeviceDetailViewController()
-                        deviceDetailViewController.equId = 232
+                        deviceDetailViewController.eqCode = resultStr
                         self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
                     }
                 }else{
