@@ -86,6 +86,7 @@ class AddDeviceManagementService:common{
                 for item in result["data"]["building"].arrayValue{
                     var building = Building()
                     building.buildName = item["buildName"].stringValue
+                    building.id = item["id"].intValue
                     building.img =  item["img"].stringValue
                     building.landlord = item["landlord"].stringValue
                     building.buildLat = item["buildLat"].intValue

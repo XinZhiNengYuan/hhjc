@@ -19,7 +19,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     let contentView : UIView = UIView()
     var selectorView:UIView = UIView()
     var selector:UIPickerView = UIPickerView()
-    var clickedBtnTag:Int!
+    var clickedBtnTag = -1
     var eqCode = ""
     var selectorData:[[String:AnyObject]] = []
     var imageView = UIView()
@@ -130,10 +130,8 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         contentForMode.addSubview(contentForModeHeader)
         //建筑
         setContentOfSelectedListRow(top: 40, optionMode: contentForMode, text: "位置",selectTitle: "", tag: 200)
-        //楼层
-        setFloorAndRoomSelectedListRow(top: 81, optionMode: contentForMode, startX: 1,selectTitle: "", tag: 201)
-        //房间号
-        setFloorAndRoomSelectedListRow(top: 81, optionMode: contentForMode, startX: 2,selectTitle: "", tag: 202)
+        //楼层和房间号
+        setFloorAndRoomSelectedListRow(top: 80, optionMode: contentForMode, selectTitle: "测试", tag: 201)
         //设备大类
         setContentOfSelectedListRow(top: 122, optionMode: contentForMode, text: "设备大类",selectTitle: "", tag: 303)
         //设备小类
@@ -164,7 +162,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         
         
         ///选择弹出框
-        selectorView.frame = CGRect(x: 0, y: KUIScreenHeight-64-240, width: KUIScreenWidth, height: 240)
+        selectorView.frame = CGRect(x: 0, y: KUIScreenHeight-300, width: KUIScreenWidth, height: 240)
         selectorView.isHidden = true
         contentView.addSubview(selectorView)
         
@@ -187,20 +185,29 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     //设置楼层和房间的下拉
-    func setFloorAndRoomSelectedListRow(top:Int,optionMode:UIView,startX:Int,selectTitle:String,tag:Int){
-        let contentForModeRow2 = UIView(frame: CGRect(x: 0, y: top, width: Int(optionMode.frame.width), height: 40))
+    func setFloorAndRoomSelectedListRow(top:Int,optionMode:UIView,selectTitle:String,tag:Int){
+        let contentForModeRow2 = UIView(frame: CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 40))
         contentForModeRow2.backgroundColor = UIColor.white
-        
         let contentForModeTwoMean = UIButton()
-        contentForModeTwoMean.frame = CGRect(x: 60*startX, y: 5, width: 60, height: 30)
+        contentForModeTwoMean.frame = CGRect(x: 100, y: 5, width: 60, height: 30)
         contentForModeTwoMean.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        contentForModeTwoMean.setNewStyle(image: UIImage(named: "test"), title: selectTitle, titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+        contentForModeTwoMean.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
         contentForModeTwoMean.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
         contentForModeTwoMean.layer.borderWidth = 1
         contentForModeTwoMean.tag = tag
         contentForModeTwoMean.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
-        contentForModeRow2.addSubview(contentForModeTwoMean)
         
+        let contentForModeTwoMean1 = UIButton()
+        contentForModeTwoMean1.frame = CGRect(x: 170, y: 5, width: 100, height: 30)
+        contentForModeTwoMean1.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
+        contentForModeTwoMean1.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
+        contentForModeTwoMean1.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
+        contentForModeTwoMean1.layer.borderWidth = 1
+        contentForModeTwoMean1.tag = tag+1
+        contentForModeTwoMean1.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
+        
+        contentForModeRow2.addSubview(contentForModeTwoMean)
+        contentForModeRow2.addSubview(contentForModeTwoMean1)
         optionMode.addSubview(contentForModeRow2)
     }
     
@@ -215,13 +222,14 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let contentForModeName2 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
         contentForModeName2.textColor = UIColor(red: 93/255, green: 93/255, blue: 93/255, alpha: 1)
         contentForModeName2.text = "\(text)："
+        contentForModeName2.textAlignment = .justified
         contentForModeName2.font = UIFont.boldSystemFont(ofSize: 14)
         contentForModeRow2.addSubview(contentForModeName2)
         
         let contentForModeTwoMean = UIButton()
         contentForModeTwoMean.frame = CGRect(x: 100, y: 5, width: KUIScreenWidth - 120, height: 30)
         contentForModeTwoMean.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        contentForModeTwoMean.setNewStyle(image: UIImage(named: "test"), title: selectTitle, titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+        contentForModeTwoMean.setNewStyle(image: UIImage(named: "test"), title: selectTitle, titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
         contentForModeTwoMean.layer.borderColor = UIColor(red: 151/255, green: 151/255, blue: 151/255, alpha: 1).cgColor
         contentForModeTwoMean.layer.borderWidth = 1
         contentForModeTwoMean.tag = tag
@@ -672,21 +680,20 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
         let selectText = selectorData[selectIndex]["typeName"]?.description
-        selectBtn.setNewStyle(image: UIImage(named: "test"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
-        
+        selectBtn.setNewStyle(image: UIImage(named: "test"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
         selectorView.isHidden = true
         
         switch clickedBtnTag {
         case 200:
             buildingId = (selectorData[selectIndex]["typeId"]?.description)!
             let floorView = self.view.viewWithTag(201) as! UIButton
-            floorView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+            floorView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
             let roomView = self.view.viewWithTag(202) as! UIButton
-            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
         case 201:
             floorId = (selectorData[selectIndex]["typeId"]?.description)!
             let roomView = self.view.viewWithTag(202) as! UIButton
-            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
         case 202:
             roomId = (selectorData[selectIndex]["typeId"]?.description)!
         case 301:
@@ -730,21 +737,29 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 }
             }
         case 201:
-            for i in 0..<self.addDeviceManagementModule.floor.count{
-                let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.floor[i].floorName as AnyObject,"typeId":self.addDeviceManagementModule.floor[i].id as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == self.addDeviceManagementModule.floor[i].floorName{
-                    selectedIndex = i
+            if buildingId != ""{
+                let tempFloorList = self.addDeviceManagementService.getFloorList(buildId: Int(buildingId)!, allFloorData: addDeviceManagementModule.floor)
+                for i in 0..<tempFloorList.count{
+                    let elementDic:[String:AnyObject] = ["typeName":tempFloorList[i].floorName as AnyObject,"typeId":tempFloorList[i].id as AnyObject]
+                    selectorData.append(elementDic)
+                    if selectText == tempFloorList[i].floorName{
+                        selectedIndex = i
+                    }
                 }
             }
+            
         case 202:
-            for i in 0..<self.addDeviceManagementModule.room.count{
-                let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.room[i].roomName as AnyObject,"typeId":self.addDeviceManagementModule.room[i].id as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == self.addDeviceManagementModule.room[i].roomName{
-                    selectedIndex = i
+            if floorId != ""{
+                let tempRoomList = self.addDeviceManagementService.getRoomList(floorId: Int(floorId)!, allRoomData: addDeviceManagementModule.room)
+                for i in 0..<tempRoomList.count{
+                    let elementDic:[String:AnyObject] = ["typeName":tempRoomList[i].roomName as AnyObject,"typeId":tempRoomList[i].id as AnyObject]
+                    selectorData.append(elementDic)
+                    if selectText == tempRoomList[i].roomName{
+                        selectedIndex = i
+                    }
                 }
             }
+            
         case 301:
             for i in 0..<self.addDeviceManagementModule.organizatinoOneList.count{
                 let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.organizatinoOneList[i].organizationName as AnyObject,"typeId":self.addDeviceManagementModule.organizatinoOneList[i].organizationId as AnyObject]
@@ -754,16 +769,18 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 }
             }
         case 302:
-            let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(oneMeanId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
-            for i in 0..<tempOrganizationTwoList.count{
-                let elementDic:[String:AnyObject] = ["typeName":tempOrganizationTwoList[i].organizationName as AnyObject,"typeId":tempOrganizationTwoList[i].organizationId as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == tempOrganizationTwoList[i].organizationName{
-                    selectedIndex = i
+            if oneMeanId != ""{
+                let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(oneMeanId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
+                for i in 0..<tempOrganizationTwoList.count{
+                    let elementDic:[String:AnyObject] = ["typeName":tempOrganizationTwoList[i].organizationName as AnyObject,"typeId":tempOrganizationTwoList[i].organizationId as AnyObject]
+                    selectorData.append(elementDic)
+                    if selectText == tempOrganizationTwoList[i].organizationName{
+                        selectedIndex = i
+                    }
                 }
             }
+            
         case 303:
-            print(303)
             for i in 0..<self.addDeviceManagementModule.equCategoryBig.count{
                 let elementDic:[String:AnyObject] = ["typeName":self.addDeviceManagementModule.equCategoryBig[i].categoryName as AnyObject,"typeId":self.addDeviceManagementModule.equCategoryBig[i].categoryId as AnyObject]
                 selectorData.append(elementDic)
@@ -772,15 +789,17 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 }
             }
         case 304:
-            print(304)
-            let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(bigType)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
-            for i in 0..<tempEquCategorySmallList.count{
-                let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].bigType as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == tempEquCategorySmallList[i].cimName{
-                    selectedIndex = i
+            if bigType != ""{
+                let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(bigType)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
+                for i in 0..<tempEquCategorySmallList.count{
+                    let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].bigType as AnyObject]
+                    selectorData.append(elementDic)
+                    if selectText == tempEquCategorySmallList[i].cimName{
+                        selectedIndex = i
+                    }
                 }
             }
+            
         case 305:
             print(305)
         case 306:
