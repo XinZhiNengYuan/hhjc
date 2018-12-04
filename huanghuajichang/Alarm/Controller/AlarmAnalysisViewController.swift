@@ -50,7 +50,6 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     }
     //MARK:设置头部
     func setHeader(){
-        print(alarmDetailInfo)
         headerView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: 100))
         headerView.layer.backgroundColor = UIColor(red: 166/255, green: 201/255, blue: 237/255, alpha: 1).cgColor
         let image = UIImageView(frame: CGRect(x: 15, y: 15, width: 20, height: 20))
@@ -73,7 +72,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     
     //MARK:设置页面内容
     func setContentView(successData:AlarmAnalysisViewModule){
-        contentView = UIView(frame: CGRect(x: 0, y: 110, width: KUIScreenWidth, height: 200))
+        contentView = UIView(frame: CGRect(x: 0, y: 110, width: KUIScreenWidth, height: KUIScreenHeight-100))
         contentView.layer.backgroundColor = UIColor.white.cgColor
         // 先删除
         if buttonView != nil{
@@ -91,7 +90,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         contentView.addSubview(spearLine)
         
         
-        scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 41, width: KUIScreenWidth, height: 160))
+        scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 41, width: KUIScreenWidth, height: contentView.frame.height-140))
         scrollView.contentSize = CGSize(width: KUIScreenWidth*3, height: scrollView.frame.height)
         //设置起始偏移量
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
@@ -186,18 +185,18 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         barChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftFormatter)
         
         //设置Y轴上网格线的样式
-        leftAxis.gridLineDashLengths = [3.0, 3.0]   //设置虚线样式的网格线
+//        leftAxis.gridLineDashLengths = [3.0, 3.0]   //设置虚线样式的网格线
         leftAxis.gridColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)  //网格线颜色
         leftAxis.gridAntialiasEnabled = true   //开启抗锯齿
         
         //添加限制线
-        let limitLine = ChartLimitLine(limit: 3000, label: "限制线")
-        limitLine.lineWidth = 2
-        limitLine.lineColor = UIColor.green
-        limitLine.lineDashLengths = [5.0, 5.0]   //虚线样式
-        limitLine.labelPosition = .rightTop  //位置
-        leftAxis.addLimitLine(limitLine)  //添加到Y轴上
-        leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在柱形图的后面
+//        let limitLine = ChartLimitLine(limit: 3000, label: "限制线")
+//        limitLine.lineWidth = 2
+//        limitLine.lineColor = UIColor.green
+//        limitLine.lineDashLengths = [5.0, 5.0]   //虚线样式
+//        limitLine.labelPosition = .rightTop  //位置
+//        leftAxis.addLimitLine(limitLine)  //添加到Y轴上
+//        leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在柱形图的后面
         
         //图例说明样式
         self.barChartView.legend.enabled = false  //不显示图例说明
@@ -232,7 +231,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
             for i in 0..<successData.yearData.count
             {
 //                xVals.append(NSString(format: "%d年", "\(successData.yearData[i].lineName)") as String)
-                xVals.append("\(successData.yearData[i].lineName)年")
+                xVals.append("\(successData.yearData[i].lineName)月")
                 yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.yearData[i].lineData)!))
             }
         default:
@@ -319,7 +318,6 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
 
 extension AlarmAnalysisViewController:TabButtonDelagate{
     func clickChangePage(_ tabButton: TabButton, buttonIndex: NSInteger) {
-        print(buttonIndex)
         scrollView!.contentOffset = CGPoint(x:KUIScreenWidth * CGFloat(buttonIndex), y:0)
     }
 }

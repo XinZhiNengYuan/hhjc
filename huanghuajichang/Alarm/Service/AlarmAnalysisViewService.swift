@@ -19,21 +19,21 @@ class AlarmAnalysisViewService : common{
                 for yearItem in result["data"]["yearData"].arrayValue{
                     var yearData = YearData()
                     yearData.lineData = yearItem["lineData"].stringValue
-                    yearData.lineName = yearItem["lineName"].stringValue
+                    yearData.lineName = self.getStringNum(num: yearItem["lineName"].stringValue)
                     alarmAnalysisViewModule.yearData.append(yearData)
                 }
                 //添加月的数据
                 for monthItem in result["data"]["monthData"].arrayValue{
                     var monthData = MonthData()
                     monthData.lineData = monthItem["lineData"].stringValue
-                    monthData.lineName = monthItem["lineName"].stringValue
+                    monthData.lineName = self.getStringNum(num: monthItem["lineName"].stringValue)
                     alarmAnalysisViewModule.monthData.append(monthData)
                 }
                 //添加日的数据
                 for dayItem in result["data"]["dayData"].arrayValue{
                     var dayData = DayData()
                     dayData.lineData = dayItem["lineData"].stringValue
-                    dayData.lineName = dayItem["lineName"].stringValue
+                    dayData.lineName = self.getStringNum(num: dayItem["lineName"].stringValue)
                     alarmAnalysisViewModule.dayData.append(dayData)
                 }
                 successCall(alarmAnalysisViewModule)
@@ -42,6 +42,14 @@ class AlarmAnalysisViewService : common{
             }
         }) { (error) in
             print(error)
+        }
+    }
+    func getStringNum(num:String)->String{
+        let tempNum = Int(num)
+        if tempNum! < 10{
+            return "0\(num)"
+        }else{
+            return num
         }
     }
 }
