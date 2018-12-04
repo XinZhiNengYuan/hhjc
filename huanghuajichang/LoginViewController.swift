@@ -271,14 +271,13 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     
     //MARK:登录按钮
     @objc func startTouch(_ button:UIButton){
-//        UIView.animate(withDuration: 0.1, animations: {
-//            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 0.5)
-//
-//        }) { (true) in
-//            button.backgroundColor = UIColor(red: 31/255, green: 65/255, blue: 172/255, alpha: 1)
-//
-//        }
-        requestLoginNet()
+        UIView.animate(withDuration: 0.2, animations: {
+            button.layer.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 0.5).cgColor
+        }) { (true) in
+            button.layer.backgroundColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1).cgColor
+            self.requestLoginNet()
+        }
+        
     }
     func requestLoginNet(){
         let username : String = textNameField.text!
