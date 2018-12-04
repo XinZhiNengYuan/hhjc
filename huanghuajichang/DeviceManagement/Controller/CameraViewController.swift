@@ -49,18 +49,24 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     @objc func uploadImgs(){
         if photoListr.count > 0{
-            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
-                if fileId.count > 0{
-                    self.imgIdListStr = self.imgIdListStr + "," + fileId
+            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId,status) in
+                if status == "success"{
+                    if fileId.count > 0{
+                        self.imgIdListStr = self.imgIdListStr + "," + fileId
+                    }
+                    let userId = userDefault.string(forKey: "userId")
+                    let token = userDefault.string(forKey: "userToken")
+                    let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equNo":self.equNo,"files_id":self.imgIdListStr]]
+                    self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
+                        self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
+                    }, errorCall: {
+                        self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
+                    })
+                }else if status == "sign_app_err"{
+                    self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
+                }else{
+                    
                 }
-                let userId = userDefault.string(forKey: "userId")
-                let token = userDefault.string(forKey: "userToken")
-                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equNo":self.equNo,"files_id":self.imgIdListStr]]
-                self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
-                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
-                }, errorCall: {
-                    self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
-                })
             }) {
                 print("错误")
             }

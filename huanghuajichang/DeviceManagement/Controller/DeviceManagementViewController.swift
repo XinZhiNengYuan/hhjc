@@ -48,7 +48,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
 //        userDefault.removeObject(forKey: "DeviceManagementKey")
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId as Any,"token":token as Any]
+        let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId,"token":token]
         deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
             self.resultDataForArr += successData
             self.oneMeanArr += oneMean
@@ -146,7 +146,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     
     @objc func toQC(){
         let addDeviceManagementViewController = AddDeviceManagementViewController()
-        addDeviceManagementViewController.eqCode = "ENN1231231"
+        addDeviceManagementViewController.eqCode = "ENN12312312"
         let navigationView = UINavigationController.init(rootViewController: addDeviceManagementViewController)
         UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等

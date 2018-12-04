@@ -56,6 +56,8 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        
+        (self.userDefault.string(forKey: "AppUrlAndPort") != nil) ? self.userDefault.set(self.userDefault.string(forKey: "AppUrlAndPort"), forKey: "AppUrlAndPort") : self.userDefault.set("10.4.65.103:8086", forKey: "AppUrlAndPort")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }

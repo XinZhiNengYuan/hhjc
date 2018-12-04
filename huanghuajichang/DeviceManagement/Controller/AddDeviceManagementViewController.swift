@@ -438,15 +438,12 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
         if photoListr.count > 0{
-            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId) in
-                let contentData : [String:Any] = ["method":"equipmentedit","user_id": userId as Any,"token": token as Any,"info":["equNo":self.eqCode,"files_id":fileId]]
-                self.cameraViewService.picIdAndEquId(contentData: contentData, successCall: {
+            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId,status) in
+                if status == "success"{
                     self.getCommitData(userId: userId!, token: token!, fileId: fileId)
-                    
-//                    self.present(windowAlert(msges: "上传成功"), animated: true, completion: nil)
-                }, errorCall: {
-                    self.present(windowAlert(msges: "上传失败，请重新上传"), animated: true, completion: nil)
-                })
+                }else if status == "sign_app_err"{
+                    self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
+                }
             }) {
                 print("错误")
             }
@@ -467,6 +464,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let anZhuangRiQi = self.view.viewWithTag(520) as! UILabel
         let bangDingStatus = self.view.viewWithTag(605) as! UILabel
         let youXiaoStatus = self.view.viewWithTag(625) as! UILabel
+        if buildingId == ""{
+            self.present(windowAlert(msges: "请选择楼位置"), animated: false, completion: nil)
+        }
+        if floorId == ""{
+            self.present(windowAlert(msges: "请选择楼层"), animated: false, completion: nil)
+        }
+        if roomId == ""{
+            self.present(windowAlert(msges: "请选择房间号"), animated: false, completion: nil)
+        }
         if oneMeanId == ""{
             self.present(windowAlert(msges: "请选择一级单位"), animated: false, completion: nil)
         }
@@ -496,7 +502,8 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
-        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any]]
+        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId]]]
+        print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
                 self.present(windowAlert(msges: "提交成功"), animated: true, completion: nil)
@@ -792,7 +799,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             if bigType != ""{
                 let tempEquCategorySmallList = addDeviceManagementService.getEquCategorySmallList(categoryId: Int(bigType)!, equCategorySmallList: addDeviceManagementModule.equCategorySmall)
                 for i in 0..<tempEquCategorySmallList.count{
-                    let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].bigType as AnyObject]
+                    let elementDic:[String:AnyObject] = ["typeName":tempEquCategorySmallList[i].cimName as AnyObject,"typeId":tempEquCategorySmallList[i].cimCode as AnyObject]
                     selectorData.append(elementDic)
                     if selectText == tempEquCategorySmallList[i].cimName{
                         selectedIndex = i

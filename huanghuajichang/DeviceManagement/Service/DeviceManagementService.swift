@@ -16,7 +16,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
     //MARK:获取一二级菜单
     var dataList : [DeviceManagementModule] = []
     func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ dataList:Array<DeviceManagementModule>,_ meanList : Array<String>) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
-        super.requestData(urlStr: appUrl, outTime: 60, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var oneMeanList : [String] = []
                 for item in result["data"].arrayValue{

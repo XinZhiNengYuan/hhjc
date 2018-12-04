@@ -13,7 +13,7 @@ import SwiftyJSON
 class CameraViewService : common{
     //图片上传接口
     
-    func upLoadPic(images : [UIImage],finished:@escaping (_ arr:String)->(),finishedError:()->()){
+    func upLoadPic(images : [UIImage],finished:@escaping (_ arr:String,_ status : String)->(),finishedError:()->()){
         var fileIdList : [Int] = []
         super.upload(params: nil, images: images, success: { (success) in
             if success["status"] == "success"{
@@ -31,8 +31,10 @@ class CameraViewService : common{
                         let endIndex = filesIdStr.index(filesIdStr.endIndex,offsetBy:-1)
                         filesIdStr = String(filesIdStr.prefix(upTo: endIndex))
                     }
-                    finished(filesIdStr)
+                    finished(filesIdStr,success["status"].stringValue)
                 }
+            }else if success["status"] == "sign_app_err"{
+                finished("",success["status"].stringValue)
             }
         }) { (error) in
             print(error)
