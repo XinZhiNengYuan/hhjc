@@ -252,14 +252,16 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     //MARK:端口按钮确认键
     @objc fileprivate func touchOk(_ button:UIButton){
-        
-        if popViewController.portText.text != nil && popViewController.portText.text != ""{
-            userDefault.set(popViewController.portText.text, forKey: "AppUrlAndPort")
-            popView.removeFromSuperview()
-        }else{
-            windowAlert(msges: "端口号不能为空！")
+        if (popViewController.ipText.text?.isEmpty)!{
+            windowAlert(msges: "ip不能为空！")
+            return
         }
-        
+        if (popViewController.portText.text?.isEmpty)!{
+            windowAlert(msges: "端口不能为空！")
+            return
+        }
+        userDefault.set("\(popViewController.ipText.text ?? "127.0.0.1"):\(popViewController.portText.text ?? "8080")", forKey: "AppUrlAndPort")
+        popView.removeFromSuperview()
     }
     //MARK:端口按钮取消键
     @objc fileprivate func touchCancel(_ button:UIButton){

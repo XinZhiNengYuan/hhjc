@@ -10,12 +10,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "huanghuajichang/DeviceManagement/Controller/AddDeviceManagementViewController.swift"
-            timestampString = "565598605.348245"
+            timestampString = "565617016.807775"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "442"
             endingLineNumber = "442"
             landmarkName = "uploadImgs()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "huanghuajichang/DeviceManagement/Controller/DeviceManagementViewController.swift"
+            timestampString = "565617016.807851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "requestForData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "huanghuajichang.DeviceManagementViewController.requestForData() -&gt; ()"
+                  moduleName = "huanghuajichang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xinaoshuneng/Desktop/%E6%96%87%E4%BB%B6%E6%A1%8C%E9%9D%A2/productFile/hhjc/huanghuajichang/DeviceManagement/Controller/DeviceManagementViewController.swift"
+                  timestampString = "565612203.9772871"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "1382">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;huanghuajichang.DeviceManagementModule&gt;, Swift.Array&lt;Swift.String&gt;) -&gt; () in huanghuajichang.DeviceManagementViewController.requestForData() -&gt; ()"
+                  moduleName = "huanghuajichang"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xinaoshuneng/Desktop/%E6%96%87%E4%BB%B6%E6%A1%8C%E9%9D%A2/productFile/hhjc/huanghuajichang/DeviceManagement/Controller/DeviceManagementViewController.swift"
+                  timestampString = "565612203.9795851"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "75">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "huanghuajichang/DeviceManagement/Service/DeviceManagementService.swift"
+            timestampString = "565617016.8079031"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "requestDeviceData(urlStr:outTime:contentData:finished:finishedError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "huanghuajichang/DeviceManagement/Service/DeviceManagementService.swift"
+            timestampString = "565617016.8079489"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "requestDeviceData(urlStr:outTime:contentData:finished:finishedError:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

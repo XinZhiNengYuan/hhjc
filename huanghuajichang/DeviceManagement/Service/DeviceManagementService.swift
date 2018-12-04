@@ -15,8 +15,8 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
     
     //MARK:获取一二级菜单
     var dataList : [DeviceManagementModule] = []
-    func getData(contentData : Dictionary<String,Any>,finished:@escaping (_ dataList:Array<DeviceManagementModule>,_ meanList : Array<String>) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
-        super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
+    func getData(contentData : Dictionary<String,String>,finished:@escaping (_ dataList:Array<DeviceManagementModule>,_ meanList : Array<String>) -> (),finishedError:@escaping (_ errorData: Error) -> ()){
+        requestDeviceData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var oneMeanList : [String] = []
                 for item in result["data"].arrayValue{
@@ -57,7 +57,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
     
     //MARK:获取设备列表
     func getDeviceListData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:[DeviceManagementContentListDiyModule])->(),finishedError:@escaping(_ errorData : Error)->()){
-        super.requestData(urlStr: appUrl, outTime: 60, contentData: contentData, finished: { (result) in
+        super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var contentListDiyData : [DeviceManagementContentListDiyModule] = []
                 for item in result["data"]["resultData"].arrayValue{
@@ -153,5 +153,35 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
             print(error)
             finishedError(error)
         }
+    }
+    
+    func requestDeviceData(urlStr : String,outTime : Double , contentData : Dictionary<String, String>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){
+        MyProgressHUD.showStatusInfo("加载中...")
+        //网络请求
+        let headers: HTTPHeaders = [
+            "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
+            "Accept": "application/json"
+        ]
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = outTime
+        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        print(contentData)
+        print(urlStr)
+        sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
+            
+            switch resultData.result {
+            case .success(let value):
+                let json = JSON(value)
+                MyProgressHUD.dismiss()
+                finished(json)
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                finishedError(error)
+                return
+                
+            }
+            
+            }.session.finishTasksAndInvalidate()
+        
     }
 }

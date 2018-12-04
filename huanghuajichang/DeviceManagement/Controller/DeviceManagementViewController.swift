@@ -48,7 +48,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
 //        userDefault.removeObject(forKey: "DeviceManagementKey")
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String : Any] = ["method":"getEquTreeList","info":"","user_id":userId,"token":token]
+        let contentData : [String : String] = ["method":"getEquTreeList","info":"","user_id":userId!,"token":token!]
         deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
             self.resultDataForArr += successData
             self.oneMeanArr += oneMean
