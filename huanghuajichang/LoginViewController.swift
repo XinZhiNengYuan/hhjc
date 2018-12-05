@@ -152,14 +152,9 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         contentView.addSubview(inputView)
         
         let flagPassView = UIView(frame: CGRect(x: 40, y: UIScreen.main.bounds.height*2/5+120, width: 150, height: 20))
-        flagButton.frame =  CGRect(x: 0, y: 2.5, width: 15, height: 15)
-        let reminder = UILabel(frame: CGRect(x: 20, y: 0, width: 100, height: 20))
-        reminder.text = String("记住密码")
-        reminder.font = UIFont.boldSystemFont(ofSize: 15)
-        reminder.textAlignment = .left
-        reminder.textColor = UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1)
-        flagPassView.addSubview(reminder)
-//        flagButton.setImage(UIImage(named: "定位"), for: UIControlState.highlighted)
+        flagButton.frame =  CGRect(x: 0, y: 2.5, width: 120, height: 15)
+        flagButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        flagButton.setTitleColor(UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1), for: UIControlState.normal)
         flagButton.addTarget(self, action: #selector(LoginViewController.buttonStatus), for: UIControlEvents.touchUpInside)
         flagPassView.addSubview(flagButton)
         contentView.addSubview(flagPassView)
@@ -195,11 +190,11 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let name1 = self.userDefault.string(forKey: "name")
         textNameField.text = (name1 != nil) ? name1 : ""
         if flageStatus{//选中状态
-            flagButton.setImage(UIImage(named: "复选2"), for: UIControlState.normal)
+            flagButton.set(image: UIImage(named: "复选2"), title: "记住密码", titlePosition: UIViewContentMode.right, additionalSpacing: 15, state: UIControlState.normal)
             let Value = self.userDefault.string(forKey: "password")
             textPassField.text = (Value != nil) ? Value : ""
         }else{//没有选中状态
-            flagButton.setImage(UIImage(named: "复选1"), for: UIControlState.normal)
+            flagButton.set(image: UIImage(named: "复选1"), title: "记住密码", titlePosition: UIViewContentMode.right, additionalSpacing: 15, state: UIControlState.normal)
         }
         //MARK:设置端口按钮事件
         popViewController.ok.addTarget(self, action: #selector(touchOk), for: UIControlEvents.touchUpInside)
