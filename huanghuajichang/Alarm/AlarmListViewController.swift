@@ -25,6 +25,8 @@ class AlarmListViewController: AddNavViewController {
     var clickedBtnTag:Int!
     
     var selectorData:[[String:AnyObject]] = []
+    var equitSelectorData:[[String:AnyObject]] = []
+    var typeSelectorData:[[String:AnyObject]] = []
     
     var userDefault = UserDefaults.standard
     var userToken:String!
@@ -53,14 +55,14 @@ class AlarmListViewController: AddNavViewController {
     func createUI(){
         leftSelect = UIButton.init(frame: CGRect(x: 0, y: 0, width: (kScreenWidth-1)/2, height: 40))
         leftSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        leftSelect.set(image: UIImage(named: "下拉"), title: self.alarmEquipmentListData[0]["text"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
+        leftSelect.set(image: UIImage(named: "下拉"), title: self.equitSelectorData[0]["typeName"]?.description ?? "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         leftSelect.tag = 3001
         leftSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(leftSelect)
         
         rightSelect = UIButton.init(frame: CGRect(x: (kScreenWidth-1)/2+1, y: 0, width: (kScreenWidth-1)/2, height: 40))
         rightSelect.setTitleColor(UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1), for: UIControlState.normal)
-        rightSelect.set(image: UIImage(named: "下拉"), title: self.alarmTypeListData[0]["name"].stringValue, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
+        rightSelect.set(image: UIImage(named: "下拉"), title: self.typeSelectorData[0]["typeName"]?.description ?? "", titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         rightSelect.tag = 3002
         rightSelect.addTarget(self, action: #selector(customSelector(sender:)), for: UIControlEvents.touchUpInside)
         self.view.addSubview(rightSelect)
@@ -151,6 +153,7 @@ class AlarmListViewController: AddNavViewController {
     
     ///获取报警单位列表数据
     @objc func getAlarmEquipmentListData() {
+        MyProgressHUD.showStatusInfo("加载中...")
         let contentData : [String : Any] = ["method":"getEquTreeList","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
 //            print(resultData)
@@ -159,7 +162,15 @@ class AlarmListViewController: AddNavViewController {
                 if JSON(value)["status"].stringValue == "success"{
                     self.alarmEquipmentListData = JSON(value)["data"]
                     //                    self.recordTableView.reloadData()
-                    self.selectedEquipmentId = self.alarmEquipmentListData[0]["id"].stringValue
+                    
+                    let AllElementDic:[String:AnyObject] = ["typeName":"全部" as AnyObject,"typeId":"allItem" as AnyObject]
+                    self.equitSelectorData.append(AllElementDic)
+                    
+                    for i in self.alarmEquipmentListData.enumerated(){
+                        let elementDic:[String:AnyObject] = ["typeName":self.alarmEquipmentListData[i.offset]["text"].stringValue as AnyObject,"typeId":self.alarmEquipmentListData[i.offset]["id"].stringValue as AnyObject]
+                        self.equitSelectorData.append(elementDic)
+                    }
+                    self.selectedEquipmentId = self.equitSelectorData[0]["typeId"] as? String
                     self.getAlarmTypeListData()
                     MyProgressHUD.dismiss()
                 }else{
@@ -184,7 +195,13 @@ class AlarmListViewController: AddNavViewController {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.alarmTypeListData = JSON(value)["data"]
-                    self.selectedTypeId = self.alarmTypeListData[0]["value"].stringValue
+                    let AllElementDic:[String:AnyObject] = ["typeName":"全部" as AnyObject,"typeId":"allItem" as AnyObject]
+                    self.typeSelectorData.append(AllElementDic)
+                    for i in self.alarmTypeListData.enumerated(){
+                        let elementDic:[String:AnyObject] = ["typeName":self.alarmTypeListData[i.offset]["name"].stringValue as AnyObject,"typeId":self.alarmTypeListData[i.offset]["value"].stringValue as AnyObject]
+                        self.typeSelectorData.append(elementDic)
+                    }
+                    self.selectedTypeId = self.typeSelectorData[0]["typeId"] as? String
                     self.createUI()
                     self.getAlarmListData(alarmOrganizationId:self.selectedEquipmentId ,alarmType:self.selectedTypeId)
                     MyProgressHUD.dismiss()
@@ -203,7 +220,15 @@ class AlarmListViewController: AddNavViewController {
     
     ///获取报警列表数据
     @objc func getAlarmListData(alarmOrganizationId:String,alarmType:String) {
-        let infoData = ["organizationId":alarmOrganizationId,"alarmType":alarmType,"start":pageStart,"length":pageSize] as [String : Any]
+        var postOrganizationId:AnyObject = alarmOrganizationId as AnyObject
+        var postAlarmType:AnyObject = alarmType as AnyObject
+        if alarmOrganizationId == "allItem"{
+            postOrganizationId = NSNull()
+        }
+        if alarmType == "allItem"{
+            postAlarmType = NSNull()
+        }
+        let infoData = ["organizationId":postOrganizationId,"alarmType":postAlarmType,"start":pageStart,"length":pageSize] as [String : Any]
         let contentData : [String : Any] = ["method":"getAlarmList","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
 //            print(resultData)
@@ -235,18 +260,16 @@ class AlarmListViewController: AddNavViewController {
         let selectText = selectBtn.title(for: UIControlState.normal)
         switch clickedBtnTag {
         case 3001:
-            for i in self.alarmEquipmentListData.enumerated(){
-                let elementDic:[String:AnyObject] = ["typeName":self.alarmEquipmentListData[i.offset]["text"].stringValue as AnyObject,"typeId":self.alarmEquipmentListData[i.offset]["id"].stringValue as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == self.alarmEquipmentListData[i.offset]["text"].stringValue{
+            selectorData = self.equitSelectorData
+            for i in self.equitSelectorData.enumerated(){
+                if selectText == self.equitSelectorData[i.offset]["typeName"]?.description{
                     selectedIndex = i.offset
                 }
             }
         default:
-            for i in self.alarmTypeListData.enumerated(){
-                let elementDic:[String:AnyObject] = ["typeName":self.alarmTypeListData[i.offset]["name"].stringValue as AnyObject,"typeId":self.alarmTypeListData[i.offset]["value"].stringValue as AnyObject]
-                selectorData.append(elementDic)
-                if selectText == self.alarmTypeListData[i.offset]["name"].stringValue{
+            selectorData = self.typeSelectorData
+            for i in self.typeSelectorData.enumerated(){
+                if selectText == self.typeSelectorData[i.offset]["typeName"]?.description{
                     selectedIndex = i.offset
                 }
             }
@@ -264,18 +287,21 @@ class AlarmListViewController: AddNavViewController {
     @objc func doneButtonAction(){
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
-        let selectText = selectorData[selectIndex]["typeName"]?.description
+        var selectText:String?
+        
+        switch clickedBtnTag {
+        case 3001:
+            selectedEquipmentId = equitSelectorData[selectIndex]["typeId"]?.description
+            selectText = equitSelectorData[selectIndex]["typeName"]?.description
+        default:
+            selectedTypeId = typeSelectorData[selectIndex]["typeId"]?.description
+            selectText = typeSelectorData[selectIndex]["typeName"]?.description
+        }
         selectBtn.set(image: UIImage(named: "下拉"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 5, state: UIControlState.normal)
         
         selectorView.isHidden = true
         
         pageStart = 0
-        switch clickedBtnTag {
-        case 3001:
-            selectedEquipmentId = selectorData[selectIndex]["typeId"]?.description
-        default:
-            selectedTypeId = selectorData[selectIndex]["typeId"]?.description
-        }
         getAlarmListData(alarmOrganizationId: selectedEquipmentId, alarmType: selectedTypeId)
     }
     /*
