@@ -18,7 +18,7 @@ class NewDeviceListViewController: AddNavViewController {
     
     var ss:Bool = false
     let newDeviceList:UITableView = UITableView()
-    var statusArrOfContent : NSMutableArray = [false, true, false]
+    var statusArrOfContent : NSMutableArray = [true]
     var oneMeanArr : [NewEquipmentListModel] = []
     
     //存储最后选中的行（包括菜单和清单主页）
@@ -51,31 +51,33 @@ class NewDeviceListViewController: AddNavViewController {
         MyProgressHUD.showStatusInfo("数据加载中...")
         let contentData : [String : Any] = ["method":"getCurrentMonthEquipmentList","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-//                        print(resultData)
+            //                        print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.allListData = JSON(value)["data"]["resultData"]
                     print(self.allListData)
-                    for equitCategory in self.allListData.enumerated(){
-                        var childs:[[String:AnyObject]] = []
-                        childs.append(self.allListData[equitCategory.offset].dictionary! as Dictionary<String, AnyObject>)
+                    var childs:[[String:AnyObject]] = []
+                    for equitItem in self.allListData.enumerated(){
                         
-                        let equitParentCategoryModel = NewEquipmentListModel(equCategory: self.allListData[equitCategory.offset]["equCategorySmall"].stringValue, categoryName: self.allListData[equitCategory.offset]["categoryNameSmall"].stringValue, childsNum: 1, childs: childs)
+                        childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
+                        
+                        let equitParentCategoryModel = NewEquipmentListModel(equCategory: self.allListData[equitItem.offset]["equCategorySmall"].stringValue, categoryName: self.allListData[equitItem.offset]["categoryNameSmall"].stringValue, childsNum: 1, childs: childs)
                         
                         var hasParent = false
                         if self.oneMeanArr != []{
                             for haveEquitCategory in self.oneMeanArr.enumerated(){
-                                if self.oneMeanArr[haveEquitCategory.offset].equCategory == self.allListData[equitCategory.offset]["equCategorySmall"].stringValue {
+                                if self.oneMeanArr[haveEquitCategory.offset].equCategory == self.allListData[equitItem.offset]["equCategorySmall"].stringValue {
                                     hasParent = true
-                                    self.oneMeanArr[haveEquitCategory.offset].childs.append(self.allListData[equitCategory.offset].dictionary! as Dictionary<String, AnyObject>)
-                                    self.oneMeanArr[haveEquitCategory.offset].childsNum = equitParentCategoryModel.childsNum+1
+                                    self.oneMeanArr[haveEquitCategory.offset].childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
+                                    self.oneMeanArr[haveEquitCategory.offset].childsNum = self.oneMeanArr[haveEquitCategory.offset].childsNum+1
                                 }else{
-                                    hasParent = false
+                                    childs = []
                                 }
                             }
                         }else{
                             hasParent = false
+                            childs = []
                         }
                         
                         if !hasParent {
@@ -83,6 +85,11 @@ class NewDeviceListViewController: AddNavViewController {
                         }
                     }
                     print(self.oneMeanArr)
+                    for i in self.oneMeanArr.enumerated(){
+                        if i.offset != 0 {
+                            self.statusArrOfContent.add(false)
+                        }
+                    }
                     self.newDeviceList.reloadData()
                     //刷新页面数据
                     MyProgressHUD.dismiss()
@@ -104,15 +111,15 @@ class NewDeviceListViewController: AddNavViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView:UITableView) ->Int {
@@ -144,65 +151,65 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
-            view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
-            view.tag = section + 2000
+        view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
+        view.tag = section + 2000
         
-            view.isSelected = self.statusArrOfContent[section] as! Bool
+        view.isSelected = self.statusArrOfContent[section] as! Bool
         
-            view.callBack = {(index : Int,isSelected : Bool) in
-                let i = index - 2000
-                //设置选中状态
-                if view.isSelected{
-                    view.rightPic.image = UIImage(named: "展开")
-                    self.statusArrOfContent[i] = false
-                }else{
-                    view.rightPic.image = UIImage(named: "收起")
-
-                    for j in 0..<self.statusArrOfContent.count{//设置主页为只有一个是选中的状态，其他的为非选中状态
-                        if(j != i){
-                            self.statusArrOfContent[j] = false
-                        }else{
-                            //选中时i==j
-                            self.statusArrOfContent[j] = true
-                            self.meanAndContentLog["contentLog"]!["one"] = j
-                            self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
-                        }
+        view.callBack = {(index : Int,isSelected : Bool) in
+            let i = index - 2000
+            //设置选中状态
+            if view.isSelected{
+                view.rightPic.image = UIImage(named: "展开")
+                self.statusArrOfContent[i] = false
+            }else{
+                view.rightPic.image = UIImage(named: "收起")
+                
+                for j in 0..<self.statusArrOfContent.count{//设置主页为只有一个是选中的状态，其他的为非选中状态
+                    if(j != i){
+                        self.statusArrOfContent[j] = false
+                    }else{
+                        //选中时i==j
+                        self.statusArrOfContent[j] = true
+                        self.meanAndContentLog["contentLog"]!["one"] = j
+                        self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
                     }
                 }
-
-                self.newDeviceList.reloadData()
             }
-            if oneMeanArr != []{
-                view.mLabel.text = oneMeanArr[section].categoryName
-                view.mNum.text = oneMeanArr[section].childsNum.description
-            }
-            return view
+            
+            self.newDeviceList.reloadData()
+        }
+        if oneMeanArr != []{
+            view.mLabel.text = oneMeanArr[section].categoryName
+            view.mNum.text = oneMeanArr[section].childsNum.description
+        }
+        return view
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-            let identifier = "reusedCell2"
-            var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellFore
-            if cell == nil{
-                cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
-            }
-            let rowNum = indexPath.row
-            let sectionNum = indexPath.section
-            let cellData = oneMeanArr[sectionNum].childs[rowNum]
-            cell?.topLeft.text = cellData["equName"]?.description //listForArr[rowNum]["deviceName"]
-            cell?.topRight.text = cellData["specification"]?.description
-            let topLeftWidth = (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20))
-            cell?.topLeft.frame = CGRect(x: 20, y: 10, width: topLeftWidth!, height: 20)
+        let identifier = "reusedCell2"
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellFore
+        if cell == nil{
+            cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+        }
+        let rowNum = indexPath.row
+        let sectionNum = indexPath.section
+        let cellData = oneMeanArr[sectionNum].childs[rowNum]
+        cell?.topLeft.text = cellData["equName"]?.description //listForArr[rowNum]["deviceName"]
+        cell?.topRight.text = cellData["specification"]?.description
+        let topLeftWidth = (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topLeft.getLabelWidth(str: cellData["equName"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20))
+        cell?.topLeft.frame = CGRect(x: 20, y: 10, width: topLeftWidth!, height: 20)
         
-            let topRightWdith = (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50) + 10.0
-            cell?.topRight.frame = CGRect(x: 30 + topLeftWidth!, y: 10, width: topRightWdith, height: 20)
-            cell?.midelLeft.text = "额定功率"
-            cell?.midelCenter.text = cellData["power"]?.description
-            cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!
+        let topRightWdith = (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50) + 10.0
+        cell?.topRight.frame = CGRect(x: 30 + topLeftWidth!, y: 10, width: topRightWdith, height: 20)
+        cell?.midelLeft.text = "额定功率"
+        cell?.midelCenter.text = cellData["power"]?.description
+        cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!
         
-            return cell!
+        return cell!
         
     }
     //tableView点击事件

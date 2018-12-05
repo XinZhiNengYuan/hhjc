@@ -37,7 +37,8 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     ///负荷曲线
     let fuheLineChartView = LineChartView()
     
-    var lineCircleColors:[UIColor]!=[]
+    var electricLineCircleColors:[UIColor]!=[]
+    var fuheLineCircleColors:[UIColor]!=[]
     
     var rightBarButtonItem:UIBarButtonItem?
     
@@ -47,9 +48,9 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         super.viewDidLoad()
         self.title = "智慧能源管理系统"
         self.navigationController?.title = "首页"
-//         rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(getNewMsg(sender:)))
-//        rightBarButtonItem?.tintColor = UIColor.white//必须设置颜色，不然不出现～
-//        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        //         rightBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "报警"), style: UIBarButtonItemStyle.done, target: self, action: #selector(getNewMsg(sender:)))
+        //        rightBarButtonItem?.tintColor = UIColor.white//必须设置颜色，不然不出现～
+        //        self.navigationItem.rightBarButtonItem = rightBarButtonItem
         rightBarButton = UIButton.init()
         rightBarButton.setImage(UIImage(named: "报警"), for: UIControlState.normal)
         rightBarButton.tintColor = UIColor.white
@@ -68,7 +69,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         createMiddleTab()
         currentNew()
         getCurrentNew()
-//        getElectricControl()
+        //        getElectricControl()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,7 +86,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
-//                    print(JSON(value)["data"])
+                    //                    print(JSON(value)["data"])
                     self.userDefault.set(JSON(value)["data"]["maxAlarmId"].intValue, forKey: "maxId")
                     //刷新页面数据
                     if JSON(value)["data"]["newAlarmCount"].intValue > 0{
@@ -203,16 +204,16 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         //设置代理
         scrollView.delegate = self
         middleView.addSubview(scrollView)
-//        let colors:[UIColor] = [UIColor.red,UIColor.orange,UIColor.yellow]
+        //        let colors:[UIColor] = [UIColor.red,UIColor.orange,UIColor.yellow]
         for i in 0..<3 {
-//            let tmpView:UIView = UIView(frame: CGRect(x:kScreenWidth * CGFloat(i), y:0, width:kScreenWidth, height:scrollView.frame.height))
-//            tmpView.backgroundColor = colors[i]
-//            scrollView.addSubview(tmpView)
+            //            let tmpView:UIView = UIView(frame: CGRect(x:kScreenWidth * CGFloat(i), y:0, width:kScreenWidth, height:scrollView.frame.height))
+            //            tmpView.backgroundColor = colors[i]
+            //            scrollView.addSubview(tmpView)
             if i == 0 {
                 test3()
-            }else if i==1 {
+            }else if i==1 {//电量曲线
                 test2(lineChartView:electricLineChartView, originX: i)
-            }else{
+            }else{//负荷曲线
                 test2(lineChartView:fuheLineChartView, originX: i)
             }
         }
@@ -277,12 +278,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         MyProgressHUD.showStatusInfo("数据加载中...")
         let contentData : [String : Any] = ["method":"getEquipmentRunData","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-//            print(resultData)
+            //            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.mainEchartsData = JSON(value)["data"]
-//                    print(self.mainEchartsData)
+                    //                    print(self.mainEchartsData)
                     self.drawPieChartView()
                     self.drawLineViewData(lineChartView:self.electricLineChartView, originX:1)
                     self.drawLineViewData(lineChartView:self.fuheLineChartView, originX:2)
@@ -310,7 +311,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         MyProgressHUD.showStatusInfo("数据加载中...")
         let contentData : [String : Any] = ["method":"getEquipmentDetail","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-//            print(resultData)
+            //            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -348,7 +349,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         self.present(childNavName, animated: true, completion: nil)
         self.hidesBottomBarWhenPushed = false
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -357,9 +358,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     func test2(lineChartView:LineChartView, originX:Int)
     {
         
-        lineChartView.frame = CGRect(x: CGFloat(originX)*kScreenWidth + 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
+        lineChartView.frame = CGRect(x: CGFloat(originX)*kScreenWidth + 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height-10)
         scrollView.addSubview(lineChartView)
         lineChartView.delegate = self
+        lineChartView.tag = 4000 + originX
         
         lineChartView.backgroundColor = UIColor.white//(red: 13/255.0, green: 21/255.0, blue: 40/255.0, alpha: 1)
         lineChartView.noDataText = "暂无数据"
@@ -370,13 +372,13 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         lineChartView.dragEnabled = true //启用拖动手势
         lineChartView.dragDecelerationEnabled = true //拖拽后是否有惯性效果
         lineChartView.dragDecelerationFrictionCoef = 0.9  //拖拽后惯性效果的摩擦系数(0~1)，数值越小，惯性越不明显
-        lineChartView.extraTopOffset = 15 //正常规划的视图添加的距上边距
+        lineChartView.extraTopOffset = 25 //正常规划的视图添加的距上边距
         
         //设置X轴样式
         let xAxis = lineChartView.xAxis
         xAxis.axisLineWidth = 1.0/UIScreen.main.scale //设置X轴线宽
         xAxis.labelPosition = .bottom //X轴的显示位置，默认是显示在上面的
-        xAxis.drawGridLinesEnabled = true;//绘制网格线
+        xAxis.drawGridLinesEnabled = false;//绘制网格线
         xAxis.gridColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)//网格线颜色
         xAxis.spaceMin = 4;//设置label间隔
         xAxis.axisMinimum = 0
@@ -387,14 +389,14 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         lineChartView.rightAxis.enabled = true  //绘制右边轴
         lineChartView.rightAxis.drawLabelsEnabled = false //不显示右边轴文本
         let leftAxis = lineChartView.leftAxis
-        leftAxis.labelCount = 16 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
+        //leftAxis.labelCount = 10 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
         leftAxis.forceLabelsEnabled = false //不强制绘制指定数量的label
         leftAxis.axisMinimum = 0 //设置Y轴的最小值
         leftAxis.drawZeroLineEnabled = true //从0开始绘制
         //leftAxis.axisMaximum = 1000 //设置Y轴的最大值
         leftAxis.inverted = false //是否将Y轴进行上下翻转
         leftAxis.axisLineWidth = 1.0/UIScreen.main.scale //设置Y轴线宽
-//        leftAxis.axisLineColor = UIColor(white: 1, alpha: 0.1605)//Y轴颜色
+        //        leftAxis.axisLineColor = UIColor(white: 1, alpha: 0.1605)//Y轴颜色
         //leftAxis.valueFormatter = NumberFormatter()//自定义格式
         //leftAxis.s  //数字后缀单位
         leftAxis.labelPosition = .outsideChart//label位置
@@ -402,7 +404,8 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         leftAxis.labelFont = UIFont.systemFont(ofSize: 10)//文字字体
         
         //设置y网格样式
-//        leftAxis.gridLineDashLengths = [3.0,3.0]  //设置虚线样式的网格线
+        //        leftAxis.gridLineDashLengths = [3.0,3.0]  //设置虚线样式的网格线
+        leftAxis.drawGridLinesEnabled = false
         leftAxis.gridColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1) //网格线颜色
         leftAxis.gridAntialiasEnabled = true //开启抗锯齿
         
@@ -415,17 +418,18 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         litmitLine.labelPosition = .rightTop  // 限制线位置
         litmitLine.valueTextColor = UIColor.brown
         litmitLine.valueFont = UIFont.systemFont(ofSize: 12)
-        leftAxis.addLimitLine(litmitLine)
         leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在折线图的后面
+        //        leftAxis.addLimitLine(litmitLine)
         
         //设置折线图描述及图例样式
         lineChartView.chartDescription?.text = "(kWh)" //折线图描述
         lineChartView.chartDescription?.position = CGPoint(x: 32, y: 7)
         lineChartView.chartDescription?.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)  //描述字体颜色
         lineChartView.chartDescription?.font = NSUIFont.systemFont(ofSize: 10.0)
-        lineChartView.legend.form = .line  // 图例的样式
-        lineChartView.legend.formSize = 20  //图例中线条的长度
-        lineChartView.legend.textColor = UIColor.darkGray
+        lineChartView.legend.enabled = false//设置是否显示legend
+        //        lineChartView.legend.form = .line  // 图例的样式
+        //        lineChartView.legend.formSize = 20  //图例中线条的长度
+        //        lineChartView.legend.textColor = UIColor.darkGray
     }
     
     ///折线图加载数据
@@ -443,17 +447,17 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         var newxValues:[String] = []
         for xValue in lineValues.enumerated(){
-            let newValue = lineValues[xValue.offset]["lineName"].stringValue.components(separatedBy: " ")[0]
+            let newValue = lineValues[xValue.offset]["lineName"].stringValue.components(separatedBy: " ")[0].components(separatedBy: "-")[2] + "日"
             newxValues.append(newValue)
         }
         //        lineChartView.xAxis.valueFormatter = KMChartAxisValueFormatter.init(xValues as NSArray)
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: newxValues)
         //ineChartView.xAxis.labelCount = 12
         //lineChartView.leftAxis.valueFormatter = KMChartAxisValueFormatter.init()
-//        let leftValueFormatter = NumberFormatter()  //自定义格式
-//        leftValueFormatter.positiveSuffix = "亿"  //数字后缀单位
-//
-//        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
+        //        let leftValueFormatter = NumberFormatter()  //自定义格式
+        //        leftValueFormatter.positiveSuffix = "亿"  //数字后缀单位
+        //
+        //        lineChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftValueFormatter)
         
         //曲线1
         var yDataArray1 = [ChartDataEntry]()
@@ -462,19 +466,27 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
             let entry = ChartDataEntry.init(x: Double(i), y: Double(y) ?? 0.00)
             
             yDataArray1.append(entry)
-            
-            lineCircleColors.append(originalColor)
+            if originX == 1{
+                electricLineCircleColors.append(originalColor)
+            }else{
+                fuheLineCircleColors.append(originalColor)
+            }
         }
         
         let set1 = LineChartDataSet.init(values: yDataArray1, label: "test1")
         set1.colors = [originalColor]
         set1.drawCirclesEnabled = true //是否绘制转折点
         //set1.setCircleColor(UIColor(red: 59/255, green: 169/255, blue: 255/255, alpha: 1))//转折点圆圈的颜色
-        set1.circleColors = lineCircleColors//为选中点变色做准备
+        //为选中点变色做准备
+        if originX == 1{
+            set1.circleColors = electricLineCircleColors
+        }else{
+            set1.circleColors = fuheLineCircleColors
+        }
         set1.circleHoleColor = UIColor.white //转折点内部的颜色
         set1.lineWidth = 1
-        set1.circleRadius = 5//外圆半径
-        set1.circleHoleRadius = 4//内圆半径
+        set1.circleRadius = 3.0//外圆半径
+        set1.circleHoleRadius = 2.0//内圆半径
         set1.mode = .cubicBezier  //设置曲线是否平滑
         set1.drawValuesEnabled = false //设置是否显示折线上的数据
         //开启填充色绘制
@@ -512,8 +524,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         //图表最多显示10个点
         lineChartView.setVisibleXRangeMaximum(10)
+        lineChartView.setScaleMinima(1, scaleY: 1)
         //默认显示最一个数据
-        lineChartView.moveViewToX(99)
+        lineChartView.moveViewToX(0)
+        lineChartView.notifyDataSetChanged()//根据数据变化等，重绘视图
     }
     
     //点选中时的标注
@@ -541,7 +555,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
         let values = chartDataSet.values
         let index = values.index(where: {$0.x == highlight.x})  //获取索引
-        chartDataSet.circleColors = lineCircleColors //还原
+        
+        if chartView.tag == 4001 {
+            chartDataSet.circleColors = electricLineCircleColors //还原
+        }else{
+            chartDataSet.circleColors = fuheLineCircleColors //还原
+        }
         chartDataSet.circleColors[index!] = .orange
         
         //重新渲染表格
@@ -556,7 +575,11 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         //还原所有点的颜色
         var chartDataSet = LineChartDataSet()
         chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
-        chartDataSet.circleColors = lineCircleColors
+        if chartView.tag == 4001 {
+            chartDataSet.circleColors = electricLineCircleColors //还原
+        }else{
+            chartDataSet.circleColors = fuheLineCircleColors //还原
+        }
         
         //重新渲染表格
         chartView.data?.notifyDataChanged()
@@ -568,12 +591,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     {
         pieChartView.frame = CGRect(x: 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
         scrollView.addSubview(pieChartView)
-//        pieChartView.backgroundColor = UIColor.init(red: 230/255, green: 253/255.0, blue: 253/255.0, alpha: 1)
+        //        pieChartView.backgroundColor = UIColor.init(red: 230/255, green: 253/255.0, blue: 253/255.0, alpha: 1)
         pieChartView.setExtraOffsets(left: 20, top: 10, right: 20, bottom: 10)  //设置这块饼的位置
         
-//        pieChartView.chartDescription?.text = "饼状图示例" //描述文字
-//        pieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 12)
-//        pieChartView.chartDescription?.textColor = UIColor.black
+        //        pieChartView.chartDescription?.text = "饼状图示例" //描述文字
+        //        pieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 12)
+        //        pieChartView.chartDescription?.textColor = UIColor.black
         
         pieChartView.usePercentValuesEnabled = true  //是否根据所提供的数据, 将显示数据转换为百分比格式
         //pieChartView.dragDecelerationEnabled = false //把拖拽效果关了
@@ -585,10 +608,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         pieChartView.drawHoleEnabled = true  //这个饼是空心的
         pieChartView.holeRadiusPercent = 0.6  //空心半径黄金比例
         pieChartView.holeColor = UIColor.white //空心颜色设置为白色
-//        pieChartView.transparentCircleRadiusPercent = 0.75  //半透明空心半径
+        //        pieChartView.transparentCircleRadiusPercent = 0.75  //半透明空心半径
         
-//        pieChartView.drawCenterTextEnabled = true //显示中心文本
-//        pieChartView.centerText = "饼状图"  //设置中心文本,你也可以设置富文本`centerAttributedText`
+        //        pieChartView.drawCenterTextEnabled = true //显示中心文本
+        //        pieChartView.centerText = "饼状图"  //设置中心文本,你也可以设置富文本`centerAttributedText`
         
         //图例样式设置
         pieChartView.legend.maxSizePercent = 1  //图例的占比
@@ -649,15 +672,15 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -777,7 +800,7 @@ extension IndexTabViewController:LineButtonDelagate{
 extension UIImage{
     /// 更改图片颜色
     public func imageWithTintColor(color : UIColor, blendMode:CGBlendMode) -> UIImage{
-//        UIGraphicsBeginImageContext(self.size)
+        //        UIGraphicsBeginImageContext(self.size)
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
         color.setFill()
         let bounds = CGRect.init(x: 0, y: 0, width: self.size.width, height: self.size.height)

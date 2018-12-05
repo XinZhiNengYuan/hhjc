@@ -93,9 +93,9 @@
             timestampString = "565672480.116173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "requestDeviceData(urlStr:outTime:contentData:finished:finishedError:)"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "getAlarmTypeListData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
