@@ -138,41 +138,46 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         scrollView.addSubview(barChartView)
         
         //基本样式
-        self.barChartView.backgroundColor = UIColor(red: 230/255, green: 253/255, blue: 253/255, alpha: 1)
+        self.barChartView.backgroundColor = UIColor.white
         self.barChartView.noDataText = "暂无数据"//没有数据时的文字提示
         self.barChartView.drawValueAboveBarEnabled = true//数值显示在柱形的上面还是下面
 //        self.barChartView.drawHighlightArrowEnabled = false;//点击柱形图是否显示箭头
         self.barChartView.drawBarShadowEnabled = false//是否绘制柱形的阴影背景
-        
         //交互设置
-        self.barChartView.scaleYEnabled = true//取消Y轴缩放
-        self.barChartView.doubleTapToZoomEnabled = false//取消双击缩放
-        self.barChartView.dragEnabled = true//启用拖拽图表
+        self.barChartView.autoScaleMinMaxEnabled = true
+        self.barChartView.scaleXEnabled = true //允取消X轴缩放
+        self.barChartView.scaleYEnabled = true //取消Y轴缩放
+        self.barChartView.doubleTapToZoomEnabled = false //双击缩放
+        self.barChartView.dragEnabled = false//启用拖拽图表
         self.barChartView.dragDecelerationEnabled = true//拖拽后是否有惯性效果
         self.barChartView.dragDecelerationFrictionCoef = 0.9//拖拽后惯性效果的摩擦系数(0~1)，数值越小，惯性越不明显
-        
+        self.barChartView.setVisibleXRangeMaximum(10) //可视区域
+        self.barChartView.setScaleMinima(1, scaleY: 1)
+        self.barChartView.moveViewToX(0) //可视区域从0开始
         //X轴样式
         let xAxis = self.barChartView.xAxis
         xAxis.axisLineWidth = 1;//设置X轴线宽
         xAxis.labelPosition = .bottom  //X轴的显示位置，默认是显示在上面的
-        xAxis.drawGridLinesEnabled = true   //不绘制网格线
+        xAxis.drawGridLinesEnabled = false   //不绘制网格线
+        xAxis.drawAxisLineEnabled = false
 //        xAxis.labelWidth = 4;//设置label间隔，若设置为1，则如果能全部显示，则每个柱形下面都会显示label
         xAxis.labelTextColor = UIColor(red: 176/255, green: 180/255, blue: 187/255, alpha: 1) //label文字颜色
         
         //右边Y轴样式
         self.barChartView.rightAxis.enabled = false;//不绘制右边轴
-        
+        self.barChartView.leftAxis.enabled = true
         //左边Y轴样式
         let leftAxis = self.barChartView.leftAxis//获取左边Y轴
-        leftAxis.labelCount = 5 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
+        leftAxis.labelCount = 10 //Y轴label数量，数值不一定，如果forceLabelsEnabled等于YES, 则强制绘制制定数量的label, 但是可能不平均
         leftAxis.forceLabelsEnabled = false //不强制绘制制定数量的label
 //        leftAxis.showOnlyMinMaxEnabled = false //是否只显示最大值和最小值
         leftAxis.axisMinimum = 0;//设置Y轴的最小值
-        leftAxis.drawZeroLineEnabled = true;//从0开始绘制
-        leftAxis.axisMaximum = 4000;//设置Y轴的最大值
-        leftAxis.inverted = false;//是否将Y轴进行上下翻转
-        leftAxis.axisLineWidth = 0.5;//Y轴线宽
-        leftAxis.axisLineColor = UIColor.gray;//Y轴颜色
+        leftAxis.drawAxisLineEnabled = true
+        leftAxis.drawZeroLineEnabled = true//从0开始绘制
+//        leftAxis.axisMaximum = 4000;//设置Y轴的最大值
+        leftAxis.inverted = false//是否将Y轴进行上下翻转
+        leftAxis.axisLineWidth = 1.5/UIScreen.main.scale//Y轴线宽
+        leftAxis.axisLineColor = UIColor.gray//Y轴颜色
         
         //设置Y轴上标签的样式
         leftAxis.labelPosition = .outsideChart   //label位置
@@ -185,19 +190,20 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         barChartView.leftAxis.valueFormatter = DefaultAxisValueFormatter.init(formatter: leftFormatter)
         
         //设置Y轴上网格线的样式
-//        leftAxis.gridLineDashLengths = [3.0, 3.0]   //设置虚线样式的网格线
+        leftAxis.gridLineDashLengths = [3.0, 3.0]   //设置虚线样式的网格线
+        leftAxis.drawGridLinesEnabled = false
         leftAxis.gridColor = UIColor.init(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)  //网格线颜色
         leftAxis.gridAntialiasEnabled = true   //开启抗锯齿
         
         //添加限制线
-//        let limitLine = ChartLimitLine(limit: 3000, label: "限制线")
-//        limitLine.lineWidth = 2
-//        limitLine.lineColor = UIColor.green
-//        limitLine.lineDashLengths = [5.0, 5.0]   //虚线样式
-//        limitLine.labelPosition = .rightTop  //位置
+        let limitLine = ChartLimitLine(limit: 3000, label: "限制线")
+        limitLine.lineWidth = 2
+        limitLine.lineColor = UIColor.green
+        limitLine.lineDashLengths = [5.0, 5.0]   //虚线样式
+        limitLine.labelPosition = .rightTop  //位置
 //        leftAxis.addLimitLine(limitLine)  //添加到Y轴上
-//        leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在柱形图的后面
-        
+        leftAxis.drawLimitLinesBehindDataEnabled = true  //设置限制线绘制在柱形图的后面
+        barChartView.drawValueAboveBarEnabled = true //立柱数值文字显示在内部
         //图例说明样式
         self.barChartView.legend.enabled = false  //不显示图例说明
         
@@ -218,7 +224,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
             {
 //                xVals.append(NSString(format: "%d年", "\(successData.dayData[i].lineName)") as String)
                 xVals.append("\(successData.dayData[i].lineName)时")
-                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.dayData[i].lineData)!))
+//                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.dayData[i].lineData)!))
+                yVals.append(BarChartDataEntry.init(x:Double(i),y:Double(24-i)))
             }
         case 1:
             for i in 0..<successData.monthData.count
@@ -258,7 +265,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         //set1.bar = 0.2  //柱形之间的间隙占整个柱形(柱形+间隙)的比例
         set1.drawValuesEnabled = true  //是否在柱形图上面显示数值
         set1.highlightEnabled = false  //点击选中柱形图是否有高亮效果，（双击空白处取消选中）
-        set1.colors = ChartColorTemplates.material()
+        set1.colors = [UIColor(red: 151/255, green: 188/255, blue: 323/255, alpha: 1)] //设置
+//        set1.colors = ChartColorTemplates.material()
         
         
         //将BarChartDataSet对象放入数组中
@@ -275,7 +283,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         let data:BarChartData = BarChartData(dataSets: dataSets)
         data.setValueFont(UIFont.init(name: "HelveticaNeue-Light", size: 10))  //文字字体
         data.setValueTextColor(UIColor.orange)  //文字颜色
-        data.barWidth = 0.7
+//        data.barWidth = 0.7
         
         //自定义数据显示格式
         let formatter = NumberFormatter()

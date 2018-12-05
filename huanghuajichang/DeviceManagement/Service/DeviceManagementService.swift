@@ -60,6 +60,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
         super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
                 var contentListDiyData : [DeviceManagementContentListDiyModule] = []
+                print(result["data"]["resultData"].arrayValue)
                 for item in result["data"]["resultData"].arrayValue{
                     if contentListDiyData.count > 0{
                         var equCategorySmallList : [String] = []
@@ -115,6 +116,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                             deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                             deviceManagementContentListModule.equName = item["equName"].stringValue
                             deviceManagementContentListModule.status = item["status"].stringValue
+                            deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
                             deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
                             deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
                             contentListDiyData.append(deviceManagemengContentListDiyModule)
@@ -141,6 +143,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                         deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                         deviceManagementContentListModule.equName = item["equName"].stringValue
                         deviceManagementContentListModule.status = item["status"].stringValue
+                        deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
                         deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
                         deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
                         contentListDiyData.append(deviceManagemengContentListDiyModule)
@@ -165,8 +168,6 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = outTime
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
-        print(contentData)
-        print(urlStr)
         sessionManager.request(urlStr, method: .post, parameters: contentData, encoding: JSONEncoding.default, headers: headers).responseJSON { (resultData) in
             
             switch resultData.result {

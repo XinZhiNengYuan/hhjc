@@ -374,7 +374,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
                 }
                 self.tableView2.reloadData()
             }
-            view.mLabel.text = resultDataForArr[section].text
+            view.mLabel.text = contentList[section].categoryNameSmall
             return view
         }
     }

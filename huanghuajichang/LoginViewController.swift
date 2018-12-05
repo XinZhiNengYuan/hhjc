@@ -151,7 +151,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         inputView.addSubview(inputPassView)
         contentView.addSubview(inputView)
         
-        let flagPassView = UIView(frame: CGRect(x: 40, y: UIScreen.main.bounds.height*2/5+120, width: 150, height: 20))
+        let flagPassView = UIView(frame: CGRect(x: 20, y: UIScreen.main.bounds.height*2/5+120, width: 150, height: 20))
         flagButton.frame =  CGRect(x: 0, y: 2.5, width: 120, height: 15)
         flagButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         flagButton.setTitleColor(UIColor(red: 7/255, green: 128/255, blue: 237/255, alpha: 1), for: UIControlState.normal)

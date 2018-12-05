@@ -63,6 +63,7 @@ struct DeviceManagementContentListModule {
 }
 
 struct DeviceManagementContentListDiyModule {
+    var categoryNameSmall : String = ""
     var equCategorySmall : String = ""
     var deviceManagementContentList : [DeviceManagementContentListModule] = []
 }
