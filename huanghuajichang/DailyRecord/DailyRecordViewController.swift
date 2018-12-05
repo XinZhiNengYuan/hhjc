@@ -537,7 +537,12 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
-        return .delete
+        let itemCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+        if itemCell.itemStatus?.text == "已处理" {
+            return .none
+        }else{
+            return .delete
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
