@@ -15,6 +15,8 @@ class RecordListTableViewCell: UITableViewCell {
     var itemImageCount:UILabel?
     var itemTitle:UILabel?
     var itemStatus:UILabel?
+    var itemCreator:UILabel?
+    var itemHandler:UILabel?
     var itemDate:UILabel?
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,12 +47,26 @@ class RecordListTableViewCell: UITableViewCell {
         itemImage?.contentMode = UIViewContentMode.scaleToFill
         contentView.addSubview(itemImage!)
         
-        itemTitle = UILabel.init(frame: CGRect(x: 100, y: 10, width: kScreenWidth-100-50, height: 30))
+        itemTitle = UILabel.init(frame: CGRect(x: 100, y: 10, width: kScreenWidth-100-50, height: 20))
         itemTitle?.textColor = allFontColor
         itemTitle?.numberOfLines = 1
         itemTitle?.lineBreakMode = .byTruncatingTail
         itemTitle?.font = UIFont.systemFont(ofSize: 15)
         contentView.addSubview(itemTitle!)
+        
+        itemCreator = UILabel.init(frame: CGRect(x: 100, y: 30, width: kScreenWidth-100-50, height: 20))
+        itemCreator?.textColor = UIColor(red: 113/255, green: 112/255, blue: 112/255, alpha: 1)
+        itemCreator?.numberOfLines = 1
+        itemCreator?.lineBreakMode = .byTruncatingTail
+        itemCreator?.font = UIFont.systemFont(ofSize: 12)
+        contentView.addSubview(itemCreator!)
+        
+        itemHandler = UILabel.init(frame: CGRect(x: 200, y: 30, width: kScreenWidth-100-50, height: 20))
+        itemHandler?.textColor = UIColor(red: 113/255, green: 112/255, blue: 112/255, alpha: 1)
+        itemHandler?.numberOfLines = 1
+        itemHandler?.lineBreakMode = .byTruncatingTail
+        itemHandler?.font = UIFont.systemFont(ofSize: 12)
+        contentView.addSubview(itemHandler!)
         
         itemStatus = UILabel.init(frame: CGRect(x: kScreenWidth-50, y: 15, width: 40, height: 20))
         itemStatus?.layer.masksToBounds = true

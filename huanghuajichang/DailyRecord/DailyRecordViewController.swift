@@ -302,7 +302,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                     self.json = JSON(value)["data"]["resultData"]
                     
                     for recordItem in self.json.enumerated(){
-                        let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["describe"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
+                        let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
                         self.listData.append(recordModel)
                     }
                     if self.listData.count == JSON(value)["data"]["iTotalRecords"].intValue {
@@ -524,19 +524,20 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemImage?.addSubview(photoNum)
             }
             cell?.itemTitle?.text =  self.listData[indexPath.row].title
-            if self.listData[indexPath.row].state.description == "1" {
-                cell?.itemStatus?.text = "已处理"
-            }else{
-                cell?.itemStatus?.text = "未处理"
-            }
             cell?.itemId = self.listData[indexPath.row].id.description
+            cell?.itemCreator?.text = "发布人:" + self.listData[indexPath.row].userName.description
             //默认颜色是已处理的，所以在未处理时更改颜色
-            if self.listData[indexPath.row].state == 0 {
+            if self.listData[indexPath.row].state.description == "0" {
+                cell?.itemStatus?.text = "未处理"
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
                 cell?.itemStatus?.textColor = topValueColor
+                cell?.itemHandler?.isHidden = true
             }else{
+                cell?.itemStatus?.text = "已处理"
                 cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
                 cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
+                cell?.itemHandler?.isHidden = false
+                cell?.itemHandler?.text = "处理人:" + self.listData[indexPath.row].staName.description
             }
             cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.listData[indexPath.row].opeTime.description,timeAccurate: "minute")
         }
@@ -554,24 +555,49 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
-        if editingStyle == .delete {
-            deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath: indexPath)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+//        if editingStyle == .delete {
+//            deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath: indexPath)
+//        }
+//    }
+//
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+//        return .delete
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
+//        return "删除"
+//    }
+    //尾部滑动事件按钮（左滑按钮）
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
         let itemCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
-        if itemCell.itemStatus?.text == "已处理" {
-            return .none
-        }else{
-            return .delete
+        //删除
+        let deleteAction:UIContextualAction = UIContextualAction(style: .normal, title: "删除") { (action, sourceView, completionHandler) in
+            
+            if itemCell.itemStatus?.text == "已处理" {
+                completionHandler(false)
+            }else{
+                self.deleteListItem(itemId: itemCell.itemId, itemIndexPath: indexPath)
+                completionHandler(true)
+            }
         }
+        //delete操作按钮可使用UIContextualActionStyleDestructive类型，当使用该类型时，如果是右滑操作，一直向右滑动某个cell，会直接执行删除操作，不用再点击删除按钮。
+        
+        if itemCell.itemStatus?.text == "已处理" {
+            deleteAction.backgroundColor = UIColor.gray
+        }else{
+            deleteAction.backgroundColor = UIColor.red
+        }
+        //        deleteAction.image = UIImage(named: "delete")
+        
+        let actions:[UIContextualAction] = [deleteAction]
+        
+        let action:UISwipeActionsConfiguration = UISwipeActionsConfiguration(actions: actions)
+        // 当一直向右滑是bu会执行第一个action
+        action.performsFirstActionWithFullSwipe = false
+        
+        return action
+        
     }
-    
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
-        return "删除"
-    }
-    
 }
