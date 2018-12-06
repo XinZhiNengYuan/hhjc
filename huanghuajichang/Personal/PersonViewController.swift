@@ -213,9 +213,9 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let maxCardNav = UINavigationController(rootViewController: maxCardVc)
             openChildVC(childNavName: maxCardNav)
         }else if indexPath.section == 1 && indexPath.row == 0 {
-            let helpVc = HelpDocumentViewController()
-            let helpNav = UINavigationController(rootViewController: helpVc)
-            openChildVC(childNavName:helpNav)
+//            let helpVc = HelpDocumentViewController()
+//            let helpNav = UINavigationController(rootViewController: helpVc)
+//            openChildVC(childNavName:helpNav)
         }else if indexPath.section == 1 && indexPath.row == 1 {
             showConfirm (confrimMessage:"确定清除缓存吗？", hanlderType:1,selectedIndexPath:indexPath)
         }else if indexPath.section == tableCellModels.count {
