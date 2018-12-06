@@ -665,7 +665,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         let formatter = ChartDataValueFormatter.init()
         data.setValueFormatter(formatter)//格式化值（添加个%）
         data.setValueFont(UIFont.systemFont(ofSize: 10.0))
-        data.setValueTextColor(UIColor.lightGray)
+        data.setValueTextColor(UIColor.black)
         pieChartView.data = data
         
         

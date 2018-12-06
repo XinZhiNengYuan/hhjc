@@ -18,6 +18,8 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     let dateLabel:UILabel = UILabel()
     
     var HeaderView:UIView!
+    var nextMonthBtn:UIButton!
+    
     //按钮数组
     var buttons:[ThickButtonModel] = []
     
@@ -141,9 +143,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         dateChangeView.addSubview(dateBtn)
         
         //右侧按钮
-        let nextMonthBtn = UIButton.init(frame: CGRect(x: kScreenWidth-40, y: 10, width: 20, height: 20))
+        nextMonthBtn = UIButton.init(frame: CGRect(x: kScreenWidth-40, y: 10, width: 20, height: 20))
         nextMonthBtn.setImage(UIImage(named: "下一天"), for: UIControlState.normal)
         nextMonthBtn.tag = 2
+        nextMonthBtn.isEnabled = false
         nextMonthBtn.addTarget(self, action: #selector(changeDateByButton(sender:)), for: UIControlEvents.touchUpInside)
         dateChangeView.addSubview(nextMonthBtn)
     }
@@ -160,6 +163,9 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         dateFormater.dateFormat = "yyyy-MM"
         let date = dateFormater.date(from: dateLabel.text!)
         datePicker.setDate(date, animated: false)
+        //设置最大日期
+        let currentMonth = NSDate()
+        datePicker.maximumDate = currentMonth as Date
         self.present(datePickerManager, animated: false, completion: nil)
     }
     
@@ -193,7 +199,26 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
             }
         }
         let newDate = "\(year)" + "-" + formateNum(num: month)
+        nextMonthBtn.isEnabled = compareWithCurrent(newDate: newDate)
         return newDate
+    }
+    
+    ///比较新日期与当前日期
+    func compareWithCurrent(newDate:String)->Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM"
+        
+        var date1=NSDate()
+        date1 = formatter.date(from: newDate)! as NSDate
+        let date2 = NSDate()
+        
+        let result:ComparisonResult = date1.compare(date2 as Date)
+        
+        if result == ComparisonResult.orderedDescending{//date2<=date1
+            return false
+        }else{
+            return true
+        }
     }
     
     ///3.获取表头需要的数据（日常记录条数）

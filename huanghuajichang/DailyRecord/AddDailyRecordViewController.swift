@@ -283,6 +283,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                 datePicker.locale = Locale.init(identifier: "zh_CN")
                 datePicker.calendar = Calendar.current
                 datePicker.timeZone = TimeZone.current
+                datePicker.maximumDate = NSDate() as Date
                 datePicker.tag = 1001
                 pickerView.addSubview(datePicker)
                 cancelBtn.addTarget(self, action: #selector(closePick), for: UIControlEvents.touchUpInside)
