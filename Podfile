@@ -7,11 +7,11 @@ target 'huanghuajichang' do
   use_frameworks!
 
   # Pods for huanghuajichang
-  pod 'Alamofire', '~>4.7.2'
-  pod 'Charts', '~> 3.2.1'
-  pod 'SwiftyJSON', '~> 3.1.3'
+  pod 'Alamofire'
+  pod 'Charts'
+  pod 'SwiftyJSON'
   pod 'CocoaAsyncSocket'
-  pod 'MBProgressHUD', '~>1.1.0'
+  pod 'MBProgressHUD'
   pod 'RATreeView'
   pod 'PGDatePicker'
   pod 'MJRefresh'

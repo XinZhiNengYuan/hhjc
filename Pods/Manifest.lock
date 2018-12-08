@@ -14,15 +14,15 @@ PODS:
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.7.2)
-  - Charts (~> 3.2.1)
+  - Alamofire
+  - Charts
   - CocoaAsyncSocket
   - Kingfisher
-  - MBProgressHUD (~> 1.1.0)
+  - MBProgressHUD
   - MJRefresh
   - PGDatePicker
   - RATreeView
-  - SwiftyJSON (~> 3.1.3)
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -49,6 +49,6 @@ SPEC CHECKSUMS:
   RATreeView: 380cde0090cfde21dc6ac29137f49d3b768fdd28
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 4df2ef44ce8e9ca2276f3b598a59b0dee9e4771e
+PODFILE CHECKSUM: 6713fb8a40d2112fb260af5debe1e104d3a9fabf
 
 COCOAPODS: 1.5.3
