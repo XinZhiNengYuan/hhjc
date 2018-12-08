@@ -16,6 +16,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     var arrayForVal : Array<String> = []
     var flagePageFrom : Int = 1 //1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
     var eqCode : String = ""
+    var eqId:String = ""
     let deviceDetailViewService = DeviceDetailViewService()
     let cameraViewController = CameraViewController()
     var cycleView : CycleView! = nil
@@ -130,7 +131,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     @objc func openEdit(){
         let deviceEditVc = DeviceEditViewController()
         deviceEditVc.pageType = "edit"
-        deviceEditVc.devicEeditId = self.eqCode
+        deviceEditVc.deviceEditNo = self.eqCode
+        deviceEditVc.deviceEditId = self.eqId
         self.navigationController?.pushViewController(deviceEditVc, animated: false)
     }
 

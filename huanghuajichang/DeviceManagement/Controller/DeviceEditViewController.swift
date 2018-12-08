@@ -21,7 +21,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var selectorView:UIView = UIView()
     var selector:UIPickerView = UIPickerView()
     var clickedBtnTag = -1
-    var eqCode = ""
     var selectorData:[[String:AnyObject]] = []
     var imageView = UIView()
     var addBut : UIButton!
@@ -38,7 +37,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var bigType = ""
     var smallType = ""
     var pageType = ""
-    var devicEeditId = ""
+    var deviceEditId = ""
+    var deviceEditNo = ""
     
     var token:String!
     var userId:String!
@@ -47,10 +47,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool){
         self.title = "编辑设备"
+        self.view.backgroundColor = UIColor.white
         userId = userDefault.string(forKey: "userId")
         token = userDefault.string(forKey: "userToken")
         getOneAndTwo()
@@ -74,7 +72,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     func getDetailEdit(){
-        let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["id":self.devicEeditId]]
+        let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["code":self.deviceEditNo]]
         MyProgressHUD.showStatusInfo("加载中...")
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
             print(resultData)
@@ -83,6 +81,24 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                 if JSON(value)["status"].stringValue == "success"{
                     self.deviceEditJson = JSON(value)["data"]
                     print(self.deviceEditJson)
+                    
+                    //
+                    self.buildingId = self.deviceEditJson["buildingId"].description
+                    self.floorId = self.deviceEditJson["floorId"].description
+                    self.roomId = self.deviceEditJson["roomId"].description
+                    self.oneMeanId = self.deviceEditJson["departmentIdOne"].description
+                    self.twoMeanId = self.deviceEditJson["departmentIdTwo"].description
+                    self.bigType = self.deviceEditJson["equCategoryBig"].description
+                    self.smallType = self.deviceEditJson["equCategorySmall"].description
+                    if self.deviceEditJson["equPhotos"].count>0{
+                        for imgItem in self.deviceEditJson["equPhotos"].enumerated(){
+                            let imgurlStr = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.deviceEditJson["equPhotos"][imgItem.offset]["filePath"].stringValue)
+                            let imgUrl = NSURL.init(string: imgurlStr)
+                            let imgData = NSData.init(contentsOf: imgUrl! as URL)
+                            let hasImg = UIImage.init(data: imgData! as Data, scale: 1)
+                            self.photoListr.append(hasImg ?? UIImage.init())
+                        }
+                    }
                     self.setLayout()
                     MyProgressHUD.dismiss()
                 }else{
@@ -132,9 +148,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         scrollView.backgroundColor = UIColor.white
         scrollView.addSubview(contentView)
         
-        contentView.backgroundColor = UIColor.black
+        contentView.backgroundColor = UIColor.white
         
-        view.addSubview(scrollView)
+        self.view.addSubview(scrollView)
         
         //       单位选择部分
         let contentViewHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: 121))
@@ -484,12 +500,11 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     //MARK:提交所有数据
     @objc func uploadImgs(){
-        let userId = userDefault.string(forKey: "userId")
-        let token = userDefault.string(forKey: "userToken")
         if photoListr.count > 0{
             cameraViewService.upLoadPic(images: photoListr, finished: { (fileId,status) in
+                print(fileId)
                 if status == "success"{
-                    self.getCommitData(userId: userId!, token: token!, fileId: fileId)
+                    self.getCommitData(userId: self.userId!, token: self.token!, fileId: fileId)
                 }else if status == "sign_app_err"{
                     self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
                 }
@@ -551,7 +566,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         }
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
-        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId]]]
+        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId, "equId":self.deviceEditId]]]
         print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
@@ -614,11 +629,14 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let viewOption = UIView()
         viewOption.tag = 4000+photoListr.count // 图片所在图层
         viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 60, height: Int(imageView.frame.height))
+        
         let image = UIImageView()
         image.image = UIImage(named: "image")
+        
         image.tag = photoListr.count + 1000 //图片
         image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
         image.image = pic
+        
         viewOption.addSubview(image)
         let deleteBut = deleteBtn(tag: photoListr.count + 6000)
         viewOption.addSubview(deleteBut)
