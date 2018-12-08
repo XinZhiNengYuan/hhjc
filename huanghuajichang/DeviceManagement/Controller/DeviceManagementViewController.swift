@@ -32,6 +32,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
     let commonClass = common()
+    var currentOne:String = ""
+    var currentTwo:String = ""
     //存储最后选中的行（包括菜单和清单主页）
     var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
     //本地存储
@@ -419,6 +421,8 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView:UITableView,didSelectRowAt indexPath:IndexPath){
         if tableView1.isEqual(tableView){
             self.meanAndContentLog["meanLog"]!["two"] = indexPath.row
+            currentOne = resultDataForArr[indexPath.section].id
+            currentTwo = resultDataForArr[indexPath.section].children[indexPath.row].id
             reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
         }else{
             let deviceDetailViewController = DeviceDetailViewController()
@@ -427,6 +431,57 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             deviceDetailViewController.eqId = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equId.description
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
             self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let deleteDeviceNo = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equNo
+        if editingStyle == .delete {
+            print(deleteDeviceNo)
+            deleteDevice(deviceNo: deleteDeviceNo, deviceIndexPath: indexPath)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+        if tableView1.isEqual(tableView){
+            return .none
+        }else{
+            return .delete
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
+        return "删除"
+    }
+    
+    @objc func deleteDevice(deviceNo:String,deviceIndexPath:IndexPath){
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        MyProgressHUD.showStatusInfo("删除中...")
+        let infoData = ["equNo":deviceNo]
+        let contentData : [String : Any] = ["method":"deleteEquipment","info":infoData,"token":token ?? "","user_id":userId ?? ""]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            print(resultData)
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    //重新请求页面数据
+                    self.reloadContent(oId: self.currentOne, tId: self.currentTwo)
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "删除失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "删除请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
         }
     }
     
