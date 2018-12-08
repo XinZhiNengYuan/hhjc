@@ -68,6 +68,7 @@
 		3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F721894304005D51FB /* DeviceManagementService.swift */; };
 		3DCF48FA21894345005D51FB /* DeviceDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F921894345005D51FB /* DeviceDetailService.swift */; };
 		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
+		3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */; };
 		3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
 		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
 		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
@@ -155,6 +156,7 @@
 		3DCF48F721894304005D51FB /* DeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementService.swift; sourceTree = "<group>"; };
 		3DCF48F921894345005D51FB /* DeviceDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailService.swift; sourceTree = "<group>"; };
 		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
+		3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditViewController.swift; sourceTree = "<group>"; };
 		3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
 		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
 				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
 				3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */,
+				3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */,
 				3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */,
 				FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
+				3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */,
 				FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,
 				3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */,
 				3D0F9FE321706A740041B746 /* LineButton.swift in Sources */,

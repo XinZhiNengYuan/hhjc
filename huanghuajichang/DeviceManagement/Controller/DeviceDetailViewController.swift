@@ -73,6 +73,12 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceDetailViewController))
         view.backgroundColor = UIColor.white
+        
+        let rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(openEdit))
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font:UIFont(name: "PingFangSC-Regular", size: 6)!], for: UIControlState.normal)
+        rightEditBtn.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = rightEditBtn
+        
         var mView : UIView!
         if flagePageFrom == 1{
             mView = UIView(frame: CGRect(x: 0, y: 20, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
@@ -119,6 +125,13 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     @objc func goBackFromDeviceDetailViewController(){
         navigationController?.tabBarController?.tabBar.isHidden = false
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func openEdit(){
+        let deviceEditVc = DeviceEditViewController()
+        deviceEditVc.pageType = "edit"
+        deviceEditVc.devicEeditId = self.eqCode
+        self.navigationController?.pushViewController(deviceEditVc, animated: false)
     }
 
 }
