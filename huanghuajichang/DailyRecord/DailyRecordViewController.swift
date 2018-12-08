@@ -44,7 +44,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     var userId:String!
     var listData:[DailyRecordViewModel] = []
     var json:JSON!
-    var pageStart = 1
+    var pageStart = 0
     let pageSize = 10
     var dataToEnd = false
     
@@ -66,7 +66,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func updateList(){
-        pageStart = 1
+        pageStart = 0
         self.getHeaderData()
         self.getListData(searchStr: "", state: "")
     }
@@ -172,7 +172,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     @objc func changeDateByButton(sender:UIButton?){
         
 //        print("year:\(year)"+";"+"month:"+formateNum(num:month))
-        pageStart = 1
+        pageStart = 0
         dateLabel.text = changeDate(chageType: (sender?.tag)!)
         getHeaderData()
         getListData(searchStr: "", state: "")
@@ -290,7 +290,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         self.dataToEnd = false
         MyProgressHUD.showStatusInfo("加载中...")
         let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startday":"\(dateLabel.text!)-01", "endDay":"\(changeDate(chageType: 2))-01"] as [String : Any]
-        if pageStart == 1 {
+        if pageStart == 0 {
             self.listData = []
         }
         let contentData : [String : Any] = ["method":"getOptionlist","info":infoData,"token":userToken,"user_id":userId]
@@ -312,7 +312,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                         self.refreshFooter.state = .idle
                     }
                     self.recordTableView.reloadData()
-                    if self.pageStart == 1 && self.json.arrayValue.count > 0{
+                    if self.pageStart == 0 && self.json.arrayValue.count > 0{
                         self.recordTableView.scrollToRow(at: IndexPath.init(item: 0, section: 0), at: UITableViewScrollPosition.top, animated: true)
                     }
                     MyProgressHUD.dismiss()
@@ -398,7 +398,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     @objc func headerRefresh(){
         
 //        print("下拉刷新")
-        pageStart = 1
+        pageStart = 0
         //服务器请求数据的函数
         if pageStatus == "" {
             getListData(searchStr:"", state:"")
@@ -436,7 +436,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     func datePicker(_ datePicker: PGDatePicker!, didSelectDate dateComponents: DateComponents!) {
         dateLabel.text = "\(dateComponents.year!)" + "-" + formateNum(num: dateComponents.month!)
 //        print("dateComponents = ", dateComponents)
-        pageStart = 1
+        pageStart = 0
         getHeaderData()
         getListData(searchStr: "", state: "")
     }
@@ -463,7 +463,7 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
-        pageStart = 1
+        pageStart = 0
         switch buttonIndex {
         case 0:
             pageStatus = ""
