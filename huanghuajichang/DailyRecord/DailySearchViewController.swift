@@ -13,7 +13,8 @@ class DailySearchViewController: UIViewController {
     
     var searchBar: UISearchBar!
     var nearlyCollectionview:UICollectionView!
-    var nearLyData:NSMutableArray!
+    var getNearlyData:[AnyObject]! = []
+    var setNearlyData:NSMutableArray! = []
     
     var historyView:UIView!
     
@@ -64,8 +65,11 @@ class DailySearchViewController: UIViewController {
         historyTitle.textColor = UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
         historyView.addSubview(historyTitle)
         
-        nearLyData = [1,2,3,4,5]
-        
+        getNearlyData = self.userDefault.object(forKey: "historyData") as? [AnyObject]
+        if getNearlyData == nil {
+            getNearlyData = []
+        }
+        setNearlyData = NSMutableArray.init(array: getNearlyData)
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = UICollectionViewScrollDirection.vertical
         
@@ -183,6 +187,14 @@ extension DailySearchViewController:UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         self.changeSearchBarCancelBtnTitleColor(view: searchBar)
+        if getNearlyData.count == 5{
+            setNearlyData.removeObject(at: 0)
+            setNearlyData.add(searchBar.text!)
+            self.userDefault.set(setNearlyData, forKey: "historyData")
+        }else{
+            setNearlyData.add(searchBar.text!)
+            self.userDefault.set(setNearlyData, forKey: "historyData")
+        }
         getListData(searchStr:searchBar.text!, state:"")
     }
     
@@ -210,13 +222,18 @@ extension DailySearchViewController:UISearchBarDelegate{
 
 extension DailySearchViewController:UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return nearLyData.count
+        if getNearlyData == nil {
+            return 0
+        }else{
+           return getNearlyData.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dailyNearlyCollectionCell", for: indexPath) as! DailyNearlyCollectionViewCell
-        
-        cell.label.text = "\(nearLyData[indexPath.row])"
+        if getNearlyData.count > 0 {
+            cell.label.text = "\(getNearlyData[indexPath.row])"
+        }
         return cell
     }
     

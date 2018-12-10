@@ -31,6 +31,8 @@
 		3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
 		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
 		3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */; };
+		3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */; };
+		3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7821BE783400408F92 /* EditBtn.swift */; };
 		3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */; };
 		3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */; };
 		3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C652194553D0094C6B1 /* AlarmListViewController.swift */; };
@@ -117,6 +119,9 @@
 		3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
 		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
 		3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewModel.swift; sourceTree = "<group>"; };
+		3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		3D32AF7821BE783400408F92 /* EditBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBtn.swift; sourceTree = "<group>"; };
 		3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewService.swift; sourceTree = "<group>"; };
 		3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModule.swift; sourceTree = "<group>"; };
 		3D389C652194553D0094C6B1 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +277,8 @@
 				3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */,
 				3D1598F62178778E00458C11 /* ThickButton.swift */,
 				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
+				3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */,
+				3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */,
 			);
 			path = DailyRecord;
 			sourceTree = "<group>";
@@ -422,6 +429,7 @@
 				3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
 				3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
 				3DF203472188439A00F003A3 /* CommenRequest.swift */,
+				3D32AF7821BE783400408F92 /* EditBtn.swift */,
 				3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */,
 			);
 			path = huanghuajichang;
@@ -618,6 +626,7 @@
 				3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,
 				3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */,
 				3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */,
+				3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */,
 				FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
 				3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */,
 				FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,
@@ -628,6 +637,7 @@
 				3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */,
 				3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */,
 				FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */,
+				3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */,
 				3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */,
 				3D1598F72178778E00458C11 /* ThickButton.swift in Sources */,
 				FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,

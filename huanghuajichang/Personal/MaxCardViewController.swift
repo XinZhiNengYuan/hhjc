@@ -9,8 +9,9 @@
 import UIKit
 
 class MaxCardViewController: AddNavViewController {
-
-    let dataArray = [["label":"ios二维码","url":"http://123.58.243.29:2466/uploadImage/app_image/ios.jpg"],["label":"安卓二维码","url":"http://123.58.243.29:2466/uploadImage/app_image/andriod.jpg"]]
+    var userDefault = UserDefaults.standard
+    
+    var dataArray:[[String:AnyObject]] = [[:]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +19,8 @@ class MaxCardViewController: AddNavViewController {
         // Do any additional setup after loading the view.
         self.title = "APP二维码"
         self.view.backgroundColor = UIColor.white
-        
+        let postStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")!
+        dataArray = [["label":"ios二维码","url":"\(postStr)/user/ios.png"],["label":"安卓二维码","url":"\(postStr)/user/android.png"]] as [[String : AnyObject]]
         createUI()
     }
 
@@ -32,7 +34,7 @@ class MaxCardViewController: AddNavViewController {
             print(value as Any)
             let label = UILabel.init()
             //        label.backgroundColor = UIColor.gray
-            label.text = value["label"]
+            label.text = value["label"]?.description
             
             label.font = UIFont.systemFont(ofSize: 14)
             //        label.textColor = UIColor.red
@@ -48,7 +50,7 @@ class MaxCardViewController: AddNavViewController {
             let imageV = UIImageView(frame: CGRect(x: 90, y: CGFloat(260*index+86), width: 200, height: 200))
             //        imageV.layer.borderWidth = 5
             //        imageV.layer.borderColor = UIColor.red.cgColor
-            imageV.dowloadFromServer(link:value["url"]! as String, contentMode: .scaleAspectFill)
+            imageV.dowloadFromServer(link:value["url"]?.description! ?? "", contentMode: .scaleAspectFill)
             self.view.addSubview(imageV)
         }
     }

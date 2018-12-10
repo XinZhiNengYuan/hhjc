@@ -86,7 +86,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     self.haveImagsData = []
                     if self.editJson["filePhotos"].arrayValue != [] {
                         for editImage in self.editJson["filePhotos"].enumerated(){
-                            let editImgBtn = UIButton.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
+                            let editImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
@@ -109,6 +109,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             deleteBtn.tag = 2001 + editImage.offset
                             deleteBtn.addTarget(self, action: #selector(self.deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
                             editImgBtn.addSubview(deleteBtn)
+                            editImgBtn.bringSubview(toFront: deleteBtn)
                             self.haveImagsData.add(editImgBtn)
                         }
                         if self.editJson["filePhotos"].arrayValue.count < 3 {
@@ -329,7 +330,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     }
     
     func drawImgBtn(imgBtnIndex:Int){
-        let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat((imgBtnIndex-1)*(75+15)+10), y: 15, width: 75, height: 75))
+        let addImgBtn = EditBtn.init(frame: CGRect(x: CGFloat((imgBtnIndex-1)*(75+15)+10), y: 15, width: 75, height: 75))
         addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
         addImgBtn.layer.borderWidth = 1
         addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
@@ -419,7 +420,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         
         if haveImagsData.count == 2 && haveImagsData.count == imagsData.count{
             //3.最后新增一个空白按钮
-            let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat(85+90+15), y: 15, width: 75, height: 75))
+            let addImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(85+90+15), y: 15, width: 75, height: 75))
             addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
             addImgBtn.layer.borderWidth = 1
             addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
@@ -580,7 +581,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                 return
             }
             //新增的按钮
-            let addImgBtn = UIButton.init(frame: CGRect(x: CGFloat(index*(75+15)+10), y: 15, width: 75, height: 75))
+            let addImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(index*(75+15)+10), y: 15, width: 75, height: 75))
             addImgBtn.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
             addImgBtn.layer.borderWidth = 1
             addImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
