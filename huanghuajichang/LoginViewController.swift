@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import SwiftyJSON
 
 class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDelegate {
@@ -32,7 +31,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.delegate = self
         scrollView.delegate = self
         flageStatus = self.userDefault.bool(forKey: "buttonStatus")
-        getUpdate()
+//        getUpdate()
         setLayoutFrame()
         // Do any additional setup after loading the view.
     }
@@ -53,7 +52,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         }) { (error) in
             self.windowAlert(msges: "更新数据获取失败!")
         }
-        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         
