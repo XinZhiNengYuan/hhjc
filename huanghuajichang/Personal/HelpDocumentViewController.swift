@@ -52,7 +52,7 @@ class HelpDocumentViewController: AddNavViewController,WKNavigationDelegate, WKU
 //        self.view.addSubview(myWebView)
         
         //wkwebView的使用
-        myWKWebView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-64))//将navigationbar的高度减去，不然会显示不全
+        myWKWebView = WKWebView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-navigationHeight))//将navigationbar的高度减去，不然会显示不全
         myWKWebView.backgroundColor = UIColor.white
 //        self.automaticallyAdjustsScrollViewInsets = false//具体什么效果未知
         

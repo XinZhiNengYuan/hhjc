@@ -89,7 +89,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        headerView.autoresizingMask = .flexibleWidth
 //        headerView.clipsToBounds = true
 
-        headerImageView = UIImageView.init(frame: CGRect(x: 15, y: 64, width: 80, height: 80))
+        headerImageView = UIImageView.init(frame: CGRect(x: 15, y: navigationHeight, width: 80, height: 80))
 //        headerImageView.center.x = self.view.center.x
 //        headerImageView.center.y = 75
 //        headerImageView.frame.size = CGSize(width: 50, height: 50)

@@ -63,7 +63,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
     }
     
     func createTabList(){
-        PersonalDetailList = UITableView.init(frame: CGRect(x: 5, y: 5, width: kScreenWidth-10, height: kScreenHeight-64-5))
+        PersonalDetailList = UITableView.init(frame: CGRect(x: 5, y: 5, width: kScreenWidth-10, height: kScreenHeight-navigationHeight-5))
         PersonalDetailList.separatorStyle = .none
         PersonalDetailList.delegate = self
         PersonalDetailList.dataSource = self

@@ -170,7 +170,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //功率，电量，负荷
     func createMiddleTab() {
-        let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-64 - 49))
+        let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-navigationHeight - tabBarHeight))
         middleView.backgroundColor = UIColor.white
         self.view.addSubview(middleView)
         
@@ -229,7 +229,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //本月新增
     func currentNew() {
-        let topHeight:CGFloat = kScreenHeight - 64 - 49 - 136
+        let topHeight:CGFloat = kScreenHeight - navigationHeight - tabBarHeight - 136
         let topView:UIView = UIView.init(frame: CGRect(x: 0, y: topHeight, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
         self.view.addSubview(topView)
@@ -589,10 +589,10 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     func test3()
     {
-        pieChartView.frame = CGRect(x: 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height)
+        pieChartView.frame = CGRect(x: 5, y: 0, width: kScreenWidth - 10, height: self.scrollView.frame.height)
         scrollView.addSubview(pieChartView)
-        //        pieChartView.backgroundColor = UIColor.init(red: 230/255, green: 253/255.0, blue: 253/255.0, alpha: 1)
-        pieChartView.setExtraOffsets(left: 20, top: 10, right: 20, bottom: 10)  //设置这块饼的位置
+//        pieChartView.backgroundColor = UIColor.init(red: 230/255, green: 253/255.0, blue: 253/255.0, alpha: 1)
+        pieChartView.setExtraOffsets(left: 10, top: 5, right: 10, bottom: 5)  //设置这块饼的位置
         
         //        pieChartView.chartDescription?.text = "饼状图示例" //描述文字
         //        pieChartView.chartDescription?.font = UIFont.systemFont(ofSize: 12)
@@ -649,16 +649,16 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         let dataSet = PieChartDataSet.init(values: yVals, label:"")
         dataSet.colors = [UIColor(red: 255/255, green: 209/255, blue: 0/255, alpha: 1),UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1),UIColor(red: 74/255, green: 179/255, blue: 238/255, alpha: 1)]
         //设置名称和数据的位置 都在内就没有折线了
-        dataSet.xValuePosition = .insideSlice
-        dataSet.yValuePosition = .outsideSlice
+        dataSet.xValuePosition = .outsideSlice  //标签显示在外
+        dataSet.yValuePosition = .outsideSlice  //数值显示在外
         dataSet.sliceSpace = 1 //相邻块的距离
         dataSet.selectionShift = 6.66  //选中放大半径
         
         //指示折线样式
-        dataSet.valueLinePart1OffsetPercentage = 1.2 //折线中第一段起始位置相对于区块的偏移量, 数值越大, 折线距离区块越远
-        dataSet.valueLinePart1Length = 0.6 //折线中第一段长度占比
-        dataSet.valueLinePart2Length = 1.8 //折线中第二段长度最大占比
-        dataSet.valueLineWidth = 1.2 //折线的粗细
+        dataSet.valueLinePart1OffsetPercentage = 0.85 //折线中第一段起始位置相对于区块的偏移量, 数值越大, 折线距离区块越远
+        dataSet.valueLinePart1Length = 0.2 //折线中第一段长度占比
+        dataSet.valueLinePart2Length = 0.6 //折线中第二段长度最大占比
+        dataSet.valueLineWidth = 1//折线的粗细
         dataSet.valueLineColor = UIColor(red: 113/255, green: 214/255, blue: 194/255, alpha: 1) //折线颜色
         
         let data = PieChartData.init(dataSets: [dataSet])

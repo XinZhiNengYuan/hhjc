@@ -271,7 +271,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     
     ///2-2.绘制tablist
     func createTabList(){
-        recordTableView = UITableView.init(frame: CGRect(x: 0, y: 143, width: kScreenWidth, height: kScreenHeight-144-64-49))
+        recordTableView = UITableView.init(frame: CGRect(x: 0, y: 143, width: kScreenWidth, height: kScreenHeight-144-navigationHeight-tabBarHeight))
         recordTableView.delegate = self
         recordTableView.dataSource = self
         recordTableView.separatorStyle = .none

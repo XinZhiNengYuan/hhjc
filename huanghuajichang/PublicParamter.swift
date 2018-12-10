@@ -12,6 +12,27 @@ import UIKit
 let kScreenHeight = UIScreen.main.bounds.size.height
 ///页面宽度
 let kScreenWidth = UIScreen.main.bounds.size.width
+///statusBar的高度
+let statusBarHeight = UIApplication.shared.statusBarFrame.height;
+///导航栏高度
+let navigationHeight = (statusBarHeight + 44)
+///tabbar高度
+let tabBarHeight = CGFloat(statusBarHeight == 44 ? 83 : 49)
+///顶部的安全距离
+let topSafeAreaHeight = (statusBarHeight - 20)
+///底部的安全距离
+let bottomSafeAreaHeight = (tabBarHeight - 49)
+
+//另外一种方式动态获取高度
+////底部的安全距离
+//let bottomSafeAreaHeight =  UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0.0
+////顶部的安全距离
+//let topSafeAreaHeight = (bottomSafeAreaHeight == 0 ? 0 : 24)
+////导航栏高度
+//let navigationHeight = (bottomSafeAreaHeight == 0 ? 64 : 88)
+////tabbar高度
+//let tabBarHeight = (bottomSafeAreaHeight + 49)
+
 ///navigationbar的高度
 let KMaskHeight = 64
 ///蓝色字体颜色
@@ -42,7 +63,7 @@ func windowTotast(pageName:UIViewController, msg:String, completion: (() -> Void
     let zgc = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight))
     zgc.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
     pageName.view.addSubview(zgc)
-    let label = UILabel.init(frame: CGRect(x: (kScreenWidth-100)/2, y: (kScreenHeight-64-80)/2, width: 100, height: 80))
+    let label = UILabel.init(frame: CGRect(x: (kScreenWidth-100)/2, y: (kScreenHeight-navigationHeight-80)/2, width: 100, height: 80))
     label.text = msg
     label.font = UIFont.systemFont(ofSize: 15)
     label.backgroundColor = UIColor.gray

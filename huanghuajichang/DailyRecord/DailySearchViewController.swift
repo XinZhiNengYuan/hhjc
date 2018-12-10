@@ -44,7 +44,7 @@ class DailySearchViewController: UIViewController {
     }
     
     func createSearchView(){
-        searchBar = UISearchBar.init(frame: CGRect(x: 0, y: 20, width: kScreenWidth, height: 44))
+        searchBar = UISearchBar.init(frame: CGRect(x: 0, y: statusBarHeight, width: kScreenWidth, height: 44))
         searchBar.placeholder = "搜索"
         searchBar.showsCancelButton = true
         searchBar.delegate = self
@@ -54,7 +54,7 @@ class DailySearchViewController: UIViewController {
     }
     
     func createHistoryUI(){
-        historyView = UIView.init(frame: CGRect(x: 0, y: 64, width: kScreenWidth, height: kScreenHeight-64))
+        historyView = UIView.init(frame: CGRect(x: 0, y: navigationHeight, width: kScreenWidth, height: kScreenHeight-navigationHeight))
         historyView.backgroundColor = UIColor.white
         self.view.addSubview(historyView)
         
@@ -83,7 +83,7 @@ class DailySearchViewController: UIViewController {
     }
     
     func createTabList() {
-        searchResultView = UITableView.init(frame: CGRect(x: 0, y: 64, width: kScreenWidth, height: kScreenHeight-64))
+        searchResultView = UITableView.init(frame: CGRect(x: 0, y: navigationHeight, width: kScreenWidth, height: kScreenHeight-navigationHeight))
         searchResultView.delegate = self
         searchResultView.dataSource = self
         searchResultView.separatorStyle = .none

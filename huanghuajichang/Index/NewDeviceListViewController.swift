@@ -36,7 +36,7 @@ class NewDeviceListViewController: AddNavViewController {
         createUI()
     }
     func createUI(){
-        newDeviceList.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-64)
+        newDeviceList.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-navigationHeight)
         newDeviceList.delegate = self
         newDeviceList.dataSource = self
         newDeviceList.separatorStyle = UITableViewCellSeparatorStyle.none

@@ -76,7 +76,7 @@ class ScanAndEditViewController: AddNavViewController {
     }
     
     func createDetailContent(){
-        let scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-64))
+        let scrollView = UIScrollView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight-navigationHeight))
         scrollView.backgroundColor = UIColor.white
         self.view.addSubview(scrollView)
         
@@ -140,7 +140,7 @@ class ScanAndEditViewController: AddNavViewController {
             self.navigationItem.rightBarButtonItem = rightEditBtn
             
             ///处理按钮视图
-            dealView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight-64-44, width: kScreenWidth, height: 44))
+            dealView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight-navigationHeight-tabBarHeight, width: kScreenWidth, height: 44))
             dealView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.28)
             self.view.addSubview(dealView)
             

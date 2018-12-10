@@ -68,7 +68,7 @@ class AlarmListViewController: AddNavViewController {
         self.view.addSubview(rightSelect)
         
         ///列表
-        alarmTableList = UITableView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: kScreenHeight-64-40))
+        alarmTableList = UITableView.init(frame: CGRect(x: 0, y: 40, width: kScreenWidth, height: kScreenHeight-navigationHeight-40))
         alarmTableList.backgroundColor = allListBackColor
         alarmTableList.delegate = self
         alarmTableList.dataSource = self
@@ -79,7 +79,7 @@ class AlarmListViewController: AddNavViewController {
         initMJRefresh()
         
         ///选择弹出框
-        selectorView = UIView.init(frame:CGRect(x: 0, y: kScreenHeight-64-240, width: kScreenWidth, height: 240))
+        selectorView = UIView.init(frame:CGRect(x: 0, y: kScreenHeight-navigationHeight-240, width: kScreenWidth, height: 240))
         selectorView.isHidden = true
         self.view.addSubview(selectorView)
         
