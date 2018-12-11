@@ -11,5 +11,6 @@
 //#Libs
 
 #import "MBProgressHUD.h"
+#import "UIButton+EnlargeTouchArea.h"
 
 //#endif /* huanghuajichang_Bridging_Header_h */

@@ -73,7 +73,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        maxId = self.userDefault.integer(forKey: "maxId")
+        let openStatus = self.userDefault.object(forKey: "hasOpenAlarmList")
+        if openStatus == nil || openStatus as! Bool == false{
+            maxId = 0
+        }else{
+            maxId = self.userDefault.integer(forKey: "maxId")
+        }
         getALarmCount()
     }
     
@@ -91,6 +96,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
                     //刷新页面数据
                     if JSON(value)["data"]["newAlarmCount"].intValue > 0{
                         self.addNewMsg(msgNum: JSON(value)["data"]["newAlarmCount"].intValue)
+                        self.userDefault.set(false, forKey: "hasOpenAlarmList")
                     }else{
                         self.removeMsg()
                     }
@@ -127,6 +133,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     @objc func openAlarm(){
         let AlarmListVc = AlarmListViewController()
         self.hidesBottomBarWhenPushed = true
+        self.userDefault.set(true, forKey: "hasOpenAlarmList")
         self.navigationController?.pushViewController(AlarmListVc, animated: true)
         self.hidesBottomBarWhenPushed = false
     }
@@ -249,6 +256,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         let newImageHighlight = rightImg?.imageWithTintColor(color: UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1),blendMode: .overlay)
         newRightBtn.setImage(newImageNormal, for: UIControlState.normal)
         newRightBtn.setImage(newImageHighlight, for: UIControlState.highlighted)
+        newRightBtn.setEnlargeEdge(20.0)
         newRightBtn.addTarget(self, action: #selector(openNewList), for: UIControlEvents.touchUpInside)
         topView.addSubview(newRightBtn)
         
@@ -360,6 +368,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         lineChartView.frame = CGRect(x: CGFloat(originX)*kScreenWidth + 20, y: 0, width: kScreenWidth - 40, height: self.scrollView.frame.height-10)
         scrollView.addSubview(lineChartView)
+        let currentMonth = UILabel.init(frame: CGRect(x: kScreenWidth - 70, y: 0, width: 50, height: 24))
+        currentMonth.text = "当月"
+        currentMonth.textAlignment = .center
+//        currentMonth.sizeToFit()
+        currentMonth.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
+        lineChartView.addSubview(currentMonth)
         lineChartView.delegate = self
         lineChartView.tag = 4000 + originX
         

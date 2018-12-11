@@ -602,7 +602,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     
     func imageMethods(){
         for i in 0..<photoListr.count{
-            let viewOption = UIView()
+            let viewOption = EditView()
             viewOption.frame = CGRect(x: 75*i+10, y: 0, width: 60, height: Int(imageView.frame.height))
             let image = UIImageView()
             image.tag = i+1000 // 图片
@@ -626,7 +626,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         addBtn.removeTarget(self, action: #selector(actionSheet), for: .touchUpInside)
         addBtn.removeFromSuperview()
         
-        let viewOption = UIView()
+        let viewOption = EditView()
         viewOption.tag = 4000+photoListr.count // 图片所在图层
         viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 60, height: Int(imageView.frame.height))
         
