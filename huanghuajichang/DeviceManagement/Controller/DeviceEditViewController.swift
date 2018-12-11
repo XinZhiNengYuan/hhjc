@@ -22,7 +22,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var selector:UIPickerView = UIPickerView()
     var clickedBtnTag = -1
     var selectorData:[[String:AnyObject]] = []
-    var imageView = UIView()
+    var imageView = UIScrollView()
     var addBut : UIButton!
     var mView = UIView()
     let addDeviceManagementService = AddDeviceManagementService()
@@ -96,7 +96,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                             let imgUrl = NSURL.init(string: imgurlStr)
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
                             let hasImg = UIImage.init(data: imgData! as Data, scale: 1)
-                            self.photoListr.append(hasImg ?? UIImage.init())
+                            self.photoListr.append(hasImg ?? UIImage.init(named: "默认图片")!)
                         }
                     }
                     self.setLayout()
@@ -141,10 +141,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     
     func setLayout(){
         
-        contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+824)
+        contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: navigationHeight + 793 - bottomSafeAreaHeight)
         scrollView.delegate = self
-        scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
-        scrollView.contentSize.height = UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+824
+        scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: kScreenHeight - navigationHeight)
+        scrollView.contentSize.height = navigationHeight + 793 - bottomSafeAreaHeight
         scrollView.backgroundColor = UIColor.white
         scrollView.addSubview(contentView)
         
@@ -172,7 +172,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         contentView.addSubview(contentViewHeader)
         
         //        设备基本信息
-        let contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+800-121))
+        let contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: contentView.frame.size.height-121))
         let contentForModeHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentForMode.frame.width, height: 40))
         contentForMode.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         let contentForModeHeaderLeftStyle = UILabel(frame: CGRect(x: 10, y: 10, width: 5, height: 20))
@@ -437,12 +437,17 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let trueBtn = UIButton(frame: CGRect(x: 30, y: 0, width: 20, height: 20))
         trueBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         trueBtn.tag = tag
-        trueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
         trueBtn.addTarget(self, action: #selector(selectAction), for: UIControlEvents.touchUpInside)
         
         let falseBtn = UIButton(frame: CGRect(x: rightView.frame.width-60, y: 0, width: 20, height: 20))
         falseBtn.tag = tag+1
-        falseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+        if originalStatus == "0"{
+            trueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            falseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+        }else{
+            trueBtn.set(image: UIImage(named: "选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+            falseBtn.set(image: UIImage(named: "未选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
+        }
         let statusData = UILabel()
         statusData.text = originalStatus // 0否 1是
         statusData.tag = tag+5
@@ -451,9 +456,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         falseBtn.setTitleColor(UIColor.black, for: UIControlState.normal)
         rightViewOfTop.addSubview(trueBtn)
         rightViewOfTop.addSubview(falseBtn)
-        
-        
-        
         
         //        let trueLabel = UILabel(frame: CGRect(x: 35, y: 5, width: 20, height: 20))
         rightView.addSubview(rightViewOfButtom)
@@ -512,7 +514,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                 print("错误")
             }
         }else{
-            self.getCommitData(userId: userId!, token: token!, fileId: "")
+            self.present(windowAlert(msges: "请至少上传一张图片"), animated: false, completion: nil)
         }
         
     }
@@ -584,10 +586,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         
     }
     func setPicView(top:Int,contentForMode:UIView,tag:Int) {
-        mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 90)
+        mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 110)
         mView.backgroundColor = UIColor.white
-        imageView.frame = CGRect(x: 10, y: 10, width: Int(KUIScreenWidth-20), height: 70)
-        imageView.backgroundColor = UIColor.white
+        imageView.frame = CGRect(x: 10, y: 10, width: KUIScreenWidth-20, height: 90)
+        imageView.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
         imageView.tag = tag
         mView.addSubview(imageView)
         contentForMode.addSubview(mView)
@@ -606,16 +608,24 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             viewOption.frame = CGRect(x: 75*i+10, y: 0, width: 60, height: Int(imageView.frame.height))
             let image = UIImageView()
             image.tag = i+1000 // 图片
-            image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
+            image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
             image.image = photoListr[i]
+            image.layer.borderColor = UIColor.red.cgColor
+            image.layer.borderWidth = 1.0
             viewOption.addSubview(image)
             let deleteBut = deleteBtn(tag: i + 6000)
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
         }
-        if photoListr.count >= 3{
+        if photoListr.count >= 6{
             //            addBut.removeFromSuperview()
+            imageView.contentSize = CGSize(width: 10+75*(photoListr.count), height: 90)
         }else{
+            if 75*(photoListr.count+1) > Int(KUIScreenWidth)-20{
+                imageView.contentSize = CGSize(width: 10+75*(photoListr.count+1), height: 90)
+            }else{
+                imageView.contentSize = CGSize(width: KUIScreenWidth-20, height: 90)
+            }
             setAddBut()
         }
         
@@ -628,13 +638,13 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         
         let viewOption = EditView()
         viewOption.tag = 4000+photoListr.count // 图片所在图层
-        viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 60, height: Int(imageView.frame.height))
+        viewOption.frame = CGRect(x: 75*photoListr.count+10, y: 0, width: 60, height: Int(imageView.frame.height))
         
         let image = UIImageView()
         image.image = UIImage(named: "image")
         
         image.tag = photoListr.count + 1000 //图片
-        image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
+        image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
         image.image = pic
         
         viewOption.addSubview(image)
@@ -642,9 +652,16 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
         photoListr.append(pic)
-        if photoListr.count >= 3{
+        
+        if photoListr.count >= 6{
             addBut.removeFromSuperview()
+            imageView.contentSize = CGSize(width: 10+75*(photoListr.count), height: 90)
         }else{
+            if 75*(photoListr.count+1) > Int(KUIScreenWidth)-20{
+                imageView.contentSize = CGSize(width: 10+75*(photoListr.count+1), height: 90)
+            }else{
+                imageView.contentSize = CGSize(width: KUIScreenWidth-20, height: 90)
+            }
             setAddBut()
         }
     }

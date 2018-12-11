@@ -140,11 +140,11 @@ class ScanAndEditViewController: AddNavViewController {
             self.navigationItem.rightBarButtonItem = rightEditBtn
             
             ///处理按钮视图
-            dealView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight-navigationHeight-tabBarHeight, width: kScreenWidth, height: 44))
+            dealView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight-navigationHeight-tabBarHeight, width: kScreenWidth, height: tabBarHeight-bottomSafeAreaHeight))
             dealView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.28)
             self.view.addSubview(dealView)
             
-            let dealbtn = UIButton.init(frame: CGRect(x: (kScreenWidth-150)/2, y: 7, width: 150, height: 30))
+            let dealbtn = UIButton.init(frame: CGRect(x: (kScreenWidth-150)/2, y: (tabBarHeight-bottomSafeAreaHeight-30)/2, width: 150, height: 30))
             dealbtn.setTitle("确认处理", for: UIControlState.normal)
             dealbtn.setTitleColor(UIColor.white, for: UIControlState.normal)
             dealbtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)

@@ -139,39 +139,45 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     
     ///上传图片
     @objc func uploadImgs() {
+        var editOrAdd = "新增"
         if pageType == "edit"{
-            MyProgressHUD.showStatusInfo("修改中...")
-        }else{
-           MyProgressHUD.showStatusInfo("新增中...")
+            editOrAdd = "修改"
         }
-        NetworkTools.upload(urlString: "http", params: nil , images: imagesData as! [UIImage], success: { (successBack) in
-            print(successBack ?? "default value")
-            self.fieldsData = []
-            if JSON(successBack!)["status"].stringValue == "success"{
-                //关闭页面，通知列表刷新
-                let successData = JSON(successBack!)["data"]
-                for i in successData.enumerated(){
-                    self.fieldsData.add(successData[i.offset]["fileId"])
-                }
-                self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
-                if self.pageType == "edit"{
-                    self.editPost()
+        let titleView = self.view.viewWithTag(100)
+        let titleTF = titleView?.viewWithTag(200) as! UITextField
+        if titleTF.text == ""{
+            self.present(windowAlert(msges: "标题不得为空"), animated: true, completion: nil)
+        }else{
+            MyProgressHUD.showStatusInfo("\(editOrAdd)中...")
+            NetworkTools.upload(urlString: "http", params: nil , images: imagesData as! [UIImage], success: { (successBack) in
+                print(successBack ?? "default value")
+                self.fieldsData = []
+                if JSON(successBack!)["status"].stringValue == "success"{
+                    //关闭页面，通知列表刷新
+                    let successData = JSON(successBack!)["data"]
+                    for i in successData.enumerated(){
+                        self.fieldsData.add(successData[i.offset]["fileId"])
+                    }
+                    self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
+                    if self.pageType == "edit"{
+                        self.editPost()
+                    }else{
+                        self.addPost()
+                    }
                 }else{
-                    self.addPost()
+                    MyProgressHUD.dismiss()
+                    if JSON(successBack!)["msg"].string == nil {
+                        self.present(windowAlert(msges: "\(editOrAdd)失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(successBack!)["msg"].stringValue), animated: true, completion: nil)
+                    }
                 }
-            }else{
+            }) { (ErrorBack) in
                 MyProgressHUD.dismiss()
-                if JSON(successBack!)["msg"].string == nil {
-                    self.present(windowAlert(msges: "新增失败"), animated: true, completion: nil)
-                }else{
-                    self.present(windowAlert(msges: JSON(successBack!)["msg"].stringValue), animated: true, completion: nil)
-                }
+                self.present(windowAlert(msges: "\(editOrAdd)请求失败"), animated: true, completion: nil)
+                print("error:\(ErrorBack)")
+                return
             }
-        }) { (ErrorBack) in
-            MyProgressHUD.dismiss()
-            self.present(windowAlert(msges: "新增请求失败"), animated: true, completion: nil)
-            print("error:\(ErrorBack)")
-            return
         }
     }
     
@@ -253,12 +259,12 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             titleView.tag = 100+i
             self.view.addSubview(titleView)
             
-            let titleLabel = UILabel.init(frame: CGRect(x: 10, y: 5, width: 35, height: 30))
+            let titleLabel = UILabel.init(frame: CGRect(x: 20, y: 5, width: 35, height: 30))
             titleLabel.font = UIFont(name: "PingFangSC-Regular", size: 14)
             titleLabel.textColor = UIColor(red: 93/255, green: 93/255, blue: 93/255, alpha: 1)
             titleView.addSubview(titleLabel)
             
-            titleTextField = UITextField.init(frame: CGRect(x: 50, y: 5, width: kScreenWidth-50-10, height: 30))
+            titleTextField = UITextField.init(frame: CGRect(x: 60, y: 5, width: kScreenWidth-60-10, height: 30))
             titleTextField.textColor = allFontColor
             titleTextField.delegate = self
             titleTextField.tag = 200+i
@@ -267,6 +273,10 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             if i == 0 {
                 titleLabel.text = "标题:"
                 titleTextField.autocapitalizationType = UITextAutocapitalizationType.none//关闭首字母大写
+                NotificationCenter.default.addObserver(self, selector: #selector(self.textFiledEditChanged(obj:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+                let mustImg = UIImageView(frame: CGRect(x: 10, y: 17, width: 6, height: 6))
+                mustImg.image = UIImage(named: "必填项")
+                titleView.addSubview(mustImg)
             }else{
                 titleLabel.text = "时间:"
                 pickerView = UIView.init(frame: CGRect(x: 0, y: kScreenHeight - 200, width: kScreenWidth, height: 200))
@@ -290,6 +300,12 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                 cancelBtn.addTarget(self, action: #selector(closePick), for: UIControlEvents.touchUpInside)
                 okBtn.addTarget(self, action: #selector(getDate), for: UIControlEvents.touchUpInside)
                 titleTextField.inputView = pickerView
+                if self.pageType != "edit"{
+                    let date = NSDate()
+                    let dfmatter = DateFormatter()
+                    dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+                    titleTextField.text = dfmatter.string(from: date as Date)
+                }
             }
         }
         ///part3 -- 描述部分
@@ -307,7 +323,9 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         describeTextView.returnKeyType = .done
         describeTextView.autocapitalizationType = UITextAutocapitalizationType.none
 //        describeTextView.line
+        describeTextView.font = UIFont.init(name: "PingFangSC-Regular", size: 15)
         describeTextView.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(textViewEditChanged(sender:)), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
         textView.addSubview(describeTextView)
         
         //textview弹出的键盘添加工具栏
@@ -338,6 +356,40 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         addImgBtn.addTarget(self, action: #selector(addImgBtn(sender:)), for: UIControlEvents.touchUpInside)
         imgsView.addSubview(addImgBtn)
         imagsData.add(addImgBtn)
+    }
+    
+    @objc func textFiledEditChanged(obj:Notification){
+        let textField = obj.object as! UITextField
+        let toBeString = textField.text
+        let lang = UIApplication.shared.textInputMode?.primaryLanguage! //键盘输入模式
+        if (lang!.elementsEqual("zh_Hans")){
+            let selectedRange:UITextRange = (textField.markedTextRange)!
+            let position = textField.position(from: selectedRange.start, offset: 0)
+            if (position == nil) {// 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+                if (toBeString! as NSString).length > 30 {
+                    textField.text = (toBeString! as NSString).substring(to: 30)
+                    self.present(windowAlert(msges: "最大输入字数为30"), animated: true, completion: nil)
+                }
+            }else{
+                
+            }
+            
+        }else{// 中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+            if (toBeString! as NSString).length > 30 {
+                self.present(windowAlert(msges: "最大输入字数为30"), animated: true, completion: nil)
+                textField.text = (toBeString! as NSString).substring(to: 30)
+            }
+        }
+        
+    }
+    
+    @objc func textViewEditChanged(sender:NSNotification) {
+        let textVStr = describeTextView.text as NSString
+        if (textVStr.length > 500) {
+            let str = textVStr.substring(to: 500)
+            describeTextView.text = str
+            self.present(windowAlert(msges: "最大输入字数为500"), animated: true, completion: nil)
+        }
     }
     
     ///时间戳转字符串
@@ -626,6 +678,12 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         }else{
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name:
+            NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
 
 }

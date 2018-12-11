@@ -130,6 +130,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     
     @objc func openEdit(){
         let deviceEditVc = DeviceEditViewController()
+        self.hidesBottomBarWhenPushed = true
         deviceEditVc.pageType = "edit"
         deviceEditVc.deviceEditNo = self.eqCode
         deviceEditVc.deviceEditId = self.eqId
