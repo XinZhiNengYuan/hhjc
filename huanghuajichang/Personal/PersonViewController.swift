@@ -61,7 +61,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     // image还需要加上这一句, 不然无效
                     self.headerImageView.layer.masksToBounds = true
                     self.personName.text = self.json["user_name"].stringValue
-                    self.personPosition.text = "新智能源UI开发工程师"
+                    self.personPosition.text = self.json["dept"].stringValue
                     self.headerView.layoutIfNeeded()
                 }else{
                     print(type(of: JSON(value)["msg"]))
@@ -77,7 +77,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func creteHeaderView(){
-        headerView = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 180))
+        headerView = UIButton.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: navigationHeight+120))
         //会拉伸图片覆盖
         let image = UIImage(imageLiteralResourceName: "BackGround")
         headerView.layer.contents = image.cgImage
@@ -107,13 +107,13 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        headerImageView.image = UIImage(contentsOfFile: "Group 17 Copy")
         headerView.addSubview(headerImageView)
 
-        personName = UILabel.init(frame: CGRect(x: 110, y: 74, width: kScreenWidth-110, height: 20))
+        personName = UILabel.init(frame: CGRect(x: 110, y: navigationHeight+15, width: kScreenWidth-110, height: 20))
         personName.textColor = UIColor.white
         personName.textAlignment = .left
         personName.font = UIFont.systemFont(ofSize: 18)
         headerView.addSubview(personName)
 
-        personPosition = UILabel.init(frame: CGRect(x: 110, y: 104, width: kScreenWidth-110, height: 20))
+        personPosition = UILabel.init(frame: CGRect(x: 110, y: navigationHeight+45, width: kScreenWidth-110, height: 20))
         personPosition.textColor = UIColor.white
         personPosition.textAlignment = .left
         personPosition.font = UIFont.systemFont(ofSize: 15)
@@ -135,7 +135,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func createTableView () {
-        personalTable = UITableView.init(frame: CGRect(x: 0, y: 180, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT), style: UITableViewStyle.grouped)
+        personalTable = UITableView.init(frame: CGRect(x: 0, y: navigationHeight+120, width: kSCREEN_WIDTH, height: kSCREEN_HEIGHT), style: UITableViewStyle.grouped)
         
         personalTable.delegate = self
         personalTable.dataSource = self
