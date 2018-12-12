@@ -24,7 +24,7 @@ class ThickButton: NSObject {
     
     
     // 创建view方法
-    func creatThickButton(buttonsFrame:CGRect, dataArr:[ThickButtonModel]) ->UIView {
+    func creatThickButton(buttonsFrame:CGRect, dataArr:[ThickButtonModel], selectedIndex:Int) ->UIView {
         // 最底层容器view
         let myView = UIView(frame: buttonsFrame)
         
@@ -66,7 +66,7 @@ class ThickButton: NSObject {
             describeLabel.textColor = UIColor.lightGray
             tabBtn.addSubview(describeLabel)
             
-            if index == 0 {
+            if index == selectedIndex {
                 tabBtn.isSelected = true
                 valueLabel.textColor = topValueColor
                 describeLabel.textColor = topValueColor
@@ -88,7 +88,9 @@ class ThickButton: NSObject {
         sliderView.clipsToBounds = true
         myView.addSubview(sliderView)
         sliderView.frame = CGRect(x: 0, y: 60, width: btnWidth, height: 2)
-        
+        if selectedIndex != 0 {
+            self.sliderView.center = CGPoint(x: CGFloat(selectedIndex)*(10+self.moveWidth)+self.sliderView.frame.width/2, y: 61)
+        }
         
         // 返回值
         return myView

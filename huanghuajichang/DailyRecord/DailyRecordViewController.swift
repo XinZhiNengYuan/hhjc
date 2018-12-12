@@ -47,6 +47,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     var pageStart = 0
     let pageSize = 10
     var dataToEnd = false
+    var selectedBtnIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,9 +67,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     }
     
     @objc func updateList(){
+        selectedBtnIndex = 0
         pageStart = 0
         self.getHeaderData()
-        self.getListData(searchStr: "", state: "")
+        self.getListData(searchStr: "")
     }
     
     ///1.绘制navigationBar的右侧按钮组
@@ -140,6 +142,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         let dateBtn = UIButton.init(frame: CGRect(x: dateLabel.frame.origin.x+dateLabel.frame.width+5, y: 10, width: 20, height: 20))
         dateBtn.setImage(UIImage(named: "日期"), for: UIControlState.normal)
         dateBtn.addTarget(self, action: #selector(opendatePicker), for: UIControlEvents.touchUpInside)
+        dateBtn.setEnlargeEdge(20)
         dateChangeView.addSubview(dateBtn)
         
         //右侧按钮
@@ -175,7 +178,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         pageStart = 0
         dateLabel.text = changeDate(chageType: (sender?.tag)!)
         getHeaderData()
-        getListData(searchStr: "", state: "")
+        getListData(searchStr: "")
     }
     
     func changeDate(chageType:Int)->String{
@@ -203,6 +206,55 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         return newDate
     }
     
+    //指定年月的开始日期
+    func startOfMonth(year: Int, month: Int) -> Date {
+        let calendar = NSCalendar.current
+        var startComps = DateComponents()
+        startComps.day = 1
+        startComps.month = month
+        startComps.year = year
+        let startDate = calendar.date(from: startComps)!
+        return startDate
+    }
+    
+    //指定年月的结束日期
+    func endOfMonth(year: Int, month: Int, returnEndTime:Bool = false) -> Date {
+        let calendar = NSCalendar.current
+        var components = DateComponents()
+        components.month = 1
+        if returnEndTime {
+            components.second = -1
+        } else {
+            components.day = -1
+        }
+        
+        let endOfYear = calendar.date(byAdding: components,
+                                      to: startOfMonth(year: year, month:month))!
+        return endOfYear
+    }
+    ///获取选中月的第一天或者最后一天
+    /// - Parameter startOrEnd: 日期类型：0为第一天，1为最后一天
+    func getNeedDate(startOrEnd:Int) -> String {
+        
+        let needDate:String
+        let getYear = ((dateLabel.text?.split(separator: "-")[0])! as NSString).integerValue
+        let getMonth = ((dateLabel.text?.split(separator: "-")[1])! as NSString).integerValue
+        
+        //创建一个日期格式器
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        switch startOrEnd {
+        case 0:
+             let startDate = startOfMonth(year: getYear, month: getMonth)
+            needDate = dateFormatter.string(from: startDate)
+        default:
+            let endDate = endOfMonth(year: getYear, month: getMonth, returnEndTime: true)
+            needDate = dateFormatter.string(from: endDate)
+        }
+        return needDate
+    }
+    
     ///比较新日期与当前日期
     func compareWithCurrent(newDate:String)->Bool {
         let formatter = DateFormatter()
@@ -210,20 +262,30 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         
         var date1=NSDate()
         date1 = formatter.date(from: newDate)! as NSDate
-        let date2 = NSDate()
         
-        let result:ComparisonResult = date1.compare(date2 as Date)
+        let currentMonth = NSDate()
+        let dateFormater = DateFormatter.init()
+        dateFormater.dateFormat = "yyyy/MM"
+        let date2 = dateFormater.string(from: currentMonth as Date)
         
-        if result == ComparisonResult.orderedDescending{//date2<=date1
-            return false
+        let currentDate = formatter.date(from: date2)! as NSDate
+        
+        let result:ComparisonResult = date1.compare(currentDate as Date)
+        
+        var resultBool:Bool
+        if result == ComparisonResult.orderedAscending{
+            resultBool = true
+        }else if result == ComparisonResult.orderedSame {
+            resultBool = false
         }else{
-            return true
+            resultBool = false
         }
+        return resultBool
     }
     
     ///3.获取表头需要的数据（日常记录条数）
     @objc func getHeaderData() {
-        let infoData = ["startday":"\(dateLabel.text!)-01","endDay":"\(changeDate(chageType: 2))-01"]
+        let infoData = ["startday":getNeedDate(startOrEnd:0),"endDay":getNeedDate(startOrEnd:1)]
         let contentData : [String : Any] = ["method":"getOptionNum","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
 //            print(resultData)
@@ -232,7 +294,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 self.buttons = [ThickButtonModel(value: JSON(value)["data"]["all"].intValue, describe: "全部"), ThickButtonModel(value: JSON(value)["data"]["noope"].intValue, describe: "未处理"), ThickButtonModel(value:JSON(value)["data"]["ope"].intValue, describe:"已处理")]
                 if self.buttonsView != nil{
                     self.buttonsView.removeFromSuperview()
-                    self.buttonsView = self.thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: self.buttons)
+                    self.buttonsView = self.thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: self.buttons, selectedIndex: self.selectedBtnIndex)
                     self.thickbuttons.delegate = self
                     self.HeaderView.addSubview(self.buttonsView)
                 }
@@ -263,7 +325,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         spearLine.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         HeaderView.addSubview(spearLine)
         
-        buttonsView = thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: buttons)
+        buttonsView = thickbuttons.creatThickButton(buttonsFrame: CGRect(x: 10, y: 41, width: kScreenWidth-20, height: 62), dataArr: buttons, selectedIndex: selectedBtnIndex)
         thickbuttons.delegate = self
         HeaderView.addSubview(buttonsView)
         getHeaderData()
@@ -286,10 +348,19 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     /// - Parameter state：是否被处理的状态码
     /// - Parameter pageNum：起始页吗数
     /// - Parameter pageSize：每页条数
-    func getListData(searchStr:String, state:Any) {
+    func getListData(searchStr:String) {
         self.dataToEnd = false
+        var requestState:Any
+        switch selectedBtnIndex {
+        case 1:
+            requestState = 0
+        case 2:
+            requestState = 1
+        default:
+            requestState = ""
+        }
         MyProgressHUD.showStatusInfo("加载中...")
-        let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startday":"\(dateLabel.text!)-01", "endDay":"\(changeDate(chageType: 2))-01"] as [String : Any]
+        let infoData = ["title":searchStr, "state":requestState, "start":pageStart, "length":pageSize, "startday":getNeedDate(startOrEnd: 0), "endDay":getNeedDate(startOrEnd: 1)] as [String : Any]
         if pageStart == 0 {
             self.listData = []
         }
@@ -342,10 +413,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 if JSON(value)["status"].stringValue == "success"{
                     //重新请求页面数据
                     self.getHeaderData()
-//                    self.getListData(searchStr:"", state:"")
-                    self.listData.remove(at: itemIndexPath.row)
-                    
-                    self.recordTableView!.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.fade)
+                    self.getListData(searchStr:"")
+//                    self.listData.remove(at: itemIndexPath.row)
+//
+//                    self.recordTableView!.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.fade)
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
@@ -393,7 +464,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         refreshFooter.setTitle("没有更多数据了", for: .noMoreData)//数据加载完毕的状态
         //将上拉加载的控件与 tableView控件绑定起来
         self.recordTableView.mj_footer = refreshFooter
-        getListData(searchStr:"", state:"")
+        getListData(searchStr:"")
     }
     
     // 顶部刷新
@@ -402,11 +473,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
 //        print("下拉刷新")
         pageStart = 0
         //服务器请求数据的函数
-        if pageStatus == "" {
-            getListData(searchStr:"", state:"")
-        }else{
-            getListData(searchStr:"", state:Int(pageStatus)!-1)
-        }
+        getListData(searchStr:"")
         
         //结束下拉刷新
         self.recordTableView.mj_header.endRefreshing()
@@ -419,11 +486,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         if dataToEnd == false {
             pageStart += 10
             //服务器请求数据的函数
-            if pageStatus == "" {
-                getListData(searchStr:"", state:"")
-            }else{
-                getListData(searchStr:"", state:Int(pageStatus)!-1)
-            }
+            getListData(searchStr:"")
         }
         //结束下拉刷新
         self.recordTableView.mj_footer.endRefreshing()
@@ -440,7 +503,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
 //        print("dateComponents = ", dateComponents)
         pageStart = 0
         getHeaderData()
-        getListData(searchStr: "", state: "")
+        getListData(searchStr: "")
     }
     
     func formateNum(num:Int) ->String{
@@ -465,18 +528,9 @@ extension DailyRecordViewController:ThickButtonDelagate{
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
 //        print(buttonIndex)
+        selectedBtnIndex = buttonIndex
         pageStart = 0
-        switch buttonIndex {
-        case 0:
-            pageStatus = ""
-            getListData(searchStr: "", state: "")
-        case 1:
-            pageStatus = "\(buttonIndex)"
-            getListData(searchStr: "", state: 0)
-        default:
-            pageStatus = "\(buttonIndex)"
-            getListData(searchStr: "", state: 1)
-        }
+        getListData(searchStr: "")
     }
 }
 extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
