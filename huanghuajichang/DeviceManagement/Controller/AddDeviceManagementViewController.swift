@@ -165,7 +165,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         
         
         ///选择弹出框
-        selectorView.frame = CGRect(x: 0, y: contentView.frame.height-240, width: KUIScreenWidth, height: 240)
+        selectorView.frame = CGRect(x: 0, y: KUIScreenHeight-240, width: KUIScreenWidth, height: 240)
         selectorView.isHidden = true
         self.view.addSubview(selectorView)
         
