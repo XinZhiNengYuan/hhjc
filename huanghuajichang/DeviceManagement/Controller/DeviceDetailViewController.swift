@@ -23,11 +23,12 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        getData(eqCode: eqCode)
+        getData()
+        NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
     }
     
     //MARK:数据请求
-    func getData(eqCode:String){
+    @objc func getData(){
         navigationController?.tabBarController?.tabBar.isHidden = true
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
@@ -43,6 +44,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
     
     //MARK:组装页面所需的数据
     func setVal(val:DeviceDetailViewModule,call:(_ picArr:[equPhotos])->()){
+        arrayForVal = []
+        arrayForKey = []
         //这两个数组顺序要保持一致
         arrayForVal.append(val.categoryNameSmall) //所属单位
         arrayForVal.append(val.equName) //设备名称
@@ -119,6 +122,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         UiTableList.tableHeaderView = cycleView
         mView.addSubview(UiTableList)
         view.addSubview(mView)
+        UiTableList.reloadData()
         UiTableList.separatorStyle = UITableViewCellSeparatorStyle.none
         UiTableList.showsVerticalScrollIndicator = false
     }
@@ -135,6 +139,10 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         deviceEditVc.deviceEditNo = self.eqCode
         deviceEditVc.deviceEditId = self.eqId
         self.navigationController?.pushViewController(deviceEditVc, animated: false)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
     }
 
 }

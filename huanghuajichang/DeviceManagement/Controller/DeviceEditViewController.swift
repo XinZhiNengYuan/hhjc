@@ -572,7 +572,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
-                self.present(windowAlert(msges: "提交成功"), animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: false)
+                userDefault.set("editBack", forKey: "pageStatus")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
             }else if resultType == "sign_app_err" {
                 self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
             }else{

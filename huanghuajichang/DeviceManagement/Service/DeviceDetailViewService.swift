@@ -24,6 +24,7 @@ class DeviceDetailViewService : common {
                 self.deviceDetailViewModule.coTwo = result["data"]["coTwo"].stringValue
                 self.deviceDetailViewModule.manufactureDate = result["data"]["manufactureDate"].stringValue
                 self.deviceDetailViewModule.installDate = result["data"]["installDate"].stringValue
+                self.deviceDetailViewModule.photoList = []
                 for i in 0..<result["data"]["equPhotos"].count{
                     var equPhoto = equPhotos()
                     equPhoto.fileId = Int(result["data"]["equPhotos"][i]["fileId"].stringValue)!
