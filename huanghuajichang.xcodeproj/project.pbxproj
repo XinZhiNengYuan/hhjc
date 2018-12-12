@@ -55,6 +55,7 @@
 		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
 		3D4CBA8921AFD9D5008319AE /* AddDeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */; };
 		3D4CBA8B21AFDF2D008319AE /* AddDeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */; };
+		3D50D39121C1045300C1612B /* HandleDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D50D39021C1045300C1612B /* HandleDate.swift */; };
 		3D68471121BF53550051A28D /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68471021BF53550051A28D /* EditView.swift */; };
 		3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */; };
 		3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */; };
@@ -145,6 +146,7 @@
 		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementService.swift; sourceTree = "<group>"; };
 		3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementModule.swift; sourceTree = "<group>"; };
+		3D50D39021C1045300C1612B /* HandleDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleDate.swift; sourceTree = "<group>"; };
 		3D68471021BF53550051A28D /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgressHUD.swift; sourceTree = "<group>"; };
 		3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewService.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				3D68471021BF53550051A28D /* EditView.swift */,
 				3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */,
 				3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */,
+				3D50D39021C1045300C1612B /* HandleDate.swift */,
 			);
 			path = CommentFiles;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */,
 				3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */,
 				3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */,
+				3D50D39121C1045300C1612B /* HandleDate.swift in Sources */,
 				3D68471121BF53550051A28D /* EditView.swift in Sources */,
 				3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */,
 				FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */,

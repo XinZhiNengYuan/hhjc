@@ -48,6 +48,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     let pageSize = 10
     var dataToEnd = false
     var selectedBtnIndex = 0
+    var dateTool = HandleDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,119 +177,19 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         
 //        print("year:\(year)"+";"+"month:"+formateNum(num:month))
         pageStart = 0
-        dateLabel.text = changeDate(chageType: (sender?.tag)!)
+        let newDate = dateTool.changeDate(changeDate: dateLabel.text!, chageType: (sender?.tag)!)
+        dateLabel.text = newDate
+        nextMonthBtn.isEnabled = dateTool.compareWithCurrent(newDate: newDate)
         getHeaderData()
         getListData(searchStr: "")
     }
     
-    func changeDate(chageType:Int)->String{
-        var year = ((dateLabel.text?.split(separator: "-")[0])! as NSString).integerValue
-        var month = ((dateLabel.text?.split(separator: "-")[1])! as NSString).integerValue
-        switch chageType {
-        case 1://减
-            if month == 01 {
-                year = year - 1
-                month = 12
-            }else{
-                month = month - 1
-            }
-            
-        default://增
-            if month == 12 {
-                year = year + 1
-                month = 01
-            }else{
-                month = month + 1
-            }
-        }
-        let newDate = "\(year)" + "-" + formateNum(num: month)
-        nextMonthBtn.isEnabled = compareWithCurrent(newDate: newDate)
-        return newDate
-    }
-    
-    //指定年月的开始日期
-    func startOfMonth(year: Int, month: Int) -> Date {
-        let calendar = NSCalendar.current
-        var startComps = DateComponents()
-        startComps.day = 1
-        startComps.month = month
-        startComps.year = year
-        let startDate = calendar.date(from: startComps)!
-        return startDate
-    }
-    
-    //指定年月的结束日期
-    func endOfMonth(year: Int, month: Int, returnEndTime:Bool = false) -> Date {
-        let calendar = NSCalendar.current
-        var components = DateComponents()
-        components.month = 1
-        if returnEndTime {
-            components.second = -1
-        } else {
-            components.day = -1
-        }
-        
-        let endOfYear = calendar.date(byAdding: components,
-                                      to: startOfMonth(year: year, month:month))!
-        return endOfYear
-    }
-    ///获取选中月的第一天或者最后一天
-    /// - Parameter startOrEnd: 日期类型：0为第一天，1为最后一天
-    func getNeedDate(startOrEnd:Int) -> String {
-        
-        let needDate:String
-        let getYear = ((dateLabel.text?.split(separator: "-")[0])! as NSString).integerValue
-        let getMonth = ((dateLabel.text?.split(separator: "-")[1])! as NSString).integerValue
-        
-        //创建一个日期格式器
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        switch startOrEnd {
-        case 0:
-             let startDate = startOfMonth(year: getYear, month: getMonth)
-            needDate = dateFormatter.string(from: startDate)
-        default:
-            let endDate = endOfMonth(year: getYear, month: getMonth, returnEndTime: true)
-            needDate = dateFormatter.string(from: endDate)
-        }
-        return needDate
-    }
-    
-    ///比较新日期与当前日期
-    func compareWithCurrent(newDate:String)->Bool {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM"
-        
-        var date1=NSDate()
-        date1 = formatter.date(from: newDate)! as NSDate
-        
-        let currentMonth = NSDate()
-        let dateFormater = DateFormatter.init()
-        dateFormater.dateFormat = "yyyy/MM"
-        let date2 = dateFormater.string(from: currentMonth as Date)
-        
-        let currentDate = formatter.date(from: date2)! as NSDate
-        
-        let result:ComparisonResult = date1.compare(currentDate as Date)
-        
-        var resultBool:Bool
-        if result == ComparisonResult.orderedAscending{
-            resultBool = true
-        }else if result == ComparisonResult.orderedSame {
-            resultBool = false
-        }else{
-            resultBool = false
-        }
-        return resultBool
-    }
-    
     ///3.获取表头需要的数据（日常记录条数）
     @objc func getHeaderData() {
-        let infoData = ["startday":getNeedDate(startOrEnd:0),"endDay":getNeedDate(startOrEnd:1)]
+        let infoData = ["startDay":dateTool.getNeedDate(changeDate: dateLabel.text!, startOrEnd: 0),"endDay":dateTool.getNeedDate(changeDate: dateLabel.text!, startOrEnd: 1)]
         let contentData : [String : Any] = ["method":"getOptionNum","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-//            print(resultData)
+            print(resultData)
             switch resultData.result {
             case .success(let value):
                 self.buttons = [ThickButtonModel(value: JSON(value)["data"]["all"].intValue, describe: "全部"), ThickButtonModel(value: JSON(value)["data"]["noope"].intValue, describe: "未处理"), ThickButtonModel(value:JSON(value)["data"]["ope"].intValue, describe:"已处理")]
@@ -360,13 +261,13 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
             requestState = ""
         }
         MyProgressHUD.showStatusInfo("加载中...")
-        let infoData = ["title":searchStr, "state":requestState, "start":pageStart, "length":pageSize, "startday":getNeedDate(startOrEnd: 0), "endDay":getNeedDate(startOrEnd: 1)] as [String : Any]
+        let infoData = ["title":searchStr, "state":requestState, "start":pageStart, "length":pageSize, "startDay":dateTool.getNeedDate(changeDate: dateLabel.text!, startOrEnd: 0), "endDay":dateTool.getNeedDate(changeDate: dateLabel.text!, startOrEnd: 1)] as [String : Any]
         if pageStart == 0 {
             self.listData = []
         }
         let contentData : [String : Any] = ["method":"getOptionlist","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            //print(resultData)
+            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -499,21 +400,12 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     
     //PGDatePickerDelegate
     func datePicker(_ datePicker: PGDatePicker!, didSelectDate dateComponents: DateComponents!) {
-        dateLabel.text = "\(dateComponents.year!)" + "-" + formateNum(num: dateComponents.month!)
+        nextMonthBtn.isEnabled = dateTool.compareWithCurrent(newDate: "\(dateComponents.year!)" + "-" + dateTool.formateNum(num: dateComponents.month!))
+        dateLabel.text = "\(dateComponents.year!)" + "-" + dateTool.formateNum(num: dateComponents.month!)
 //        print("dateComponents = ", dateComponents)
         pageStart = 0
         getHeaderData()
         getListData(searchStr: "")
-    }
-    
-    func formateNum(num:Int) ->String{
-        var formateString:String = ""
-        if num < 10 {
-            formateString = "0\(num)"
-        }else{
-            formateString = "\(num)"
-        }
-        return formateString
     }
     
     //最后要记得移除通知
@@ -641,7 +533,7 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         //delete操作按钮可使用UIContextualActionStyleDestructive类型，当使用该类型时，如果是右滑操作，一直向右滑动某个cell，会直接执行删除操作，不用再点击删除按钮。
         
         if itemCell.itemStatus?.text == "已处理" {
-            deleteAction.backgroundColor = UIColor.gray
+            deleteAction.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
         }else{
             deleteAction.backgroundColor = UIColor.red
         }

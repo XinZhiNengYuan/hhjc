@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import MJRefresh
 
 class DailySearchViewController: UIViewController {
     
@@ -24,11 +25,17 @@ class DailySearchViewController: UIViewController {
     var userToken:String!
     var userId:String!
     var searchDate:String!
-    var listData:NSMutableArray = []
     var json:JSON!
     var pageStart = 0
     let pageSize = 10
     let CellIdentifier = "MyCell"
+    var searchDateTool = HandleDate()
+    // 顶部刷新
+    let refresHeader = MJRefreshNormalHeader()
+    // 底部加载
+    let refreshFooter = MJRefreshAutoNormalFooter()
+    var dataToEnd = false
+    var searchData:[DailyRecordViewModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +49,9 @@ class DailySearchViewController: UIViewController {
         createSearchView()
         createHistoryUI()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        searchBar.becomeFirstResponder()
     }
     
     func createSearchView(){
@@ -94,7 +104,63 @@ class DailySearchViewController: UIViewController {
         searchResultView.backgroundColor = allListBackColor
         self.view.addSubview(searchResultView)
         searchResultView.register(RecordListTableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+        initMJRefresh()
+    }
+    
+    //初始化下拉刷新/上拉加载
+    func initMJRefresh(){
+        //下拉刷新相关设置
+        refresHeader.setRefreshingTarget(self, refreshingAction: #selector(DailyRecordViewController.headerRefresh))
+        // 现在的版本要用mj_header
         
+        refresHeader.setTitle("下拉刷新", for: .idle)
+        refresHeader.setTitle("释放更新", for: .pulling)
+        refresHeader.setTitle("正在刷新...", for: .refreshing)
+        self.searchResultView.mj_header = refresHeader
+        //初始化上拉加载
+        init_bottomFooter()
+    }
+    
+    //上拉加载初始化设置
+    func init_bottomFooter(){
+        //上刷新相关设置
+        refreshFooter.setRefreshingTarget(self, refreshingAction: #selector(DailyRecordViewController.footerRefresh))
+        //self.bottom_footer.stateLabel.isHidden = true // 隐藏文字
+        //是否自动加载（默认为true，即表格滑到底部就自动加载,这个我建议关掉,要不然效果会不好）
+        refreshFooter.isAutomaticallyRefresh = false
+        refreshFooter.isAutomaticallyChangeAlpha = true //自动更改透明度
+        //修改文字
+        refreshFooter.setTitle("上拉加载更多数据", for: .idle)//普通闲置的状态
+        //        refreshFooter.setTitle("释放更新", for: .pulling)
+        refreshFooter.setTitle("加载中...", for: .refreshing)//正在刷新的状态
+        refreshFooter.setTitle("没有更多数据了", for: .noMoreData)//数据加载完毕的状态
+        //将上拉加载的控件与 tableView控件绑定起来
+        self.searchResultView.mj_footer = refreshFooter
+    }
+    
+    // 顶部刷新
+    @objc func headerRefresh(){
+        
+        //        print("下拉刷新")
+        pageStart = 0
+        //服务器请求数据的函数
+        getListData(searchStr:searchBar.text!, state:"")
+        
+        //结束下拉刷新
+        self.searchResultView.mj_header.endRefreshing()
+    }
+    
+    // 底部刷新
+    @objc func footerRefresh(){
+        
+        //        print("上拉加载")
+        if dataToEnd == false {
+            pageStart += 10
+            //服务器请求数据的函数
+            getListData(searchStr:searchBar.text!, state:"")
+        }
+        //结束下拉刷新
+        self.searchResultView.mj_footer.endRefreshing()
     }
     
     ///5.获取tabList需要的数据（日常记录条数）
@@ -104,14 +170,33 @@ class DailySearchViewController: UIViewController {
     /// - Parameter pageSize：每页条数
     func getListData(searchStr:String, state:Any) {
         MyProgressHUD.showStatusInfo("加载中...")
-        let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startday":"\(searchDate!)-01", "endDay":"\(changeDate(chageType: 2))-01"] as [String : Any]
+        self.dataToEnd = false
+        if pageStart == 0 {
+            searchData = []
+        }
+        
+        let infoData = ["title":searchStr, "state":state, "start":pageStart, "length":pageSize, "startDay": searchDateTool.getNeedDate(changeDate: searchDate!, startOrEnd: 0), "endDay":searchDateTool.getNeedDate(changeDate: searchDate!, startOrEnd: 1)] as [String : Any]
         let contentData : [String : Any] = ["method":"getOptionlist","info":infoData,"token":userToken,"user_id":userId]
+        
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.json = JSON(value)["data"]["resultData"]
+                    if self.json.count > 0 {
+                        self.setSearchtextToLocal()
+                    }
+                    for recordItem in self.json.enumerated(){
+                        let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
+                        self.searchData.append(recordModel)
+                    }
+                    if self.searchData.count >= JSON(value)["data"]["resultData"]["iTotalRecords"].intValue {
+                        self.dataToEnd = true
+                        self.refreshFooter.state = .noMoreData
+                    }else{
+                        self.refreshFooter.state = .idle
+                    }
                     self.createTabList()
                     MyProgressHUD.dismiss()
                 }else{
@@ -127,6 +212,33 @@ class DailySearchViewController: UIViewController {
             }
         }
     }
+    
+    func setSearchtextToLocal(){
+        if self.setNearlyData == [] {
+            self.setNearlyData.add(self.searchBar.text!)
+            self.userDefault.set(self.setNearlyData, forKey: "historyData")
+        }else{
+            var hasValue = false
+            for searchItem in setNearlyData.enumerated() {
+                if searchBar.text == (setNearlyData[searchItem.offset] as AnyObject).description {
+                    hasValue = true
+                }
+            }
+            if hasValue == true {
+                return
+            }else{
+                if self.getNearlyData.count == 5{
+                    self.setNearlyData.removeObject(at: 0)
+                    self.setNearlyData.add(self.searchBar.text!)
+                    self.userDefault.set(self.setNearlyData, forKey: "historyData")
+                }else{
+                    self.setNearlyData.add(self.searchBar.text!)
+                    self.userDefault.set(self.setNearlyData, forKey: "historyData")
+                }
+            }
+        }
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -141,40 +253,6 @@ class DailySearchViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         searchBar.resignFirstResponder()
     }
-    
-    func changeDate(chageType:Int)->String{
-        var year = ((searchDate?.split(separator: "-")[0])! as NSString).integerValue
-        var month = ((searchDate?.split(separator: "-")[1])! as NSString).integerValue
-        switch chageType {
-        case 1://减
-            if month == 01 {
-                year = year - 1
-                month = 12
-            }else{
-                month = month - 1
-            }
-            
-        default://增
-            if month == 12 {
-                year = year + 1
-                month = 01
-            }else{
-                month = month + 1
-            }
-        }
-        let newDate = "\(year)" + "-" + formateNum(num: month)
-        return newDate
-    }
-    
-    func formateNum(num:Int) ->String{
-        var formateString:String = ""
-        if num < 10 {
-            formateString = "0\(num)"
-        }else{
-            formateString = "\(num)"
-        }
-        return formateString
-    }
 
 }
 
@@ -187,14 +265,6 @@ extension DailySearchViewController:UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         self.changeSearchBarCancelBtnTitleColor(view: searchBar)
-        if getNearlyData.count == 5{
-            setNearlyData.removeObject(at: 0)
-            setNearlyData.add(searchBar.text!)
-            self.userDefault.set(setNearlyData, forKey: "historyData")
-        }else{
-            setNearlyData.add(searchBar.text!)
-            self.userDefault.set(setNearlyData, forKey: "historyData")
-        }
         getListData(searchStr:searchBar.text!, state:"")
     }
     
@@ -274,10 +344,10 @@ extension DailySearchViewController:UICollectionViewDelegate, UICollectionViewDa
 extension DailySearchViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.json == nil {
+        if self.searchData == [] {
             return 0
         }else{
-            return self.json.count
+            return self.searchData.count
         }
     }
     
@@ -291,40 +361,45 @@ extension DailySearchViewController:UITableViewDelegate,UITableViewDataSource{
         if cell == nil{
             cell = RecordListTableViewCell(style: .default, reuseIdentifier: CellIdentifier)
         }
-        if self.json != nil {
+        if self.searchData != [] {
             //            print(self.listData[indexPath.row])
-//            print(self.json[indexPath.row)
+            //            print(type(of: self.json[indexPath.row]))
             //当无图片时显示默认图片
-            if self.json[indexPath.row]["filesId"].stringValue == "" {
-                print(self.json[indexPath.row]["filesId"])
+            let views = cell?.itemImage?.subviews
+            for itemImageSub in views! {
+                itemImageSub.removeFromSuperview()
+            }
+            if self.searchData[indexPath.row].filesId == "" {
+                //                print(self.listData[indexPath.row].filesId)
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
-                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",")[0])
+                let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.searchData[indexPath.row].filesId.components(separatedBy: ",")[0])
                 cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
-                photoNum.text = "共\(self.json[indexPath.row]["filesId"].stringValue.components(separatedBy: ",").count)张"
+                photoNum.text = "共\(self.searchData[indexPath.row].filesId.components(separatedBy: ",").count)张"
                 photoNum.textColor = UIColor.white
                 photoNum.textAlignment = .center
                 photoNum.font = UIFont(name: "PingFangSC-Regular", size: 13.0)
                 photoNum.backgroundColor = UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 0.5)
                 cell?.itemImage?.addSubview(photoNum)
             }
-            cell?.itemTitle?.text =  self.json[indexPath.row]["title"].stringValue
-            if self.json[indexPath.row]["state"].stringValue == "1" {
-                cell?.itemStatus?.text = "已处理"
-            }else{
-                cell?.itemStatus?.text = "未处理"
-            }
-            cell?.itemId = self.json[indexPath.row]["id"].stringValue
+            cell?.itemTitle?.text =  self.searchData[indexPath.row].title
+            cell?.itemId = self.searchData[indexPath.row].id.description
+            cell?.itemCreator?.text = "发布人:" + self.searchData[indexPath.row].userName.description
             //默认颜色是已处理的，所以在未处理时更改颜色
-            if self.json[indexPath.row]["state"] == 0 {
+            if self.searchData[indexPath.row].state.description == "0" {
+                cell?.itemStatus?.text = "未处理"
                 cell?.itemStatus?.layer.borderColor = topValueColor.cgColor
                 cell?.itemStatus?.textColor = topValueColor
+                cell?.itemHandler?.isHidden = true
             }else{
+                cell?.itemStatus?.text = "已处理"
                 cell?.itemStatus?.layer.borderColor = UIColor(red: 143/255, green: 144/255, blue: 145/255, alpha: 1).cgColor
                 cell?.itemStatus?.textColor = UIColor(red: 158/255, green: 159/255, blue: 160/255, alpha: 1)
+                cell?.itemHandler?.isHidden = false
+                cell?.itemHandler?.text = "处理人:" + self.searchData[indexPath.row].staName.description
             }
-            cell?.itemDate?.text = self.json[indexPath.row]["staTime"].stringValue
+            cell?.itemDate?.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.searchData[indexPath.row].opeTime.description,timeAccurate: "minute")
         }
         return cell!
     }
