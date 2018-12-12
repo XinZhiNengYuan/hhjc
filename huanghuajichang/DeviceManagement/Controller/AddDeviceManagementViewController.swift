@@ -36,6 +36,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     var twoMeanId = ""
     var bigType = ""
     var smallType = ""
+    let imageScrollViewWidth = Int(KUIScreenWidth-20)//图片区域的宽度
+    var imageIndex = 0 //已经添加了的图片的数量
+    var imageNumMax = 10//图片区域最多可放置的图片的数量
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
@@ -87,16 +90,16 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     
     func setLayout(){
         
-        contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-UIApplication.shared.statusBarFrame.height-(navigationController?.navigationBar.frame.height)!)
+        contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+840)
         scrollView.delegate = self
         scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight)
-        scrollView.contentSize.height = UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!+650
+        scrollView.contentSize.height = contentView.frame.height
         scrollView.backgroundColor = UIColor.white
         scrollView.addSubview(contentView)
         
         contentView.backgroundColor = UIColor.white
         
-        view.addSubview(scrollView)
+        self.view.addSubview(scrollView)
         
 //       单位选择部分
         let contentViewHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentView.frame.width, height: 121))
@@ -118,7 +121,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         contentView.addSubview(contentViewHeader)
         
 //        设备基本信息
-        let contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: KUIScreenHeight-121))
+        let contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: contentView.frame.height-121))
         let contentForModeHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentForMode.frame.width, height: 40))
         contentForMode.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         let contentForModeHeaderLeftStyle = UILabel(frame: CGRect(x: 10, y: 10, width: 5, height: 20))
@@ -138,25 +141,25 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         setContentOfSelectedListRow(top: 163, optionMode: contentForMode, text: "设备小类",selectTitle: "", tag: 304)
         
         //设备标识
-        setContentModeOptionOfInputView(top: 204, contentForMode: contentForMode, text: "设备标识",tag:400)
+        setContentModeOptionOfInputView(top: 204, contentForInputMode: contentForMode, text: "设备标识",tag:400)
         //设备名称
-        setContentModeOptionOfInputView(top: 245, contentForMode: contentForMode, text: "设备名称",tag:401)
+        setContentModeOptionOfInputView(top: 245, contentForInputMode: contentForMode, text: "设备名称",tag:401)
         //设备型号
-        setContentModeOptionOfInputView(top: 286, contentForMode: contentForMode, text: "设备型号",tag:402)
+        setContentModeOptionOfInputView(top: 286, contentForInputMode: contentForMode, text: "设备型号",tag:402)
         //额定功率
-        setContentModeOptionOfInputView(top: 327, contentForMode: contentForMode, text: "额定功率",tag:403)
+        setContentModeOptionOfInputView(top: 327, contentForInputMode: contentForMode, text: "额定功率",tag:403)
         //供应商
-        setContentModeOptionOfInputView(top: 368, contentForMode: contentForMode, text: "供应商",tag:404)
+        setContentModeOptionOfInputView(top: 368, contentForInputMode: contentForMode, text: "供应商",tag:404)
         //生产日期
-        setDateView(top: 409, contentForMode: contentForMode, text: "生产日期", tag: 500)
+        setDateView(top: 409, contentForDateMode: contentForMode, text: "生产日期", tag: 500)
         //安装日期
-        setDateView(top: 450, contentForMode: contentForMode, text: "安装日期", tag: 520)
+        setDateView(top: 450, contentForDateMode: contentForMode, text: "安装日期", tag: 520)
         //数据绑定
-        setSelectView(top: 491, contentForMode: contentForMode, text: "数据是否绑定", tag: 600)
+        setSelectView(top: 491, contentForSelectMode: contentForMode, text: "数据是否绑定", tag: 600)
         //是否有效
-        setSelectView(top: 562, contentForMode: contentForMode, text: "是否有效", tag: 620)
+        setSelectView(top: 562, contentForSelectMode: contentForMode, text: "是否有效", tag: 620)
         //图片上传
-        setPicView(top: 613, contentForMode: contentForMode, tag: 700)
+        setPicView(top: 613, contentForPicMode: contentForMode, tag: 700)
         
         contentView.addSubview(contentForMode)
         
@@ -164,7 +167,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         ///选择弹出框
         selectorView.frame = CGRect(x: 0, y: KUIScreenHeight-300, width: KUIScreenWidth, height: 240)
         selectorView.isHidden = true
-        contentView.addSubview(selectorView)
+        self.view.addSubview(selectorView)
         
         let selectorToolBar = UIToolbar.init(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: 40))
         selectorToolBar.backgroundColor = UIColor.white
@@ -240,8 +243,8 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     //设置有输入框的所在的行
-    func setContentModeOptionOfInputView(top:Int,contentForMode:UIView,text:String,tag:Int){
-        let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
+    func setContentModeOptionOfInputView(top:Int,contentForInputMode:UIView,text:String,tag:Int){
+        let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForInputMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
         if tag == 404{
@@ -285,7 +288,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         inputView.layer.borderWidth = 1
         inputView.addSubview(input)
         contentForModeRow3.addSubview(inputView)
-        contentForMode.addSubview(contentForModeRow3)
+        contentForInputMode.addSubview(contentForModeRow3)
         
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -294,9 +297,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         return true;
     }
     //带日期控件的view
-    func setDateView(top:Int,contentForMode:UIView,text:String,tag:Int){
+    func setDateView(top:Int,contentForDateMode:UIView,text:String,tag:Int){
         let inProducedDateLabel:UILabel = UILabel()
-        let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
+        let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForDateMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
         contentForModeRow3.addSubview(contentForModeLeftStar3)
@@ -334,10 +337,10 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         dateBtn.addTarget(self, action: #selector(opendatePicker), for: UIControlEvents.touchUpInside)
         dateChangeView.addSubview(dateBtn)
         contentForModeRow3.addSubview(dateChangeView)
-        contentForMode.addSubview(contentForModeRow3)
+        contentForDateMode.addSubview(contentForModeRow3)
     }
     
-    func setSelectView(top:Int,contentForMode:UIView,text:String,tag:Int){
+    func setSelectView(top:Int,contentForSelectMode:UIView,text:String,tag:Int){
         let contentForModeRow3 = UIView()
         let rightView = UIView(frame: CGRect(x: 130, y: 5, width: KUIScreenWidth - 160, height: 30))
         let rightViewOfButtom = UIView(frame: CGRect(x: 0, y: 30, width: rightView.frame.width, height: 30))
@@ -345,11 +348,11 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         
         //判断是“数据绑定”还是“是否有效”
         if tag == 620{
-            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40)
+            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForSelectMode.frame.width), height: 40)
             rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
             rightViewOfLabel.text = ""
         }else{
-            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 60)
+            contentForModeRow3.frame = CGRect(x: 0, y: top, width: Int(contentForSelectMode.frame.width), height: 60)
             rightViewOfLabel.frame = CGRect(x: 0, y: 0, width: rightViewOfButtom.frame.width, height: 30)
             rightViewOfLabel.text = "（注：数据绑定情况下选否，会删除绑定数据）"
             rightViewOfLabel.font = UIFont.boldSystemFont(ofSize: 10)
@@ -394,7 +397,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         rightView.addSubview(rightViewOfButtom)
         rightView.addSubview(rightViewOfTop)
         contentForModeRow3.addSubview(rightView)
-        contentForMode.addSubview(contentForModeRow3)
+        contentForSelectMode.addSubview(contentForModeRow3)
     }
     
     @objc func selectAction(btn:UIButton){
@@ -410,7 +413,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             }else{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
-                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                let statusData = self.view.viewWithTag(btn.tag+4) as! UILabel
                 statusData.text = "0"
                 actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
@@ -426,7 +429,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             }else{
                 let actionSelectTrueBtn = self.view.viewWithTag(btn.tag-1) as! UIButton
                 let actionSelectFalseBtn = self.view.viewWithTag(btn.tag) as! UIButton
-                let statusData = self.view.viewWithTag(btn.tag+5) as! UILabel
+                let statusData = self.view.viewWithTag(btn.tag+4) as! UILabel
                 statusData.text = "0"
                 actionSelectTrueBtn.set(image: UIImage(named: "未选中"), title: "是", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
                 actionSelectFalseBtn.set(image: UIImage(named: "选中"), title: "否", titlePosition: UIViewContentMode.right, additionalSpacing: 30, state: UIControlState.normal)
@@ -519,14 +522,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }
         
     }
-    func setPicView(top:Int,contentForMode:UIView,tag:Int) {
-        mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 90)
+    func setPicView(top:Int,contentForPicMode:UIView,tag:Int) {
+        mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 180)
         mView.backgroundColor = UIColor.white
-        imageView.frame = CGRect(x: 10, y: 10, width: Int(KUIScreenWidth-20), height: 70)
+//        mView.backgroundColor = UIColor.white
+        imageView.frame = CGRect(x: 10, y: 10, width: imageScrollViewWidth, height: 160)
         imageView.backgroundColor = UIColor.white
         imageView.tag = tag
         mView.addSubview(imageView)
-        contentForMode.addSubview(mView)
+        contentForPicMode.addSubview(mView)
         imageMethods()
     }
     func imagePickerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info:[String:Any]){
@@ -539,17 +543,22 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     func imageMethods(){
         for i in 0..<photoListr.count{
             let viewOption = UIView()
-            viewOption.frame = CGRect(x: 75*i+10, y: 0, width: 60, height: Int(imageView.frame.height))
+            if(i >= imageNumMax){
+                viewOption.frame = CGRect(x: 75*(i-imageNumMax), y: 80, width: 70, height: 70)
+            }else{
+                viewOption.frame = CGRect(x: 75*i, y: 0, width: 70, height: 70)
+            }
+            viewOption.backgroundColor = UIColor.white
             let image = UIImageView()
             image.tag = i+1000 // 图片
-            image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
+            image.frame = CGRect(x: 0, y: 10, width: 60, height: 60)
             image.image = photoListr[i]
             viewOption.addSubview(image)
             let deleteBut = deleteBtn(tag: i + 6000)
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
         }
-        if photoListr.count >= 3{
+        if photoListr.count >= 6{
             //            addBut.removeFromSuperview()
         }else{
             setAddBut()
@@ -558,23 +567,31 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     func addPic(pic : UIImage){
+        
+        imageNumMax = imageScrollViewWidth/75
         let addBtn = imageView.viewWithTag(3001) as! UIButton
         addBtn.removeTarget(self, action: #selector(actionSheet), for: .touchUpInside)
         addBtn.removeFromSuperview()
         let viewOption = UIView()
+        if(imageIndex >= imageNumMax){
+            viewOption.frame = CGRect(x: 75*(photoListr.count-imageNumMax), y: 80, width: 70, height: 70)
+        }else{
+            viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 70, height: 70)
+        }
         viewOption.tag = 4000+photoListr.count // 图片所在图层
-        viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 60, height: Int(imageView.frame.height))
+        viewOption.backgroundColor = UIColor.white
         let image = UIImageView()
         image.image = UIImage(named: "image")
         image.tag = photoListr.count + 1000 //图片
-        image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-10)
+        image.frame = CGRect(x: 0, y: 10, width: 60, height: 60)
         image.image = pic
         viewOption.addSubview(image)
         let deleteBut = deleteBtn(tag: photoListr.count + 6000)
         viewOption.addSubview(deleteBut)
-        imageView.addSubview(viewOption)
         photoListr.append(pic)
-        if photoListr.count >= 3{
+        imageView.addSubview(viewOption)
+        imageIndex += 1//放置图片数量加一
+        if photoListr.count >= 6{
             addBut.removeFromSuperview()
         }else{
             setAddBut()
@@ -583,7 +600,12 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     
     //MARK:设置设置添加按钮
     func setAddBut(){
-        addBut = UIButton(frame: CGRect(x: 75*photoListr.count+10, y: 10, width: 40, height: 40))
+        if(imageIndex >= imageNumMax){
+            addBut = UIButton(frame: CGRect(x: 75*(photoListr.count-imageNumMax)+10, y: 100, width: 40, height: 40))
+        }else{
+            addBut = UIButton(frame: CGRect(x: 75*photoListr.count+10, y: 20, width: 40, height: 40))
+        }
+        
         addBut.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
         addBut.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
         addBut.layer.borderWidth = 1

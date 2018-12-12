@@ -26,8 +26,6 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var statusArr : NSMutableArray = NSMutableArray()
     var statusArrOfContent : NSMutableArray = NSMutableArray()
     var contentView : UIView!
-    let ScreenWidth  = UIScreen.main.bounds.width
-    let ScreenHeight = UIScreen.main.bounds.height
     let IdentifierC = "MyUICollectionViewCell"
     let headerIdentifier = "CollectionHeaderView"
     let footIdentifier = "CollectionFootView"
@@ -147,13 +145,13 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     
     @objc func toQC(){
-        let addDeviceManagementViewController = AddDeviceManagementViewController()
-        addDeviceManagementViewController.eqCode = "ENN12312312"
-        let navigationView = UINavigationController.init(rootViewController: addDeviceManagementViewController)
-        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
-        self.present(navigationView, animated: true, completion: nil)
-//        self.present(QrCodeViewController(), animated: false, completion: nil)
+//        let addDeviceManagementViewController = AddDeviceManagementViewController()
+//        addDeviceManagementViewController.eqCode = "ENN12312312"
+//        let navigationView = UINavigationController.init(rootViewController: addDeviceManagementViewController)
+//        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
+//        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
+//        self.present(navigationView, animated: true, completion: nil)
+        self.present(QrCodeViewController(), animated: false, completion: nil)
     }
     
     func drawerView(){
