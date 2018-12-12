@@ -20,6 +20,7 @@ class ScanAndEditViewController: AddNavViewController {
     var detailJson:JSON!
     
     var titleLabel:UILabel!
+    var peronsLabel:UILabel!
     var timeLabel:UILabel!
     var describeTextView:UITextView!
     var dealView:UIView!
@@ -89,18 +90,25 @@ class ScanAndEditViewController: AddNavViewController {
         titleLabel.textColor = UIColor(red: 41/255, green: 41/255, blue: 41/255, alpha: 1)
         scrollView.addSubview(titleLabel)
         
-        timeLabel = UILabel.init(frame:CGRect(x: 131, y: 50, width: kScreenWidth-262, height: 14))
+        peronsLabel = UILabel.init(frame: CGRect(x: 0, y: 50, width: kScreenWidth, height: 20))
+        peronsLabel.font = UIFont(name: "PingFangSC-Regular", size:12)
+        peronsLabel.text = "发布人:\(self.detailJson["userName"].stringValue)"
+        peronsLabel.textAlignment = .center
+        peronsLabel.textColor = UIColor(red: 176/255, green: 176/255, blue: 176/255, alpha: 1)
+        scrollView.addSubview(peronsLabel)
+        
+        timeLabel = UILabel.init(frame:CGRect(x: 131, y: 80, width: kScreenWidth-262, height: 14))
         timeLabel.font = UIFont(name: "PingFangSC-Regular", size:10)
         timeLabel.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.detailJson["opeTime"].stringValue,timeAccurate: "minute")
         timeLabel.textAlignment = .center
         timeLabel.textColor = UIColor(red: 176/255, green: 176/255, blue: 176/255, alpha: 1)
         scrollView.addSubview(timeLabel)
         
-        let sperLine = UIView.init(frame: CGRect(x: 0, y: 74, width: kScreenWidth, height: 1))
+        let sperLine = UIView.init(frame: CGRect(x: 0, y: 104, width: kScreenWidth, height: 1))
         sperLine.backgroundColor = allListBackColor
         scrollView.addSubview(sperLine)
         
-        describeTextView = UITextView.init(frame: CGRect(x: 20, y: 85, width: kScreenWidth-40, height: 150))
+        describeTextView = UITextView.init(frame: CGRect(x: 20, y: 115, width: kScreenWidth-40, height: 150))
         describeTextView.font = UIFont(name:"PingFangSC-Regular", size:13)
         describeTextView.text = self.detailJson["describe"].stringValue
         let paragraphStyle = NSMutableParagraphStyle.init()
@@ -152,6 +160,8 @@ class ScanAndEditViewController: AddNavViewController {
             dealbtn.layer.cornerRadius = 8
             dealbtn.addTarget(self, action: #selector(dealPost), for: UIControlEvents.touchUpInside)
             dealView.addSubview(dealbtn)
+        }else{
+            peronsLabel.text = "发布人:\(self.detailJson["userName"].stringValue)" + "  " + "处理人:\(self.detailJson["staName"].stringValue)"
         }
         
     }

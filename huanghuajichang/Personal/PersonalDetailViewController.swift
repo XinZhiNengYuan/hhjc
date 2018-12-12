@@ -102,7 +102,7 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
         }
         if indexPath.row == 0{
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
-            cell?.itemTitle.text = "头像"
+            cell?.itemTitle.text = json["login_code"].stringValue
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (json["url"].stringValue)
             cell?.itemImage.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFill)
             cell?.itemImage.layer.cornerRadius = (cell?.itemImage.frame.width)! / 2
@@ -129,12 +129,12 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             cell?.setUpUI(isHeaderView: false, hasRightIcon: false,cellSize:CGSize(width: kScreenWidth-10, height: 50))
             switch indexPath.row {
             case 1:
-                cell?.itemTitle.text = "登录名"
+                cell?.itemTitle.text = "用户名"
                 cell?.itemRealMsg.text = json["user_name"].stringValue
                 break
             case 2:
-                cell?.itemTitle.text = "部门"
-                cell?.itemRealMsg.text = ""//TODO
+                cell?.itemTitle.text = "岗位"
+                cell?.itemRealMsg.text = json["postCode"].stringValue
                 break
             default:
                 cell?.itemTitle.text = ""

@@ -305,7 +305,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                         let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
                         self.listData.append(recordModel)
                     }
-                    if self.listData.count == JSON(value)["data"]["iTotalRecords"].intValue {
+                    if self.listData.count >= JSON(value)["data"]["iTotalRecords"].intValue {
                         self.dataToEnd = true
                         self.refreshFooter.state = .noMoreData
                     }else{
@@ -342,8 +342,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 if JSON(value)["status"].stringValue == "success"{
                     //重新请求页面数据
                     self.getHeaderData()
-                    self.getListData(searchStr:"", state:"")
+//                    self.getListData(searchStr:"", state:"")
+                    self.listData.remove(at: itemIndexPath.row)
                     
+                    self.recordTableView!.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.fade)
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()

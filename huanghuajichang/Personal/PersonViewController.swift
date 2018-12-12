@@ -9,8 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-let kWindowHeight: CGFloat = 205.0
-
 class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var headerView: UIButton!
@@ -42,11 +40,11 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func getData(){
         let contentData : [String : Any] = ["method":"getUserInfo","info":"","token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 self.json = JSON(value)["data"]
-                print(self.json)
+//                print(self.json)
                 if JSON(value)["status"].stringValue == "success"{
                     print(self.json["url"].stringValue)
                     let urlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + self.json["url"].stringValue
@@ -61,7 +59,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     // image还需要加上这一句, 不然无效
                     self.headerImageView.layer.masksToBounds = true
                     self.personName.text = self.json["user_name"].stringValue
-                    self.personPosition.text = self.json["dept"].stringValue
+                    self.personPosition.text = self.json["postCode"].stringValue
                     self.headerView.layoutIfNeeded()
                 }else{
                     print(type(of: JSON(value)["msg"]))
