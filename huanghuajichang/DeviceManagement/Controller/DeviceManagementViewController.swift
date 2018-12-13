@@ -33,7 +33,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var currentOne:String = ""
     var currentTwo:String = ""
     //存储最后选中的行（包括菜单和清单主页）
-    var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
+    var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
     //本地存储
     let userDefault = UserDefaults.standard
     
@@ -69,16 +69,25 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
             print(error)
         }
     }
+    //MARK:设置初始状态
     func readyGo(){
-        meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
-        if meanAndContentLog["meanLog"]!["one"]! != -1{
-            statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
-            self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
-        }
-        if meanAndContentLog["contentLog"]!["one"]! != -1{
-            statusArrOfContent[meanAndContentLog["contentLog"]!["one"]!] = true
-            self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
-        }
+        meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
+        statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
+        self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
+
+        //默认选中的section，row
+        let defaultSelectCell = IndexPath(row: meanAndContentLog["meanLog"]!["two"]!, section: meanAndContentLog["meanLog"]!["one"]!)
+        self.tableView1.selectRow(at: defaultSelectCell, animated: true, scrollPosition: UITableViewScrollPosition.none)
+        let onlyItem = self.tableView1.cellForRow(at: defaultSelectCell) as! UITableViewControllerCellTwo
+        onlyItem.mLabel.backgroundColor = UIColor(red: 99/255, green: 168/255, blue: 222/255, alpha: 1)
+        onlyItem.mLabel.layer.borderWidth = 1
+        onlyItem.mLabel.layer.cornerRadius = 10
+        onlyItem.mLabel.clipsToBounds = true
+        //获取默认设备列表信息
+        reloadContent(oId: resultDataForArr[defaultSelectCell.section].id, tId: resultDataForArr[defaultSelectCell.section].children[defaultSelectCell.row].id)
+        //设置设备列表默认的第一被选中
+        statusArrOfContent[meanAndContentLog["contentLog"]!["one"]!] = true
+        self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
         
     }
     override func didReceiveMemoryWarning() {
@@ -464,7 +473,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
         let infoData = ["equNo":deviceNo]
         let contentData : [String : Any] = ["method":"deleteEquipment","info":infoData,"token":token ?? "","user_id":userId ?? ""]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -490,8 +498,8 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     
     func reloadContent(oId oneId:String,tId twoId:String){
         //点击菜单之后要重新记录主页被选中的状态
-        self.meanAndContentLog["contentLog"]!["one"] = -1
-        self.meanAndContentLog["contentLog"]!["two"] = -1
+        self.meanAndContentLog["contentLog"]!["one"] = 0
+        self.meanAndContentLog["contentLog"]!["two"] = 0
         for j in 0..<self.statusArrOfContent.count{//设置主页所有行为未选中状态
             self.statusArrOfContent[j] = false
         }
