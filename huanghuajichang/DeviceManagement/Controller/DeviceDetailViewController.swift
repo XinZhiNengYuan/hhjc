@@ -54,9 +54,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         arrayForVal.append(String(val.power)) //功率
         arrayForVal.append(val.kksCode) //设备标识
         arrayForVal.append(val.spName) //供应商
-        arrayForVal.append(val.manufactureDate) //生产日期
-        arrayForVal.append(val.installDate) //安装日期
         
+        arrayForVal.append(timeStampToString(timeStamp: val.manufactureDate)) //生产日期
+        
+        arrayForVal.append(timeStampToString(timeStamp: val.installDate)) //安装日期
+        arrayForVal.append(val.buildInfo)
         
         arrayForKey.append("所属类型")
         arrayForKey.append("设备名称")
@@ -67,6 +69,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         arrayForKey.append("供应商")
         arrayForKey.append("生产日期")
         arrayForKey.append("安装日期")
+        arrayForKey.append("楼层信息")
         call(val.photoList)
         
     }

@@ -451,7 +451,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
                 print("错误")
             }
         }else{
-            self.getCommitData(userId: userId!, token: token!, fileId: "")
+            self.present(windowAlert(msges: "请上传图片"), animated: false, completion: nil)
         }
         
     }

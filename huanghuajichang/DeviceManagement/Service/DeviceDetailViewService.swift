@@ -13,6 +13,7 @@ class DeviceDetailViewService : common {
     var deviceDetailViewModule = DeviceDetailViewModule()
     func getData(contentData : Dictionary<String,Any>,finishedData:@escaping (_ resultDataOption:DeviceDetailViewModule)->(),finishedError:@escaping (_ errorData:Error)->()){
         super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
+            print(result["data"])
             if result["status"].stringValue == "success"{
                 self.deviceDetailViewModule.equName = result["data"]["equName"].stringValue
                 self.deviceDetailViewModule.power = Int(result["data"]["power"].stringValue)!
@@ -22,9 +23,12 @@ class DeviceDetailViewService : common {
                 self.deviceDetailViewModule.categoryNameSmall = result["data"]["categoryNameSmall"].stringValue
                 self.deviceDetailViewModule.coOne = result["data"]["coOne"].stringValue
                 self.deviceDetailViewModule.coTwo = result["data"]["coTwo"].stringValue
-                self.deviceDetailViewModule.manufactureDate = result["data"]["manufactureDate"].stringValue
-                self.deviceDetailViewModule.installDate = result["data"]["installDate"].stringValue
+                self.deviceDetailViewModule.manufactureDate = result["data"]["manufactureDate"].stringValue.count>0 ? Double(result["data"]["manufactureDate"].stringValue)! : 0
+                self.deviceDetailViewModule.installDate = result["data"]["installDate"].doubleValue
                 self.deviceDetailViewModule.photoList = []
+                self.deviceDetailViewModule.buildingName = result["data"]["buildingName"].stringValue
+                self.deviceDetailViewModule.floorName = result["data"]["floorName"].stringValue
+                self.deviceDetailViewModule.roomName = result["data"]["roomName"].stringValue
                 for i in 0..<result["data"]["equPhotos"].count{
                     var equPhoto = equPhotos()
                     equPhoto.fileId = Int(result["data"]["equPhotos"][i]["fileId"].stringValue)!
