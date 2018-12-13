@@ -421,6 +421,11 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             self.meanAndContentLog["meanLog"]!["two"] = indexPath.row
             currentOne = resultDataForArr[indexPath.section].id
             currentTwo = resultDataForArr[indexPath.section].children[indexPath.row].id
+            let onlyItem = tableView.cellForRow(at: indexPath) as! UITableViewControllerCellTwo
+            onlyItem.mLabel.backgroundColor = UIColor(red: 99/255, green: 168/255, blue: 222/255, alpha: 1)
+            onlyItem.mLabel.layer.borderWidth = 1
+            onlyItem.mLabel.layer.cornerRadius = 10
+            onlyItem.mLabel.clipsToBounds = true
             reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
         }else{
             let deviceDetailViewController = DeviceDetailViewController()

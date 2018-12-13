@@ -30,7 +30,7 @@ class UITableViewControllerCellTwo: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,6 +39,9 @@ class UITableViewControllerCellTwo: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+    }
+    
+    func setupUI() {
         mView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40)
         mView.backgroundColor = UIColor(red: 237/255, green: 242/255, blue: 247/255, alpha: 1)
         self.contentView.addSubview(mView)
@@ -49,12 +52,14 @@ class UITableViewControllerCellTwo: UITableViewCell {
         mLabel.layer.borderColor = UIColor(red: 99/255, green: 168/255, blue: 222/255, alpha: 1).cgColor
         mLabel.layer.cornerRadius = 10
         mLabel.textColor = UIColor(red: 99/255, green: 168/255, blue: 222/255, alpha: 1)
+        mLabel.highlightedTextColor = UIColor.white
         mNum.frame = CGRect(x: mView.frame.width/4*2, y: 0, width: 40, height: 40)
         mNum.textColor = UIColor(red: 52/255, green: 129/255, blue: 229/255, alpha: 1)
         mNum.font = UIFont.boldSystemFont(ofSize: 11)
         mView.addSubview(mNum)
         mView.addSubview(mLabel)
     }
+    
     //绘制圆点下边的直线
     func setBottomLine(){
         
