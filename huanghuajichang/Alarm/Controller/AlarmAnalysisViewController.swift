@@ -144,11 +144,11 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
 //        self.barChartView.drawHighlightArrowEnabled = false;//点击柱形图是否显示箭头
         self.barChartView.drawBarShadowEnabled = false//是否绘制柱形的阴影背景
         //交互设置
-        self.barChartView.autoScaleMinMaxEnabled = true
+        self.barChartView.autoScaleMinMaxEnabled = false
         self.barChartView.scaleXEnabled = true //允取消X轴缩放
         self.barChartView.scaleYEnabled = true //取消Y轴缩放
         self.barChartView.doubleTapToZoomEnabled = false //双击缩放
-        self.barChartView.dragEnabled = false//启用拖拽图表
+        self.barChartView.dragEnabled = true//启用拖拽图表
         self.barChartView.dragDecelerationEnabled = true//拖拽后是否有惯性效果
         self.barChartView.dragDecelerationFrictionCoef = 0.9//拖拽后惯性效果的摩擦系数(0~1)，数值越小，惯性越不明显
         self.barChartView.setVisibleXRangeMaximum(10) //可视区域
@@ -224,8 +224,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
             {
 //                xVals.append(NSString(format: "%d年", "\(successData.dayData[i].lineName)") as String)
                 xVals.append("\(successData.dayData[i].lineName)时")
-//                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.dayData[i].lineData)!))
-                yVals.append(BarChartDataEntry.init(x:Double(i),y:Double(24-i)))
+                yVals.append(BarChartDataEntry.init(x: Double(i), y: Double(successData.dayData[i].lineData)!))
+//                yVals.append(BarChartDataEntry.init(x:Double(i),y:Double(24-i)))
             }
         case 1:
             for i in 0..<successData.monthData.count
