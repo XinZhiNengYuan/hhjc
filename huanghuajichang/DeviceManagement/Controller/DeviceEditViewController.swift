@@ -619,9 +619,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             image.tag = i+1000 // 图片
             image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
             if editImgPickerData[i] as? URL != nil{
-                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (Result) in
-                    
-                }
+                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler:nil)
             }else{
                 image.image = photoListr[i]
             }

@@ -50,9 +50,7 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         largeHeaderView.frame.size = CGSize(width: kScreenWidth, height: 100)
         largeHeaderView.frame.origin.x = 0
         let imageUrlStr = self.userDefault.object(forKey: "UserHeaderImg") as! String
-        largeHeaderView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: imageUrlStr)! as URL), placeholder: UIImage(named: "默认图片"), options: nil) { (Result) in
-            
-        }
+        largeHeaderView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: imageUrlStr)! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: nil)
         largeHeaderView.contentMode = .scaleAspectFill
         largeHeaderView.center.y = (kScreenHeight - bottomSafeAreaHeight - largeHeaderView.frame.height)/2
         self.view.addSubview(largeHeaderView)
