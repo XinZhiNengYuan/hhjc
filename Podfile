@@ -17,5 +17,4 @@ target 'huanghuajichang' do
   pod 'MJRefresh'
   pod 'Kingfisher'
   pod 'SnapKit'
-  pod 'YBImageBrowser'
 end

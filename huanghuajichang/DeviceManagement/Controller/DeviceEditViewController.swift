@@ -65,9 +65,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     func getOneAndTwo(){
         let contentData : [String:Any] = ["method":"getEquipmentAndOrganization","user_id": userId as Any,"token": token as Any,"info":""]
         addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
-            print("--------------------------------")
+//            print("--------------------------------")
             self.addDeviceManagementModule = returnData
-            print("--------------------------------")
+//            print("--------------------------------")
         }, finishedError: {(errorData) in
             print("--------------------------------")
         })
@@ -77,7 +77,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["code":self.deviceEditNo]]
         MyProgressHUD.showStatusInfo("加载中...")
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             
             switch resultData.result {
             case .success(let value):
@@ -107,7 +107,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-                    print(type(of: JSON(value)["msg"]))
+//                    print(type(of: JSON(value)["msg"]))
                     if JSON(value)["msg"].string == nil {
                         self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                     }else{
@@ -508,7 +508,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     @objc func uploadImgs(){
         if photoListr.count > 0{
             cameraViewService.upLoadPic(images: photoListr, finished: { (fileId,status) in
-                print(fileId)
+//                print(fileId)
                 if status == "success"{
                     self.getCommitData(userId: self.userId!, token: self.token!, fileId: fileId)
                 }else if status == "sign_app_err"{
@@ -573,7 +573,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
         let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId, "equId":self.deviceEditId]]]
-        print(commitData)
+//        print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
                 self.navigationController?.popViewController(animated: false)
@@ -705,7 +705,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     @objc func deleteImg(button:UIButton){
-        print(button.tag)
+//        print(button.tag)
         var index = button.tag - 5000 //根据下标的大小判断这个要删除的图片在那个数组里面 5000是deviceDetailPageImageList数组，6000是photoListr
         //        button.superview?.superview?.removeFromSuperview()
         if index >= 1000{

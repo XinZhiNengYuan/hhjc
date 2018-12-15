@@ -11,7 +11,6 @@ import SwiftyJSON
 import AVFoundation
 import Photos
 import Kingfisher
-import YBImageBrowser
 
 class AddDailyRecordViewController: AddNavViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate  {
     
@@ -74,7 +73,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         let infoData = ["id":editItemId]
         let contentData : [String : Any] = ["method":"getOptionById","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
@@ -83,7 +82,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     titleTF.text = self.editJson["title"].stringValue
                     timeTF.text = AddDailyRecordViewController.timeStampToString(timeStamp: self.editJson["opeTime"].stringValue, timeAccurate: "minute")
                     self.describeTextView.text = self.editJson["describe"].stringValue
-                    print(self.editJson["filePhotos"].arrayValue)
+//                    print(self.editJson["filePhotos"].arrayValue)
                     self.imagsData = []
                     self.imagesData = []
                     self.haveImagsData = []
@@ -132,7 +131,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-                    print(type(of: JSON(value)["msg"]))
+//                    print(type(of: JSON(value)["msg"]))
                     if JSON(value)["msg"].string == nil {
                         self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                     }else{
@@ -158,7 +157,6 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             }
         }
         let vc = PictureVisitControl(index: index, images: pictureData)
-        print(index)
         present(vc, animated: true, completion:  nil)
     }
     
