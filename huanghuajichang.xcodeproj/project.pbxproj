@@ -45,6 +45,8 @@
 		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
 		3D430CE421B14EAC0005F39A /* QrCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D430CE321B14EAC0005F39A /* QrCodeService.swift */; };
 		3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */; };
+		3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */; };
+		3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */; };
 		3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
 		3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
 		3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */; };
@@ -136,6 +138,8 @@
 		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		3D430CE321B14EAC0005F39A /* QrCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeService.swift; sourceTree = "<group>"; };
 		3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementViewController.swift; sourceTree = "<group>"; };
+		3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControlCell.swift; sourceTree = "<group>"; };
+		3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControl.swift; sourceTree = "<group>"; };
 		3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
 		3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
 		3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDailyRecordViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +313,8 @@
 				3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */,
 				3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */,
 				3D50D39021C1045300C1612B /* HandleDate.swift */,
+				3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */,
+				3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */,
 			);
 			path = CommentFiles;
 			sourceTree = "<group>";
@@ -538,7 +544,11 @@
 				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
 				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/YBImageBrowser/YBImageBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -551,7 +561,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YBImageBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -583,6 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */,
 				3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
 				3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
 				3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */,
@@ -602,6 +617,7 @@
 				3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,
 				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
 				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
+				3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */,
 				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
 				3D389C6D2194553D0094C6B1 /* AlarmAnalysisViewService.swift in Sources */,
 				3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */,
@@ -822,7 +838,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
+				DEVELOPMENT_TEAM = 5GVSBZG2D3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;
@@ -849,7 +865,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
+				DEVELOPMENT_TEAM = 5GVSBZG2D3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;

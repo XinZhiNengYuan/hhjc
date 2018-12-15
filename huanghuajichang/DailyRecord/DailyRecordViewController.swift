@@ -9,7 +9,7 @@
 import UIKit
 import PGDatePicker
 import MJRefresh
-
+import Kingfisher
 import Alamofire
 import SwiftyJSON
 
@@ -462,7 +462,10 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
                 let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.listData[indexPath.row].filesId.components(separatedBy: ",")[0])
-                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
+//                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
+                cell?.itemImage?.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (Result) in
+                    
+                }
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
                 photoNum.text = "共\(self.listData[indexPath.row].filesId.components(separatedBy: ",").count)张"
                 photoNum.textColor = UIColor.white

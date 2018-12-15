@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Kingfisher
 
 class ScanAndEditViewController: AddNavViewController {
 
@@ -24,6 +25,8 @@ class ScanAndEditViewController: AddNavViewController {
     var timeLabel:UILabel!
     var describeTextView:UITextView!
     var dealView:UIView!
+    var scanImgData:[Any] = []
+    var scanImgBtnData:[Any] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,16 +129,24 @@ class ScanAndEditViewController: AddNavViewController {
         //重置textView的高度
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)
-            
+        scanImgData = []
         for detailImage in self.detailJson["filePhotos"].enumerated(){
             let topHeight = describeTextView.frame.size.height+describeTextView.frame.origin.y
-            let imageView = UIImageView.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 160) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 150))
+            let imageBtn = UIButton.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 160) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 150))
+            let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth-40, height: 150))
             imageView.backgroundColor = UIColor.white
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
-            imageView.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFit)
+            imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (Result) in
+                
+            }
             imageView.layer.borderColor = UIColor.red.cgColor
             imageView.layer.borderWidth = 1
-            scrollView.addSubview(imageView)
+            imageBtn.addSubview(imageView)
+            imageBtn.tag = 5000 + detailImage.offset
+            imageBtn.addTarget(self, action: #selector(openScanImgPicker(sender:)), for: UIControlEvents.touchUpInside)
+            scrollView.addSubview(imageBtn)
+            scanImgData.append(imgurl)
+            scanImgBtnData.append(imageBtn)
         }
         
         //重置scrollView的高度
@@ -196,6 +207,19 @@ class ScanAndEditViewController: AddNavViewController {
                 return
             }
         }
+    }
+    ///打开详情界面的浏览图片器
+    @objc func openScanImgPicker(sender:UIButton){
+        ///index为当前点击了图片数组中的第几张图片,Urls为图片Url地址数组
+        //**Urls必须传入为https或者http的图片地址数组,**
+        var index = 0
+        for img in scanImgBtnData.enumerated(){
+            if (scanImgBtnData[img.offset] as! UIButton).tag == sender.tag{
+                index = img.offset
+            }
+        }
+        let vc = PictureVisitControl(index: index, images: scanImgData)
+        present(vc, animated: true, completion:  nil)
     }
     
     //最后要记得移除通知

@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftyJSON
-
+import Kingfisher
 
 class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -104,7 +104,9 @@ class PersonalDetailViewController: AddNavViewController, UITableViewDelegate, U
             cell?.setUpUI(isHeaderView: true, hasRightIcon: true,cellSize:CGSize(width: kScreenWidth-10, height: 70))
             cell?.itemTitle.text = json["login_code"].stringValue
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (json["url"].stringValue)
-            cell?.itemImage.dowloadFromServer(link:imgurl as String, contentMode: .scaleAspectFill)
+            cell?.itemImage.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: imgurl)! as URL), placeholder: UIImage(named: "默认图片"), options: nil) { (Result) in
+                
+            }
             cell?.itemImage.layer.cornerRadius = (cell?.itemImage.frame.width)! / 2
             // image还需要加上这一句, 不然无效
             cell?.itemImage.layer.masksToBounds = true

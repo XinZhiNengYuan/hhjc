@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Photos
 import SwiftyJSON
+import Kingfisher
 
 class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -48,10 +49,12 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         
         largeHeaderView.frame.size = CGSize(width: kScreenWidth, height: 100)
         largeHeaderView.frame.origin.x = 0
-        largeHeaderView.center.y = self.view.center.y
         let imageUrlStr = self.userDefault.object(forKey: "UserHeaderImg") as! String
-        largeHeaderView.dowloadFromServer(link: imageUrlStr, contentMode: UIViewContentMode.scaleAspectFit)
+        largeHeaderView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: imageUrlStr)! as URL), placeholder: UIImage(named: "默认图片"), options: nil) { (Result) in
+            
+        }
         largeHeaderView.contentMode = .scaleAspectFill
+        largeHeaderView.center.y = (kScreenHeight - bottomSafeAreaHeight - largeHeaderView.frame.height)/2
         self.view.addSubview(largeHeaderView)
     }
     

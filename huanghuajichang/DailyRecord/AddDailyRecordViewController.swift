@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 import AVFoundation
 import Photos
+import Kingfisher
+import YBImageBrowser
 
 class AddDailyRecordViewController: AddNavViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate  {
     
@@ -26,6 +28,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     var imagesData:NSMutableArray! = []
     var fieldsData:NSMutableArray! = []
     var fieldsStr:String!
+    var pictureData:[Any] = []
     
     var userDefault = UserDefaults.standard
     var userToken:String!
@@ -84,25 +87,33 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     self.imagsData = []
                     self.imagesData = []
                     self.haveImagsData = []
+                    self.pictureData = []
                     if self.editJson["filePhotos"].arrayValue != [] {
                         for editImage in self.editJson["filePhotos"].enumerated(){
                             let editImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
+                            let editImgView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
+                            editImgBtn.addSubview(editImgView)
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
                             var editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
                             if editUIImage == nil {//当图片被损坏时
                                 editUIImage = UIImage(named: "默认图片")
-                                editImgBtn.setBackgroundImage(editUIImage, for: .normal)
+//                                editImgBtn.setBackgroundImage(editUIImage, for: .normal)
                             }else{
-                                editImgBtn.setImage(editUIImage, for: .normal)
+//                                editImgBtn.setImage(editUIImage, for: .normal)
+                            }
+                            editImgView.kf.setImage(with: ImageResource(downloadURL:imgUrl! as URL),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (Result) in
+                                    
                             }
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
+                            editImgBtn.addTarget(self, action: #selector(self.openimg), for: UIControlEvents.touchUpInside)
                             editImgBtn.tag = 1001 + editImage.offset
                             self.imgsView.addSubview(editImgBtn)
                             self.imagsData.add(editImgBtn)
                             self.imagesData.add(editUIImage!)
+                            self.pictureData.append(imgUrl as Any)
                             
                             let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
                             deleteBtn.setImage(UIImage(named: "删除"), for: UIControlState.normal)
@@ -135,6 +146,20 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                 return
             }
         }
+    }
+    
+    @objc func openimg(sender:UIButton){
+        ///index为当前点击了图片数组中的第几张图片,Urls为图片Url地址数组
+        //**Urls必须传入为https或者http的图片地址数组,**
+        var index = 0
+        for img in imagsData.enumerated(){
+            if (imagsData[img.offset] as! UIButton).tag == sender.tag{
+                index = img.offset
+            }
+        }
+        let vc = PictureVisitControl(index: index, images: pictureData)
+        print(index)
+        present(vc, animated: true, completion:  nil)
     }
     
     ///上传图片
@@ -455,6 +480,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         imagesData.removeObject(at: index-1)
         imagsData.remove(superBtn)
         haveImagsData.remove(superBtn)
+        pictureData.remove(at: index-1)
         superBtn.removeFromSuperview()
         //2.更改之后按钮的tag,以及按钮的删除按钮tag
         if changeStartIndex <= endIndex{
@@ -620,6 +646,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
              */
             
             self.imagesData.add(img!)
+            self.pictureData.append(img! as Any)
             
             let index = currentBtn.tag - 1000
             let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
@@ -628,6 +655,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             deleteBtn.addTarget(self, action: #selector(self.deleteImgBtn(sender:)), for: UIControlEvents.touchUpInside)
             currentBtn.addSubview(deleteBtn)
             currentBtn.removeTarget(self, action: #selector(self.addImgBtn(sender:)), for: UIControlEvents.allEvents)
+            currentBtn.addTarget(self, action: #selector(self.openimg), for: UIControlEvents.touchUpInside)
             self.haveImagsData.add(currentBtn)
             if index == 3{
                 return

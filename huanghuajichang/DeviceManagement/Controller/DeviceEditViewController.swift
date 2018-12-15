@@ -39,6 +39,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var pageType = ""
     var deviceEditId = ""
     var deviceEditNo = ""
+    var editImgPickerData:[Any] = []
+    var editImgData:[UIButton] = []
     
     var token:String!
     var userId:String!
@@ -76,13 +78,13 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         MyProgressHUD.showStatusInfo("加载中...")
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
             print(resultData)
+            
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.deviceEditJson = JSON(value)["data"]
-                    print(self.deviceEditJson)
                     
-                    //
+                    //print(self.deviceEditJson)
                     self.buildingId = self.deviceEditJson["buildingId"].description
                     self.floorId = self.deviceEditJson["floorId"].description
                     self.roomId = self.deviceEditJson["roomId"].description
@@ -90,6 +92,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     self.twoMeanId = self.deviceEditJson["departmentIdTwo"].description
                     self.bigType = self.deviceEditJson["equCategoryBig"].description
                     self.smallType = self.deviceEditJson["equCategorySmall"].description
+                    self.editImgPickerData = []
                     if self.deviceEditJson["equPhotos"].count>0{
                         for imgItem in self.deviceEditJson["equPhotos"].enumerated(){
                             let imgurlStr = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.deviceEditJson["equPhotos"][imgItem.offset]["filePath"].stringValue)
@@ -97,6 +100,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
                             let hasImg = UIImage.init(data: imgData! as Data, scale: 1)
                             self.photoListr.append(hasImg ?? UIImage.init(named: "默认图片")!)
+                            self.editImgPickerData.append(imgUrl as Any)
                         }
                     }
                     self.setLayout()
@@ -605,19 +609,29 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     func imageMethods(){
+        editImgData = []
         for i in 0..<photoListr.count{
-            let viewOption = EditView()
+            let viewOption = EditBtn()
             viewOption.frame = CGRect(x: 75*i+10, y: 0, width: 60, height: Int(imageView.frame.height))
+            viewOption.tag = 4000 + i
+            viewOption.addTarget(self, action: #selector(openEditImgPicker(sender:)), for: UIControlEvents.touchUpInside)
             let image = UIImageView()
             image.tag = i+1000 // 图片
             image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
-            image.image = photoListr[i]
+            if editImgPickerData[i] as? URL != nil{
+                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (Result) in
+                    
+                }
+            }else{
+                image.image = photoListr[i]
+            }
             image.layer.borderColor = UIColor.red.cgColor
             image.layer.borderWidth = 1.0
             viewOption.addSubview(image)
             let deleteBut = deleteBtn(tag: i + 6000)
             viewOption.addSubview(deleteBut)
             imageView.addSubview(viewOption)
+            editImgData.append(viewOption)
         }
         if photoListr.count >= 6{
             //            addBut.removeFromSuperview()
@@ -638,10 +652,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         addBtn.removeTarget(self, action: #selector(actionSheet), for: .touchUpInside)
         addBtn.removeFromSuperview()
         
-        let viewOption = EditView()
+        let viewOption = EditBtn()
         viewOption.tag = 4000+photoListr.count // 图片所在图层
         viewOption.frame = CGRect(x: 75*photoListr.count+10, y: 0, width: 60, height: Int(imageView.frame.height))
-        
+        viewOption.addTarget(self, action: #selector(openEditImgPicker(sender:)), for: UIControlEvents.touchUpInside)
         let image = UIImageView()
         image.image = UIImage(named: "image")
         
@@ -654,6 +668,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
         photoListr.append(pic)
+        editImgPickerData.append(pic)
+        editImgData.append(viewOption)
         
         if photoListr.count >= 6{
             addBut.removeFromSuperview()
@@ -695,10 +711,26 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         if index >= 1000{
             index = index - 1000
             photoListr.remove(at: index)
+            editImgData.remove(at: index)
+            editImgPickerData.remove(at: index)
         }
         clearImages(btn: button)
         //重新加载图片图层
         imageMethods()
+    }
+    
+    ///打开设备编辑界面的浏览图片器
+    @objc func openEditImgPicker(sender:UIButton){
+        ///index为当前点击了图片数组中的第几张图片,Urls为图片Url地址数组
+        //**Urls必须传入为https或者http的图片地址数组,**
+        var index = 0
+        for img in editImgData.enumerated(){
+            if editImgData[img.offset].tag == sender.tag{
+                index = img.offset
+            }
+        }
+        let vc = PictureVisitControl(index: index, images: editImgPickerData)
+        present(vc, animated: true, completion:  nil)
     }
     
     func clearImages(btn button:UIButton){
