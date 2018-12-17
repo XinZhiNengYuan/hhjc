@@ -16,9 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 设置跟控制器
+        let  launch =  UserDefaults.standard.value(forKey: "firstLaunch");
+        if launch == nil {
+            let indexVC = GuideViewController();
+            window?.rootViewController = indexVC;
+            UserDefaults.standard.setValue("notFrist", forKey: "firstLaunch")
+        } else{
+            window?.rootViewController = LoginViewController();
+        }
         // 延迟进入应用,避免应用启动过快,导致启动图片一闪而过
         Thread.sleep(forTimeInterval: 3) // pause 2 sec before main storybord shows
-        
         return true
     }
 

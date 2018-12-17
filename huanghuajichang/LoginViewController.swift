@@ -181,8 +181,8 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         portButtonView.addTarget(self, action: #selector(changePort), for: UIControlEvents.touchUpInside)
         contentView.addSubview(portButtonView)
         //MARK:设置内容页大小
-        contentView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: UIScreen.main.bounds.height*2/5+265)
-        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: contentView.frame.height)
+        contentView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: kScreenHeight)
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: kScreenHeight)
         scrollView.backgroundColor = UIColor.white
         scrollView.addSubview(contentView)
         view.addSubview(scrollView)
