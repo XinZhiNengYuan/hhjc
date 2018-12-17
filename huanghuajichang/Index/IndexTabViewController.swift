@@ -10,6 +10,7 @@ import UIKit
 import Charts.Swift
 import Alamofire
 import SwiftyJSON
+import MJRefresh
 
 class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate {
     
@@ -43,6 +44,11 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     var rightBarButtonItem:UIBarButtonItem?
     
     var rightBarButton:UIButton!
+    
+    var allContentView:UIScrollView!
+    
+    // 顶部刷新
+    let refresHeader = MJRefreshNormalHeader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,9 +147,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //设备汇总
     func deviceTotal() {
+        allContentView = UIScrollView.init(frame: self.view.bounds)
+        allContentView.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+        self.view.addSubview(allContentView)
         let topView:UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
-        self.view.addSubview(topView)
+        allContentView.addSubview(topView)
         
         let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kScreenWidth-30, height: 20))
         topLabel.text = "设备汇总"
@@ -179,7 +188,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     func createMiddleTab() {
         let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-navigationHeight - tabBarHeight))
         middleView.backgroundColor = UIColor.white
-        self.view.addSubview(middleView)
+        allContentView.addSubview(middleView)
         
         // 先删除
         if buttonView != nil{
@@ -224,6 +233,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
                 test2(lineChartView:fuheLineChartView, originX: i)
             }
         }
+        self.getElectricControl()
         
     }
     
@@ -239,7 +249,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         let topHeight:CGFloat = kScreenHeight - navigationHeight - tabBarHeight - 136
         let topView:UIView = UIView.init(frame: CGRect(x: 0, y: topHeight, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
-        self.view.addSubview(topView)
+        allContentView.addSubview(topView)
         
         let topLabel:UILabel = UILabel.init(frame: CGRect(x: 15, y: 10, width: kScreenWidth-50, height: 20))
         topLabel.text = "本月新增"
@@ -279,6 +289,37 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         bottomCollectionView.showsHorizontalScrollIndicator = false
         
         bottomCollectionView.register(IndexTopCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "topCollectionCell")
+        initMJRefresh()
+    }
+    
+    //初始化下拉刷新/上拉加载
+    func initMJRefresh(){
+        //下拉刷新相关设置
+        refresHeader.setRefreshingTarget(self, refreshingAction: #selector(headerRefresh))
+        // 现在的版本要用mj_header
+        
+        refresHeader.setTitle("下拉刷新", for: .idle)
+        refresHeader.setTitle("释放更新", for: .pulling)
+        refresHeader.setTitle("正在刷新...", for: .refreshing)
+        self.allContentView.mj_header = refresHeader
+        
+    }
+    
+    //顶部下拉刷新
+    @objc func headerRefresh(){
+//        sleep(2)
+        //重现生成数据
+        getCurrentNew()
+        self.getElectricControl()
+        let openStatus = self.userDefault.object(forKey: "hasOpenAlarmList")
+        if openStatus == nil || openStatus as! Bool == false{
+            maxId = 0
+        }else{
+            maxId = self.userDefault.integer(forKey: "maxId")
+        }
+        getALarmCount()
+        //结束刷新
+        allContentView.mj_header.endRefreshing()
     }
     
     ///获取设备用电监控模块曲线图信息
@@ -638,9 +679,6 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         pieChartView.legend.verticalAlignment = .bottom
         
         self.pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .easeInBack)
-        
-        self.getElectricControl()
-        
     }
     
     func drawPieChartView()
@@ -649,7 +687,9 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         for pieItem in self.mainEchartsData["powerDataPie"].enumerated()
         {
             let entry = PieChartDataEntry.init(value: Double(self.mainEchartsData["powerDataPie"][pieItem.offset]["lineData"].intValue), label: self.mainEchartsData["powerDataPie"][pieItem.offset]["lineName"].stringValue)
-            yVals.append(entry)
+            if Double(self.mainEchartsData["powerDataPie"][pieItem.offset]["lineData"].intValue) > 0 {
+                yVals.append(entry)
+            }
         }
         
         if yVals.count == 0 {
