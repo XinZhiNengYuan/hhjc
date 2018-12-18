@@ -89,7 +89,7 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         actionSheet.addAction(archiveAction)
         self.present(actionSheet, animated: false, completion: nil)
     }
-   /*
+    /*
      判断相机是否有权限
      return:有权限返回true，无权限返回false
      */
@@ -141,21 +141,21 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         let sure:UIAlertAction=UIAlertAction.init(title: "去开启权限", style: UIAlertActionStyle.default) { (ac) in
             
             let url=URL.init(string: UIApplicationOpenSettingsURLString)
-
+            
             if UIApplication.shared.canOpenURL(url!){
                 UIApplication.shared.open(url!, options: [:], completionHandler: { (ist) in
                     
                 })
             }
-
+            
         }
-
+        
         alertController.addAction(sure)
-
+        
         self.present(alertController, animated: true) {
-
+            
         }
-
+        
     }
     
     
@@ -170,7 +170,7 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
             self.headerImageData.add(img!)
             self.uploadHeaderImg()
             //将img转为data
-//            let imageData = UIImagePNGRepresentation(img)
+            //            let imageData = UIImagePNGRepresentation(img)
         }
         
     }
@@ -216,13 +216,14 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
         let infoData = ["user_id":userId,"file_ids":fieldsStr,"photo_url":fileUrl] as [String : Any]
         let contentData : [String : Any] = ["method":"uploadHeadPortrait","info":infoData,"token":userToken,"user_id":userId]
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-            print(resultData)
+//            print(resultData)
             switch resultData.result {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     MyProgressHUD.dismiss()
                     let overUrl = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + self.fileUrl
-                    self.largeHeaderView.dowloadFromServer(link: overUrl, contentMode: UIViewContentMode.scaleAspectFit)
+                    self.largeHeaderView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: overUrl)! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
+                    }
                     MyProgressHUD.showSuccess("修改成功")
                 }else{
                     MyProgressHUD.dismiss()
@@ -240,16 +241,16 @@ class HeaderViewController: AddNavViewController,UIImagePickerControllerDelegate
             }
         }
     }
-
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

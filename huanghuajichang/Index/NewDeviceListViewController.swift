@@ -56,7 +56,7 @@ class NewDeviceListViewController: AddNavViewController {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.allListData = JSON(value)["data"]["resultData"]
-                    print(self.allListData)
+//                    print(self.allListData)
                     var childs:[[String:AnyObject]] = []
                     for equitItem in self.allListData.enumerated(){
                         
@@ -84,7 +84,7 @@ class NewDeviceListViewController: AddNavViewController {
                             self.oneMeanArr.append(equitParentCategoryModel)
                         }
                     }
-                    print(self.oneMeanArr)
+//                    print(self.oneMeanArr)
                     for i in self.oneMeanArr.enumerated(){
                         if i.offset != 0 {
                             self.statusArrOfContent.add(false)

@@ -47,7 +47,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.json = JSON(value)["data"]
 //                print(self.json)
                 if JSON(value)["status"].stringValue == "success"{
-                    print(self.json["url"].stringValue)
+//                    print(self.json["url"].stringValue)
                     let urlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + self.json["url"].stringValue
 //                    let URL:NSURL = NSURL(string:urlStr)!
 //                    let imageData:NSData? = NSData(contentsOf:URL as URL)

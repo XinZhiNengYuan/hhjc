@@ -571,6 +571,8 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
          set2.mode = .cubicBezier  //设置曲线是否平滑
          set2.drawValuesEnabled = false //设置是否显示折线上的数据
          */
+        set1.setDrawHighlightIndicators(false)
+        lineChartView.drawMarkers = false
         let data = LineChartData.init(dataSets: [set1])//更改dataSets,决定曲线数量
         
         lineChartView.data = data
@@ -604,10 +606,12 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     //因为转折点内圈颜色是一起设定的，所以无法更改内部颜色
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight)
     {
+        chartView.drawMarkers = true
         self.showMarkerView(operateView:chartView, value: "\(entry.y)")
         //将选中的数据点的颜色改成黄色
         var chartDataSet = LineChartDataSet()
         chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
+        chartDataSet.setDrawHighlightIndicators(true)
         let values = chartDataSet.values
         let index = values.index(where: {$0.x == highlight.x})  //获取索引
         
@@ -635,6 +639,42 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         }else{
             chartDataSet.circleColors = fuheLineCircleColors //还原
         }
+        chartDataSet.setDrawHighlightIndicators(false)
+        chartView.drawMarkers = false
+        
+        //重新渲染表格
+        chartView.data?.notifyDataChanged()
+        chartView.notifyDataSetChanged()
+    }
+    
+    func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat){
+        //还原所有点的颜色
+        var chartDataSet = LineChartDataSet()
+        chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
+        if chartView.tag == 4001 {
+            chartDataSet.circleColors = electricLineCircleColors //还原
+        }else{
+            chartDataSet.circleColors = fuheLineCircleColors //还原
+        }
+        chartDataSet.setDrawHighlightIndicators(false)
+        chartView.drawMarkers = false
+        
+        //重新渲染表格
+        chartView.data?.notifyDataChanged()
+        chartView.notifyDataSetChanged()
+    }
+    
+    func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat){
+        //还原所有点的颜色
+        var chartDataSet = LineChartDataSet()
+        chartDataSet = (chartView.data?.dataSets[0] as? LineChartDataSet)!
+        if chartView.tag == 4001 {
+            chartDataSet.circleColors = electricLineCircleColors //还原
+        }else{
+            chartDataSet.circleColors = fuheLineCircleColors //还原
+        }
+        chartDataSet.setDrawHighlightIndicators(false)
+        chartView.drawMarkers = false
         
         //重新渲染表格
         chartView.data?.notifyDataChanged()

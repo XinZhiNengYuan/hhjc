@@ -11,7 +11,7 @@ import SwiftyJSON
 import Kingfisher
 
 class ScanAndEditViewController: AddNavViewController {
-
+    
     var rightEditBtn:UIBarButtonItem!
     
     var userDefault = UserDefaults.standard
@@ -130,6 +130,7 @@ class ScanAndEditViewController: AddNavViewController {
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)
         scanImgData = []
+        var imagesHeight:CGFloat = 0
         for detailImage in self.detailJson["filePhotos"].enumerated(){
             let topHeight = describeTextView.frame.size.height+describeTextView.frame.origin.y
             let imageBtn = UIButton.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 160) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 150))
@@ -137,10 +138,15 @@ class ScanAndEditViewController: AddNavViewController {
             imageView.backgroundColor = UIColor.white
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
             imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
-                
+                let size = self.disPlaySize(image: imageView.image!)
+                imageBtn.frame = CGRect(x: 20, y: imagesHeight + CGFloat(10*(detailImage.offset+1)) + topHeight, width: kScreenWidth-40, height: size.height)
+                imagesHeight += size.height
+                imageView.frame = CGRect(x: (kScreenWidth-40-size.width)/2, y: 0, width: size.width, height: size.height)
+                //重置scrollView的高度
+                scrollView.contentSize = CGSize(width: kScreenWidth, height: self.describeTextView.frame.size.height+self.describeTextView.frame.origin.y+imagesHeight+CGFloat(10*(self.detailJson["filePhotos"].count))+20)
             }
-            imageView.layer.borderColor = UIColor.red.cgColor
-            imageView.layer.borderWidth = 1
+            imageBtn.layer.borderColor = UIColor.red.cgColor
+            imageBtn.layer.borderWidth = 1
             imageBtn.addSubview(imageView)
             imageBtn.tag = 5000 + detailImage.offset
             imageBtn.addTarget(self, action: #selector(openScanImgPicker(sender:)), for: UIControlEvents.touchUpInside)
@@ -149,8 +155,7 @@ class ScanAndEditViewController: AddNavViewController {
             scanImgBtnData.append(imageBtn)
         }
         
-        //重置scrollView的高度
-        scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(self.detailJson["filePhotos"].count*(160))+20)
+        
         if self.detailJson["state"].intValue == 0 {
             ///编辑按钮
             rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
@@ -222,22 +227,34 @@ class ScanAndEditViewController: AddNavViewController {
         present(vc, animated: true, completion:  nil)
     }
     
+    func disPlaySize(image:UIImage)->CGSize{
+        
+        let scale = image.size.height / image.size.width
+        var width = UIScreen.main.bounds.width - 40
+        var height = width * scale
+        if height > 300 {
+            width = 300 / scale
+            height = 300
+        }
+        return CGSize(width: width, height: height)
+    }
+    
     //最后要记得移除通知
     /// 移除通知
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension UITextView{
     /**
