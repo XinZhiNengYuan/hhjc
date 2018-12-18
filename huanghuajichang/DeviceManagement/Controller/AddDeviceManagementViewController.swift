@@ -542,13 +542,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     
     func imageMethods(){
         for i in 0..<photoListr.count{
-            let viewOption = UIView()
+            let viewOption = UIButton()
             if(i >= imageNumMax){
                 viewOption.frame = CGRect(x: 75*(i-imageNumMax), y: 80, width: 70, height: 70)
             }else{
                 viewOption.frame = CGRect(x: 75*i, y: 0, width: 70, height: 70)
             }
+            viewOption.tag = i+4000 // 图片所在图层
             viewOption.backgroundColor = UIColor.white
+            viewOption.addTarget(self, action: #selector(toSeePic(sender:)), for: UIControlEvents.touchUpInside)
             let image = UIImageView()
             image.tag = i+1000 // 图片
             image.frame = CGRect(x: 0, y: 10, width: 60, height: 60)
@@ -572,14 +574,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let addBtn = imageView.viewWithTag(3001) as! UIButton
         addBtn.removeTarget(self, action: #selector(actionSheet), for: .touchUpInside)
         addBtn.removeFromSuperview()
-        let viewOption = UIView()
-        if(imageIndex >= imageNumMax){
+        let viewOption = UIButton()
+        if(imageIndex >= imageNumMax){//超过最大数量换行
             viewOption.frame = CGRect(x: 75*(photoListr.count-imageNumMax), y: 80, width: 70, height: 70)
         }else{
             viewOption.frame = CGRect(x: 75*photoListr.count, y: 0, width: 70, height: 70)
         }
         viewOption.tag = 4000+photoListr.count // 图片所在图层
         viewOption.backgroundColor = UIColor.white
+        viewOption.addTarget(self, action: #selector(toSeePic(sender:)), for: UIControlEvents.touchUpInside)
         let image = UIImageView()
         image.image = UIImage(named: "image")
         image.tag = photoListr.count + 1000 //图片
@@ -598,7 +601,12 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }
     }
     
-    //MARK:设置设置添加按钮
+    @objc func toSeePic(sender:UIButton){
+        let index = sender.tag - 4000
+        let vc = PictureVisitControl(index: index, images: photoListr)
+        present(vc, animated: true, completion:  nil)
+    }
+    //MARK:设置添加按钮
     func setAddBut(){
         if(imageIndex >= imageNumMax){
             addBut = UIButton(frame: CGRect(x: 75*(photoListr.count-imageNumMax)+10, y: 100, width: 40, height: 40))
