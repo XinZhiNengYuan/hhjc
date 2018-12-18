@@ -34,6 +34,9 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
     if (self = [super init]) {
         self.isHiddenMiddleText = true;
         self.isHiddenWheels = true;
+        
+        self.secondInterval = 1;
+        self.minuteInterval = 1;
     }
     return self;
 }
@@ -728,6 +731,9 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
 }
 
 - (NSString *)pickerView:(PGPickerView *)pickerView middleTextForcomponent:(NSInteger)component {
+    if (_showUnit == PGShowUnitTypeNone) {
+        return @"";
+    }
     switch (self.datePickerMode) {
         case PGDatePickerModeYear:
             return self.middleYearString;
@@ -1111,6 +1117,15 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
     return _locale;
 }
 
+- (BOOL)isHiddenMiddleText{
+    if (_showUnit == PGShowUnitTypeCenter) {
+        return NO;
+    }else if (_showUnit == PGShowUnitTypeAll){
+        return YES;
+    }
+    return _isHiddenMiddleText;
+}
+
 - (NSArray *)yearList {
     if (!_yearList) {
         NSInteger index = self.maximumComponents.year - self.minimumComponents.year;
@@ -1238,7 +1253,7 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
             }
         }
         NSMutableArray *minutes = [NSMutableArray arrayWithCapacity:index];
-        for (NSUInteger i = minimum; i <= maximum; i++) {
+        for (NSUInteger i = minimum; i <= maximum; i+=self.minuteInterval) {
             if (i < 10) {
                 [minutes addObject:[NSString stringWithFormat:@"0%ld", i]];
             }else {
@@ -1288,7 +1303,7 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
         }
         NSInteger index = maximum - minimum;
         NSMutableArray *seconds = [NSMutableArray arrayWithCapacity:index];
-        for (NSUInteger i = minimum; i <= maximum; i++) {
+        for (NSUInteger i = minimum; i <= maximum; i+=self.secondInterval) {
             if (i < 10) {
                 [seconds addObject:[NSString stringWithFormat:@"0%ld", i]];
             }else {
@@ -1367,7 +1382,10 @@ static NSString *const reuseIdentifier = @"PGDatePickerView";
         case PGDatePickerModeMonthDayHourMinuteSecond:
             return 5;
         case PGDatePickerModeTime:
-            return 2;
+            if(!self.isOnlyHourFlag) {
+                return 2;
+            }
+            else return 1;
         case PGDatePickerModeTimeAndSecond:
             return 3;
         case PGDatePickerModeMinuteAndSecond:

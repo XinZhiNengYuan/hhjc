@@ -136,7 +136,9 @@ class ScanAndEditViewController: AddNavViewController {
             let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth-40, height: 150))
             imageView.backgroundColor = UIColor.white
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
-            imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: nil)
+            imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
+                
+            }
             imageView.layer.borderColor = UIColor.red.cgColor
             imageView.layer.borderWidth = 1
             imageBtn.addSubview(imageView)

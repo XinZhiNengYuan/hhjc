@@ -114,7 +114,9 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
                 image.tag = j+1000 // 图片
                 image.frame = CGRect(x: 0, y: 10, width: 60, height: 60)
                 image.kf.setImage(with: ImageResource(downloadURL:
-                    URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil,completionHandler: nil)
+                    URL.init(string:deviceDetailPageImageList[j])!),placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
+                        
+                }
                 viewOption.addSubview(image)
                 let deleteBut = deleteBtn(tag: j + 5000)
                 viewOption.addSubview(deleteBut)

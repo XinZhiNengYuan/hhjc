@@ -217,6 +217,7 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         
         let detailVc = DeviceDetailViewController()
         detailVc.eqCode = JSON(oneMeanArr[indexPath.section].childs[indexPath.row])["equNo"].description
+        detailVc.eqId = JSON(oneMeanArr[indexPath.section].childs[indexPath.row])["equId"].description
         self.navigationController?.pushViewController(detailVc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

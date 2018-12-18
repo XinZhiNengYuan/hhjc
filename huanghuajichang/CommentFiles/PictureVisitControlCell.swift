@@ -26,7 +26,7 @@ class PictureVisitControlCell: UICollectionViewCell {
                 if (NSString(string: (imageURL! as! NSURL).absoluteString!)).hasPrefix("http") {//网络图片
                     reSetPosion()
                     
-                    IMg.kf.setImage(with: imageURL as! URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (image, erroe, cacheType, url) in
+                    IMg.kf.setImage(with: imageURL as! URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (Result) in
                         //调整图片位置
                         self.setImgViewPosion()
                         }
@@ -35,7 +35,7 @@ class PictureVisitControlCell: UICollectionViewCell {
                 if ((imageURL as! NSString)).hasPrefix("http") {//网络图片
                     reSetPosion()
                     
-                    IMg.kf.setImage(with: (NSURL.init(string: imageURL as! String))! as URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (image, erroe, cacheType, url) in
+                    IMg.kf.setImage(with: (NSURL.init(string: imageURL as! String))! as URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (Result) in
                         //调整图片位置
                         self.setImgViewPosion()
                     }
