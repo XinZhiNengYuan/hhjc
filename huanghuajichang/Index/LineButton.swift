@@ -71,7 +71,7 @@ class LineButton: NSObject {
         for b in buttonArr{
             // 遍历按钮数组,如果相同就改成选中状态,不相同就取消选中状态
             if (b as! UIButton) == button{
-                print("index+\(button.tag)")
+//                print("index+\(button.tag)")
                 if (self.delegate?.responds(to: #selector(LineButtonDelagate.clickChangePage(_:buttonIndex:))))!{
                     self.delegate?.clickChangePage(self, buttonIndex: button.tag)
                 }

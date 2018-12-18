@@ -34,7 +34,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="mainStoryboardViewController" id="UyL-h5-OOv" customClass="MainTabViewController" customModule="huanghuajichang" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UQq-h6-qLM"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KNe-jI-xAX">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KNe-jI-xAX" customClass="CustomTabBar" customModule="huanghuajichang" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -53,13 +53,16 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         self.view.backgroundColor = UIColor.white
         userId = userDefault.string(forKey: "userId")
         token = userDefault.string(forKey: "userToken")
-        getOneAndTwo()
         getDetailEdit()
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getOneAndTwo()
     }
     
     func getOneAndTwo(){
@@ -982,6 +985,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             formateString = "\(num)"
         }
         return formateString
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
 }
 

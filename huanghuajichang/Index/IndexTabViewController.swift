@@ -886,7 +886,7 @@ extension IndexTabViewController:LineButtonDelagate{
     //#MARK - LineButtonDelegate
     //实现按钮控制页面的切换
     func clickChangePage(_ lineButton:LineButton, buttonIndex:NSInteger){
-        print(buttonIndex)
+//        print(buttonIndex)
         scrollView!.contentOffset = CGPoint(x:kScreenWidth * CGFloat(buttonIndex), y:0)
     }
 }

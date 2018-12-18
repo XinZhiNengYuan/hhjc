@@ -90,8 +90,6 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     if self.editJson["filePhotos"].arrayValue != [] {
                         for editImage in self.editJson["filePhotos"].enumerated(){
                             let editImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
-                            let editImgView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 75, height: 75))
-                            editImgBtn.addSubview(editImgView)
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
                             let imgData = NSData.init(contentsOf: imgUrl! as URL)
@@ -102,9 +100,9 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             }else{
 //                                editImgBtn.setImage(editUIImage, for: .normal)
                             }
-                            editImgView.kf.setImage(with: ImageResource(downloadURL:imgUrl! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
+                            editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: { (Result) in
                                 
-                            }
+                            })
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
                             editImgBtn.addTarget(self, action: #selector(self.openimg), for: UIControlEvents.touchUpInside)
