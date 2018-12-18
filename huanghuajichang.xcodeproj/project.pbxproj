@@ -85,7 +85,6 @@
 		FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */; };
 		FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */; };
 		FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0C215493B600F6D2AB /* AppDelegate.swift */; };
-		FB381B0F215493B600F6D2AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0E215493B600F6D2AB /* ViewController.swift */; };
 		FB381B12215493B600F6D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B10215493B600F6D2AB /* Main.storyboard */; };
 		FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB381B13215493B700F6D2AB /* Assets.xcassets */; };
 		FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */; };
@@ -184,7 +183,6 @@
 		FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellFore.swift; sourceTree = "<group>"; };
 		FB381B09215493B600F6D2AB /* huanghuajichang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = huanghuajichang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB381B0C215493B600F6D2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB381B0E215493B600F6D2AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FB381B11215493B600F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FB381B13215493B700F6D2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB381B16215493B700F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -440,7 +438,6 @@
 				FB10A3B9215B2C6B009658C7 /* DeviceManagement */,
 				FB381B0C215493B600F6D2AB /* AppDelegate.swift */,
 				FB381B10215493B600F6D2AB /* Main.storyboard */,
-				FB381B0E215493B600F6D2AB /* ViewController.swift */,
 				FB381B13215493B700F6D2AB /* Assets.xcassets */,
 				FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */,
 				FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
@@ -540,13 +537,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
 				"${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
-				"${BUILT_PRODUCTS_DIR}/RATreeView/RATreeView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -554,13 +549,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RATreeView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -646,7 +639,6 @@
 				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
 				3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */,
 				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
-				FB381B0F215493B600F6D2AB /* ViewController.swift in Sources */,
 				3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */,
 				3D08D1AD2190570100C996D2 /* DeviceSearchListViewModule.swift in Sources */,
 				3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */,
@@ -743,7 +735,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ennovation System Control Co.,Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = L8262PAM74;
@@ -805,7 +797,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Ennovation System Control Co.,Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = L8262PAM74;
@@ -833,10 +825,10 @@
 			baseConfigurationReference = 1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 5GVSBZG2D3;
+				DEVELOPMENT_TEAM = SNW8WB8R25;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;
@@ -847,7 +839,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
 				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -860,10 +852,10 @@
 			baseConfigurationReference = D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 5GVSBZG2D3;
+				DEVELOPMENT_TEAM = SNW8WB8R25;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = huanghuajichang/Info.plist;
@@ -874,7 +866,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
 				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
