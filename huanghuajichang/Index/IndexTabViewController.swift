@@ -920,7 +920,8 @@ extension UIButton {
         
         let msgView:UIButton = UIButton.init(frame: CGRect(x: 12.5, y: 0, width: 15, height: 15))
         msgView.backgroundColor = UIColor.red
-        msgView.layer.cornerRadius = 5
+        msgView.layer.cornerRadius = 7.5
+        msgView.layer.masksToBounds = true
         msgView.setTitle(msg, for: UIControlState.normal)
         msgView.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
         msgView.tintColor = UIColor.white
