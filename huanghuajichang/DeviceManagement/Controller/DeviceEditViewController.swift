@@ -66,9 +66,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     func getOneAndTwo(){
         let contentData : [String:Any] = ["method":"getEquipmentAndOrganization","user_id": userId as Any,"token": token as Any,"info":""]
         addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
-//            print("--------------------------------")
+            //            print("--------------------------------")
             self.addDeviceManagementModule = returnData
-//            print("--------------------------------")
+            //            print("--------------------------------")
         }, finishedError: {(errorData) in
             print("--------------------------------")
         })
@@ -78,7 +78,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["code":self.deviceEditNo]]
         MyProgressHUD.showStatusInfo("加载中...")
         NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
-//            print(resultData)
+            //            print(resultData)
             
             switch resultData.result {
             case .success(let value):
@@ -125,7 +125,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-//                    print(type(of: JSON(value)["msg"]))
+                    //                    print(type(of: JSON(value)["msg"]))
                     if JSON(value)["msg"].string == nil {
                         self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                     }else{
@@ -523,7 +523,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     @objc func uploadImgs(){
         if photoListr.count > 0{
             cameraViewService.upLoadPic(images: photoListr as! [UIImage], finished: { (fileId,status) in
-//                print(fileId)
+                //                print(fileId)
                 if status == "success"{
                     self.getCommitData(userId: self.userId!, token: self.token!, fileId: fileId)
                 }else if status == "sign_app_err"{
@@ -588,7 +588,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
         let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId, "equId":self.deviceEditId]]]
-//        print(commitData)
+        //        print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
                 self.navigationController?.popViewController(animated: false)
@@ -720,7 +720,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     @objc func deleteImg(button:UIButton){
-//        print(button.tag)
+        //        print(button.tag)
         var index = button.tag - 5000 //根据下标的大小判断这个要删除的图片在那个数组里面 5000是deviceDetailPageImageList数组，6000是photoListr
         //        button.superview?.superview?.removeFromSuperview()
         if index >= 1000{
@@ -857,9 +857,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             print(307)
         default:
             print("未知按钮")
-            //            selectedTypeId = selectorData[selectIndex]["typeId"]?.description
         }
-        //        getAlarmListData(alarmOrganizationId: selectedEquipmentId, alarmType: selectedTypeId)
     }
     
     @objc func customSelector(sender:UIButton){
@@ -949,13 +947,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             print(307)
         default:
             print("未知按钮1")
-            //            for i in self.alarmTypeListData.enumerated(){
-            //                let elementDic:[String:AnyObject] = ["typeName":self.alarmTypeListData[i.offset]["name"].stringValue as AnyObject,"typeId":self.alarmTypeListData[i.offset]["value"].stringValue as AnyObject]
-            //                selectorData.append(elementDic)
-            //                if selectText == self.alarmTypeListData[i.offset]["name"].stringValue{
-            //                    selectedIndex = i.offset
-            //                }
-            //            }
         }
         
         selector.reloadAllComponents()
@@ -975,19 +966,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     func datePicker(_ datePicker: PGDatePicker!, didSelectDate dateComponents: DateComponents!) {
         let tempSelectLabel = self.view.viewWithTag(datePicker.tag) as! UILabel
         tempSelectLabel.text = "\(dateComponents.year!)-\(formateNum(num: dateComponents.month!))-\(formateNum(num: dateComponents.day!))"
-        //        if datePicker.tag == 500{
-        //
-        //            print(dateComponents)
-        //        }else{
-        //            let shengChanLabel = self.view.viewWithTag(5000) as! UILabel
-        //            let anZhuangLabel = self.view.viewWithTag(datePicker.tag) as! UILabel
-        //            if shengChanLabel.text!.count>0{
-        //                let shengChanDateList = shengChanLabel.text?.split(separator: "-")
-        //                let anZhuangDateList = anZhuangLabel.text?.split(separator: "-")
-        //            }
-        //        }
-        
-        
     }
     func formateNum(num:Int) ->String{
         var formateString:String = ""
@@ -1017,15 +995,6 @@ extension DeviceEditViewController:UIPickerViewDelegate,UIPickerViewDataSource{
             return selectorData.count
         }
     }
-    //MARk - delegate
-    //    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-    //        <#code#>
-    //    }
-    //
-    //    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-    //        <#code#>
-    //    }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if self.selectorData.count == 0 {
             return nil
@@ -1034,31 +1003,4 @@ extension DeviceEditViewController:UIPickerViewDelegate,UIPickerViewDataSource{
         }
     }
     
-    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    //        let typeId = selectorData[row]["typeId"]?.description
-    //        print(typeId)
-    //    }
-    
-}
-extension DispatchQueue {
-    private static var _onceTracker = [String]()
-    public class func once(token: String, block: () -> ()) {
-        objc_sync_enter(self)
-        defer {
-            objc_sync_exit(self)
-        }
-        if _onceTracker.contains(token) {
-            return
-        }
-        _onceTracker.append(token)
-        block()
-    }
-    
-    func async(block: @escaping ()->()) {
-        self.async(execute: block)
-    }
-    
-    func after(time: DispatchTime, block: @escaping ()->()) {
-        self.asyncAfter(deadline: time, execute: block)
-    }
 }
