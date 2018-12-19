@@ -92,24 +92,19 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             let editImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
-                            let imgData = NSData.init(contentsOf: imgUrl! as URL)
-                            var editUIImage = UIImage.init(data: imgData! as Data, scale: 1)
-                            if editUIImage == nil {//当图片被损坏时
-                                editUIImage = UIImage(named: "默认图片")
-//                                editImgBtn.setBackgroundImage(editUIImage, for: .normal)
-                            }else{
-//                                editImgBtn.setImage(editUIImage, for: .normal)
-                            }
+                            
+                            var editUIImage:UIImage = UIImage.init()
                             editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: { (Result) in
-                                
+                                editUIImage = editImgBtn.image(for: UIControlState.normal)!
                             })
+                            
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
                             editImgBtn.addTarget(self, action: #selector(self.openimg), for: UIControlEvents.touchUpInside)
                             editImgBtn.tag = 1001 + editImage.offset
                             self.imgsView.addSubview(editImgBtn)
                             self.imagsData.add(editImgBtn)
-                            self.imagesData.add(editUIImage!)
+                            self.imagesData.add(editUIImage)
                             self.pictureData.append(imgUrl as Any)
                             
                             let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))

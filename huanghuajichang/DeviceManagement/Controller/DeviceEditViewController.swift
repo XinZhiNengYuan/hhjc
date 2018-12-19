@@ -101,7 +101,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                             self.setLayout()
                         }
                     }
-                    self.deviceEditJson["equPhotos"] = []
                     if self.deviceEditJson["equPhotos"].count>0{
                         for imgItem in self.deviceEditJson["equPhotos"].enumerated(){
                             let imgurlStr = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.deviceEditJson["equPhotos"][imgItem.offset]["filePath"].stringValue)
