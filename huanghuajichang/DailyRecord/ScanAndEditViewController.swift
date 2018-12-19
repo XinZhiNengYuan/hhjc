@@ -130,21 +130,17 @@ class ScanAndEditViewController: AddNavViewController {
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)
         scanImgData = []
-        var imagesHeight:CGFloat = 0
         for detailImage in self.detailJson["filePhotos"].enumerated(){
             let topHeight = describeTextView.frame.size.height+describeTextView.frame.origin.y
-            let imageBtn = UIButton.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 160) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 150))
-            let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth-40, height: 150))
+            let imageBtn = UIButton.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 210) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 200))
+            let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth-40, height: 200))
             imageView.backgroundColor = UIColor.white
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
+            imageView.contentMode = .scaleAspectFit
             imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
-                let size = self.disPlaySize(image: imageView.image!)
-                imageBtn.frame = CGRect(x: 20, y: imagesHeight + CGFloat(10*(detailImage.offset+1)) + topHeight, width: kScreenWidth-40, height: size.height)
-                imagesHeight += size.height
-                imageView.frame = CGRect(x: (kScreenWidth-40-size.width)/2, y: 0, width: size.width, height: size.height)
-                //重置scrollView的高度
-                scrollView.contentSize = CGSize(width: kScreenWidth, height: self.describeTextView.frame.size.height+self.describeTextView.frame.origin.y+imagesHeight+CGFloat(10*(self.detailJson["filePhotos"].count))+20)
+                
             }
+            
             imageBtn.layer.borderColor = UIColor.red.cgColor
             imageBtn.layer.borderWidth = 1
             imageBtn.addSubview(imageView)
@@ -155,7 +151,8 @@ class ScanAndEditViewController: AddNavViewController {
             scanImgBtnData.append(imageBtn)
         }
         
-        
+        //重置scrollView的高度
+        scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(self.detailJson["filePhotos"].count*(210))+20)
         if self.detailJson["state"].intValue == 0 {
             ///编辑按钮
             rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
