@@ -16,7 +16,7 @@ import SwiftyJSON
 class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate,UITextFieldDelegate {
     let commonClass = common()
     let cameraViewService = CameraViewService()
-    var photoListr : [UIImage] = []
+    var photoListr : [Any] = []
     let contentView : UIView = UIView()
     var selectorView:UIView = UIView()
     var selector:UIPickerView = UIPickerView()
@@ -45,6 +45,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var token:String!
     var userId:String!
     var deviceEditJson:JSON!
+    var contentForMode:UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,16 +54,13 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         self.view.backgroundColor = UIColor.white
         userId = userDefault.string(forKey: "userId")
         token = userDefault.string(forKey: "userToken")
+        getOneAndTwo()
         getDetailEdit()
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getOneAndTwo()
     }
     
     func getOneAndTwo(){
@@ -96,17 +94,35 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     self.bigType = self.deviceEditJson["equCategoryBig"].description
                     self.smallType = self.deviceEditJson["equCategorySmall"].description
                     self.editImgPickerData = []
+                    let serialQueue = DispatchQueue.init(label: "124")
+                    serialQueue.async() { () -> Void in
+                        //doSomething... 任务1
+                        DispatchQueue.main.async {
+                            self.setLayout()
+                        }
+                    }
+                    self.deviceEditJson["equPhotos"] = []
                     if self.deviceEditJson["equPhotos"].count>0{
                         for imgItem in self.deviceEditJson["equPhotos"].enumerated(){
                             let imgurlStr = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.deviceEditJson["equPhotos"][imgItem.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
-                            let imgData = NSData.init(contentsOf: imgUrl! as URL)
-                            let hasImg = UIImage.init(data: imgData! as Data, scale: 1)
-                            self.photoListr.append(hasImg ?? UIImage.init(named: "默认图片")!)
-                            self.editImgPickerData.append(imgUrl as Any)
+                            //将任务添加到队列中 一个任务执行完成后再执行另一个任务
+                            serialQueue.async() { () -> Void in
+                                //doSomething... 任务2
+                                self.photoListr.append(imgUrl as Any)
+                                self.editImgPickerData.append(imgUrl as Any)
+                                
+                            }
                         }
                     }
-                    self.setLayout()
+                    serialQueue.async() { () -> Void in
+                        //doSomething... 任务3
+                        DispatchQueue.main.async {
+                            //图片上传
+                            self.setPicView(top: 613, contentForMode: self.contentForMode, tag: 700)
+                            
+                        }
+                    }
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
@@ -179,7 +195,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         contentView.addSubview(contentViewHeader)
         
         //        设备基本信息
-        let contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: contentView.frame.size.height-121))
+        contentForMode = UIView(frame: CGRect(x: 0, y: 121, width: contentView.frame.width, height: contentView.frame.size.height-121))
         let contentForModeHeader = UIView(frame: CGRect(x: 0, y: 0, width: contentForMode.frame.width, height: 40))
         contentForMode.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         let contentForModeHeaderLeftStyle = UILabel(frame: CGRect(x: 10, y: 10, width: 5, height: 20))
@@ -217,9 +233,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         setSelectView(top: 491, contentForMode: contentForMode, text: "数据是否绑定",originalStatus:self.deviceEditJson["dataStatus"].description, tag: 600)
         //是否有效
         setSelectView(top: 562, contentForMode: contentForMode, text: "是否有效", originalStatus: self.deviceEditJson["status"].description, tag: 620)
-        
-        //图片上传
-        setPicView(top: 613, contentForMode: contentForMode, tag: 700)
         
         contentView.addSubview(contentForMode)
         
@@ -510,7 +523,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     //MARK:提交所有数据
     @objc func uploadImgs(){
         if photoListr.count > 0{
-            cameraViewService.upLoadPic(images: photoListr, finished: { (fileId,status) in
+            cameraViewService.upLoadPic(images: photoListr as! [UIImage], finished: { (fileId,status) in
 //                print(fileId)
                 if status == "success"{
                     self.getCommitData(userId: self.userId!, token: self.token!, fileId: fileId)
@@ -623,10 +636,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
             if editImgPickerData[i] as? URL != nil{
                 image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
-                    
+                    self.photoListr[i] = image.image as Any
                 }
             }else{
-                image.image = photoListr[i]
+                image.image = photoListr[i] as? UIImage
             }
             image.layer.borderColor = UIColor.red.cgColor
             image.layer.borderWidth = 1.0
@@ -1027,4 +1040,26 @@ extension DeviceEditViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     //        print(typeId)
     //    }
     
+}
+extension DispatchQueue {
+    private static var _onceTracker = [String]()
+    public class func once(token: String, block: () -> ()) {
+        objc_sync_enter(self)
+        defer {
+            objc_sync_exit(self)
+        }
+        if _onceTracker.contains(token) {
+            return
+        }
+        _onceTracker.append(token)
+        block()
+    }
+    
+    func async(block: @escaping ()->()) {
+        self.async(execute: block)
+    }
+    
+    func after(time: DispatchTime, block: @escaping ()->()) {
+        self.asyncAfter(deadline: time, execute: block)
+    }
 }
