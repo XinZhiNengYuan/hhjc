@@ -26,16 +26,16 @@ class PictureVisitControlCell: UICollectionViewCell {
                 if (NSString(string: (imageURL! as! NSURL).absoluteString!)).hasPrefix("http") {//网络图片
                     reSetPosion()
                     
-                    IMg.kf.setImage(with: imageURL as! URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (Result) in
-                        //调整图片位置
-                        self.setImgViewPosion()
+                    IMg.kf.setImage(with: imageURL as! URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (kfimage, kfError, kfcacheType, kfUrl) in
+                            //调整图片位置
+                            self.setImgViewPosion()
                         }
                 }
             }else if imageURL! as? String != nil {//传入的是str
                 if ((imageURL as! NSString)).hasPrefix("http") {//网络图片
                     reSetPosion()
                     
-                    IMg.kf.setImage(with: (NSURL.init(string: imageURL as! String))! as URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (Result) in
+                    IMg.kf.setImage(with: (NSURL.init(string: imageURL as! String))! as URL, placeholder:UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (kfimage, kfError, kfcacheType, kfUrl) in
                         //调整图片位置
                         self.setImgViewPosion()
                     }

@@ -469,7 +469,7 @@
 				FB381B05215493B600F6D2AB /* Sources */,
 				FB381B06215493B600F6D2AB /* Frameworks */,
 				FB381B07215493B600F6D2AB /* Resources */,
-				A42C63F625DFEE688414027B /* [CP] Embed Pods Frameworks */,
+				9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -531,10 +531,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A42C63F625DFEE688414027B /* [CP] Embed Pods Frameworks */ = {
+		9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh",
@@ -549,6 +551,8 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",

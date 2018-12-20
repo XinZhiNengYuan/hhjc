@@ -54,9 +54,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //                    if imageData != nil {
 //                        self.headerImageView.image = UIImage(data: imageData! as Data)
 //                    }
-                    self.headerImageView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: urlStr)! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
-                        
-                    }
+                    self.headerImageView.kf.setImage(with: ImageResource(downloadURL:NSURL.init(string: urlStr)! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: nil)
                     //此处需要重写下将图片变成圆形的方法
                     self.headerImageView.layer.cornerRadius = (self.headerImageView.frame.width)/2
                     // image还需要加上这一句, 不然无效

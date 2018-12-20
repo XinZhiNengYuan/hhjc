@@ -21,8 +21,6 @@ class NewDeviceListViewController: AddNavViewController {
     var statusArrOfContent : NSMutableArray = [true]
     var oneMeanArr : [NewEquipmentListModel] = []
     
-    //存储最后选中的行（包括菜单和清单主页）
-    var meanAndContentLog : [String:[String:Int]] = ["meanLog":["one":-1,"two":-1],"contentLog":["one":-1,"two":-1]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +54,7 @@ class NewDeviceListViewController: AddNavViewController {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.allListData = JSON(value)["data"]["resultData"]
-//                    print(self.allListData)
+                    //                    print(self.allListData)
                     var childs:[[String:AnyObject]] = []
                     for equitItem in self.allListData.enumerated(){
                         
@@ -171,8 +169,6 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
                     }else{
                         //选中时i==j
                         self.statusArrOfContent[j] = true
-                        self.meanAndContentLog["contentLog"]!["one"] = j
-                        self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
                     }
                 }
             }
@@ -206,7 +202,7 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         let topRightWdith = (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50) + 10.0
         cell?.topRight.frame = CGRect(x: 30 + topLeftWidth!, y: 10, width: topRightWdith, height: 20)
         cell?.midelLeft.text = "额定功率"
-        cell?.midelCenter.text = cellData["power"]?.description
+        cell?.midelCenter.text = (cellData["power"]?.description)! + "kw"
         cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!
         
         return cell!
@@ -221,6 +217,4 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.pushViewController(detailVc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
 }

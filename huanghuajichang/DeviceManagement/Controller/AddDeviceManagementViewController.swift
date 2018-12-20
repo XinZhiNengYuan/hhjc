@@ -654,7 +654,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     @objc func opendatePicker(btn:UIButton){
         let datePickerManager = PGDatePickManager.init()
         datePickerManager.isShadeBackgroud = true
-        datePickerManager.style = .style3
+        datePickerManager.style = .alertBottomButton
         let datePicker = datePickerManager.datePicker!
         datePicker.delegate = self
         datePicker.datePickerType = .type2

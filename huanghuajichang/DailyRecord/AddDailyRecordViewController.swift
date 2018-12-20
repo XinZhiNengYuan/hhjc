@@ -94,10 +94,9 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             let imgUrl = NSURL.init(string: imgurlStr)
                             
                             var editUIImage:UIImage = UIImage.init()
-                            editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: { (Result) in
+                            editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (kfimage, kfError, kfcacheType, kfUrl) in
                                 editUIImage = editImgBtn.image(for: UIControlState.normal)!
-                            })
-                            
+                            }
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
                             editImgBtn.addTarget(self, action: #selector(self.openimg), for: UIControlEvents.touchUpInside)

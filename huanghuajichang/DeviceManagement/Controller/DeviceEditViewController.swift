@@ -13,7 +13,7 @@ import Photos
 import Kingfisher
 import SwiftyJSON
 
-class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate,UITextFieldDelegate {
+class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate {
     let commonClass = common()
     let cameraViewService = CameraViewService()
     var photoListr : [Any] = []
@@ -324,11 +324,6 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let contentForModeRow3 = UIView(frame: CGRect(x: 0, y: top, width: Int(contentForMode.frame.width), height: 40))
         contentForModeRow3.backgroundColor = UIColor.white
         let contentForModeLeftStar3 = UIImageView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
-        if tag == 404{
-            contentForModeLeftStar3.image = UIImage(named: "test")
-        }else{
-            contentForModeLeftStar3.image = UIImage(named: "必填项")
-        }
         contentForModeRow3.addSubview(contentForModeLeftStar3)
         
         let contentForModeName3 = UILabel(frame: CGRect(x: 20, y: 5, width: 90, height: 30))
@@ -339,7 +334,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let inputView = UIView(frame: CGRect(x: 100, y: 5, width: KUIScreenWidth - 120, height: 30))
         let input = UITextField()
         input.delegate = self
-        input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140, height: 30)
+        input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140-30, height: 30)
         input.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         input.minimumFontSize=11  //最小可缩小的字号
         /** 水平对齐 **/
@@ -348,11 +343,23 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         input.contentVerticalAlignment = .center
         input.text = inputText
         input.keyboardType = UIKeyboardType.default
-        if tag == 400{//设备标识不可编辑
+        switch tag {
+        case 400://设备标识不可编辑
             input.isEnabled = false
             inputView.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
-        }else if tag == 403{
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
+        case 403:
             input.keyboardType = UIKeyboardType.decimalPad
+            let unit = UILabel.init(frame: CGRect(x: KUIScreenWidth - 130 - 30, y: 5, width: 30, height: 20))
+            unit.text = "(kW)"
+            unit.sizeToFit()
+            unit.textAlignment = .right
+            inputView.addSubview(unit)
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
+        case 404:
+            contentForModeLeftStar3.image = UIImage(named: "test")
+        default:
+            contentForModeLeftStar3.image = UIImage(named: "必填项")
         }
         input.clearButtonMode = .whileEditing  //编辑时出现清除按钮
         //textField.clearButtonMode = .unlessEditing  //编辑时不出现，编辑后才出现清除按钮
@@ -368,11 +375,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         contentForMode.addSubview(contentForModeRow3)
         
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //收起键盘
-        textField.resignFirstResponder()
-        return true;
-    }
+    
     //带日期控件的view
     func setDateView(top:Int,contentForMode:UIView,text:String,originalText:String,tag:Int){
         let inProducedDateLabel:UILabel = UILabel()
@@ -634,7 +637,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             image.tag = i+1000 // 图片
             image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
             if editImgPickerData[i] as? URL != nil{
-                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){(Result) in
+                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (kfimage, kfError, kfcacheType, kfUrl) in
                     self.photoListr[i] = image.image as Any
                 }
             }else{
@@ -758,7 +761,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     @objc func opendatePicker(btn:UIButton){
         let datePickerManager = PGDatePickManager.init()
         datePickerManager.isShadeBackgroud = true
-        datePickerManager.style = .style3
+        datePickerManager.style = .alertBottomButton
         let datePicker = datePickerManager.datePicker!
         datePicker.delegate = self
         datePicker.datePickerType = .type2
@@ -981,7 +984,78 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     }
 }
-
+extension DeviceEditViewController:UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //收起键盘
+        textField.resignFirstResponder()
+        return true;
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        /// 如果是小数文本框则执行下面操作，如果是文字文本框 不需要做任何限制
+        if textField.tag == 403 {
+            
+            /// 小数点前可以输入 5位
+            let Digits = 5
+            if textField.text?.contains(".") == false && string != "" && string != "."{
+                if (textField.text?.count)! >= Digits{
+                    return false
+                }
+            }
+            
+            let scanner = Scanner(string: string)
+            let numbers : NSCharacterSet
+            let pointRange = (textField.text! as NSString).range(of: ".")
+            
+            if (pointRange.length > 0) && pointRange.length < range.location || pointRange.location > range.location + range.length {
+                numbers = NSCharacterSet(charactersIn: "0123456789.")
+            }else{
+                numbers = NSCharacterSet(charactersIn: "0123456789.")
+            }
+            
+            if textField.text == "" && string == "." {
+                return false
+            }
+            /// 小数点后3位
+            let remain = 3
+            
+            let tempStr = textField.text!.appending(string)
+            
+            let strlen = tempStr.count
+            
+            if pointRange.length > 0 && pointRange.location > 0{//判断输入框内是否含有“.”。
+                if string == "." {
+                    return false
+                }
+                
+                if strlen > 0 && (strlen - pointRange.location) > remain + 1 {//当输入框内已经含有“.”，当字符串长度减去小数点前面的字符串长度大于需要要保留的小数点位数，则视当次输入无效。
+                    return false
+                }
+            }
+            
+            let zeroRange = (textField.text! as NSString).range(of: "0")
+            if zeroRange.length == 1 && zeroRange.location == 0 { //判断输入框第一个字符是否为“0”
+                if !(string == "0") && !(string == ".") && textField.text?.count == 1 {//当输入框只有一个字符并且字符为“0”时，再输入不为“0”或者“.”的字符时，则将此输入替换输入框的这唯一字符。
+                    textField.text = string
+                    return false
+                }else {
+                    if pointRange.length == 0 && pointRange.location > 0 {//当输入框第一个字符为“0”时，并且没有“.”字符时，如果当此输入的字符为“0”，则视当此输入无效。
+                        if string == "0" {
+                            return false
+                        }
+                    }
+                }
+            }
+            //        let buffer : NSString!
+            if !scanner.scanCharacters(from: numbers as CharacterSet, into: nil) && string.count != 0 {
+                return false
+            }
+            
+        }
+        
+        return true
+    }
+}
 extension DeviceEditViewController:UIPickerViewDelegate,UIPickerViewDataSource{
     //MARK - dataSource
     func numberOfComponents(in pickerView: UIPickerView) -> Int {//列数
