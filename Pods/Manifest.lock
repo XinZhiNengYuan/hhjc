@@ -13,14 +13,14 @@ PODS:
   - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - Charts
-  - Kingfisher
-  - MBProgressHUD
-  - MJRefresh
-  - PGDatePicker
-  - SnapKit
-  - SwiftyJSON
+  - Alamofire (~> 4.8.0)
+  - Charts (~> 3.2.1)
+  - Kingfisher (~> 5.0.0)
+  - MBProgressHUD (~> 1.1.0)
+  - MJRefresh (~> 3.1.15.7)
+  - PGDatePicker (~> 2.6.0)
+  - SnapKit (~> 4.2.0)
+  - SwiftyJSON (~> 4.2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -45,6 +45,6 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 8827b6f127c122ab3d4359d154d6a16e763c5ded
+PODFILE CHECKSUM: 663599c03f437839be34bdf50d070bb2c395fab0
 
 COCOAPODS: 1.5.3
