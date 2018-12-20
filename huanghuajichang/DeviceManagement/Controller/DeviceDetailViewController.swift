@@ -51,8 +51,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         arrayForVal.append(val.equName) //设备名称
         arrayForVal.append(val.coOneAndcoTwo) //所属单位
         arrayForVal.append(val.specification) //规格型号
-        arrayForVal.append(String(val.power)) //功率
-        arrayForVal.append(val.kksCode) //设备标识
+        arrayForVal.append("\(String(val.power)) KW") //功率
+        arrayForVal.append(val.equNo) //设备标识
         arrayForVal.append(val.spName) //供应商
         
         arrayForVal.append(timeStampToString(timeStamp: val.manufactureDate)) //生产日期

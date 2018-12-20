@@ -12,7 +12,7 @@ struct DeviceDetailViewModule {
     
     var equName : String = "" //设备名称
     var specification : String = "" //规格型号
-    var power : Int = 0 //功率
+    var power : String = "" //功率
     var manufactureDate : Double = 0 //生产日期
     var installDate : Double = 0 //安装日期
     var spName : String  = "" //供应商
@@ -38,17 +38,6 @@ struct DeviceDetailViewModule {
     }
    
         init() {}
-    init(equName:String,specification:String,power:Int,manufactureDate:Double,installDate:Double,spName:String,equNo:String,kksCode:String,resultData:String) {
-        self.equName = equName
-        self.specification = specification
-        self.power = power
-        self.manufactureDate = manufactureDate
-        self.installDate = installDate
-        self.spName = spName
-        self.equNo =  equNo
-        self.kksCode = kksCode
-        self.resultData = resultData
-    }
 }
 
 struct equPhotos  {

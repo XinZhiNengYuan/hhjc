@@ -42,9 +42,19 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         requestForData()
+        NotificationCenter.default.addObserver(self, selector: #selector(requestForData), name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
+    }
+    override func viewWillAppear(_ animated: Bool){
+        self.title = "设备管理"
+        self.navigationController?.navigationBar.tintColor = UIColor.white
     }
 
-    func requestForData(){
+    @objc func requestForData(){
 //        userDefault.removeObject(forKey: "DeviceManagementKey")
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
@@ -72,9 +82,25 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     //MARK:设置初始状态
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
+        if meanAndContentLog["meanLog"]!["one"] == 0 && meanAndContentLog["meanLog"]!["two"] == 0{
+            if self.resultDataForArr[0].children.count > 0 {
+                //设置默认初始选中一级单位的第一个，二级单位的第一个
+                selectInitStatus()
+            }else{
+                //一级单位没有二级单位则不做默认选中
+            }
+        }else{
+            //如果不是meanAndContentLog不是初始值，则是哪个选哪个
+            selectInitStatus()
+        }
+        
+        
+    }
+    
+    func selectInitStatus(){
         statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
         self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
-
+        
         //默认选中的section，row
         let defaultSelectCell = IndexPath(row: meanAndContentLog["meanLog"]!["two"]!, section: meanAndContentLog["meanLog"]!["one"]!)
         self.tableView1.selectRow(at: defaultSelectCell, animated: true, scrollPosition: UITableViewScrollPosition.none)
@@ -88,8 +114,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         //设置设备列表默认的第一被选中
         statusArrOfContent[meanAndContentLog["contentLog"]!["one"]!] = true
         self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -354,6 +380,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             }
             
             view.mLabel.setTitle(resultDataForArr[section].text, for: UIControlState.normal)
+            self.title = resultDataForArr[section].text//设置标题信息
             return view
         }else{
             let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
@@ -436,6 +463,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             onlyItem.mLabel.layer.cornerRadius = 10
             onlyItem.mLabel.clipsToBounds = true
             reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
+            regainMean()
         }else{
             let deviceDetailViewController = DeviceDetailViewController()
             deviceDetailViewController.eqCode = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equNo
@@ -449,7 +477,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         let deleteDeviceNo = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equNo
         if editingStyle == .delete {
-            print(deleteDeviceNo)
             deleteDevice(deviceNo: deleteDeviceNo, deviceIndexPath: indexPath)
         }
     }
@@ -517,10 +544,24 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             self.contentList += contentListData
             self.tableView2.reloadData()
         }, finishedError: {(contentError) in
-            print(contentError)
             self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
         })
         
     }
-    
+    //MARK:收回左侧菜单
+    func regainMean(){
+        //收回左侧菜单
+        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+            if self.showOrNo {//隐藏
+                self.topView!.center = CGPoint(x: self.minX!, y: self.topView!.center.y)
+                self.showOrNo = false
+            }else{//展示
+                self.topView!.center = CGPoint(x: self.maxX!, y: self.topView!.center.y)
+                self.showOrNo = true
+            }
+            
+        }, completion: { (finish) -> Void in
+            
+        })
+    }
 }

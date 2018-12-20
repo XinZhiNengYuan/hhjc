@@ -44,6 +44,11 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         }
         
         imageMethods()
+        NotificationCenter.default.addObserver(self, selector: #selector(goBackFromCameraViewController), name: NSNotification.Name(rawValue: "closeCameraViewController"), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "closeCameraViewController"), object: nil)
     }
     
     @objc func goBackFromCameraViewController(){
