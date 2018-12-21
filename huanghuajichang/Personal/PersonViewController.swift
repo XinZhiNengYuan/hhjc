@@ -141,7 +141,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        personalTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine
         //注册UITableView，cellID为重复使用cell的Identifier
        // personalTable.register(PersonalTableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "personalPassWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "personalQRCode", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"erweima1")],[PersonTableViewCellModel(itemId: "1", itemImage: "personalHelp", itemTitle: "帮助说明", itemRightIcon: "进入" ,itemRightTitle:""),PersonTableViewCellModel(itemId: "1", itemImage: "personalClean", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "personalUpdate", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
+        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "personalPassWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "personalQRCode", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"erweima1")],[PersonTableViewCellModel(itemId: "1", itemImage: "personalClean", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "personalUpdate", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
 
         //必须将高度重置，不然下面设置header无效
         self.personalTable.estimatedRowHeight = 0;
@@ -212,10 +212,6 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let maxCardNav = UINavigationController(rootViewController: maxCardVc)
             openChildVC(childNavName: maxCardNav)
         }else if indexPath.section == 1 && indexPath.row == 0 {
-//            let helpVc = HelpDocumentViewController()
-//            let helpNav = UINavigationController(rootViewController: helpVc)
-//            openChildVC(childNavName:helpNav)
-        }else if indexPath.section == 1 && indexPath.row == 1 {
             showConfirm (confrimMessage:"确定清除缓存吗？", hanlderType:1,selectedIndexPath:indexPath)
         }else if indexPath.section == tableCellModels.count {
             showConfirm (confrimMessage:"确定退出登录吗？", hanlderType:2,selectedIndexPath:indexPath)
@@ -294,14 +290,11 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 switch (indexPath.row) {
                 case 0:
-                    //cell?.itemImage?.backgroundColor = UIColor.init(red: 239/255, green: 179/255, blue: 42/255, alpha: 1)
-                    break
-                case 1:
                     //cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
                     rightLable.frame = CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20)
                     rightLable.text = String(fileSizeOfCache())+"M"
                     cell?.contentView.addSubview(rightLable)
-                case 2:
+                case 1:
                     //cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
                     //应用程序信息
                     let infoDictionary = Bundle.main.infoDictionary!
