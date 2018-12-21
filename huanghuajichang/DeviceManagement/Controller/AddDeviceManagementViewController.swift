@@ -12,7 +12,7 @@ import MJRefresh
 import Photos
 import Kingfisher
 
-class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate,UITextFieldDelegate {
+class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,AVCapturePhotoCaptureDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate {
     let commonClass = common()
     let cameraViewService = CameraViewService()
     var photoListr : [UIImage] = []
@@ -43,6 +43,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         super.viewDidLoad()
         getOneAndTwo()
         setLayout()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeCameraViewController"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -276,6 +277,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
             input.text = eqCode
         }else if tag == 403{
             input.keyboardType = UIKeyboardType.decimalPad
+            let unit = UILabel.init(frame: CGRect(x: KUIScreenWidth - 130 - 30, y: 5, width: 30, height: 20))
+            unit.text = "(kW)"
+            unit.sizeToFit()
+            unit.textAlignment = .right
+            inputView.addSubview(unit)
+        }else if tag == 404{
+            
+        }else{
+            
         }
         input.clearButtonMode = .whileEditing  //编辑时出现清除按钮
         //textField.clearButtonMode = .unlessEditing  //编辑时不出现，编辑后才出现清除按钮
@@ -506,9 +516,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let bangDingStatusVal = bangDingStatus.text
         let youXiaoStatusVal = youXiaoStatus.text
         let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId]]]
-        print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
                 self.present(windowAlert(msges: "提交成功"), animated: true, completion: nil)
             }else if resultType == "sign_app_err" {
                 self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
@@ -928,4 +938,72 @@ extension AddDeviceManagementViewController:UIPickerViewDelegate,UIPickerViewDat
     //        print(typeId)
     //    }
     
+}
+
+extension AddDeviceManagementViewController : UITextFieldDelegate{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        /// 如果是小数文本框则执行下面操作，如果是文字文本框 不需要做任何限制
+        if textField.tag == 403 {
+            
+            /// 小数点前可以输入 5位
+            let Digits = 5
+            if textField.text?.contains(".") == false && string != "" && string != "."{
+                if (textField.text?.count)! >= Digits{
+                    return false
+                }
+            }
+            
+            let scanner = Scanner(string: string)
+            let numbers : NSCharacterSet
+            let pointRange = (textField.text! as NSString).range(of: ".")
+            
+            if (pointRange.length > 0) && pointRange.length < range.location || pointRange.location > range.location + range.length {
+                numbers = NSCharacterSet(charactersIn: "0123456789.")
+            }else{
+                numbers = NSCharacterSet(charactersIn: "0123456789.")
+            }
+            
+            if textField.text == "" && string == "." {
+                return false
+            }
+            /// 小数点后3位
+            let remain = 3
+            
+            let tempStr = textField.text!.appending(string)
+            
+            let strlen = tempStr.count
+            
+            if pointRange.length > 0 && pointRange.location > 0{//判断输入框内是否含有“.”。
+                if string == "." {
+                    return false
+                }
+                
+                if strlen > 0 && (strlen - pointRange.location) > remain + 1 {//当输入框内已经含有“.”，当字符串长度减去小数点前面的字符串长度大于需要要保留的小数点位数，则视当次输入无效。
+                    return false
+                }
+            }
+            
+            let zeroRange = (textField.text! as NSString).range(of: "0")
+            if zeroRange.length == 1 && zeroRange.location == 0 { //判断输入框第一个字符是否为“0”
+                if !(string == "0") && !(string == ".") && textField.text?.count == 1 {//当输入框只有一个字符并且字符为“0”时，再输入不为“0”或者“.”的字符时，则将此输入替换输入框的这唯一字符。
+                    textField.text = string
+                    return false
+                }else {
+                    if pointRange.length == 0 && pointRange.location > 0 {//当输入框第一个字符为“0”时，并且没有“.”字符时，如果当此输入的字符为“0”，则视当此输入无效。
+                        if string == "0" {
+                            return false
+                        }
+                    }
+                }
+            }
+            //        let buffer : NSString!
+            if !scanner.scanCharacters(from: numbers as CharacterSet, into: nil) && string.count != 0 {
+                return false
+            }
+            
+        }
+        
+        return true
+    }
 }

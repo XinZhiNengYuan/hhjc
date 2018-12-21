@@ -16,7 +16,7 @@ class DeviceDetailViewService : common {
             print(result["data"])
             if result["status"].stringValue == "success"{
                 self.deviceDetailViewModule.equName = result["data"]["equName"].stringValue
-                self.deviceDetailViewModule.power = Int(result["data"]["power"].stringValue)!
+                self.deviceDetailViewModule.power = result["data"]["power"].stringValue
                 self.deviceDetailViewModule.specification = result["data"]["specification"].stringValue
                 self.deviceDetailViewModule.spName = result["data"]["spName"].stringValue
                 self.deviceDetailViewModule.equNo = result["data"]["equNo"].stringValue
