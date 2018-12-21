@@ -64,7 +64,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         createHeader()
         createTabList()
         NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: "updateList"), object: nil)
-//        getData()
+        //        getData()
     }
     
     @objc func updateList(){
@@ -175,7 +175,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     
     @objc func changeDateByButton(sender:UIButton?){
         
-//        print("year:\(year)"+";"+"month:"+formateNum(num:month))
+        //        print("year:\(year)"+";"+"month:"+formateNum(num:month))
         pageStart = 0
         let newDate = dateTool.changeDate(changeDate: dateLabel.text!, chageType: (sender?.tag)!)
         dateLabel.text = newDate
@@ -201,7 +201,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                 }
                 
             case .failure(let error):
-//                MyProgressHUD.dismiss()
+                //                MyProgressHUD.dismiss()
                 self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
                 print("error:\(error)")
                 return
@@ -290,7 +290,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-//                    print(type(of: JSON(value)["msg"]))
+                    //                    print(type(of: JSON(value)["msg"]))
                     self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
                 }
             case .failure(let error):
@@ -315,9 +315,9 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
                     //重新请求页面数据
                     self.getHeaderData()
                     self.getListData(searchStr:"")
-//                    self.listData.remove(at: itemIndexPath.row)
-//
-//                    self.recordTableView!.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.fade)
+                    //                    self.listData.remove(at: itemIndexPath.row)
+                    //
+                    //                    self.recordTableView!.deleteRows(at: [itemIndexPath], with: UITableViewRowAnimation.fade)
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
@@ -342,10 +342,10 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         refresHeader.setRefreshingTarget(self, refreshingAction: #selector(DailyRecordViewController.headerRefresh))
         // 现在的版本要用mj_header
         
-         refresHeader.setTitle("下拉刷新", for: .idle)
-         refresHeader.setTitle("释放更新", for: .pulling)
-         refresHeader.setTitle("正在刷新...", for: .refreshing)
-         self.recordTableView.mj_header = refresHeader
+        refresHeader.setTitle("下拉刷新", for: .idle)
+        refresHeader.setTitle("释放更新", for: .pulling)
+        refresHeader.setTitle("正在刷新...", for: .refreshing)
+        self.recordTableView.mj_header = refresHeader
         //初始化上拉加载
         init_bottomFooter()
     }
@@ -360,7 +360,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
         refreshFooter.isAutomaticallyChangeAlpha = true //自动更改透明度
         //修改文字
         refreshFooter.setTitle("上拉加载更多数据", for: .idle)//普通闲置的状态
-//        refreshFooter.setTitle("释放更新", for: .pulling)
+        //        refreshFooter.setTitle("释放更新", for: .pulling)
         refreshFooter.setTitle("加载中...", for: .refreshing)//正在刷新的状态
         refreshFooter.setTitle("没有更多数据了", for: .noMoreData)//数据加载完毕的状态
         //将上拉加载的控件与 tableView控件绑定起来
@@ -371,7 +371,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     // 顶部刷新
     @objc func headerRefresh(){
         
-//        print("下拉刷新")
+        //        print("下拉刷新")
         pageStart = 0
         //服务器请求数据的函数
         getListData(searchStr:"")
@@ -383,7 +383,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     // 底部刷新
     @objc func footerRefresh(){
         
-//        print("上拉加载")
+        //        print("上拉加载")
         if dataToEnd == false {
             pageStart += 10
             //服务器请求数据的函数
@@ -402,7 +402,7 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     func datePicker(_ datePicker: PGDatePicker!, didSelectDate dateComponents: DateComponents!) {
         nextMonthBtn.isEnabled = dateTool.compareWithCurrent(newDate: "\(dateComponents.year!)" + "-" + dateTool.formateNum(num: dateComponents.month!))
         dateLabel.text = "\(dateComponents.year!)" + "-" + dateTool.formateNum(num: dateComponents.month!)
-//        print("dateComponents = ", dateComponents)
+        //        print("dateComponents = ", dateComponents)
         pageStart = 0
         getHeaderData()
         getListData(searchStr: "")
@@ -413,13 +413,13 @@ class DailyRecordViewController: BaseViewController,PGDatePickerDelegate {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
 }
 extension DailyRecordViewController:ThickButtonDelagate{
     //#MARK - ThickButtonDelagate
     //实现按钮控制页面的切换
     func clickChangePage(_ thickButton: ThickButton, buttonIndex: NSInteger) {
-//        print(buttonIndex)
+        //        print(buttonIndex)
         selectedBtnIndex = buttonIndex
         pageStart = 0
         getListData(searchStr: "")
@@ -450,19 +450,19 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         }
         
         if self.listData != [] {
-//            print(self.listData[indexPath.row])
-//            print(type(of: self.json[indexPath.row]))
+            //            print(self.listData[indexPath.row])
+            //            print(type(of: self.json[indexPath.row]))
             //当无图片时显示默认图片
             let views = cell?.itemImage?.subviews
             for itemImageSub in views! {
                 itemImageSub.removeFromSuperview()
             }
             if self.listData[indexPath.row].filesId == "" {
-//                print(self.listData[indexPath.row].filesId)
+                //                print(self.listData[indexPath.row].filesId)
                 cell?.itemImage?.image = UIImage(named: "默认图片")
             }else{
                 let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.listData[indexPath.row].filesId.components(separatedBy: ",")[0])
-//                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
+                //                cell?.itemImage?.dowloadFromServer(link: imgurl as String, contentMode: .scaleAspectFit)
                 cell?.itemImage?.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: nil)
                 let photoNum = UILabel.init(frame: CGRect(x: 0, y: (cell?.itemImage?.frame.height ?? 60)-20.0, width: (cell?.itemImage?.frame.width ?? 80), height: 20))
                 photoNum.text = "共\(self.listData[indexPath.row].filesId.components(separatedBy: ",").count)张"
@@ -504,20 +504,40 @@ extension DailyRecordViewController:UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
-//        if editingStyle == .delete {
-//            deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath: indexPath)
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
-//        return .delete
-//    }
-//
-//    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
-//        return "删除"
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let deleteRecordCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+        if editingStyle == .delete {
+            deleteListItem(itemId: deleteRecordCell.itemId, itemIndexPath: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
+        return "删除"
+    }
+    
+    @available(iOS 8.0, *)
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let itemCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
+        let deleteAction = UITableViewRowAction.init(style: UITableViewRowActionStyle.default, title: "删除") { (roeAction:UITableViewRowAction, deleteIndexPath:IndexPath) in
+            if itemCell.itemStatus?.text == "已处理" {
+                return
+            }else{
+                self.deleteListItem(itemId: itemCell.itemId, itemIndexPath: indexPath)
+            }
+        }
+        if itemCell.itemStatus?.text == "已处理" {
+            deleteAction.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
+        }else{
+            deleteAction.backgroundColor = UIColor.red
+        }
+        return [deleteAction]
+    }
+    
+    @available(iOS 11.0, *)
     //尾部滑动事件按钮（左滑按钮）
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?{
         let itemCell = tableView.cellForRow(at: indexPath) as! RecordListTableViewCell
