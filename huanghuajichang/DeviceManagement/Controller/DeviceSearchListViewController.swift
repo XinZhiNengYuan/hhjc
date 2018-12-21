@@ -21,15 +21,15 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     //搜索控制器
     var countrySearchController :UISearchController!
     //搜索过滤后的结果集
-    var searchArray:[String] = [String](){
+    var searchArray:[[String:Any]] = []{
         didSet  {self.mTableView.reloadData()}
     }
     var top : CGFloat = 0
     var tableViewFrame :CGRect!
     let searchInput = UITextField()
-    var searchArrayCodeList : [String] = [String]()
     let deviceSearchListViewService = DeviceSearchListViewService()
     let userDefult = UserDefaults.standard
+    let commonClass = common()
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewStyle()
@@ -44,15 +44,20 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String:Any] = ["method":"getEquipmentList","user_id": userId as Any,"token": token as Any,"info":["oneId":"","twoId":"","equName":searchName]]
         deviceSearchListViewService.getData(contentData: contentData, finished: { (result, resultDataList) in
-            self.searchArray.removeAll()
-            self.searchArrayCodeList.removeAll()
-            for i in 0..<resultDataList.count{
-                let itemName = resultDataList[i]["equName"]
-                self.searchArray.append(itemName as! String)
-                let itemId = resultDataList[i]["equNo"]
-                self.searchArrayCodeList.append(itemId as! String)
+            if result["status"].stringValue == "sign_app_err"{
+                self.present(windowAlert(msges: "请重新登录"), animated: true, completion: nil)
+            }else if result["status"].stringValue == "success"{
+                self.searchArray.removeAll()
+                if resultDataList.count == 0{
+                    self.present(windowAlert(msges: "暂无数据"), animated: true, completion: nil)
+                }else{
+                    self.searchArray = self.searchArray + resultDataList
+                    call()
+                }
+            }else{
+                self.present(windowAlert(msges: "未知错误"), animated: true, completion: nil)
             }
-            call()
+           
         }) { (errorData) in
             self.present(windowAlert(msges: "数据请求失败"), animated: true, completion: nil)
         }
@@ -60,6 +65,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
     override func viewWillAppear(_ animated: Bool){
         self.title = "搜索设备"
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 52/255, green: 102/255, blue: 219/255, alpha: 1);
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
     }
     
@@ -96,9 +102,9 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
         self.mTableView!.dataSource = self
         self.mTableView.separatorStyle = .none
         //创建一个重用的单元格
-        self.mTableView!.register(UITableViewCell.self,
-                                  forCellReuseIdentifier: "MyCell")
-        mTableView.tableHeaderView = countrySearchController.searchBar
+        self.mTableView.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: "tableCell2")
+        self.mTableView.tableHeaderView = countrySearchController.searchBar
+        self.mTableView.tableHeaderView?.backgroundColor = UIColor.white
         self.view.addSubview(self.mTableView!)
         
     }
@@ -184,29 +190,47 @@ extension DeviceSearchListViewController:UITableViewDataSource{
 
         }
     }
+    func tableView(_ tableView:UITableView, heightForRowAt indexPath:IndexPath) ->CGFloat {
+            return 100
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 40
+        
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //为了提供表格显示性能，已创建完成的单元需重复使用
-        let identify:String = "MyCell"
-        //同一形式的单元格重复使用，在声明时已注册
-        let cell = tableView.dequeueReusableCell(withIdentifier: identify,
-                                                 for: indexPath)
-        
-        let rowNum = indexPath.row
+        let identifier = "reusedCell2"
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellFore
+        if cell == nil{
+            cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
+        }
         if self.countrySearchController.isActive {
-            cell.textLabel?.text = self.searchArray[rowNum]
-//            cell.tag = Int(self.searchArrayIdList[rowNum])!
-            return cell
+            return setMyCell(cell:cell!,tableView:tableView,indexPath:indexPath)
         } else {
             if shouldShowSearchResults{
-                cell.textLabel?.text = self.searchArray[rowNum]
-                return cell
+                return setMyCell(cell:cell!,tableView:tableView,indexPath:indexPath)
             }else{
-                cell.textLabel?.text = ""//self.searchArray[rowNum]
-                return cell
+                cell?.topLeft.text = ""
+                return cell!
             }
             
         }
+    }
+    func setMyCell(cell:UITableViewControllerCellFore,tableView : UITableView, indexPath:IndexPath) ->UITableViewCell{
+        
+        let rowNum = indexPath.row
+        cell.topLeft.text = (self.searchArray[rowNum]["equName"] as! String)
+        let topLeftWidth = commonClass.getLabelWidth(str: (self.searchArray[rowNum]["equName"] as! String), font: UIFont.boldSystemFont(ofSize: 12), height: 20) > KUIScreenWidth/3 ? KUIScreenWidth/3 : commonClass.getLabelWidth(str: (self.searchArray[rowNum]["equName"] as! String), font: UIFont.boldSystemFont(ofSize: 12), height: 20)
+        cell.topLeft.frame = CGRect(x: 20, y: 10, width: topLeftWidth, height: 20)
+        
+        let topRightWdith = (commonClass.getLabelWidth(str: (self.searchArray[rowNum]["specification"] as! String), font: UIFont.boldSystemFont(ofSize: 12), height: 20) > KUIScreenWidth/3 ? KUIScreenWidth/3 : commonClass.getLabelWidth(str: (self.searchArray[rowNum]["specification"] as! String), font: UIFont.boldSystemFont(ofSize: 12), height: 20)) + 10
+        cell.topRight.frame = CGRect(x: 30 + topLeftWidth, y: 10, width: topRightWdith, height: 20)
+        cell.topRight.text = (self.searchArray[rowNum]["specification"] as! String)
+        cell.midelLeft.text = "额定功率："
+        cell.midelCenter.text = "\((self.searchArray[rowNum]["power"]) ?? 0)KW"//contentList[rowNum]["w"]
+        cell.bottomRight.text = (self.searchArray[rowNum]["coOne"] as! String)+"-"+(self.searchArray[rowNum]["coTwo"] as! String)
+        return cell
     }
     
 }
@@ -219,7 +243,7 @@ extension DeviceSearchListViewController: UITableViewDelegate
         }
         let deviceDetaillController = DeviceDetailViewController()
         deviceDetaillController.flagePageFrom = 2
-        deviceDetaillController.eqCode = self.searchArrayCodeList[indexPath.row]
+        deviceDetaillController.eqCode = self.searchArray[indexPath.row]["equNo"] as! String
         navigationController?.pushViewController(deviceDetaillController, animated: true)
     }
     
@@ -249,17 +273,17 @@ extension DeviceSearchListViewController:UISearchBarDelegate,UISearchResultsUpda
 
     //点击搜索按钮，触发该代理方法，如果已经显示搜索结果，那么直接去除键盘，否则刷新列表
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.historyList.insert(String(searchBar.text!), at: 0)
+        if self.historyList.count > 5{
+            self.historyList.remove(at: 4)
+        }
+        self.userDefult.set(self.historyList, forKey: "appHistoryListForDevice")
         getData(searchName: searchBar.text!) {
 //            let predicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchBar.text!)
 //            self.searchArray = (self.schoolArray.filtered(using: predicate) as NSArray) as! [String]
             self.shouldShowSearchResults = true
             self.historyView?.isHidden = true
             self.mTableView.separatorStyle = .singleLine
-            self.historyList.insert(String(searchBar.text!), at: 0)
-            if self.historyList.count > 5{
-                self.historyList.remove(at: 4)
-            }
-            self.userDefult.set(self.historyList, forKey: "appHistoryListForDevice")
             self.mTableView.reloadData()
         }
        

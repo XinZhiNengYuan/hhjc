@@ -43,7 +43,6 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         super.viewDidLoad()
         getOneAndTwo()
         setLayout()
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "closeCameraViewController"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -871,7 +870,6 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
 
     @objc func goBackFromDeviceManagementViewController(){
-        self.dismiss(animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
     

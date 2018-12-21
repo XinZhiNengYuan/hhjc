@@ -43,15 +43,16 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         screenWidth = self.view.bounds.width
         
         screenHeight = self.view.bounds.height
+        initPageStyle()
+        
+    }
+    
+    @objc func initPageStyle(){
         
         setView()
         
         setCamera()
-        
     }
-    
-    
-    
     
     
     //设置除了扫描区以外的视图
@@ -165,7 +166,7 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 
                 //rectOfInterest 属性中x和y互换，width和height互换。
                 
-                output.rectOfInterest = CGRect(x: 100/screenHeight, y: (screenWidth/2-100)/screenWidth, width: 200/screenHeight, height: 200/screenWidth)
+                output.rectOfInterest = CGRect(x: 0, y: 0, width: screenHeight, height: screenWidth)
                 
             }
             

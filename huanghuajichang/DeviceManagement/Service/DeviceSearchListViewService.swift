@@ -27,8 +27,8 @@ class DeviceSearchListViewService : NSObject{
                     for item in arr{
                         arrDic.append(item.dictionaryObject!)
                     }
-                    finished(result,arrDic)
                 }
+                finished(result,arrDic)
             }
         }) { (error) in
             print(error)

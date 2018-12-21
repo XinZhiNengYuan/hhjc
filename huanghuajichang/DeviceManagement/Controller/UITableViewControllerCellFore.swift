@@ -64,7 +64,7 @@ class UITableViewControllerCellFore: UITableViewCell {
         midelLeft.font = UIFont.boldSystemFont(ofSize: 12)
         mView.addSubview(midelLeft)
         
-        midelCenter.frame = CGRect(x: 90, y: 40, width: 50, height: 20)
+        midelCenter.frame = CGRect(x: 90, y: 40, width: 100, height: 20)
         midelCenter.backgroundColor = UIColor(red: 226/255, green: 242/255, blue: 255/255, alpha: 1)
         midelCenter.font = UIFont.boldSystemFont(ofSize: 12)
         midelCenter.textAlignment = .center
