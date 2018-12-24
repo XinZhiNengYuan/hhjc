@@ -49,7 +49,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
             }else if result["status"].stringValue == "success"{
                 self.searchArray.removeAll()
                 if resultDataList.count == 0{
-                    self.present(windowAlert(msges: "暂无数据"), animated: true, completion: nil)
+                    MyProgressHUD.showText(text: "暂无数据", icon: "")
                 }else{
                     self.searchArray = self.searchArray + resultDataList
                     call()
