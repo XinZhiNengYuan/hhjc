@@ -48,6 +48,10 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                     self.dataList.append(deviceManagementModule)
                 }
                 finished(self.dataList,oneMeanList)
+            }else if (result["status"].stringValue == "sign_app_err"){
+                MyProgressHUD.showText(text: "请重新登录", icon: "")
+            }else{
+                MyProgressHUD.showText(text: "未知错误", icon: "")
             }
             
         }) { (errorData) in
@@ -59,44 +63,36 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
     func getDeviceListData(contentData : Dictionary<String,Any>,finished:@escaping (_ resultData:[DeviceManagementContentListDiyModule])->(),finishedError:@escaping(_ errorData : Error)->()){
         super.requestData(urlStr: appUrl, outTime: 10, contentData: contentData, finished: { (result) in
             if result["status"].stringValue == "success"{
-                var contentListDiyData : [DeviceManagementContentListDiyModule] = []
-                print(result["data"]["resultData"].arrayValue)
-                for item in result["data"]["resultData"].arrayValue{
-                    if contentListDiyData.count > 0{
-                        var equCategorySmallList : [String] = []
-                        for i in 0..<contentListDiyData.count{
-                            equCategorySmallList.append(contentListDiyData[i].equCategorySmall)
-                            //在已经存在的数据对象当中检查是不是有equCategorySmall存在，如果存在的话检查是不是有equCategorySmall相同的，如果有相同的就直接给equCategorySmall追加新的对象，没有就创建一个新的对象
-                            
-                        }
-                        if equCategorySmallList.contains(item["equCategorySmall"].stringValue){
-                            for j in 0..<contentListDiyData.count{
-                                if contentListDiyData[j].equCategorySmall == item["equCategorySmall"].stringValue{
-                                    var deviceManagementContentListModule = DeviceManagementContentListModule()
-                                    deviceManagementContentListModule.specification = item["specification"].stringValue
-                                    deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
-                                    deviceManagementContentListModule.coTwo = item["coTwo"].stringValue
-                                    deviceManagementContentListModule.equId = item["equId"].intValue
-                                    deviceManagementContentListModule.dataStatus = item["dataStatus"].stringValue
-                                    deviceManagementContentListModule.departmentIdTwo = item["departmentIdTwo"].intValue
-                                    deviceManagementContentListModule.filesId = item["filesId"].stringValue
-                                    deviceManagementContentListModule.spName = item["spName"].stringValue
-                                    deviceManagementContentListModule.coOne = item["coOne"].stringValue
-                                    deviceManagementContentListModule.departmentIdOne = item["departmentIdOne"].intValue
-                                    deviceManagementContentListModule.equCategoryBig = item["equCategoryBig"].intValue
-                                    deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
-                                    deviceManagementContentListModule.equNo = item["equNo"].stringValue
-                                    deviceManagementContentListModule.coType = item["coType"].stringValue
-                                    deviceManagementContentListModule.power = item["power"].intValue
-                                    deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
-                                    deviceManagementContentListModule.equName = item["equName"].stringValue
-                                    deviceManagementContentListModule.status = item["status"].stringValue
-                                    contentListDiyData[j].deviceManagementContentList.append(deviceManagementContentListModule)
-                                }
-                            }
-                            
-                        }else {
-                            var deviceManagemengContentListDiyModule = DeviceManagementContentListDiyModule()
+                let contentListDiyData = self.setResultData(result: result)
+                if result["data"]["resultData"].arrayValue.count == 0{
+                    MyProgressHUD.showText(text: "暂无数据", icon: "")
+                }
+                finished(contentListDiyData)
+            }else if (result["status"].stringValue == "sign_app_err"){
+                MyProgressHUD.showText(text: "请重新登录", icon: "")
+            }else{
+                MyProgressHUD.showText(text: "未知错误", icon: "")
+            }
+            
+        }) { (error) in
+            MyProgressHUD.showText(text: "请检查网络连接", icon: "")
+            finishedError(error)
+        }
+    }
+    
+    func setResultData(result : JSON)->Array<DeviceManagementContentListDiyModule>{
+        var contentListDiyData : [DeviceManagementContentListDiyModule] = []
+        for item in result["data"]["resultData"].arrayValue{
+            if contentListDiyData.count > 0{
+                var equCategorySmallList : [String] = []
+                for i in 0..<contentListDiyData.count{
+                    equCategorySmallList.append(contentListDiyData[i].equCategorySmall)
+                    //在已经存在的数据对象当中检查是不是有equCategorySmall存在，如果存在的话检查是不是有equCategorySmall相同的，如果有相同的就直接给equCategorySmall追加新的对象，没有就创建一个新的对象
+                    
+                }
+                if equCategorySmallList.contains(item["equCategorySmall"].stringValue){
+                    for j in 0..<contentListDiyData.count{
+                        if contentListDiyData[j].equCategorySmall == item["equCategorySmall"].stringValue{
                             var deviceManagementContentListModule = DeviceManagementContentListModule()
                             deviceManagementContentListModule.specification = item["specification"].stringValue
                             deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
@@ -116,46 +112,65 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                             deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                             deviceManagementContentListModule.equName = item["equName"].stringValue
                             deviceManagementContentListModule.status = item["status"].stringValue
-                            deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
-                            deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
-                            deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
-                            contentListDiyData.append(deviceManagemengContentListDiyModule)
+                            contentListDiyData[j].deviceManagementContentList.append(deviceManagementContentListModule)
                         }
-                    }else{
-                        //第一次循环直接构造新的数据对象
-                        var deviceManagemengContentListDiyModule = DeviceManagementContentListDiyModule()
-                        var deviceManagementContentListModule = DeviceManagementContentListModule()
-                        deviceManagementContentListModule.specification = item["specification"].stringValue
-                        deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
-                        deviceManagementContentListModule.coTwo = item["coTwo"].stringValue
-                        deviceManagementContentListModule.equId = item["equId"].intValue
-                        deviceManagementContentListModule.dataStatus = item["dataStatus"].stringValue
-                        deviceManagementContentListModule.departmentIdTwo = item["departmentIdTwo"].intValue
-                        deviceManagementContentListModule.filesId = item["filesId"].stringValue
-                        deviceManagementContentListModule.spName = item["spName"].stringValue
-                        deviceManagementContentListModule.coOne = item["coOne"].stringValue
-                        deviceManagementContentListModule.departmentIdOne = item["departmentIdOne"].intValue
-                        deviceManagementContentListModule.equCategoryBig = item["equCategoryBig"].intValue
-                        deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
-                        deviceManagementContentListModule.equNo = item["equNo"].stringValue
-                        deviceManagementContentListModule.coType = item["coType"].stringValue
-                        deviceManagementContentListModule.power = item["power"].intValue
-                        deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
-                        deviceManagementContentListModule.equName = item["equName"].stringValue
-                        deviceManagementContentListModule.status = item["status"].stringValue
-                        deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
-                        deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
-                        deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
-                        contentListDiyData.append(deviceManagemengContentListDiyModule)
                     }
+                    
+                }else {
+                    var deviceManagemengContentListDiyModule = DeviceManagementContentListDiyModule()
+                    var deviceManagementContentListModule = DeviceManagementContentListModule()
+                    deviceManagementContentListModule.specification = item["specification"].stringValue
+                    deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
+                    deviceManagementContentListModule.coTwo = item["coTwo"].stringValue
+                    deviceManagementContentListModule.equId = item["equId"].intValue
+                    deviceManagementContentListModule.dataStatus = item["dataStatus"].stringValue
+                    deviceManagementContentListModule.departmentIdTwo = item["departmentIdTwo"].intValue
+                    deviceManagementContentListModule.filesId = item["filesId"].stringValue
+                    deviceManagementContentListModule.spName = item["spName"].stringValue
+                    deviceManagementContentListModule.coOne = item["coOne"].stringValue
+                    deviceManagementContentListModule.departmentIdOne = item["departmentIdOne"].intValue
+                    deviceManagementContentListModule.equCategoryBig = item["equCategoryBig"].intValue
+                    deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
+                    deviceManagementContentListModule.equNo = item["equNo"].stringValue
+                    deviceManagementContentListModule.coType = item["coType"].stringValue
+                    deviceManagementContentListModule.power = item["power"].intValue
+                    deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
+                    deviceManagementContentListModule.equName = item["equName"].stringValue
+                    deviceManagementContentListModule.status = item["status"].stringValue
+                    deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
+                    deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
+                    deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
+                    contentListDiyData.append(deviceManagemengContentListDiyModule)
                 }
-                finished(contentListDiyData)
+            }else{
+                //第一次循环直接构造新的数据对象
+                var deviceManagemengContentListDiyModule = DeviceManagementContentListDiyModule()
+                var deviceManagementContentListModule = DeviceManagementContentListModule()
+                deviceManagementContentListModule.specification = item["specification"].stringValue
+                deviceManagementContentListModule.categoryNameSmall = item["categoryNameSmall"].stringValue
+                deviceManagementContentListModule.coTwo = item["coTwo"].stringValue
+                deviceManagementContentListModule.equId = item["equId"].intValue
+                deviceManagementContentListModule.dataStatus = item["dataStatus"].stringValue
+                deviceManagementContentListModule.departmentIdTwo = item["departmentIdTwo"].intValue
+                deviceManagementContentListModule.filesId = item["filesId"].stringValue
+                deviceManagementContentListModule.spName = item["spName"].stringValue
+                deviceManagementContentListModule.coOne = item["coOne"].stringValue
+                deviceManagementContentListModule.departmentIdOne = item["departmentIdOne"].intValue
+                deviceManagementContentListModule.equCategoryBig = item["equCategoryBig"].intValue
+                deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
+                deviceManagementContentListModule.equNo = item["equNo"].stringValue
+                deviceManagementContentListModule.coType = item["coType"].stringValue
+                deviceManagementContentListModule.power = item["power"].intValue
+                deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
+                deviceManagementContentListModule.equName = item["equName"].stringValue
+                deviceManagementContentListModule.status = item["status"].stringValue
+                deviceManagemengContentListDiyModule.categoryNameSmall = item["categoryNameSmall"].stringValue
+                deviceManagemengContentListDiyModule.equCategorySmall = item["equCategorySmall"].stringValue
+                deviceManagemengContentListDiyModule.deviceManagementContentList.append(deviceManagementContentListModule)
+                contentListDiyData.append(deviceManagemengContentListDiyModule)
             }
-            
-        }) { (error) in
-            print(error)
-            finishedError(error)
         }
+        return contentListDiyData
     }
     
     func requestDeviceData(urlStr : String,outTime : Double , contentData : Dictionary<String, String>,finished:@escaping (_ resultData : JSON)->(),finishedError: @escaping (_ resultDataError: Error)->()){

@@ -84,7 +84,9 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
         countrySearchController.searchBar.placeholder = "搜索框"
         //设置代理，searchResultUpdater是UISearchController的一个属性，它的值必须实现UISearchResultsUpdating协议，这个协议让我们的类在UISearchBar文字改变时被通知到，我们之后会实现这个协议。
         countrySearchController.searchResultsUpdater = self
-        countrySearchController.searchBar.searchBarStyle = .minimal
+        countrySearchController.searchBar.searchBarStyle = .default
+        countrySearchController.searchBar.barTintColor = .white
+        countrySearchController.searchBar.subviews.first?.subviews.last?.backgroundColor = UIColor(red: 109/255, green: 109/255, blue: 109/255, alpha: 0.2)
         
 //        countrySearchController.view.backgroundColor = UIColor.red
 //        print("打印：\(countrySearchController.view.subviews[0].subviews)")

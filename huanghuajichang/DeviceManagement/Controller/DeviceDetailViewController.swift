@@ -153,10 +153,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 
 //MARK: CycleViewDelegate
 extension DeviceDetailViewController {
+    //轮播图的点击代理方法
     func cycleViewDidSelectedItemAtIndex(_ index: NSInteger) {
-        cameraViewController.flagePageFrom = self.flagePageFrom
-        cameraViewController.equNo = eqCode
-        navigationController?.pushViewController(cameraViewController, animated: true)
+//        cameraViewController.flagePageFrom = self.flagePageFrom
+//        cameraViewController.equNo = eqCode
+//        navigationController?.pushViewController(cameraViewController, animated: true)
     }
 }
 
