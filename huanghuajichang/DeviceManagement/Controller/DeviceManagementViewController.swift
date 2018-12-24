@@ -50,7 +50,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
     }
     override func viewWillAppear(_ animated: Bool){
-        self.title = "设备管理"
+//        self.navigationItem.title = "设备管理"
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
 
@@ -92,7 +92,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     func selectInitStatus(){
         statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
         self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
-        self.title = resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children[meanAndContentLog["meanLog"]!["two"]!].text
+        self.navigationItem.title  = resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children[meanAndContentLog["meanLog"]!["two"]!].text
         //默认选中的section，row
         let defaultSelectCell = IndexPath(row: meanAndContentLog["meanLog"]!["two"]!, section: meanAndContentLog["meanLog"]!["one"]!)
         self.tableView1.selectRow(at: defaultSelectCell, animated: true, scrollPosition: UITableViewScrollPosition.none)
@@ -453,7 +453,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             onlyItem.mLabel.layer.borderWidth = 1
             onlyItem.mLabel.layer.cornerRadius = 10
             onlyItem.mLabel.clipsToBounds = true
-            self.title = resultDataForArr[indexPath.section].children[indexPath.row].text
+            self.navigationItem.title = resultDataForArr[indexPath.section].children[indexPath.row].text
             reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
             regainMean()
         }else{
