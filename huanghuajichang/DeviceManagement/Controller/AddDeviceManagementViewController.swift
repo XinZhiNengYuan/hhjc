@@ -543,9 +543,15 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         imageMethods()
     }
     func imagePickerController(_ picker:UIImagePickerController,didFinishPickingMediaWithInfo info:[String:Any]){
-        let imagePickerc = info[UIImagePickerControllerOriginalImage] as!UIImage
+        var img:UIImage? = info[UIImagePickerControllerOriginalImage] as? UIImage
+        if picker.allowsEditing {
+            img = info[UIImagePickerControllerEditedImage] as? UIImage
+        }
+        let data = UIImageJPEGRepresentation(img!,0.5)
+        img = UIImage.init(data: data!)
+        //let imagePickerc = info[UIImagePickerControllerOriginalImage] as!UIImage
         //添加图片
-        addPic(pic : imagePickerc)
+        addPic(pic : img!)
         self.dismiss(animated:true,completion:nil)
     }
     
