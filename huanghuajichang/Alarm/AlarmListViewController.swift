@@ -378,6 +378,11 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
         alarmListCell?.itemTime.text = AddDailyRecordViewController.timeStampToString(timeStamp: cellData["alarmTime"].stringValue,timeAccurate: "second")
         alarmListCell?.changUI(realTitle:(alarmListCell?.itemTitle.text)!,realStatus:(alarmListCell?.itemStatus.text)!)
         alarmListCell?.itemId = cellData["id"].stringValue
+        if self.userDefault.integer(forKey: "maxId") < Int((alarmListCell?.itemId)!)!{
+            alarmListCell?.itemIcon.isHidden = false
+        }else{
+            alarmListCell?.itemIcon.isHidden = true
+        }
         return alarmListCell!
     }
     

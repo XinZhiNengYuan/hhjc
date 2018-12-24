@@ -334,7 +334,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let inputView = UIView(frame: CGRect(x: 100, y: 5, width: KUIScreenWidth - 120, height: 30))
         let input = UITextField()
         input.delegate = self
-        input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140-30, height: 30)
+        input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140, height: 30)
         input.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         input.minimumFontSize=11  //最小可缩小的字号
         /** 水平对齐 **/
@@ -350,6 +350,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             contentForModeLeftStar3.image = UIImage(named: "必填项")
         case 403:
             input.keyboardType = UIKeyboardType.decimalPad
+            input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140 - 30, height: 30)
             let unit = UILabel.init(frame: CGRect(x: KUIScreenWidth - 130 - 30, y: 5, width: 30, height: 20))
             unit.text = "(kW)"
             unit.sizeToFit()
@@ -637,9 +638,12 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             image.tag = i+1000 // 图片
             image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
             if editImgPickerData[i] as? URL != nil{
-                image.kf.setImage(with: ImageResource(downloadURL:editImgPickerData[i] as! URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (kfimage, kfError, kfcacheType, kfUrl) in
-                    self.photoListr[i] = image.image as Any
-                }
+//                print(editImgPickerData[i])
+                image.setImageWith(editImgPickerData[i] as? URL, placeholder: UIImage(named: "默认图片"), options: YYWebImageOptions.setImageWithFadeAnimation, manager: nil, progress: nil, transform: nil, completion: { (yyUIimage, yyUrl, yyFormType, yyImageStage, yyError) in
+                    let data = UIImageJPEGRepresentation(image.image!,0.5)
+                    let newImg = UIImage.init(data: data!)
+                    self.photoListr[i] = newImg as Any
+                })
             }else{
                 image.image = photoListr[i] as? UIImage
             }
@@ -685,7 +689,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let deleteBut = deleteBtn(tag: photoListr.count + 6000)
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
-        photoListr.append(pic)
+        let data = UIImageJPEGRepresentation(image.image!,0.5)
+        let newImg = UIImage.init(data: data!)
+        photoListr.append(newImg as Any)
         editImgPickerData.append(pic)
         editImgData.append(viewOption)
         
@@ -823,43 +829,48 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     @objc func doneButtonAction(){
         let selectBtn = self.view.viewWithTag(clickedBtnTag) as! UIButton
         let selectIndex = selector.selectedRow(inComponent: 0)
-        let selectText = selectorData[selectIndex]["typeName"]?.description
-        selectBtn.setNewStyle(image: UIImage(named: "test"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
-        selectorView.isHidden = true
-        
-        switch clickedBtnTag {
-        case 200:
-            buildingId = (selectorData[selectIndex]["typeId"]?.description)!
-            let floorView = self.view.viewWithTag(201) as! UIButton
-            floorView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
-            let roomView = self.view.viewWithTag(202) as! UIButton
-            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
-        case 201:
-            floorId = (selectorData[selectIndex]["typeId"]?.description)!
-            let roomView = self.view.viewWithTag(202) as! UIButton
-            roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
-        case 202:
-            roomId = (selectorData[selectIndex]["typeId"]?.description)!
-        case 301:
-            oneMeanId = (selectorData[selectIndex]["typeId"]?.description)!
-            let organizationTwoBtn = self.view.viewWithTag(302) as! UIButton
-            organizationTwoBtn.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
-        case 302:
-            twoMeanId = (selectorData[selectIndex]["typeId"]?.description)!
-        case 303:
-            bigType = (selectorData[selectIndex]["typeId"]?.description)!
-            let equCategorySmall = self.view.viewWithTag(304) as! UIButton
-            equCategorySmall.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
-        case 304:
-            smallType = (selectorData[selectIndex]["typeId"]?.description)!
-        case 305:
-            print(305)
-        case 306:
-            print(306)
-        case 307:
-            print(307)
-        default:
-            print("未知按钮")
+        if selectorData.count == 0 {
+            selectorView.isHidden = true
+            return
+        }else{
+            let selectText = selectorData[selectIndex]["typeName"]?.description
+            selectBtn.setNewStyle(image: UIImage(named: "test"), title: selectText!, titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
+            selectorView.isHidden = true
+            
+            switch clickedBtnTag {
+            case 200:
+                buildingId = (selectorData[selectIndex]["typeId"]?.description)!
+                let floorView = self.view.viewWithTag(201) as! UIButton
+                floorView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
+                let roomView = self.view.viewWithTag(202) as! UIButton
+                roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
+            case 201:
+                floorId = (selectorData[selectIndex]["typeId"]?.description)!
+                let roomView = self.view.viewWithTag(202) as! UIButton
+                roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
+            case 202:
+                roomId = (selectorData[selectIndex]["typeId"]?.description)!
+            case 301:
+                oneMeanId = (selectorData[selectIndex]["typeId"]?.description)!
+                let organizationTwoBtn = self.view.viewWithTag(302) as! UIButton
+                organizationTwoBtn.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+            case 302:
+                twoMeanId = (selectorData[selectIndex]["typeId"]?.description)!
+            case 303:
+                bigType = (selectorData[selectIndex]["typeId"]?.description)!
+                let equCategorySmall = self.view.viewWithTag(304) as! UIButton
+                equCategorySmall.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
+            case 304:
+                smallType = (selectorData[selectIndex]["typeId"]?.description)!
+            case 305:
+                print(305)
+            case 306:
+                print(306)
+            case 307:
+                print(307)
+            default:
+                print("未知按钮")
+            }
         }
     }
     

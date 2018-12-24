@@ -130,26 +130,49 @@ class ScanAndEditViewController: AddNavViewController {
         describeTextView.frame.size.height = describeTextView.heightForTextView(textView: describeTextView, fixedWidth: kScreenWidth-40)
         scrollView.addSubview(describeTextView)
         scanImgData = []
+        var imagesHeight:CGFloat = 0
+        //获取系统存在的全局队列
+        let queue = DispatchQueue.global(qos: .default)
+        //使用信号量保证正确性
+        //创建一个初始计数值为1的信号
+        let semaphore = DispatchSemaphore(value: 1)
+        
         for detailImage in self.detailJson["filePhotos"].enumerated(){
             let topHeight = describeTextView.frame.size.height+describeTextView.frame.origin.y
             let imageBtn = UIButton.init(frame: CGRect(x: 20, y: CGFloat(detailImage.offset * 210) + CGFloat(10) + topHeight, width: kScreenWidth-40, height: 200))
             let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth-40, height: 200))
             imageView.backgroundColor = UIColor.white
             let imgurl = "http://" + userDefault.string(forKey: "AppUrlAndPort")! + (self.detailJson["filePhotos"][detailImage.offset]["filePath"].stringValue)
-            imageView.contentMode = .scaleAspectFit
-            imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil, completionHandler: nil)
-            imageBtn.layer.borderColor = UIColor.red.cgColor
+            queue.async {
+                //永久等待，直到Dispatch Semaphore的计数值 >= 1
+                semaphore.wait()
+                DispatchQueue.main.async {
+                    imageView.kf.setImage(with: ImageResource(downloadURL:(NSURL.init(string: imgurl))! as URL), placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil) { (kfImage, kfError, kfcacheType, kfUrl) in
+                        let size = self.disPlaySize(image: imageView.image!)
+                        imageBtn.frame = CGRect(x: 20, y: imagesHeight + CGFloat(10*(detailImage.offset+1)) + topHeight, width: kScreenWidth-40, height: size.height)
+                        imagesHeight += size.height
+                        imageView.frame = CGRect(x:(kScreenWidth-40)/2 - (size.width)/2,y:0, width: size.width, height: size.height)
+                        imageBtn.addSubview(imageView)
+                        //重置scrollView的高度
+                        scrollView.contentSize = CGSize(width: kScreenWidth, height: self.describeTextView.frame.size.height+self.describeTextView.frame.origin.y+imagesHeight+CGFloat(10*(detailImage.offset+1))+20)
+//                        print("\(detailImage.offset)\(imageBtn.frame.origin.y)\(NSDate())")
+                        scrollView.addSubview(imageBtn)
+                        //发信号，使原来的信号计数值+1
+                        semaphore.signal()
+                    }
+                }
+            }
+            
+            imageBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
             imageBtn.layer.borderWidth = 1
-            imageBtn.addSubview(imageView)
+            
             imageBtn.tag = 5000 + detailImage.offset
             imageBtn.addTarget(self, action: #selector(openScanImgPicker(sender:)), for: UIControlEvents.touchUpInside)
-            scrollView.addSubview(imageBtn)
+            
             scanImgData.append(imgurl)
             scanImgBtnData.append(imageBtn)
         }
         
-        //重置scrollView的高度
-        scrollView.contentSize = CGSize(width: kScreenWidth, height: describeTextView.frame.size.height+describeTextView.frame.origin.y+CGFloat(self.detailJson["filePhotos"].count*(210))+20)
         if self.detailJson["state"].intValue == 0 {
             ///编辑按钮
             rightEditBtn = UIBarButtonItem.init(title: "编辑", style: UIBarButtonItemStyle.done, target: self, action: #selector(changeToEdit))
@@ -166,9 +189,9 @@ class ScanAndEditViewController: AddNavViewController {
             dealbtn.setTitle("确认处理", for: UIControlState.normal)
             dealbtn.setTitleColor(UIColor.white, for: UIControlState.normal)
             dealbtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-            dealbtn.backgroundColor = UIColor(red: 254/255, green: 160/255, blue: 33/255, alpha: 1)
+            dealbtn.backgroundColor = UIColor.pg_color(withHexString: "#FF017FD1")
             dealbtn.layer.cornerRadius = 8
-            dealbtn.addTarget(self, action: #selector(dealPost), for: UIControlEvents.touchUpInside)
+            dealbtn.addTarget(self, action: #selector(showConfirm), for: UIControlEvents.touchUpInside)
             dealView.addSubview(dealbtn)
         }else{
             peronsLabel.text = "发布人:\(self.detailJson["userName"].stringValue)" + "  " + "处理人:\(self.detailJson["staName"].stringValue)"
@@ -177,7 +200,7 @@ class ScanAndEditViewController: AddNavViewController {
     }
     ///处理日常记录操作
     @objc func dealPost(){
-        print("执行处理操作")
+//        print("执行处理操作")
         MyProgressHUD.showStatusInfo("处理中...")
         let infoData = ["id":itemId,"user_id":userId]
         let contentData : [String : Any] = ["method":"updateOptionState","info":infoData,"token":userToken,"user_id":userId]
@@ -207,6 +230,19 @@ class ScanAndEditViewController: AddNavViewController {
             }
         }
     }
+    
+    //显示确认框
+    @objc func showConfirm() {
+        let alertController = UIAlertController(title:"提示",message:"您确定要处理吗？",preferredStyle: .alert)
+        let canceAction = UIAlertAction(title:"取消",style:.cancel,handler:nil)
+        let okAciton = UIAlertAction(title:"确定",style:.default,handler: {action in
+            self.dealPost()
+        })
+        alertController.addAction(canceAction);
+        alertController.addAction(okAciton);
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     ///打开详情界面的浏览图片器
     @objc func openScanImgPicker(sender:UIButton){
         ///index为当前点击了图片数组中的第几张图片,Urls为图片Url地址数组

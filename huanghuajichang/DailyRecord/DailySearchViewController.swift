@@ -18,6 +18,7 @@ class DailySearchViewController: UIViewController {
     var setNearlyData:NSMutableArray! = []
     
     var historyView:UIView!
+    var clearBtn:UIButton!
     
     var searchResultView:UITableView!
     
@@ -69,15 +70,23 @@ class DailySearchViewController: UIViewController {
         historyView.backgroundColor = UIColor.white
         self.view.addSubview(historyView)
         
-        let historyTitle = UILabel.init(frame: CGRect(x: 20, y: 10, width: kScreenWidth, height: 20))
+        let historyTitle = UILabel.init(frame: CGRect(x: 20, y: 10, width: kScreenWidth-60, height: 20))
         historyTitle.text = "最近搜索"
         historyTitle.font = UIFont(name: "PingFangSC-Regula", size: 15)
         historyTitle.textColor = UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
         historyView.addSubview(historyTitle)
         
+        clearBtn = UIButton.init(frame: CGRect(x: kScreenWidth-40, y: 10, width: 20, height: 20))
+        clearBtn.setImage(UIImage(named: "historyClear"), for: UIControlState.normal)
+        clearBtn.addTarget(self, action: #selector(clearHistory(sender:)), for: UIControlEvents.touchUpInside)
+        clearBtn.isHidden = true
+        historyView.addSubview(clearBtn)
+        
         getNearlyData = self.userDefault.object(forKey: "historyData") as? [AnyObject]
-        if getNearlyData == nil {
+        if getNearlyData == nil || getNearlyData.count == 0 {
             getNearlyData = []
+        }else{
+            clearBtn.isHidden = false
         }
         setNearlyData = NSMutableArray.init(array: getNearlyData)
         let layout = UICollectionViewFlowLayout.init()
@@ -94,6 +103,19 @@ class DailySearchViewController: UIViewController {
         nearlyCollectionview.showsHorizontalScrollIndicator = false
         
         nearlyCollectionview.register(DailyNearlyCollectionViewCell().classForCoder, forCellWithReuseIdentifier: "dailyNearlyCollectionCell")
+    }
+    
+    @objc func clearHistory(sender:UIButton){
+        if getNearlyData == nil {
+            getNearlyData = []
+        }else if getNearlyData.count > 0{
+            self.setNearlyData = []
+            getNearlyData = []
+            nearlyCollectionview.reloadData()
+            clearBtn.isHidden = true
+            self.userDefault.set(self.setNearlyData, forKey: "historyData")
+        }
+        
     }
     
     func createTabList() {
@@ -184,9 +206,7 @@ class DailySearchViewController: UIViewController {
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     self.json = JSON(value)["data"]["resultData"]
-                    if self.json.count > 0 {
-                        self.setSearchtextToLocal()
-                    }
+                    self.setSearchtextToLocal()
                     for recordItem in self.json.enumerated(){
                         let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
                         self.searchData.append(recordModel)
@@ -271,7 +291,7 @@ extension DailySearchViewController:UISearchBarDelegate{
     //Including clear
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
         if searchText == ""{
-            self.view.addSubview(historyView)
+            createHistoryUI()
         }
     }
     

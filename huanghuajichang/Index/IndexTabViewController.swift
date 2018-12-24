@@ -741,7 +741,19 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         }
         
         let dataSet = PieChartDataSet.init(values: yVals, label:"")
-        dataSet.colors = [UIColor(red: 255/255, green: 209/255, blue: 0/255, alpha: 1),UIColor(red: 54/255, green: 204/255, blue: 107/255, alpha: 1),UIColor(red: 74/255, green: 179/255, blue: 238/255, alpha: 1)]
+        var colors:[UIColor] = []
+        for pieItem in self.mainEchartsData["powerDataPie"].enumerated(){
+            if Double(self.mainEchartsData["powerDataPie"][pieItem.offset]["lineData"].intValue) > 0 {
+                if self.mainEchartsData["powerDataPie"][pieItem.offset]["lineName"].stringValue.hasPrefix("0"){
+                    colors.append(UIColor(red: 255/255, green: 209/255, blue: 0/255, alpha: 1))
+                }else if self.mainEchartsData["powerDataPie"][pieItem.offset]["lineName"].stringValue.hasPrefix("1"){
+                    colors.append(UIColor(red: 113/255, green: 214/255, blue: 194/255, alpha: 1))
+                }else{
+                    colors.append(UIColor(red: 74/255, green: 179/255, blue: 238/255, alpha: 1))
+                }
+            }
+        }
+        dataSet.colors = colors
         //设置名称和数据的位置 都在内就没有折线了
         dataSet.xValuePosition = .outsideSlice  //标签显示在外
         dataSet.yValuePosition = .outsideSlice  //数值显示在外

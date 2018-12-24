@@ -38,7 +38,7 @@ class AlarmListTableViewCell: UITableViewCell {
         self.backgroundColor = allListBackColor
         
         itemIcon = UIView.init(frame: CGRect(x: 15, y: 20, width: 8, height: 8))
-        itemIcon.backgroundColor = UIColor(red: 63/255, green: 142/255, blue: 242/255, alpha: 1)
+        itemIcon.backgroundColor = UIColor.red
         itemIcon.layer.cornerRadius = 4
         contentView.addSubview(itemIcon)
         

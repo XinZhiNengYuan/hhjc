@@ -96,6 +96,8 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             var editUIImage:UIImage = UIImage.init()
                             editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (kfimage, kfError, kfcacheType, kfUrl) in
                                 editUIImage = editImgBtn.image(for: UIControlState.normal)!
+                                let data = UIImageJPEGRepresentation(editUIImage,0.5);// 压缩比例在0~1之间
+                                editUIImage = UIImage(data: data!)!
                             }
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
@@ -246,10 +248,10 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     //关闭页面，通知列表刷新
+                    MyProgressHUD.dismiss()
                     self.navigationController?.popViewController(animated: false)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDetail"), object: nil)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateList"), object: nil)
-                    MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
                     if JSON(value)["msg"].string == nil {
@@ -607,9 +609,13 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             if picker.allowsEditing {
                 img = info[UIImagePickerControllerEditedImage] as? UIImage
             }
+            
             //对按钮自身进行操作
             let currentBtn = self.imagsData.lastObject as! UIButton
             currentBtn.setImage(img, for: UIControlState.normal)
+            
+            let data = UIImageJPEGRepresentation(img!,0.5)
+            img = UIImage.init(data: data!)
            /* //修正图片的位置
 //            let image = self.fixOrientation((info[UIImagePickerControllerOriginalImage] as! UIImage))
             //先把图片转成NSData

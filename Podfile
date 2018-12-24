@@ -14,5 +14,6 @@ target 'huanghuajichang' do
   pod 'PGDatePicker'
   pod 'MJRefresh'
   pod 'Kingfisher'
-  pod 'SnapKit'  
+  pod 'SnapKit'
+  pod 'YYKit'  
 end
