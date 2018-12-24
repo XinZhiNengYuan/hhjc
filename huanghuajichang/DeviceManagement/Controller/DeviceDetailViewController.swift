@@ -88,9 +88,9 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         
         var mView : UIView!
         if flagePageFrom == 1{
-            mView = UIView(frame: CGRect(x: 0, y: 20, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+            mView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
         }else{
-            mView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)!+UIApplication.shared.statusBarFrame.height+20, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+            mView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)!+UIApplication.shared.statusBarFrame.height+0, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
         }
         
         mView.backgroundColor = UIColor.white
@@ -123,6 +123,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         cameraViewController.deviceDetailPageImageList = cameraViewController.deviceDetailPageImageList + imgList
         cycleView.imageURLStringArr =  imgList.count>0 ? imgList : ["拍照"]
         UiTableList.tableHeaderView = cycleView
+        UiTableList.tableHeaderView?.frame = CGRect(x: 0, y: 10, width: KUIScreenWidth, height: 220)
         mView.addSubview(UiTableList)
         view.addSubview(mView)
         UiTableList.reloadData()
@@ -172,6 +173,13 @@ extension DeviceDetailViewController:UITableViewDelegate,UITableViewDataSource{
         }
         let index = indexPath.row
         cell?.mLabelLeft.text = arrayForKey[index]
+        if arrayForKey[index] == "供应商"{
+            cell?.mLabelRight.frame = CGRect(x: 90, y: 0, width: UIScreen.main.bounds.size.width - 130, height: 40)
+            cell?.mLabelRight.textAlignment = .center
+        }else{
+            cell?.mLabelRight.frame = CGRect(x: 90, y: 5, width: UIScreen.main.bounds.size.width - 130, height: 40)
+            cell?.mLabelRight.textAlignment = .left
+        }
         cell?.mLabelRight.text = arrayForVal[index]
         return cell!
     }

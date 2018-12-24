@@ -11,7 +11,7 @@ import UIKit
 
 class MyProgressHUD: MBProgressHUD {
     
-    fileprivate class func showText(text: String, icon: String) {
+    class func showText(text: String, icon: String) {
         let view = viewWithShow()
         
         let hud = MBProgressHUD.showAdded(to: view, animated: true)

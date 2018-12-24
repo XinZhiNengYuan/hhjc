@@ -82,18 +82,10 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     //MARK:设置初始状态
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
-        if meanAndContentLog["meanLog"]!["one"] == 0 && meanAndContentLog["meanLog"]!["two"] == 0{
-            if self.resultDataForArr[0].children.count > 0 {
-                //设置默认初始选中一级单位的第一个，二级单位的第一个
-                selectInitStatus()
-            }else{
-                //一级单位没有二级单位则不做默认选中
-            }
-        }else{
-            //如果不是meanAndContentLog不是初始值，则是哪个选哪个
-            selectInitStatus()
+        //判断记录的菜单在请求回来的菜单数据中存不存在
+        if self.resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children.count-1 >= meanAndContentLog["meanLog"]!["two"]!{
+            selectInitStatus()//存在
         }
-        
         
     }
     
