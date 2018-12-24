@@ -157,7 +157,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     @objc func keyboardWillHide(notification:NSNotification){
         let width = self.view.frame.size.width
         let height = self.view.frame.size.height
-        let rect = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height+(navigationController?.navigationBar.frame.height)!, width: width, height: height)
+        let rect = CGRect(x: 0, y: 0, width: width, height: height)
         self.view.frame = rect
     }
     
