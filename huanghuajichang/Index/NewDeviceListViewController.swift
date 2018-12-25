@@ -56,6 +56,8 @@ class NewDeviceListViewController: AddNavViewController {
                     self.allListData = JSON(value)["data"]["resultData"]
                     //                    print(self.allListData)
                     var childs:[[String:AnyObject]] = []
+                    self.oneMeanArr = []
+                    self.statusArrOfContent = [true]
                     for equitItem in self.allListData.enumerated(){
                         
                         childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
@@ -108,15 +110,33 @@ class NewDeviceListViewController: AddNavViewController {
         }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    @objc func deleteDevice(deviceNo:String,deviceIndexPath:IndexPath){
+        MyProgressHUD.showStatusInfo("删除中...")
+        let infoData = ["equNo":deviceNo]
+        let contentData : [String : Any] = ["method":"deleteEquipment","info":infoData,"token":userToken ?? "","user_id":userId ?? ""]
+        NetworkTools.requestData(.post, URLString: "http", parameters: contentData) { (resultData) in
+            switch resultData.result {
+            case .success(let value):
+                if JSON(value)["status"].stringValue == "success"{
+                    //重新请求页面数据
+                    self.getNewEquiptmentList()
+                    MyProgressHUD.dismiss()
+                }else{
+                    MyProgressHUD.dismiss()
+                    if JSON(value)["msg"].string == nil {
+                        self.present(windowAlert(msges: "删除失败"), animated: true, completion: nil)
+                    }else{
+                        self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
+                    }
+                }
+            case .failure(let error):
+                MyProgressHUD.dismiss()
+                self.present(windowAlert(msges: "删除请求失败"), animated: true, completion: nil)
+                print("error:\(error)")
+                return
+            }
+        }
+    }
     
 }
 extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
@@ -216,5 +236,20 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         detailVc.eqId = JSON(oneMeanArr[indexPath.section].childs[indexPath.row])["equId"].description
         self.navigationController?.pushViewController(detailVc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let deleteDeviceNo = JSON(oneMeanArr[indexPath.section].childs[indexPath.row])["equNo"].description
+        if editingStyle == .delete {
+            deleteDevice(deviceNo: deleteDeviceNo, deviceIndexPath: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle{
+       return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String?{
+        return "删除"
     }
 }

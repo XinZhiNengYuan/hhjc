@@ -59,8 +59,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "返回"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBackFromDeviceManagementViewController))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: #selector(uploadImgs))
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(node:)), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
     }
     
     func getOneAndTwo(){
@@ -145,20 +145,19 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         self.view.endEditing(false)
     }
     
-    @objc func keyboardWillShow(notification:NSNotification){
-        if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-            let width = self.view.frame.size.width
-            let height = self.view.frame.size.height
-            let rect = CGRect(x: 0, y: -200, width: width, height: height)
-            self.view.frame = rect
+    @objc private func keyboardWillChangeFrame(node : Notification){
+        //1.获取动画执行的时间
+        let duration =  node.userInfo!["UIKeyboardAnimationDurationUserInfoKey"] as! Double
+        //2. 获取键盘最终的Y值
+        let endFrame = (node.userInfo!["UIKeyboardFrameEndUserInfoKey"] as! NSValue).cgRectValue
+        let y = endFrame.origin.y
+        //3.计算工具栏距离底部的间距
+        let margin =  UIScreen.main.bounds.height - y
+        //4.执行动画
+        self.view.transform = CGAffineTransform(translationX: 0, y:-margin)
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
         }
-    }
-    
-    @objc func keyboardWillHide(notification:NSNotification){
-        let width = self.view.frame.size.width
-        let height = self.view.frame.size.height
-        let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        self.view.frame = rect
     }
     
     func setLayout(){
@@ -991,8 +990,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         return formateString
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 extension DeviceEditViewController:UITextFieldDelegate{
