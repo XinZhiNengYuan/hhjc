@@ -22,12 +22,18 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     var pickerView:UIView!
     var describeTextView:UITextView!
     var imgsView:UIView!
+    ///按钮数组
     var imagsData:NSMutableArray! = []
     var haveImagsData:NSMutableArray! = []
-    var imagesData:NSMutableArray! = []
+    ///上传的图片数组
+    var postImagesData:NSMutableArray! = []
+    ///id数组
     var fieldsData:NSMutableArray! = []
     var fieldsStr:String!
+    ///浏览图片数组
     var pictureData:[Any] = []
+    ///原有图片数组
+    var originalData:[JSON] = []
     
     var userDefault = UserDefaults.standard
     var userToken:String!
@@ -84,20 +90,18 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     self.describeTextView.text = self.editJson["describe"].stringValue
 //                    print(self.editJson["filePhotos"].arrayValue)
                     self.imagsData = []
-                    self.imagesData = []
                     self.haveImagsData = []
                     self.pictureData = []
+                    self.fieldsData = []
+                    self.originalData = []
                     if self.editJson["filePhotos"].arrayValue != [] {
                         for editImage in self.editJson["filePhotos"].enumerated(){
                             let editImgBtn = EditBtn.init(frame: CGRect(x: CGFloat(editImage.offset*(75+15)+10), y: 15, width: 75, height: 75))
                             let imgurlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (self.editJson["filePhotos"][editImage.offset]["filePath"].stringValue)
                             let imgUrl = NSURL.init(string: imgurlStr)
                             
-                            var editUIImage:UIImage = UIImage.init()
                             editImgBtn.kf.setImage(with: ImageResource(downloadURL: imgUrl! as URL), for: .normal, placeholder: UIImage(named: "默认图片"), options: nil, progressBlock: nil){ (kfimage, kfError, kfcacheType, kfUrl) in
-                                editUIImage = editImgBtn.image(for: UIControlState.normal)!
-                                let data = UIImageJPEGRepresentation(editUIImage,0.5);// 压缩比例在0~1之间
-                                editUIImage = UIImage(data: data!)!
+                                
                             }
                             editImgBtn.layer.borderWidth = 1
                             editImgBtn.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
@@ -105,7 +109,6 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             editImgBtn.tag = 1001 + editImage.offset
                             self.imgsView.addSubview(editImgBtn)
                             self.imagsData.add(editImgBtn)
-                            self.imagesData.add(editUIImage)
                             self.pictureData.append(imgUrl as Any)
                             
                             let deleteBtn = UIButton.init(frame: CGRect(x: 66, y: -9, width: 18, height: 18))
@@ -115,6 +118,8 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                             editImgBtn.addSubview(deleteBtn)
                             editImgBtn.bringSubview(toFront: deleteBtn)
                             self.haveImagsData.add(editImgBtn)
+                            //将原有图片对象保存
+                            self.originalData.append(self.editJson["filePhotos"][editImage.offset])
                         }
                         if self.editJson["filePhotos"].arrayValue.count < 3 {
                             self.drawImgBtn(imgBtnIndex: self.editJson["filePhotos"].arrayValue.count + 1)
@@ -166,7 +171,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             self.present(windowAlert(msges: "标题不得为空"), animated: true, completion: nil)
         }else{
             MyProgressHUD.showStatusInfo("\(editOrAdd)中...")
-            NetworkTools.upload(urlString: "http", params: nil , images: imagesData as! [UIImage], success: { (successBack) in
+            NetworkTools.upload(urlString: "http", params: nil , images: postImagesData as! [UIImage], success: { (successBack) in
                 print(successBack ?? "default value")
                 self.fieldsData = []
                 if JSON(successBack!)["status"].stringValue == "success"{
@@ -175,10 +180,16 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
                     for i in successData.enumerated(){
                         self.fieldsData.add(successData[i.offset]["fileId"])
                     }
-                    self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
                     if self.pageType == "edit"{
+                        if self.originalData.count > 0 {
+                            for originalItem in self.originalData.enumerated(){
+                                self.fieldsData.add(self.originalData[originalItem.offset]["fileId"])
+                            }
+                        }
+                        self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
                         self.editPost()
                     }else{
+                        self.fieldsStr = self.fieldsData?.componentsJoined(by: ",")
                         self.addPost()
                     }
                 }else{
@@ -358,7 +369,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         imgsView = UIView.init(frame: CGRect(x: 0, y: 430, width: kScreenWidth, height: 105))
         imgsView.backgroundColor = UIColor.white
         self.view.addSubview(imgsView)
-        
+        //新增页面
         if pageType != "edit" {
             drawImgBtn(imgBtnIndex: 1)
         } 
@@ -469,10 +480,14 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
         let endIndex = imagsData.count + 1000
         //1.首先移除自身所在图片按钮
         let superBtn = imgsView.viewWithTag(index + 1000) as! UIButton
-        imagesData.removeObject(at: index-1)
+        if (NSString(string: (pictureData[index-1] as! NSURL).absoluteString!)).hasPrefix("http") {//如果是原有的图片，则删除该图片对应的id
+            deleteOriginal(urlStr: (pictureData[index-1] as! NSURL).absoluteString!)
+        }else{
+            postImagesData.removeObject(at: index-1)
+        }
+        pictureData.remove(at: index-1)
         imagsData.remove(superBtn)
         haveImagsData.remove(superBtn)
-        pictureData.remove(at: index-1)
         superBtn.removeFromSuperview()
         //2.更改之后按钮的tag,以及按钮的删除按钮tag
         if changeStartIndex <= endIndex{
@@ -498,6 +513,16 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             addImgBtn.addTarget(self, action: #selector(addImgBtn(sender:)), for: UIControlEvents.touchUpInside)
             imgsView.addSubview(addImgBtn)
             imagsData.add(addImgBtn)
+        }
+    }
+    
+    func deleteOriginal(urlStr:String){
+        for originalItem in originalData.enumerated(){
+            let originalUrlStr = "http://" + self.userDefault.string(forKey: "AppUrlAndPort")! + (originalData[originalItem.offset]["filePath"].stringValue)
+            if originalUrlStr == urlStr{
+                originalData.remove(at: originalItem.offset)
+                return
+            }
         }
     }
     
@@ -613,7 +638,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             //对按钮自身进行操作
             let currentBtn = self.imagsData.lastObject as! UIButton
             currentBtn.setImage(img, for: UIControlState.normal)
-            
+            //从相册选的图片，或拍照的图片直接压缩
             let data = UIImageJPEGRepresentation(img!,0.5)
             img = UIImage.init(data: data!)
            /* //修正图片的位置
@@ -641,7 +666,7 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
             print("filePath:" + filePath)
              */
             
-            self.imagesData.add(img!)
+            self.postImagesData.add(img!)
             self.pictureData.append(img! as Any)
             
             let index = currentBtn.tag - 1000

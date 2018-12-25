@@ -37,6 +37,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var bigType = ""
     var smallType = ""
     var pageType = ""
+    var isSearchFrom:Bool!
     var deviceEditId = ""
     var deviceEditNo = ""
     var editImgPickerData:[Any] = []
@@ -94,6 +95,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     self.bigType = self.deviceEditJson["equCategoryBig"].description
                     self.smallType = self.deviceEditJson["equCategorySmall"].description
                     self.editImgPickerData = []
+                    self.photoListr = []
                     let serialQueue = DispatchQueue.init(label: "124")
                     serialQueue.async() { () -> Void in
                         //doSomething... 任务1
@@ -164,7 +166,11 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         
         contentView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: navigationHeight + 793 - bottomSafeAreaHeight)
         scrollView.delegate = self
-        scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: kScreenHeight - navigationHeight)
+        if self.isSearchFrom {//搜索结果过来的
+            scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: kScreenHeight)
+        }else{
+            scrollView.frame = CGRect(x: 0, y: 0, width: KUIScreenWidth, height: kScreenHeight - navigationHeight)
+        }
         scrollView.contentSize.height = navigationHeight + 793 - bottomSafeAreaHeight
         scrollView.backgroundColor = UIColor.white
         scrollView.addSubview(contentView)
@@ -594,9 +600,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         //        print(commitData)
         addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
             if resultType == "success"{
-                self.navigationController?.popViewController(animated: false)
+                
                 userDefault.set("editBack", forKey: "pageStatus")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
+                self.goBackFromDeviceManagementViewController()
             }else if resultType == "sign_app_err" {
                 self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
             }else{

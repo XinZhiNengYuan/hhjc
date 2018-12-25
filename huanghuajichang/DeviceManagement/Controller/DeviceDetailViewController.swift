@@ -142,6 +142,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         deviceEditVc.pageType = "edit"
         deviceEditVc.deviceEditNo = self.eqCode
         deviceEditVc.deviceEditId = self.eqId
+        if flagePageFrom == 1{//1:默认表示从列表页面跳转过来，2:表示从搜索页跳转过来
+            deviceEditVc.isSearchFrom = false
+        }else{
+            deviceEditVc.isSearchFrom = true
+        }
         self.navigationController?.pushViewController(deviceEditVc, animated: false)
     }
     

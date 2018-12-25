@@ -245,6 +245,7 @@ extension DeviceSearchListViewController: UITableViewDelegate
         }
         let deviceDetaillController = DeviceDetailViewController()
         deviceDetaillController.flagePageFrom = 2
+        deviceDetaillController.eqId = JSON(self.searchArray[indexPath.row]["equId"] as Any).stringValue
         deviceDetaillController.eqCode = self.searchArray[indexPath.row]["equNo"] as! String
         navigationController?.pushViewController(deviceDetaillController, animated: true)
     }

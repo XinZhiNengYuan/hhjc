@@ -207,21 +207,26 @@ class DailySearchViewController: UIViewController {
                 if JSON(value)["status"].stringValue == "success"{
                     self.json = JSON(value)["data"]["resultData"]
                     self.setSearchtextToLocal()
-                    for recordItem in self.json.enumerated(){
-                        let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
-                        self.searchData.append(recordModel)
-                    }
-                    if self.searchData.count >= JSON(value)["data"]["resultData"]["iTotalRecords"].intValue {
-                        self.dataToEnd = true
-                        self.refreshFooter.state = .noMoreData
+                    if self.json.count == 0 && self.pageStart == 0{
+                        MyProgressHUD.dismiss()
+                        MyProgressHUD.showSuccess("暂无数据")
                     }else{
-                        self.refreshFooter.state = .idle
+                        for recordItem in self.json.enumerated(){
+                            let recordModel = DailyRecordViewModel(describe: self.json[recordItem.offset]["describe"].stringValue, filesId: self.json[recordItem.offset]["filesId"].stringValue, id: self.json[recordItem.offset]["id"].intValue, opeTime: self.json[recordItem.offset]["opeTime"].intValue, staId: self.json[recordItem.offset]["staId"].intValue, staName: self.json[recordItem.offset]["staName"].stringValue, staTime: self.json[recordItem.offset]["staTime"].intValue, state: self.json[recordItem.offset]["state"].intValue, title: self.json[recordItem.offset]["title"].stringValue, userId: self.json[recordItem.offset]["userId"].intValue, userName: self.json[recordItem.offset]["userName"].stringValue)
+                            self.searchData.append(recordModel)
+                        }
+                        if self.searchData.count >= JSON(value)["data"]["resultData"]["iTotalRecords"].intValue {
+                            self.dataToEnd = true
+                            self.refreshFooter.state = .noMoreData
+                        }else{
+                            self.refreshFooter.state = .idle
+                        }
+                        self.createTabList()
+                        MyProgressHUD.dismiss()
                     }
-                    self.createTabList()
-                    MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
-                    print(type(of: JSON(value)["msg"]))
+//                    print(type(of: JSON(value)["msg"]))
                     self.present(windowAlert(msges: JSON(value)["msg"].stringValue), animated: true, completion: nil)
                 }
             case .failure(let error):
