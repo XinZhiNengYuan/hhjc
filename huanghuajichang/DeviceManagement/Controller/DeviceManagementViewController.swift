@@ -378,6 +378,11 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
             view.tag = section + 2000
             view.mNum.text = "\(contentList[section].deviceManagementContentList.count)"
+            if section == self.contentList.count - 1{
+                view.theLastHeader = true
+            }else{
+                view.theLastHeader = false
+            }
             view.isSelected = statusArrOfContent[section] as! Bool
             view.callBack = {(index : Int,isSelected : Bool) in
                 let i = index - 2000

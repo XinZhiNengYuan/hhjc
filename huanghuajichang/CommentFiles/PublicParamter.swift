@@ -83,3 +83,66 @@ func windowTotast(pageName:UIViewController, msg:String, completion: (() -> Void
     }
     
 }
+extension UIView{
+    func SetBorderWithView(_ view:UIView,top:Bool,left:Bool,bottom:Bool,right:Bool,width:CGFloat,color:UIColor)
+        
+    {
+        
+        if top
+            
+        {
+            
+            let layer = CALayer()
+            
+            layer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: width)
+            
+            layer.backgroundColor = color.cgColor
+            
+            view.layer.addSublayer(layer)
+            
+        }
+        
+        if left
+            
+        {
+            
+            let layer = CALayer()
+            
+            layer.frame = CGRect(x: 0, y: 0, width: width, height: view.frame.size.height)
+            
+            layer.backgroundColor = color.cgColor
+            
+            view.layer.addSublayer(layer)
+            
+        }
+        
+        if bottom
+            
+        {
+            
+            let layer = CALayer()
+            
+            layer.frame = CGRect(x: 0, y: view.frame.size.height - width, width: view.frame.size.width, height: width)
+            
+            layer.backgroundColor = color.cgColor
+            
+            view.layer.addSublayer(layer)
+            
+        }
+        
+        if right
+            
+        {
+            
+            let layer = CALayer()
+            
+            layer.frame = CGRect(x: view.frame.size.width - width, y: 0, width: width, height: view.frame.size.height)
+            
+            layer.backgroundColor = color.cgColor
+            
+            view.layer.addSublayer(layer)
+            
+        }
+        
+    }
+}

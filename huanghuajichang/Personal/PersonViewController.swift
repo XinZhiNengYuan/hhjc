@@ -141,7 +141,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //        personalTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine
         //注册UITableView，cellID为重复使用cell的Identifier
        // personalTable.register(PersonalTableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "personalPassWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "personalQRCode", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"erweima1")],[PersonTableViewCellModel(itemId: "1", itemImage: "personalClean", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "personalUpdate", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
+        tableCellModels = [[PersonTableViewCellModel(itemId: "1", itemImage: "personalPassWord", itemTitle: "密码", itemRightIcon: "进入" ,itemRightTitle:"修改"),PersonTableViewCellModel(itemId: "1", itemImage: "personalQRCode", itemTitle: "二维码", itemRightIcon: "进入" ,itemRightTitle:"扫描")],[PersonTableViewCellModel(itemId: "1", itemImage: "personalClean", itemTitle: "清除缓存", itemRightIcon: "进入" ,itemRightTitle:"100M"),PersonTableViewCellModel(itemId: "1", itemImage: "personalUpdate", itemTitle: "当前版本", itemRightIcon: "" ,itemRightTitle:"1.0")]]
 
         //必须将高度重置，不然下面设置header无效
         self.personalTable.estimatedRowHeight = 0;
@@ -266,7 +266,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 rightLable.textAlignment = NSTextAlignment.right
                 rightLable.font = UIFont.systemFont(ofSize: 14)
                 rightLable.textColor = UIColor.init(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
-                rightLable.text = "修改"
+                rightLable.text = tableCellModel.itemRightTitle
                 cell?.contentView.addSubview(rightLable)
                 
             }else if indexPath.section == 0 && indexPath.row == 1 {
@@ -274,9 +274,15 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 //cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
                 
                 //添加二维码小图标
-                let rightImg: UIImageView = UIImageView.init(frame: CGRect(x: kScreenWidth-70, y: 15, width: 20, height: 20))
-                rightImg.image = UIImage.init(named: tableCellModel.itemRightTitle)
-                cell?.contentView.addSubview(rightImg)
+//                let rightImg: UIImageView = UIImageView.init(frame: CGRect(x: kScreenWidth-70, y: 15, width: 20, height: 20))
+//                rightImg.image = UIImage.init(named: tableCellModel.itemRightTitle)
+//                cell?.contentView.addSubview(rightImg)
+                let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20))
+                rightLable.textAlignment = NSTextAlignment.right
+                rightLable.font = UIFont.systemFont(ofSize: 14)
+                rightLable.textColor = UIColor.init(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
+                rightLable.text = tableCellModel.itemRightTitle
+                cell?.contentView.addSubview(rightLable)
                 
             }else if indexPath.section == 1{
                 

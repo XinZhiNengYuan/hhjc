@@ -16,6 +16,7 @@ class UITableViewControllerCellThire: UIView,UIGestureRecognizerDelegate {
     let mNum = UILabel()
     let rightPic = UIImageView()
     var isSelected : Bool = false
+    var theLastHeader:Bool = false
     
     var callBack = {(index : Int,isSelected : Bool)->Void in
         
@@ -38,6 +39,10 @@ class UITableViewControllerCellThire: UIView,UIGestureRecognizerDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         mView.frame = CGRect(x: 10, y: 0, width: UIScreen.main.bounds.width, height: 40)
+        mView.SetBorderWithView(self, top: true, left: false, bottom: false, right: false, width: 1, color: UIColor(red: 227/255, green: 227/255, blue: 230/255, alpha: 1))
+        if theLastHeader{
+            mView.SetBorderWithView(self, top: false, left: false, bottom: true, right: false, width: 1, color: UIColor(red: 227/255, green: 227/255, blue: 230/255, alpha: 1))
+        }
         self.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
         mBorderLeft.text = ""
         mBorderLeft.layer.borderWidth = 2

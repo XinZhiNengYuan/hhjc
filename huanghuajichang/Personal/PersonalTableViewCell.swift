@@ -38,7 +38,7 @@ class PersonalTableViewCell: UITableViewCell {
         itemTitle?.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(itemTitle!)
         
-        itemRightIcon = UIImageView.init(frame: CGRect(x: kScreenWidth-40, y: 17.5, width: 10, height: 15))
+        itemRightIcon = UIImageView.init(frame: CGRect(x: kScreenWidth-25, y: 17.5, width: 10, height: 15))
         self.addSubview(itemRightIcon!)
         
     }

@@ -171,7 +171,11 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         let view : UITableViewControllerCellThire = UITableViewControllerCellThire()
         view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width*0.3, height: view.frame.size.height)
         view.tag = section + 2000
-        
+        if section == self.oneMeanArr.count - 1{
+            view.theLastHeader = true
+        }else{
+            view.theLastHeader = false
+        }
         view.isSelected = self.statusArrOfContent[section] as! Bool
         
         view.callBack = {(index : Int,isSelected : Bool) in
