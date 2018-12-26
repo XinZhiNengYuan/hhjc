@@ -670,7 +670,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             }else{
                 image.image = editImgPickerData[i] as? UIImage
             }
-            image.layer.borderColor = UIColor.red.cgColor
+            image.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
             image.layer.borderWidth = 1.0
             viewOption.addSubview(image)
             let deleteBut = deleteBtn(tag: i + 6000)
@@ -707,6 +707,8 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         image.tag = editImgPickerData.count + 1000 //图片
         image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
         image.image = pic
+        image.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
+        image.layer.borderWidth = 1.0
         
         viewOption.addSubview(image)
         let deleteBut = deleteBtn(tag: editImgPickerData.count + 6000)
