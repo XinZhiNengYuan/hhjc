@@ -20,31 +20,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         // Override point for customization after application launch.
-        
-        // 设置跟控制器
-        //        创建一个字符串常量，作为是否启动过的标示名称
-        let EVERLAUNCHED = "everlaunched"
-        //        再创建一个字符串常量，作为首次启动的标识符名称
-        let FIRSTLAUNCH = "firstlaunch"
-        //        获得变量的布尔值，当程序首次启动时由于没有设置过变量，所以默认值为否
-        if(!UserDefaults.standard.bool(forKey: EVERLAUNCHED))
-        {
-            //            将标识是否启动过的变量更该为真，标示程序至少被启动过一次
-            UserDefaults.standard.set(true, forKey: EVERLAUNCHED)
-            //            将标示是否首次启动的变量设为真，标示程序是首次启动
-            UserDefaults.standard.set(true, forKey: FIRSTLAUNCH)
-            //            调用同步方法，立即保存修改
-            UserDefaults.standard.synchronize()
-            let indexVC = GuideViewController()
-            window?.rootViewController = indexVC
-        }
-        else{
-            //            如果曾经启动过程序，则变量的布尔值为否
-            UserDefaults.standard.set(false, forKey: FIRSTLAUNCH)
-            //            调用同步方法，立即保存修改
-            UserDefaults.standard.synchronize()
-            window?.rootViewController = LoginViewController()
-        }
+        //去掉首次进入app的判断，隐藏引导页
+//        // 设置跟控制器
+//        //        创建一个字符串常量，作为是否启动过的标示名称
+//        let EVERLAUNCHED = "everlaunched"
+//        //        再创建一个字符串常量，作为首次启动的标识符名称
+//        let FIRSTLAUNCH = "firstlaunch"
+//        //        获得变量的布尔值，当程序首次启动时由于没有设置过变量，所以默认值为否
+//        if(!UserDefaults.standard.bool(forKey: EVERLAUNCHED))
+//        {
+//            //            将标识是否启动过的变量更该为真，标示程序至少被启动过一次
+//            UserDefaults.standard.set(true, forKey: EVERLAUNCHED)
+//            //            将标示是否首次启动的变量设为真，标示程序是首次启动
+//            UserDefaults.standard.set(true, forKey: FIRSTLAUNCH)
+//            //            调用同步方法，立即保存修改
+//            UserDefaults.standard.synchronize()
+//            let indexVC = GuideViewController()
+//            window?.rootViewController = indexVC
+//        }
+//        else{
+//            //            如果曾经启动过程序，则变量的布尔值为否
+//            UserDefaults.standard.set(false, forKey: FIRSTLAUNCH)
+//            //            调用同步方法，立即保存修改
+//            UserDefaults.standard.synchronize()
+//            window?.rootViewController = LoginViewController()
+//        }
+        window?.rootViewController = LoginViewController()
         // 延迟进入应用,避免应用启动过快,导致启动图片一闪而过
         Thread.sleep(forTimeInterval: 3) // pause 2 sec before main storybord shows
         return true

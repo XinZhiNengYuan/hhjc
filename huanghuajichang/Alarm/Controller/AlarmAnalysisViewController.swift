@@ -26,6 +26,8 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     var barChartView = BarChartView()
     //报警详情ID
     var alarmDetailId:String!
+    //报警详情Type
+    var alarmDetailType:String!
     //从设备列表传值过来
     var alarmDetailInfo : JSON!
     
@@ -42,7 +44,7 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
     func requestForData(){
         let userId = userDefault.string(forKey: "userId")
         let token = userDefault.string(forKey: "userToken")
-        let contentData : [String : Any] = ["method":"getAlarmAnalysis","info":["objCode":alarmDetailId],"user_id":userId as Any,"token":token as Any]
+        let contentData : [String : Any] = ["method":"getAlarmAnalysis","info":["objCode":alarmDetailId,"alarmType":alarmDetailType],"user_id":userId as Any,"token":token as Any]
         alarmAnalysisService.getData(contentData: contentData) { (successData) in
             self.setHeader()
             self.setContentView(successData: successData)
@@ -55,14 +57,27 @@ class AlarmAnalysisViewController: UIViewController,ChartViewDelegate {
         let image = UIImageView(frame: CGRect(x: 15, y: 15, width: 20, height: 20))
         image.image = UIImage(named: "alarm")
         headerView.addSubview(image)
+        
         let textLabel = UILabel(frame: CGRect(x: 45, y: 15, width: 200, height: 20))
         textLabel.textColor = UIColor.white
         textLabel.text = String.timeStampToString(timeStamp: self.alarmDetailInfo["alarmTime"].stringValue)
         headerView.addSubview(textLabel)
-        let dec = UILabel(frame: CGRect(x: 20, y: 60, width: KUIScreenWidth-100, height: 20))
-        dec.text = self.alarmDetailInfo["cimCode"].stringValue
+        
+        let dec = UILabel(frame: CGRect(x: 20, y: 45, width: KUIScreenWidth-100, height: 15))
+        dec.text = self.alarmDetailInfo["scIdName"].stringValue + "异常"
         dec.textColor = UIColor.white
         headerView.addSubview(dec)
+        
+        let objLabel = UILabel(frame: CGRect(x: 20, y: 70, width: KUIScreenWidth-100, height: 15))
+        var lastStr:String = ""
+        if (alarmDetailInfo["organizationName"].stringValue == "") || (alarmDetailInfo["objCodeName"].stringValue == ""){
+            lastStr = alarmDetailInfo["organizationName"].stringValue + alarmDetailInfo["objCodeName"].stringValue
+        }else{
+            lastStr = alarmDetailInfo["organizationName"].stringValue + " | " + alarmDetailInfo["objCodeName"].stringValue
+        }
+        objLabel.text = lastStr
+        objLabel.textColor = UIColor.white
+        headerView.addSubview(objLabel)
         let status = UILabel(frame: CGRect(x: KUIScreenWidth-100, y: 30, width: 80, height: 40))
         status.text = self.alarmDetailInfo["alarmTypeName"].stringValue
         status.textColor = UIColor.blue

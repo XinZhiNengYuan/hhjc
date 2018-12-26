@@ -372,13 +372,20 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
             alarmListCell = AlarmListTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "alarmCell")
         }
         let cellData = self.alarmListjson[indexPath.row]
-        alarmListCell?.itemTitle.text = cellData["objCode"].stringValue
+        print(cellData)
+        alarmListCell?.itemTitle.text = cellData["scIdName"].stringValue + "异常"
         alarmListCell?.itemStatus.text = cellData["alarmTypeName"].stringValue
-        alarmListCell?.itemName.text = cellData["alarmRaName"].stringValue
+        var middleStr:String = ""
+        if (cellData["organizationName"].stringValue == "") || (cellData["objCodeName"].stringValue == ""){
+            middleStr = cellData["organizationName"].stringValue + cellData["objCodeName"].stringValue
+        }else{
+            middleStr = cellData["organizationName"].stringValue + " | " + cellData["objCodeName"].stringValue
+        }
+        alarmListCell?.itemName.text = middleStr
         alarmListCell?.itemTime.text = AddDailyRecordViewController.timeStampToString(timeStamp: cellData["alarmTime"].stringValue,timeAccurate: "second")
         alarmListCell?.changUI(realTitle:(alarmListCell?.itemTitle.text)!,realStatus:(alarmListCell?.itemStatus.text)!)
-        alarmListCell?.itemId = cellData["id"].stringValue
-        if self.userDefault.integer(forKey: "maxId") < Int((alarmListCell?.itemId)!)!{
+        alarmListCell?.itemId = cellData["objCode"].stringValue
+        if self.userDefault.integer(forKey: "maxId") < cellData["id"].intValue{
             alarmListCell?.itemIcon.isHidden = false
         }else{
             alarmListCell?.itemIcon.isHidden = true
@@ -396,6 +403,7 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
         let alarmAnalysisVc = AlarmAnalysisViewController()
         alarmAnalysisVc.alarmDetailId = selectedAlarmId
         alarmAnalysisVc.alarmDetailInfo = self.alarmListjson[indexPath.row]
+        alarmAnalysisVc.alarmDetailType = self.alarmListjson[indexPath.row]["alarmType"].stringValue
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(alarmAnalysisVc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
