@@ -190,7 +190,7 @@ class ScanAndEditViewController: AddNavViewController {
             dealbtn.setTitleColor(UIColor.white, for: UIControlState.normal)
             dealbtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
             dealbtn.backgroundColor = UIColor.pg_color(withHexString: "#FF017FD1")
-            dealbtn.layer.cornerRadius = 8
+            dealbtn.layer.cornerRadius = 15
             dealbtn.addTarget(self, action: #selector(showConfirm), for: UIControlEvents.touchUpInside)
             dealView.addSubview(dealbtn)
         }else{

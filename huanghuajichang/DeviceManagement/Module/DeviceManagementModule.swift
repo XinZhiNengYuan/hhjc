@@ -51,7 +51,7 @@ struct DeviceManagementContentListModule {
     var categoryNameBig : String = ""
     var equNo : String = ""
     var coType : String = ""
-    var power : Int = -1
+    var power : String = ""
     var equCategorySmall : String = ""
     var equName : String = ""
     var status : String = ""

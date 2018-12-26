@@ -64,7 +64,7 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         arrayForKey.append("设备名称")
         arrayForKey.append("所属单位")
         arrayForKey.append("规格型号")
-        arrayForKey.append("功率")
+        arrayForKey.append("额定功率")
         arrayForKey.append("设备标识")
         arrayForKey.append("供应商")
         arrayForKey.append("生产日期")

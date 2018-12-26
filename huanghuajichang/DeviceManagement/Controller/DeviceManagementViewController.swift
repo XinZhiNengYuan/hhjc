@@ -435,7 +435,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             cell?.topRight.frame = CGRect(x: 30 + topLeftWidth, y: 10, width: topRightWdith, height: 20)
             cell?.topRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].specification
             cell?.midelLeft.text = "额定功率："
-            cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)w"//contentList[rowNum]["w"]
+            cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)kW"//contentList[rowNum]["w"]
             cell?.bottomRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].coOneAndcoTwo
             return cell!
         }

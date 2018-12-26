@@ -108,7 +108,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                             deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
                             deviceManagementContentListModule.equNo = item["equNo"].stringValue
                             deviceManagementContentListModule.coType = item["coType"].stringValue
-                            deviceManagementContentListModule.power = item["power"].intValue
+                            deviceManagementContentListModule.power = item["power"].stringValue
                             deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                             deviceManagementContentListModule.equName = item["equName"].stringValue
                             deviceManagementContentListModule.status = item["status"].stringValue
@@ -133,7 +133,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                     deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
                     deviceManagementContentListModule.equNo = item["equNo"].stringValue
                     deviceManagementContentListModule.coType = item["coType"].stringValue
-                    deviceManagementContentListModule.power = item["power"].intValue
+                    deviceManagementContentListModule.power = item["power"].stringValue
                     deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                     deviceManagementContentListModule.equName = item["equName"].stringValue
                     deviceManagementContentListModule.status = item["status"].stringValue
@@ -160,7 +160,7 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                 deviceManagementContentListModule.categoryNameBig = item["categoryNameBig"].stringValue
                 deviceManagementContentListModule.equNo = item["equNo"].stringValue
                 deviceManagementContentListModule.coType = item["coType"].stringValue
-                deviceManagementContentListModule.power = item["power"].intValue
+                deviceManagementContentListModule.power = item["power"].stringValue
                 deviceManagementContentListModule.equCategorySmall = item["equCategorySmall"].stringValue
                 deviceManagementContentListModule.equName = item["equName"].stringValue
                 deviceManagementContentListModule.status = item["status"].stringValue

@@ -40,8 +40,11 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     var isSearchFrom:Bool!
     var deviceEditId = ""
     var deviceEditNo = ""
+    ///图片浏览数组
     var editImgPickerData:[Any] = []
     var editImgData:[UIButton] = []
+    ///设备编辑原来的对象，新增UIimage数组集合
+    var deviceAllPictureData:[Any] = []
     
     var token:String!
     var userId:String!
@@ -95,7 +98,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                     self.bigType = self.deviceEditJson["equCategoryBig"].description
                     self.smallType = self.deviceEditJson["equCategorySmall"].description
                     self.editImgPickerData = []
-                    self.photoListr = []
+                    self.deviceAllPictureData = []
                     let serialQueue = DispatchQueue.init(label: "124")
                     serialQueue.async() { () -> Void in
                         //doSomething... 任务1
@@ -110,10 +113,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
                             //将任务添加到队列中 一个任务执行完成后再执行另一个任务
                             serialQueue.async() { () -> Void in
                                 //doSomething... 任务2
-                                self.photoListr.append(imgUrl as Any)
                                 self.editImgPickerData.append(imgUrl as Any)
                                 
                             }
+                            self.deviceAllPictureData.append(self.deviceEditJson["equPhotos"][imgItem.offset])
                         }
                     }
                     serialQueue.async() { () -> Void in
@@ -528,13 +531,29 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             }
         }
     }
-    //MARK:提交所有数据
+    //MARK:上传图片（只上传新增的图片）
     @objc func uploadImgs(){
-        if photoListr.count > 0{
+        if editImgPickerData.count > 0{
+            self.photoListr = []
+            var OriginalfieldsData:[String] = []
+            for pictureItem in deviceAllPictureData.enumerated(){
+                if deviceAllPictureData[pictureItem.offset] as? UIImage != nil {//新图片
+                    photoListr.append(deviceAllPictureData[pictureItem.offset])
+                }else{
+                    OriginalfieldsData.append((deviceAllPictureData[pictureItem.offset] as! JSON)["fileId"].stringValue)
+                }
+            }
             cameraViewService.upLoadPic(images: photoListr as! [UIImage], finished: { (fileId,status) in
                 //                print(fileId)
                 if status == "success"{
-                    self.getCommitData(userId: self.userId!, token: self.token!, fileId: fileId)
+                    var filedStr = OriginalfieldsData.joined(separator: ",")
+                    if fileId == ""{
+                        filedStr = fileId + filedStr
+                    }else{
+                        filedStr = fileId + "," + filedStr
+                    }
+                    print(filedStr)
+                    self.getCommitData(userId: self.userId!, token: self.token!, fileId: filedStr)
                 }else if status == "sign_app_err"{
                     self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
                 }
@@ -635,7 +654,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     
     func imageMethods(){
         editImgData = []
-        for i in 0..<photoListr.count{
+        for i in 0..<editImgPickerData.count{
             let viewOption = EditBtn()
             viewOption.frame = CGRect(x: 75*i+10, y: 0, width: 60, height: Int(imageView.frame.height))
             viewOption.tag = 4000 + i
@@ -646,12 +665,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             if editImgPickerData[i] as? URL != nil{
 //                print(editImgPickerData[i])
                 image.setImageWith(editImgPickerData[i] as? URL, placeholder: UIImage(named: "默认图片"), options: YYWebImageOptions.setImageWithFadeAnimation, manager: nil, progress: nil, transform: nil, completion: { (yyUIimage, yyUrl, yyFormType, yyImageStage, yyError) in
-                    let data = UIImageJPEGRepresentation(image.image!,0.5)
-                    let newImg = UIImage.init(data: data!)
-                    self.photoListr[i] = newImg as Any
+                    
                 })
             }else{
-                image.image = photoListr[i] as? UIImage
+                image.image = editImgPickerData[i] as? UIImage
             }
             image.layer.borderColor = UIColor.red.cgColor
             image.layer.borderWidth = 1.0
@@ -661,12 +678,12 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             imageView.addSubview(viewOption)
             editImgData.append(viewOption)
         }
-        if photoListr.count >= 6{
+        if editImgPickerData.count >= 6{
             //            addBut.removeFromSuperview()
-            imageView.contentSize = CGSize(width: 10+75*(photoListr.count), height: 90)
+            imageView.contentSize = CGSize(width: 10+75*(editImgPickerData.count), height: 90)
         }else{
-            if 75*(photoListr.count+1) > Int(KUIScreenWidth)-20{
-                imageView.contentSize = CGSize(width: 10+75*(photoListr.count+1), height: 90)
+            if 75*(editImgPickerData.count+1) > Int(KUIScreenWidth)-20{
+                imageView.contentSize = CGSize(width: 10+75*(editImgPickerData.count+1), height: 90)
             }else{
                 imageView.contentSize = CGSize(width: KUIScreenWidth-20, height: 90)
             }
@@ -681,32 +698,33 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         addBtn.removeFromSuperview()
         
         let viewOption = EditBtn()
-        viewOption.tag = 4000+photoListr.count // 图片所在图层
-        viewOption.frame = CGRect(x: 75*photoListr.count+10, y: 0, width: 60, height: Int(imageView.frame.height))
+        viewOption.tag = 4000+editImgPickerData.count // 图片所在图层
+        viewOption.frame = CGRect(x: 75*editImgPickerData.count+10, y: 0, width: 60, height: Int(imageView.frame.height))
         viewOption.addTarget(self, action: #selector(openEditImgPicker(sender:)), for: UIControlEvents.touchUpInside)
         let image = UIImageView()
-        image.image = UIImage(named: "image")
+//        image.image = UIImage(named: "image")
         
-        image.tag = photoListr.count + 1000 //图片
+        image.tag = editImgPickerData.count + 1000 //图片
         image.frame = CGRect(x: 0, y: 10, width: 60, height: Int(imageView.frame.height)-20)
         image.image = pic
         
         viewOption.addSubview(image)
-        let deleteBut = deleteBtn(tag: photoListr.count + 6000)
+        let deleteBut = deleteBtn(tag: editImgPickerData.count + 6000)
         viewOption.addSubview(deleteBut)
         imageView.addSubview(viewOption)
+        //压缩图片，添加到all数组与图片浏览数组
         let data = UIImageJPEGRepresentation(image.image!,0.5)
         let newImg = UIImage.init(data: data!)
-        photoListr.append(newImg as Any)
-        editImgPickerData.append(pic)
+        editImgPickerData.append(newImg as Any)
+        deviceAllPictureData.append(newImg as Any)
         editImgData.append(viewOption)
         
-        if photoListr.count >= 6{
+        if editImgPickerData.count >= 6{
             addBut.removeFromSuperview()
-            imageView.contentSize = CGSize(width: 10+75*(photoListr.count), height: 90)
+            imageView.contentSize = CGSize(width: 10+75*(editImgPickerData.count), height: 90)
         }else{
-            if 75*(photoListr.count+1) > Int(KUIScreenWidth)-20{
-                imageView.contentSize = CGSize(width: 10+75*(photoListr.count+1), height: 90)
+            if 75*(editImgPickerData.count+1) > Int(KUIScreenWidth)-20{
+                imageView.contentSize = CGSize(width: 10+75*(editImgPickerData.count+1), height: 90)
             }else{
                 imageView.contentSize = CGSize(width: KUIScreenWidth-20, height: 90)
             }
@@ -716,7 +734,7 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     
     //MARK:设置设置添加按钮
     func setAddBut(){
-        addBut = UIButton(frame: CGRect(x: 75*photoListr.count+10, y: 10, width: 40, height: 40))
+        addBut = UIButton(frame: CGRect(x: 75*editImgPickerData.count+10, y: 10, width: 40, height: 40))
         addBut.setImage(UIImage(named: "添加照片"), for: UIControlState.normal)
         addBut.layer.borderColor = UIColor(red: 154/255, green: 186/255, blue: 216/255, alpha: 1).cgColor
         addBut.layer.borderWidth = 1
@@ -740,9 +758,9 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         //        button.superview?.superview?.removeFromSuperview()
         if index >= 1000{
             index = index - 1000
-            photoListr.remove(at: index)
             editImgData.remove(at: index)
             editImgPickerData.remove(at: index)
+            deviceAllPictureData.remove(at: index)
         }
         clearImages(btn: button)
         //重新加载图片图层
