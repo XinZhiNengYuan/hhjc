@@ -262,7 +262,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if indexPath.section == 0 && indexPath.row == 0 {
                 //cell?.itemImage?.backgroundColor = UIColor.init(red: 53/255, green: 169/255, blue: 255/255, alpha: 1)
                 
-                let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20))
+                let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-80, y: 15, width: 50, height: 20))
                 rightLable.textAlignment = NSTextAlignment.right
                 rightLable.font = UIFont.systemFont(ofSize: 14)
                 rightLable.textColor = UIColor.init(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
@@ -277,7 +277,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //                let rightImg: UIImageView = UIImageView.init(frame: CGRect(x: kScreenWidth-70, y: 15, width: 20, height: 20))
 //                rightImg.image = UIImage.init(named: tableCellModel.itemRightTitle)
 //                cell?.contentView.addSubview(rightImg)
-                let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20))
+                let rightLable:UILabel = UILabel.init(frame:CGRect(x: kScreenWidth-80, y: 15, width: 50, height: 20))
                 rightLable.textAlignment = NSTextAlignment.right
                 rightLable.font = UIFont.systemFont(ofSize: 14)
                 rightLable.textColor = UIColor.init(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
@@ -297,7 +297,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 switch (indexPath.row) {
                 case 0:
                     //cell?.itemImage?.backgroundColor = UIColor.init(red: 82/255, green: 204/255, blue: 166/255, alpha: 1)
-                    rightLable.frame = CGRect(x: kScreenWidth-100, y: 15, width: 50, height: 20)
+                    rightLable.frame = CGRect(x: kScreenWidth-130, y: 15, width: 100, height: 20)
                     rightLable.text = String(fileSizeOfCache())+"M"
                     cell?.contentView.addSubview(rightLable)
                 case 1:
@@ -306,7 +306,7 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     let infoDictionary = Bundle.main.infoDictionary!
                     let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
                     let appVersion:String = "V" + (majorVersion as! String)
-                    rightLable.frame = CGRect(x: kScreenWidth-150, y: 15, width: 100, height: 20)
+                    rightLable.frame = CGRect(x: kScreenWidth-130, y: 15, width: 100, height: 20)
                     rightLable.text = appVersion
                     cell?.contentView.addSubview(rightLable)
                 default:
