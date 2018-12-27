@@ -280,7 +280,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         }else if tag == 403{
             input.keyboardType = UIKeyboardType.decimalPad
             let unit = UILabel.init(frame: CGRect(x: KUIScreenWidth - 130 - 30, y: 5, width: 30, height: 20))
-            unit.text = "(kW)"
+            unit.text = "(KW)"
             unit.sizeToFit()
             unit.textAlignment = .right
             inputView.addSubview(unit)
