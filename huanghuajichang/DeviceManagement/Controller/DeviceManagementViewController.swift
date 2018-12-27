@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import MJRefresh
 
 class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDelegate {
 
@@ -19,6 +20,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     var move:Bool = false
     var showOrNo : Bool = false
     var oneMeanArr : [String] = [String]()
+    // 顶部刷新
+    let refresHeader = MJRefreshNormalHeader()
     var resultDataForArr : [DeviceManagementModule] = []
     var contentList : Array<DeviceManagementContentListDiyModule> = []
     var tableView1 = UITableView()
@@ -83,12 +86,32 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
             print(error)
         }
     }
+    
+    //初始化下拉刷新/上拉加载
+    func initMJRefresh(){
+        //下拉刷新相关设置
+        refresHeader.setRefreshingTarget(self, refreshingAction: #selector(DeviceManagementViewController.headerRefresh))
+        // 现在的版本要用mj_header
+        
+        refresHeader.setTitle("下拉刷新", for: .idle)
+        refresHeader.setTitle("释放更新", for: .pulling)
+        refresHeader.setTitle("正在刷新...", for: .refreshing)
+        self.tableView2.mj_header = refresHeader
+    }
+    
+    // 顶部刷新
+    @objc func headerRefresh(){
+        
+        print("下拉刷新")
+        //服务器请求数据的函数
+        requestForData()
+        //结束下拉刷新
+        self.tableView2.mj_header.endRefreshing()
+    }
     //MARK:设置初始状态
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
         //判断记录的菜单在请求回来的菜单数据中存不存在
-        print(self.resultDataForArr)
-        print(meanAndContentLog)
         if self.resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children.count-1 >= meanAndContentLog["meanLog"]!["two"]!{
             selectInitStatus()//存在
         }
@@ -271,6 +294,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         tableView2.separatorStyle = UITableViewCellSeparatorStyle.none
         self.contentView.addSubview(tableView2)
         self.view.addSubview(contentView)
+        initMJRefresh()
     }
     
     //MARK:手动点击侧滑按钮
@@ -448,7 +472,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             cell?.topRight.frame = CGRect(x: 30 + topLeftWidth, y: 10, width: topRightWdith, height: 20)
             cell?.topRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].specification
             cell?.midelLeft.text = "额定功率："
-            cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)kW"//contentList[rowNum]["w"]
+            cell?.midelCenter.text = "\(contentList[indexPath.section].deviceManagementContentList[rowNum].power)KW"//contentList[rowNum]["w"]
             cell?.bottomRight.text = contentList[indexPath.section].deviceManagementContentList[rowNum].coOneAndcoTwo
             return cell!
         }
