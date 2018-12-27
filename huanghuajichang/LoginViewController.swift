@@ -40,16 +40,28 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     func getUpdate(){
         let contentData = ["method":"version","info":""]
         appUpdate.getData(contentData: contentData, finished: { (resultData) in
-            let deviceInfo = self.DeviceInfo()
-            let vision = deviceInfo.split(separator: ".")
-            let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
-            for index in 0..<vision.count{
-                if vision[index] < tempVision[index]{
-                    //自定义弹框调用方式
-                    AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
+            if resultData["status"].stringValue == "success"{
+                let deviceInfo = self.DeviceInfo()
+                let vision = deviceInfo.split(separator: ".")
+                let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
+                for index in 0..<vision.count{
+                    if vision[index] < tempVision[index]{
+                        //自定义弹框调用方式
+                        AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
+                    }
                 }
+
+            }else if resultData["status"].stringValue == "err_station"{
+                self.windowAlert(msges: "站点错误")
+            }else if resultData["status"].stringValue == "err_sign"{
+                self.windowAlert(msges: "签名错误")
+            }else if resultData["status"].stringValue == "sys_err"{
+                self.windowAlert(msges: "系统繁忙，请稍后再试")
+            }else {
+                print(resultData)
+                self.windowAlert(msges: "未知错误")
             }
-        }) { (error) in
+                    }) { (error) in
             self.windowAlert(msges: "请更改端口或检查网络连接")
         }
 
@@ -306,7 +318,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 let sb = UIStoryboard(name: "Main", bundle:nil)
                 let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
                 self.present(vc, animated: false, completion: nil)
-            }else if resultData["status"].stringValue == "sign_app_err" {
+            }else if resultData["status"].stringValue == "err_token" {
                 
             }else if resultData["status"].stringValue == "err_namepwd"{
                 self.windowAlert(msges: "用户名或密码错误")

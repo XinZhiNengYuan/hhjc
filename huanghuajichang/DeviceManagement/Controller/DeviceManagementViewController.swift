@@ -41,7 +41,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        requestForData()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(requestForData), name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
         
     }
@@ -52,6 +52,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     override func viewWillAppear(_ animated: Bool){
 //        self.navigationItem.title = "设备管理"
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        requestForData()
     }
 
     @objc func requestForData(){
@@ -60,10 +61,13 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String : String] = ["method":"getEquTreeList","info":"","user_id":userId!,"token":token!]
         deviceManagementService.getData(contentData: contentData, finished: { (successData,oneMean) in
+            self.resultDataForArr = []
+            self.oneMeanArr = []
             self.resultDataForArr += successData
             self.oneMeanArr += oneMean
             let deviceListData : [String : Any] = ["method":"getEquipmentList","info":["oneId":"","twoId":"","equName":""],"user_id":userId as Any,"token":token as Any]
             self.deviceManagementService.getDeviceListData(contentData : deviceListData, finished: { (contentListData) in
+                self.contentList = []
                 self.contentList += contentListData
                 self.addData()
                 self.drawerView()
@@ -83,6 +87,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     func readyGo(){
         meanAndContentLog = userDefault.dictionary(forKey: "DeviceManagementKey") as? [String : [String : Int]] ?? ["meanLog":["one":0,"two":0],"contentLog":["one":0,"two":0]]
         //判断记录的菜单在请求回来的菜单数据中存不存在
+        print(self.resultDataForArr)
+        print(meanAndContentLog)
         if self.resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children.count-1 >= meanAndContentLog["meanLog"]!["two"]!{
             selectInitStatus()//存在
         }
@@ -105,7 +111,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         reloadContent(oId: resultDataForArr[defaultSelectCell.section].id, tId: resultDataForArr[defaultSelectCell.section].children[defaultSelectCell.row].id)
         //设置设备列表默认的第一被选中
         statusArrOfContent[meanAndContentLog["contentLog"]!["one"]!] = true
-        self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
+//        self.tableView2.reloadSections(IndexSet.init(integer: meanAndContentLog["contentLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
     }
     
     override func didReceiveMemoryWarning() {
@@ -114,6 +120,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     
     func addData(){
+        statusArr = []
+        statusArrOfContent = []
         for _ in 0..<oneMeanArr.count{
             statusArr.add(false)
         }
