@@ -857,6 +857,35 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let selectIndex = selector.selectedRow(inComponent: 0)
         if selectorData.count == 0 {
             selectorView.isHidden = true
+            switch clickedBtnTag {
+            case 200:
+                buildingId = ""
+                floorId = ""
+                roomId = ""
+            case 201:
+                floorId = ""
+                roomId = ""
+            case 202:
+                roomId = ""
+            case 301:
+                oneMeanId = ""
+                twoMeanId = ""
+            case 302:
+                twoMeanId = ""
+            case 303:
+                bigType = ""
+                smallType = ""
+            case 304:
+                smallType = ""
+            case 305:
+                print(305)
+            case 306:
+                print(306)
+            case 307:
+                print(307)
+            default:
+                print("未知按钮")
+            }
             return
         }else{
             let selectText = selectorData[selectIndex]["typeName"]?.description
