@@ -50,7 +50,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                 }
             }
         }) { (error) in
-            self.windowAlert(msges: "更新数据获取失败!")
+            self.windowAlert(msges: "请更改端口或检查网络连接")
         }
 
     }
