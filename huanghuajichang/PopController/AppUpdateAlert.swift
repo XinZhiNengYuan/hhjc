@@ -12,7 +12,6 @@ let kSCREEN_WIDTH = UIScreen.main.bounds.width
 ///屏幕高
 let kSCREEN_HEIGHT = UIScreen.main.bounds.height
 
-
 let Ratio_375 = kSCREEN_WIDTH / 375.0
 
 /// 转换成当前比例的数
@@ -26,8 +25,10 @@ class AppUpdateAlert:UIView {
     var version = ""
     /** 版本更新内容 */
     var desc = ""
-    class func showUpdateAlert(version: String?, description: String?) {
-        let updateAlert = AppUpdateAlert.init(version: version!, description: description!)
+    //app更新地址
+    var AppStr = "https://www.pgyer.com/km3C"
+    class func showUpdateAlert(version: String?, description: String?,ipIos:String?) {
+        let updateAlert = AppUpdateAlert.init(version: version!, description: description!, ipIos: ipIos!)
         UIApplication.shared.delegate?.window??.addSubview(updateAlert)
     }
     override init(frame: CGRect) {
@@ -36,9 +37,10 @@ class AppUpdateAlert:UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    init(version:String,description:String) {
+    init(version:String,description:String,ipIos:String) {
         super.init(frame: UIScreen.main.bounds)
         self.version = version
+        self.AppStr = ipIos
         desc = description
         initView()
     }
@@ -143,8 +145,8 @@ extension AppUpdateAlert{
     
     /// 更新按钮点击事件 跳转AppStore更新
     @objc func updateVersion() {
-        let str = "http://itunes.apple.com/us/app/id\(AppleAppID)"
-        if let aStr = URL(string: str) {
+        //let str = "http://itunes.apple.com/us/app/id\(AppleAppID)"
+        if let aStr = URL(string: AppStr) {
             UIApplication.shared.openURL(aStr)
         }
     }

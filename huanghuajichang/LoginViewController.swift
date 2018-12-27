@@ -31,7 +31,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.delegate = self
         scrollView.delegate = self
         flageStatus = self.userDefault.bool(forKey: "buttonStatus")
-//        getUpdate()
+        getUpdate()
         setLayoutFrame()
         // Do any additional setup after loading the view.
     }
@@ -46,7 +46,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
             for index in 0..<vision.count{
                 if vision[index] < tempVision[index]{
                     //自定义弹框调用方式
-                    AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])")
+                    AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
                 }
             }
         }) { (error) in
@@ -290,22 +290,30 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         
         //网络请求
         commonClass.requestData(urlStr: urlStr, outTime: 10, contentData: contentData, finished: { (resultData) in
-            let json = resultData["data"]
-            let token = json["token"].object
-            let userId = json["user_id"].object
-            self.userDefault.set(urlStr, forKey: "AppUrl")
-            self.userDefault.set(token, forKey: "userToken")
-            self.userDefault.set(userId, forKey: "userId")
-            self.userDefault.set(username,forKey: "name")
-            if self.flageStatus {//判断是否保存密码
-                self.userDefault.set(password,forKey: "password")
+            print(resultData)
+            if resultData["status"].stringValue == "success"{
+                let json = resultData["data"]
+                let token = json["token"].object
+                let userId = json["user_id"].object
+                self.userDefault.set(urlStr, forKey: "AppUrl")
+                self.userDefault.set(token, forKey: "userToken")
+                self.userDefault.set(userId, forKey: "userId")
+                self.userDefault.set(username,forKey: "name")
+                if self.flageStatus {//判断是否保存密码
+                    self.userDefault.set(password,forKey: "password")
+                }
+                ///实例化将要跳转的controller
+                let sb = UIStoryboard(name: "Main", bundle:nil)
+                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+                self.present(vc, animated: false, completion: nil)
+            }else if resultData["status"].stringValue == "sign_app_err" {
+                
+            }else if resultData["status"].stringValue == "err_namepwd"{
+                self.windowAlert(msges: "用户名或密码错误")
             }
-            ///实例化将要跳转的controller
-            let sb = UIStoryboard(name: "Main", bundle:nil)
-            let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-            self.present(vc, animated: false, completion: nil)
+            
         }) { (errorData) in
-            self.windowAlert(msges: "数据请求失败")
+            self.windowAlert(msges: "请检查手机网络连接或app接口设置")
             print("error:\(errorData)")
             return
         }

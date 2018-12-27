@@ -39,11 +39,14 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     let imageScrollViewWidth = Int(KUIScreenWidth-20)//图片区域的宽度
     var imageIndex = 0 //已经添加了的图片的数量
     var imageNumMax = 10//图片区域最多可放置的图片的数量
+    var callBack = {(str:String)->Void in
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
         setLayout()
         // Do any additional setup after loading the view.
+        callBack("测试")
     }
     
     func getOneAndTwo(){

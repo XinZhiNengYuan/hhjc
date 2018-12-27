@@ -34,12 +34,25 @@ class QrCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
     
     let qrCodeService = QrCodeService()
     
+    var myBlock = ""{
+        didSet {
+            initPageStyle()
+        }
+    }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        let addDeviceManagementController = AddDeviceManagementViewController()
+        addDeviceManagementController.callBack = {(str:String)->Void in
+            print(str)
+            let alertView = UIAlertController(title: "提示", message: "非法二维码", preferredStyle: UIAlertControllerStyle.alert)
+            let yes = UIAlertAction(title: "确认", style: UIAlertActionStyle.default, handler: nil)
+            alertView.addAction(yes)
+            self.present(alertView, animated: false, completion: nil)
+            self.goBack()
+        }
         screenWidth = self.view.bounds.width
         
         screenHeight = self.view.bounds.height
