@@ -427,29 +427,30 @@ class AddDailyRecordViewController: AddNavViewController,UIImagePickerController
     
     ///时间戳转字符串
     static func timeStampToString(timeStamp:String,timeAccurate:String)->String {
-        if (timeStamp as NSString).intValue < 0{
+        if timeStamp == "" || (timeStamp as NSString).intValue < 0{
             return ""
+        }else{
+            let timeNormal = Int(timeStamp)!/1000
+            let string = NSString(string: timeNormal.description)
+            
+            let timeSta:TimeInterval = string.doubleValue
+            let dfmatter = DateFormatter()
+            switch timeAccurate {
+            case "hour":
+                dfmatter.dateFormat="yyyy/MM/dd HH"
+            case "minute":
+                dfmatter.dateFormat="yyyy/MM/dd HH:mm"
+            case "second":
+                dfmatter.dateFormat="yyyy/MM/dd HH:mm:ss"
+            default:
+                dfmatter.dateFormat="yyyy/MM/dd"
+            }
+            
+            let date = NSDate(timeIntervalSince1970: timeSta)
+            
+            //        print(dfmatter.string(from: date as Date))
+            return dfmatter.string(from: date as Date)
         }
-        let timeNormal = Int(timeStamp)!/1000
-        let string = NSString(string: timeNormal.description)
-        
-        let timeSta:TimeInterval = string.doubleValue
-        let dfmatter = DateFormatter()
-        switch timeAccurate {
-        case "hour":
-            dfmatter.dateFormat="yyyy/MM/dd HH"
-        case "minute":
-            dfmatter.dateFormat="yyyy/MM/dd HH:mm"
-        case "second":
-            dfmatter.dateFormat="yyyy/MM/dd HH:mm:ss"
-        default:
-            dfmatter.dateFormat="yyyy/MM/dd"
-        }
-        
-        let date = NSDate(timeIntervalSince1970: timeSta)
-        
-//        print(dfmatter.string(from: date as Date))
-        return dfmatter.string(from: date as Date)
     }
     
     @objc func doneButtonAction() {
