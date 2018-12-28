@@ -497,7 +497,6 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             let deviceDetailViewController = DeviceDetailViewController()
             deviceDetailViewController.eqCode = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equNo
             self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
-            deviceDetailViewController.eqId = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equId.description
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
             self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
         }
