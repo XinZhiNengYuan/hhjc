@@ -34,6 +34,8 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         let token = userDefault.string(forKey: "userToken")
         let contentData : [String:Any] = ["method":"getEquipmentByCode","user_id": userId as Any,"token": token as Any,"info":["code":eqCode]]
         deviceDetailViewService.getData(contentData: contentData, finishedData: { (resultData) in
+            self.eqCode = resultData.equNo
+            self.eqId = resultData.equId
             self.setVal(val: resultData, call: { (arrPic) in
                 self.setLayout(arrPic: arrPic)
             })

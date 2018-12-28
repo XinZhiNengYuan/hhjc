@@ -16,6 +16,7 @@ struct DeviceDetailViewModule {
     var manufactureDate : Double = 0 //生产日期
     var installDate : Double = 0 //安装日期
     var spName : String  = "" //供应商
+    var equId : String = "" //设备ID
     var equNo : String = "" //编号
     var kksCode : String = "" //标识
     var resultData : String = "" //数据

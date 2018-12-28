@@ -29,6 +29,7 @@ class DeviceDetailViewService : common {
                 self.deviceDetailViewModule.buildingName = result["data"]["buildingName"].stringValue
                 self.deviceDetailViewModule.floorName = result["data"]["floorName"].stringValue
                 self.deviceDetailViewModule.roomName = result["data"]["roomName"].stringValue
+                self.deviceDetailViewModule.equId = result["data"]["equId"].stringValue
                 for i in 0..<result["data"]["equPhotos"].count{
                     var equPhoto = equPhotos()
                     equPhoto.fileId = Int(result["data"]["equPhotos"][i]["fileId"].stringValue)!
