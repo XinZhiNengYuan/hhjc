@@ -20,7 +20,7 @@ class NewDeviceListViewController: AddNavViewController {
     let newDeviceList:UITableView = UITableView()
     var statusArrOfContent : NSMutableArray = [true]
     var oneMeanArr : [NewEquipmentListModel] = []
-    
+    let identifier = "reusedCell2"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class NewDeviceListViewController: AddNavViewController {
         newDeviceList.separatorStyle = UITableViewCellSeparatorStyle.none
         newDeviceList.backgroundColor = allListBackColor
         self.view.addSubview(newDeviceList)
-        newDeviceList.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: "tableCell2")
+        newDeviceList.register(UITableViewControllerCellFore.self, forCellReuseIdentifier: identifier)
         getNewEquiptmentList()
     }
     
@@ -209,8 +209,6 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        let identifier = "reusedCell2"
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UITableViewControllerCellFore
         if cell == nil{
             cell = UITableViewControllerCellFore(style: UITableViewCellStyle.default, reuseIdentifier: identifier)
@@ -226,7 +224,7 @@ extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
         let topRightWdith = (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50.0 > kScreenWidth/3) ? kScreenWidth/3 : (cell?.topRight.getLabelWidth(str: cellData["specification"]?.description ?? "", font: UIFont.boldSystemFont(ofSize: 12), height: 20) ?? 50) + 10.0
         cell?.topRight.frame = CGRect(x: 30 + topLeftWidth!, y: 10, width: topRightWdith, height: 20)
         cell?.midelLeft.text = "额定功率"
-        cell?.midelCenter.text = (cellData["power"]?.description)! + "kw"
+        cell?.midelCenter.text = (cellData["power"]?.description)! + "kW"
         cell?.bottomRight.text = (cellData["coOne"]?.description)! + "-" + (cellData["coTwo"]?.description)!
         
         return cell!
