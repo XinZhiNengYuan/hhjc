@@ -158,6 +158,11 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let y = endFrame.origin.y
         //3.计算工具栏距离底部的间距
         let margin =  UIScreen.main.bounds.height - y
+        if margin > 0 {//弹出键盘时，隐藏下拉框
+            if selectorView.isHidden == false{
+                selectorView.isHidden = true
+            }
+        }
         //4.执行动画
         self.view.transform = CGAffineTransform(translationX: 0, y:-margin)
         UIView.animate(withDuration: duration) {
@@ -214,32 +219,32 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         contentForMode.addSubview(contentForModeHeader)
         
         //建筑
-        setContentOfSelectedListRow(top: 40, optionMode: contentForMode, text: "位置",selectTitle: self.deviceEditJson["buildingName"].description, isEdit: true, tag: 200)
+        setContentOfSelectedListRow(top: 40, optionMode: contentForMode, text: "位置",selectTitle: self.deviceEditJson["buildingName"].stringValue, isEdit: true, tag: 200)
         //楼层和房间号
-        setFloorAndRoomSelectedListRow(top: 80, optionMode: contentForMode, selectFloor: self.deviceEditJson["floorName"].description, selectRoom: self.deviceEditJson["roomName"].description, tag: 201)
+        setFloorAndRoomSelectedListRow(top: 80, optionMode: contentForMode, selectFloor: self.deviceEditJson["floorName"].stringValue, selectRoom: self.deviceEditJson["roomName"].stringValue, tag: 201)
         //设备大类
-        setContentOfSelectedListRow(top: 122, optionMode: contentForMode, text: "设备大类",selectTitle: self.deviceEditJson["categoryNameBig"].description, isEdit: true, tag: 303)
+        setContentOfSelectedListRow(top: 122, optionMode: contentForMode, text: "设备大类",selectTitle: self.deviceEditJson["categoryNameBig"].stringValue, isEdit: true, tag: 303)
         //设备小类
-        setContentOfSelectedListRow(top: 163, optionMode: contentForMode, text: "设备小类",selectTitle: self.deviceEditJson["categoryNameSmall"].description, isEdit: true, tag: 304)
+        setContentOfSelectedListRow(top: 163, optionMode: contentForMode, text: "设备小类",selectTitle: self.deviceEditJson["categoryNameSmall"].stringValue, isEdit: true, tag: 304)
         
         //设备标识
-        setContentModeOptionOfInputView(top: 204, contentForMode: contentForMode, text: "设备标识", inputText: self.deviceEditJson["equNo"].description,tag:400)
+        setContentModeOptionOfInputView(top: 204, contentForMode: contentForMode, text: "设备标识", inputText: self.deviceEditJson["equNo"].stringValue,tag:400)
         //设备名称
-        setContentModeOptionOfInputView(top: 245, contentForMode: contentForMode, text: "设备名称", inputText: self.deviceEditJson["equName"].description,tag:401)
+        setContentModeOptionOfInputView(top: 245, contentForMode: contentForMode, text: "设备名称", inputText: self.deviceEditJson["equName"].stringValue,tag:401)
         //设备型号
-        setContentModeOptionOfInputView(top: 286, contentForMode: contentForMode, text: "设备型号", inputText: self.deviceEditJson["specification"].description,tag:402)
+        setContentModeOptionOfInputView(top: 286, contentForMode: contentForMode, text: "设备型号", inputText: self.deviceEditJson["specification"].stringValue,tag:402)
         //额定功率
-        setContentModeOptionOfInputView(top: 327, contentForMode: contentForMode, text: "额定功率", inputText: self.deviceEditJson["power"].description,tag:403)
+        setContentModeOptionOfInputView(top: 327, contentForMode: contentForMode, text: "额定功率", inputText: self.deviceEditJson["power"].stringValue,tag:403)
         //供应商
-        setContentModeOptionOfInputView(top: 368, contentForMode: contentForMode, text: "供应商", inputText: self.deviceEditJson["spName"].description,tag:404)
+        setContentModeOptionOfInputView(top: 368, contentForMode: contentForMode, text: "供应商", inputText: self.deviceEditJson["spName"].stringValue,tag:404)
         //生产日期
-        setDateView(top: 409, contentForMode: contentForMode, text: "生产日期", originalText: AddDailyRecordViewController.timeStampToString(timeStamp: self.deviceEditJson["manufactureDate"].description, timeAccurate: "date") , tag: 500)
+        setDateView(top: 409, contentForMode: contentForMode, text: "生产日期", originalText: AddDailyRecordViewController.timeStampToString(timeStamp: self.deviceEditJson["manufactureDate"].stringValue, timeAccurate: "date") , tag: 500)
         //安装日期
-        setDateView(top: 450, contentForMode: contentForMode, text: "安装日期", originalText:self.deviceEditJson["installDate"].description, tag: 520)
+        setDateView(top: 450, contentForMode: contentForMode, text: "安装日期", originalText:AddDailyRecordViewController.timeStampToString(timeStamp: self.deviceEditJson["installDate"].stringValue, timeAccurate: "date"), tag: 520)
         //数据绑定
-        setSelectView(top: 491, contentForMode: contentForMode, text: "数据是否绑定",originalStatus:self.deviceEditJson["dataStatus"].description, tag: 600)
+        setSelectView(top: 491, contentForMode: contentForMode, text: "数据是否绑定",originalStatus:self.deviceEditJson["dataStatus"].stringValue, tag: 600)
         //是否有效
-        setSelectView(top: 562, contentForMode: contentForMode, text: "是否有效", originalStatus: self.deviceEditJson["status"].description, tag: 620)
+        setSelectView(top: 562, contentForMode: contentForMode, text: "是否有效", originalStatus: self.deviceEditJson["status"].stringValue, tag: 620)
         
         contentView.addSubview(contentForMode)
         
@@ -405,20 +410,20 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         inProducedDateLabel.textAlignment = .left
         inProducedDateLabel.font = UIFont(name: "PingFangSC-Regular", size: 14)
         inProducedDateLabel.tag = tag
-        let currentMonth = NSDate()
-        let dateFormater = DateFormatter.init()
-        dateFormater.dateFormat = "yyyy-MM-dd"
+//        let currentMonth = NSDate()
+//        let dateFormater = DateFormatter.init()
+//        dateFormater.dateFormat = "yyyy-MM-dd"
         if tag == 500{
             contentForModeLeftStar3.image = UIImage(named: "test")
-            var originalDate = originalText
-            if originalDate != "" {
-                originalDate = originalText.replacingOccurrences(of: "/", with: "-")
-            }
-            inProducedDateLabel.text = originalDate
+            
         }else{
             contentForModeLeftStar3.image = UIImage(named: "必填项")
-            inProducedDateLabel.text = dateFormater.string(from: currentMonth as Date) as String
         }
+        var originalDate = originalText
+        if originalDate != "" {
+            originalDate = originalText.replacingOccurrences(of: "/", with: "-")
+        }
+        inProducedDateLabel.text = originalDate
         
         dateChangeView.addSubview(inProducedDateLabel)
         dateChangeView.layer.borderWidth = 1
@@ -579,61 +584,50 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
         let youXiaoStatus = self.view.viewWithTag(625) as! UILabel
         if buildingId == ""{
             self.present(windowAlert(msges: "请选择楼位置"), animated: false, completion: nil)
-        }
-        if floorId == ""{
+        }else if floorId == ""{
             self.present(windowAlert(msges: "请选择楼层"), animated: false, completion: nil)
-        }
-        if roomId == ""{
+        }else if roomId == ""{
             self.present(windowAlert(msges: "请选择房间号"), animated: false, completion: nil)
-        }
-        if oneMeanId == ""{
+        }else if oneMeanId == ""{
             self.present(windowAlert(msges: "请选择一级单位"), animated: false, completion: nil)
-        }
-        if twoMeanId == ""{
+        }else if twoMeanId == ""{
             self.present(windowAlert(msges: "请选择二级单位"), animated: false, completion: nil)
-        }
-        if bigType == ""{
+        }else if bigType == ""{
             self.present(windowAlert(msges: "请选择设备大类"), animated: false, completion: nil)
-        }
-        if smallType == ""{
+        }else if smallType == ""{
             self.present(windowAlert(msges: "请选择设备小类"), animated: false, completion: nil)
-        }
-        if biaoShi.text == ""{
+        }else if biaoShi.text == ""{
             self.present(windowAlert(msges: "请添加设备标识"), animated: false, completion: nil)
-        }
-        if mingCheng.text == ""{
+        }else if mingCheng.text == ""{
             self.present(windowAlert(msges: "请添加设备名称"), animated: false, completion: nil)
-        }
-        if xingHao.text == ""{
+        }else if xingHao.text == ""{
             self.present(windowAlert(msges: "请添加设备型号"), animated: false, completion: nil)
-        }
-        if eDingGongLu.text == ""{
+        }else if eDingGongLu.text == ""{
             self.present(windowAlert(msges: "请添加设备额定功率"), animated: false, completion: nil)
-        }
-        if anZhuangRiQi.text == ""{
+        }else if anZhuangRiQi.text == ""{
             self.present(windowAlert(msges: "请选择安装日期"), animated: false, completion: nil)
-        }
-        let bangDingStatusVal = bangDingStatus.text
-        let youXiaoStatusVal = youXiaoStatus.text
-        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId, "equId":self.deviceEditId]]]
-        //        print(commitData)
-        addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
-            if resultType == "success"{
+        }else{
+            let bangDingStatusVal = bangDingStatus.text
+            let youXiaoStatusVal = youXiaoStatus.text
+            let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId, "equId":self.deviceEditId]]]
+            //        print(commitData)
+            addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
+                if resultType == "success"{
+                    
+                    userDefault.set("editBack", forKey: "pageStatus")
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
+                    self.goBackFromDeviceManagementViewController()
+                }else if resultType == "sign_app_err" {
+                    self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
+                }else{
+                    
+                }
                 
-                userDefault.set("editBack", forKey: "pageStatus")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateDeviceDetail"), object: nil)
-                self.goBackFromDeviceManagementViewController()
-            }else if resultType == "sign_app_err" {
-                self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
-            }else{
-                
+            }) { (errorData) in
+                print(errorData)
+                self.present(windowAlert(msges: "网络错误"), animated: true, completion: nil)
             }
-            
-        }) { (errorData) in
-            print(errorData)
-            self.present(windowAlert(msges: "网络错误"), animated: true, completion: nil)
         }
-        
     }
     func setPicView(top:Int,contentForMode:UIView,tag:Int) {
         mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 110)
@@ -791,6 +785,13 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     @objc func opendatePicker(btn:UIButton){
+        for i in 0...4{//关闭键盘
+            let input = self.view.viewWithTag(400+i) as! UITextField
+            input.resignFirstResponder()
+        }
+        if selectorView.isHidden == false{
+            selectorView.isHidden = true
+        }
         let datePickerManager = PGDatePickManager.init()
         datePickerManager.isShadeBackgroud = true
         datePickerManager.style = .alertBottomButton
@@ -895,24 +896,29 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
             switch clickedBtnTag {
             case 200:
                 buildingId = (selectorData[selectIndex]["typeId"]?.description)!
+                floorId = ""
+                roomId = ""
                 let floorView = self.view.viewWithTag(201) as! UIButton
                 floorView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
                 let roomView = self.view.viewWithTag(202) as! UIButton
                 roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
             case 201:
                 floorId = (selectorData[selectIndex]["typeId"]?.description)!
+                roomId = ""
                 let roomView = self.view.viewWithTag(202) as! UIButton
                 roomView.setNewStyle(image: UIImage(named:"test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: 0, state: UIControlState.normal)
             case 202:
                 roomId = (selectorData[selectIndex]["typeId"]?.description)!
             case 301:
                 oneMeanId = (selectorData[selectIndex]["typeId"]?.description)!
+                twoMeanId = ""
                 let organizationTwoBtn = self.view.viewWithTag(302) as! UIButton
                 organizationTwoBtn.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
             case 302:
                 twoMeanId = (selectorData[selectIndex]["typeId"]?.description)!
             case 303:
                 bigType = (selectorData[selectIndex]["typeId"]?.description)!
+                smallType = ""
                 let equCategorySmall = self.view.viewWithTag(304) as! UIButton
                 equCategorySmall.setNewStyle(image: UIImage(named: "test"), title: "", titlePosition: UIViewContentMode.left, additionalSpacing: (KUIScreenWidth-100)*0.5, state: UIControlState.normal)
             case 304:
@@ -930,6 +936,10 @@ class DeviceEditViewController: UIViewController,PGDatePickerDelegate,AVCaptureP
     }
     
     @objc func customSelector(sender:UIButton){
+        for i in 0...4{
+            let input = self.view.viewWithTag(400+i) as! UITextField
+            input.resignFirstResponder()
+        }
         clickedBtnTag = sender.tag
         selectorData = []
         var selectedIndex = 0

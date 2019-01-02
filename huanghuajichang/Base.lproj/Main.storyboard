@@ -241,8 +241,75 @@
             </objects>
             <point key="canvasLocation" x="2924" y="-271"/>
         </scene>
+        <!--扫一扫-->
+        <scene sceneID="UMy-B0-mpH">
+            <objects>
+                <viewController storyboardIdentifier="scanViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N8j-gI-lb8" customClass="ScanViewController" customModule="huanghuajichang" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pe7-Nz-XFm"/>
+                        <viewControllerLayoutGuide type="bottom" id="cuf-uJ-rD1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MYV-J5-iRX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBu-P6-NUV">
+                                <rect key="frame" x="87.5" y="233.5" width="200" height="200"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_border" translatesAutoresizingMaskIntoConstraints="NO" id="qxT-CK-y0G">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrcode_scanline_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="CQE-an-Lfs">
+                                        <rect key="frame" x="0.0" y="-170" width="200" height="170"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="170" id="tDo-WA-NAa"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4H9-oy-MW8"/>
+                                    <constraint firstItem="qxT-CK-y0G" firstAttribute="top" secondItem="GBu-P6-NUV" secondAttribute="top" id="BUc-mu-zyN"/>
+                                    <constraint firstAttribute="bottom" secondItem="qxT-CK-y0G" secondAttribute="bottom" id="E30-MZ-KqU"/>
+                                    <constraint firstItem="CQE-an-Lfs" firstAttribute="leading" secondItem="GBu-P6-NUV" secondAttribute="leading" id="OF1-fW-yiW"/>
+                                    <constraint firstAttribute="height" constant="200" id="Syf-8G-HNJ"/>
+                                    <constraint firstItem="qxT-CK-y0G" firstAttribute="leading" secondItem="GBu-P6-NUV" secondAttribute="leading" id="h5O-kt-WJG"/>
+                                    <constraint firstAttribute="top" secondItem="CQE-an-Lfs" secondAttribute="top" constant="170" id="nXb-gk-rFz"/>
+                                    <constraint firstAttribute="trailing" secondItem="CQE-an-Lfs" secondAttribute="trailing" id="qSe-jy-EM9"/>
+                                    <constraint firstAttribute="trailing" secondItem="qxT-CK-y0G" secondAttribute="trailing" id="sLJ-7Z-R0C"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ia-Fb-DEB">
+                                <rect key="frame" x="141.5" y="463.5" width="92" height="34"/>
+                                <state key="normal" title="打开闪光灯"/>
+                                <connections>
+                                    <action selector="changeState:" destination="N8j-gI-lb8" eventType="touchUpInside" id="hme-Ay-94w"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="GBu-P6-NUV" secondAttribute="centerX" id="3Hb-E4-f34"/>
+                            <constraint firstAttribute="centerY" secondItem="GBu-P6-NUV" secondAttribute="centerY" id="93e-CK-2be"/>
+                            <constraint firstItem="6Ia-Fb-DEB" firstAttribute="centerX" secondItem="MYV-J5-iRX" secondAttribute="centerX" id="bZ7-Ay-fhY"/>
+                            <constraint firstItem="6Ia-Fb-DEB" firstAttribute="top" secondItem="GBu-P6-NUV" secondAttribute="bottom" constant="30" id="sHr-rj-T6Z"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CqG-DB-0tE"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="扫一扫" id="38g-fg-iTY"/>
+                    <connections>
+                        <outlet property="scanTop" destination="nXb-gk-rFz" id="RBq-wM-hiC"/>
+                        <outlet property="scanView" destination="GBu-P6-NUV" id="Ebh-yt-QyF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oig-Ia-3Up" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-13222" y="93"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="qrcode_border" width="51" height="50"/>
+        <image name="qrcode_scanline_qrcode" width="218" height="170"/>
         <image name="我1" width="23" height="23"/>
         <image name="日常记录1" width="23" height="23"/>
         <image name="菜单-2" width="20" height="15"/>

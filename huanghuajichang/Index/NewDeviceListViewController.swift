@@ -58,41 +58,46 @@ class NewDeviceListViewController: AddNavViewController {
                     var childs:[[String:AnyObject]] = []
                     self.oneMeanArr = []
                     self.statusArrOfContent = [true]
-                    for equitItem in self.allListData.enumerated(){
-                        
-                        childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
-                        
-                        let equitParentCategoryModel = NewEquipmentListModel(equCategory: self.allListData[equitItem.offset]["equCategorySmall"].stringValue, categoryName: self.allListData[equitItem.offset]["categoryNameSmall"].stringValue, childsNum: 1, childs: childs)
-                        
-                        var hasParent = false
-                        if self.oneMeanArr != []{
-                            for haveEquitCategory in self.oneMeanArr.enumerated(){
-                                if self.oneMeanArr[haveEquitCategory.offset].equCategory == self.allListData[equitItem.offset]["equCategorySmall"].stringValue {
-                                    hasParent = true
-                                    self.oneMeanArr[haveEquitCategory.offset].childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
-                                    self.oneMeanArr[haveEquitCategory.offset].childsNum = self.oneMeanArr[haveEquitCategory.offset].childsNum+1
-                                }else{
-                                    childs = []
+                    if self.allListData.count == 0 {
+                        MyProgressHUD.dismiss()
+                        MyProgressHUD.showText(text: "暂无数据", icon: "")
+                    }else{
+                        for equitItem in self.allListData.enumerated(){
+                            
+                            childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
+                            
+                            let equitParentCategoryModel = NewEquipmentListModel(equCategory: self.allListData[equitItem.offset]["equCategorySmall"].stringValue, categoryName: self.allListData[equitItem.offset]["categoryNameSmall"].stringValue, childsNum: 1, childs: childs)
+                            
+                            var hasParent = false
+                            if self.oneMeanArr != []{
+                                for haveEquitCategory in self.oneMeanArr.enumerated(){
+                                    if self.oneMeanArr[haveEquitCategory.offset].equCategory == self.allListData[equitItem.offset]["equCategorySmall"].stringValue {
+                                        hasParent = true
+                                        self.oneMeanArr[haveEquitCategory.offset].childs.append(self.allListData[equitItem.offset].dictionary! as Dictionary<String, AnyObject>)
+                                        self.oneMeanArr[haveEquitCategory.offset].childsNum = self.oneMeanArr[haveEquitCategory.offset].childsNum+1
+                                    }else{
+                                        childs = []
+                                    }
                                 }
+                            }else{
+                                hasParent = false
+                                childs = []
                             }
-                        }else{
-                            hasParent = false
-                            childs = []
+                            
+                            if !hasParent {
+                                self.oneMeanArr.append(equitParentCategoryModel)
+                            }
                         }
-                        
-                        if !hasParent {
-                            self.oneMeanArr.append(equitParentCategoryModel)
+                        //                    print(self.oneMeanArr)
+                        for i in self.oneMeanArr.enumerated(){
+                            if i.offset != 0 {
+                                self.statusArrOfContent.add(false)
+                            }
                         }
+                        self.newDeviceList.reloadData()
+                        //刷新页面数据
+                        MyProgressHUD.dismiss()
                     }
-//                    print(self.oneMeanArr)
-                    for i in self.oneMeanArr.enumerated(){
-                        if i.offset != 0 {
-                            self.statusArrOfContent.add(false)
-                        }
-                    }
-                    self.newDeviceList.reloadData()
-                    //刷新页面数据
-                    MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()
                     if JSON(value)["msg"].string == nil {
@@ -142,7 +147,7 @@ class NewDeviceListViewController: AddNavViewController {
 extension NewDeviceListViewController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView:UITableView) ->Int {
         if self.oneMeanArr == [] {
-            return 1
+            return 0
         }else{
             return self.oneMeanArr.count
         }

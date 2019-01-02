@@ -44,7 +44,6 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     override func viewDidLoad() {
         super.viewDidLoad()
         getOneAndTwo()
-        setLayout()
         // Do any additional setup after loading the view.
         callBack("测试")
     }
@@ -56,6 +55,7 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         addDeviceManagementService.getEquipmentAndOrganization(contentData: contentData, finished: {(returnData) in
             print("--------------------------------")
             self.addDeviceManagementModule = returnData
+            self.setLayout()
             print("--------------------------------")
         }, finishedError: {(errorData) in
             print("--------------------------------")
@@ -76,6 +76,9 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
+        if selectorView.isHidden == false{
+            selectorView.isHidden = true
+        }
         if ((notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             let width = self.view.frame.size.width
             let height = self.view.frame.size.height
@@ -117,10 +120,26 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         labelRightcontent.font = UIFont.boldSystemFont(ofSize: 15)
         labelRightcontent.textAlignment = .left
         contentViewHeader.addSubview(labelRightcontent)
+        let fristStr = userDefault.object(forKey: "FristOriginal") as! String
+        let secondStr = userDefault.object(forKey: "SecondOriginal") as! String
         //一级单位
-        setContentOfSelectedListRow(top: 40, optionMode: contentViewHeader, text: "一级单位", selectTitle: "", tag: 301)
+        setContentOfSelectedListRow(top: 40, optionMode: contentViewHeader, text: "一级单位", selectTitle: fristStr, tag: 301)
         //二级单位
-        setContentOfSelectedListRow(top: 81, optionMode: contentViewHeader, text: "二级单位", selectTitle: "", tag: 302)
+        setContentOfSelectedListRow(top: 81, optionMode: contentViewHeader, text: "二级单位", selectTitle: secondStr, tag: 302)
+        //设置默认选中一二级单位
+        for i in 0..<self.addDeviceManagementModule.organizatinoOneList.count{
+            if fristStr == self.addDeviceManagementModule.organizatinoOneList[i].organizationName{
+                oneMeanId = self.addDeviceManagementModule.organizatinoOneList[i].organizationId.description
+            }
+        }
+        if oneMeanId != ""{
+            let tempOrganizationTwoList = addDeviceManagementService.getOrganizationTwoList(organizationOneId: Int(oneMeanId)!, organizationTwoList: addDeviceManagementModule.organizationTwoList)
+            for i in 0..<tempOrganizationTwoList.count{
+                if secondStr == tempOrganizationTwoList[i].organizationName{
+                    twoMeanId = tempOrganizationTwoList[i].organizationId.description
+                }
+            }
+        }
         contentView.addSubview(contentViewHeader)
         
 //        设备基本信息
@@ -276,11 +295,13 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         input.keyboardType = UIKeyboardType.default
         if tag == 400{//设备标识不可编辑
             input.isEnabled = false
+            inputView.backgroundColor = UIColor.pg_color(withHexString: "#EEEEEE")
             input.text = eqCode
         }else if tag == 403{
             input.keyboardType = UIKeyboardType.decimalPad
+            input.frame = CGRect(x: 10, y: 0, width: KUIScreenWidth - 140 - 30, height: 30)
             let unit = UILabel.init(frame: CGRect(x: KUIScreenWidth - 130 - 30, y: 5, width: 30, height: 20))
-            unit.text = "(KW)"
+            unit.text = "(kW)"
             unit.sizeToFit()
             unit.textAlignment = .right
             inputView.addSubview(unit)
@@ -481,58 +502,58 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
         let youXiaoStatus = self.view.viewWithTag(625) as! UILabel
         if buildingId == ""{
             self.present(windowAlert(msges: "请选择楼位置"), animated: false, completion: nil)
-        }
-        if floorId == ""{
+        }else if floorId == ""{
             self.present(windowAlert(msges: "请选择楼层"), animated: false, completion: nil)
-        }
-        if roomId == ""{
+        }else if roomId == ""{
             self.present(windowAlert(msges: "请选择房间号"), animated: false, completion: nil)
-        }
-        if oneMeanId == ""{
+        }else if oneMeanId == ""{
             self.present(windowAlert(msges: "请选择一级单位"), animated: false, completion: nil)
-        }
-        if twoMeanId == ""{
+        }else if twoMeanId == ""{
             self.present(windowAlert(msges: "请选择二级单位"), animated: false, completion: nil)
-        }
-        if bigType == ""{
+        }else if bigType == ""{
             self.present(windowAlert(msges: "请选择设备大类"), animated: false, completion: nil)
-        }
-        if smallType == ""{
+        }else if smallType == ""{
             self.present(windowAlert(msges: "请选择设备小类"), animated: false, completion: nil)
-        }
-        if biaoShi.text == ""{
+        }else if biaoShi.text == ""{
             self.present(windowAlert(msges: "请添加设备标识"), animated: false, completion: nil)
-        }
-        if mingCheng.text == ""{
+        }else if mingCheng.text == ""{
             self.present(windowAlert(msges: "请添加设备名称"), animated: false, completion: nil)
-        }
-        if xingHao.text == ""{
+        }else if xingHao.text == ""{
             self.present(windowAlert(msges: "请添加设备型号"), animated: false, completion: nil)
-        }
-        if eDingGongLu.text == ""{
+        }else if eDingGongLu.text == ""{
             self.present(windowAlert(msges: "请添加设备额定功率"), animated: false, completion: nil)
-        }
-        if anZhuangRiQi.text == ""{
+        }else if anZhuangRiQi.text == ""{
             self.present(windowAlert(msges: "请选择安装日期"), animated: false, completion: nil)
-        }
-        let bangDingStatusVal = bangDingStatus.text
-        let youXiaoStatusVal = youXiaoStatus.text
-        let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId]]]
-        addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
-            if resultType == "success"{
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
-                self.present(windowAlert(msges: "提交成功"), animated: true, completion: nil)
-            }else if resultType == "sign_app_err" {
-                self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
-            }else{
+        }else{
+            let bangDingStatusVal = bangDingStatus.text
+            let youXiaoStatusVal = youXiaoStatus.text
+            let commitData : [String:Any] = ["method":"saveEquipment","user_id": userId as Any,"token": token as Any,"info":["basEquInfo":["equName":mingCheng.text as Any,"equNo":biaoShi.text as Any,"specification":xingHao.text as Any,"equCategoryBig":bigType,"equCategorySmall":smallType,"manufactureDate":shengChanRiQi.text as Any,"spName":gongYingShang.text as Any,"filesId":fileId,"installDate":anZhuangRiQi.text as Any,"power":eDingGongLu.text as Any,"departmentIdOne":oneMeanId,"status":youXiaoStatusVal as Any,"departmentIdTwo":twoMeanId,"dataStatus":bangDingStatusVal as Any,"buildingId":buildingId,"floorId":floorId,"roomId":roomId]]]
+            addDeviceManagementService.commitAllData(contentData: commitData, finishedCall: { (resultType) in
+                if resultType == "success"{
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
+                    let deviceDetailViewController = DeviceDetailViewController()
+                    deviceDetailViewController.eqCode = biaoShi.text!
+                    deviceDetailViewController.flagePageFrom = 3
+                    let vcs = self.navigationController!.viewControllers
+                    let newVCS:NSMutableArray = []
+                    if vcs.count > 0 {
+                        for i in vcs.enumerated(){
+                            newVCS.add(vcs[i.offset])
+                        }
+                    }
+                    newVCS.add(deviceDetailViewController)
+                    self.navigationController?.setViewControllers(newVCS as! [UIViewController], animated: true)
+                }else if resultType == "sign_app_err" {
+                    self.present(windowAlert(msges: "token失效"), animated: true, completion: nil)
+                }else{
+                    
+                }
                 
+            }) { (errorData) in
+                print(errorData)
+                self.present(windowAlert(msges: "网络错误"), animated: true, completion: nil)
             }
-            
-        }) { (errorData) in
-            print(errorData)
-            self.present(windowAlert(msges: "网络错误"), animated: true, completion: nil)
         }
-        
     }
     func setPicView(top:Int,contentForPicMode:UIView,tag:Int) {
         mView.frame = CGRect(x: 0, y: top, width: Int(KUIScreenWidth), height: 180)
@@ -670,6 +691,13 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     @objc func opendatePicker(btn:UIButton){
+        for i in 0...4{//关闭键盘
+            let input = self.view.viewWithTag(400+i) as! UITextField
+            input.resignFirstResponder()
+        }
+        if selectorView.isHidden == false{
+            selectorView.isHidden = true
+        }
         let datePickerManager = PGDatePickManager.init()
         datePickerManager.isShadeBackgroud = true
         datePickerManager.style = .alertBottomButton
@@ -777,6 +805,11 @@ class AddDeviceManagementViewController: UIViewController,PGDatePickerDelegate,A
     }
     
     @objc func customSelector(sender:UIButton){
+        
+        for i in 0...4{
+            let input = self.view.viewWithTag(400+i) as! UITextField
+            input.resignFirstResponder()
+        }
         clickedBtnTag = sender.tag
         selectorData = []
         var selectedIndex = 0

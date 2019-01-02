@@ -41,10 +41,13 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     let userDefault = UserDefaults.standard
     
     let deviceManagementService = DeviceManagementService()
+    let qrCodeService = QrCodeService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        requestForData()
         NotificationCenter.default.addObserver(self, selector: #selector(requestForData), name: NSNotification.Name(rawValue: "initDeviceManagementViewController"), object: nil)
         
     }
@@ -54,8 +57,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
     }
     override func viewWillAppear(_ animated: Bool){
 //        self.navigationItem.title = "设备管理"
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        requestForData()
+        
     }
 
     @objc func requestForData(){
@@ -122,6 +124,8 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         statusArr[meanAndContentLog["meanLog"]!["one"]!] = true
         self.tableView1.reloadSections(IndexSet.init(integer: meanAndContentLog["meanLog"]!["one"]!), with: UITableViewRowAnimation.automatic)
         self.navigationItem.title  = resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children[meanAndContentLog["meanLog"]!["two"]!].text
+        self.userDefault.set(resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].text, forKey: "FristOriginal")
+        self.userDefault.set(resultDataForArr[meanAndContentLog["meanLog"]!["one"]!].children[meanAndContentLog["meanLog"]!["two"]!].text, forKey: "SecondOriginal")
         //默认选中的section，row
         let defaultSelectCell = IndexPath(row: meanAndContentLog["meanLog"]!["two"]!, section: meanAndContentLog["meanLog"]!["one"]!)
         self.tableView1.selectRow(at: defaultSelectCell, animated: true, scrollPosition: UITableViewScrollPosition.none)
@@ -168,7 +172,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         searchView.layer.backgroundColor = UIColor.white.cgColor
         searchView.layer.cornerRadius = 15
         let mLabel = UILabel()
-        mLabel.text = "请输入您要查询的设备"
+        mLabel.text = "设备名称/设备小类"
         mLabel.frame = CGRect(x: 30, y: 0, width: 150, height: 30)
         mLabel.font = UIFont.boldSystemFont(ofSize: 12)
         mLabel.textColor = UIColor.gray
@@ -182,6 +186,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         qCButton.setImage(UIImage(named: "扫描"), for: UIControlState.normal)
         qCButton.frame = CGRect(x: KUIScreenWidth - 40, y: 5, width: 30, height: 30)
         qCButton.addTarget(self, action: #selector(toQC), for: UIControlEvents.touchUpInside)
+        qCButton.setEnlargeEdge(20)
         headerView.addSubview(qCButton)
         searchView.center.x = UIScreen.main.bounds.size.width/2
         searchView.center.y = 20
@@ -209,7 +214,56 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
 //        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
 //        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
 //        self.present(navigationView, animated: true, completion: nil)
-        self.present(QrCodeViewController(), animated: false, completion: nil)
+//        self.present(QrCodeViewController(), animated: false, completion: nil)
+        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "scanViewController") as! ScanViewController
+        //闭包传值
+        controller.callBackBlock { (QrResult) in
+            if QrResult == "未识别到二维码" {
+                self.present(windowAlert(msges: QrResult), animated: false, completion: nil)
+            }else{
+                self.HadleQrResult(resultStr: QrResult)
+            }
+        }
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(controller, animated: true)
+        self.hidesBottomBarWhenPushed = false
+    }
+    
+    //根据扫描结果，进行相应处理
+    func HadleQrResult(resultStr:String) {
+        let userId = userDefault.string(forKey: "userId")
+        let token = userDefault.string(forKey: "userToken")
+        let contentData : [String : Any] = ["method":"checkEquipmentByCode","info":["code":resultStr],"user_id":userId as Any,"token":token as Any]
+        
+        qrCodeService.getQrCode(contentData: contentData, finishedData: { (resultData) in
+            if resultData["status"].stringValue == "success"{
+                if resultData["data"].stringValue == "101"{
+                    self.present(windowAlert(msges: "无效二维码"), animated: true, completion: nil)
+                }else if resultData["data"].stringValue == "102"{//未绑定的新设备
+                    let alertController = UIAlertController(title:"提示",message:"此设备信息不存在，是否新增？",preferredStyle: .alert)
+                    let canceAction = UIAlertAction(title:"取消",style:.cancel,handler:nil)
+                    let okAciton = UIAlertAction(title:"确定",style:.default,handler: {action in
+                        let addDeviceManagementViewController = AddDeviceManagementViewController()
+                        addDeviceManagementViewController.eqCode = resultStr
+                        let navigationView = UINavigationController.init(rootViewController: addDeviceManagementViewController)
+                        UINavigationBar.appearance().barTintColor = UIColor(red: 41/255, green: 105/255, blue: 222/255, alpha: 1) //修改导航栏背景色
+                        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white] //为导航栏设置字体颜色等
+                        self.present(navigationView, animated: true, completion: nil)
+                    })
+                    alertController.addAction(canceAction);
+                    alertController.addAction(okAciton);
+                    self.present(alertController, animated: true, completion: nil)
+                }else{//已经绑定过的设备
+                    let deviceDetailViewController = DeviceDetailViewController()
+                    deviceDetailViewController.eqCode = resultStr
+                    self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
+                }
+            }else{
+                self.present(windowAlert(msges: "暂未获取到有用信息！"), animated: false, completion: nil)
+            }
+        }) { (errorData) in
+            self.present(windowAlert(msges: "网络请求失败"), animated: false, completion: nil)
+        }
     }
     
     func drawerView(){
@@ -493,12 +547,15 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             self.navigationItem.title = resultDataForArr[indexPath.section].children[indexPath.row].text
             reloadContent(oId: resultDataForArr[indexPath.section].id, tId: resultDataForArr[indexPath.section].children[indexPath.row].id)
             regainMean()
+            self.userDefault.set(resultDataForArr[indexPath.section].text, forKey: "FristOriginal")
+            self.userDefault.set(resultDataForArr[indexPath.section].children[indexPath.row].text, forKey: "SecondOriginal")
         }else{
             let deviceDetailViewController = DeviceDetailViewController()
             deviceDetailViewController.eqCode = self.contentList[indexPath.section].deviceManagementContentList[indexPath.row].equNo
             self.meanAndContentLog["contentLog"]!["two"] = indexPath.row
             self.userDefault.set(self.meanAndContentLog, forKey: "DeviceManagementKey")
             self.navigationController?.pushViewController(deviceDetailViewController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     
@@ -532,7 +589,7 @@ extension DeviceManagementViewController: UITableViewDelegate,UITableViewDataSou
             case .success(let value):
                 if JSON(value)["status"].stringValue == "success"{
                     //重新请求页面数据
-                    self.reloadContent(oId: self.currentOne, tId: self.currentTwo)
+                    self.requestForData()
                     MyProgressHUD.dismiss()
                 }else{
                     MyProgressHUD.dismiss()

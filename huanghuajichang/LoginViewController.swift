@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDelegate {
     
@@ -25,6 +26,10 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     var popView : UIView!
     //本地存储
     var userDefault = UserDefaults.standard
+    
+    var netStatus:Bool = false
+    let manager = NetworkReachabilityManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textNameField.delegate = self
@@ -39,38 +44,38 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK:app更新接口
     func getUpdate(){
         let contentData = ["method":"version","info":""]
-        appUpdate.getData(contentData: contentData, finished: { (resultData) in
-            if resultData["status"].stringValue == "success"{
-                let deviceInfo = self.DeviceInfo()
-                let vision = deviceInfo.split(separator: ".")
-                let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
-                for index in 0..<vision.count{
-                    if vision[index] < tempVision[index]{
-                        //自定义弹框调用方式
-                        AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
+        currentNetReachability()
+        if netStatus == true{
+            appUpdate.getData(contentData: contentData, finished: { (resultData) in
+                if resultData["status"].stringValue == "success"{
+                    let deviceInfo = self.DeviceInfo()
+                    let vision = deviceInfo.split(separator: ".")
+                    let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
+                    for index in 0..<vision.count{
+                        if vision[index] < tempVision[index]{
+                            //自定义弹框调用方式
+                            AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
+                        }
                     }
+                    
+                }else {
+                    print(resultData)
+                    self.windowAlert(msges: resultData["msg"].stringValue)
                 }
-
-            }else if resultData["status"].stringValue == "err_station"{
-                self.windowAlert(msges: "站点错误")
-            }else if resultData["status"].stringValue == "err_sign"{
-                self.windowAlert(msges: "签名错误")
-            }else if resultData["status"].stringValue == "sys_err"{
-                self.windowAlert(msges: "系统繁忙，请稍后再试")
-            }else {
-                print(resultData)
-                self.windowAlert(msges: "未知错误")
+            }) { (error) in
+                self.windowAlert(msges: "请更改端口或检查网络连接")
             }
-                    }) { (error) in
-            self.windowAlert(msges: "请更改端口或检查网络连接")
+        }else{
+            self.windowAlert(msges: "网络已断开,请检查网络")
         }
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         
         (self.userDefault.string(forKey: "AppUrlAndPort") != nil) ? self.userDefault.set(self.userDefault.string(forKey: "AppUrlAndPort"), forKey: "AppUrlAndPort") : self.userDefault.set("10.4.65.103:8086", forKey: "AppUrlAndPort")
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        manager?.startListening()
     }
     
     @objc func keyboardWillShow(notification:NSNotification){
@@ -250,11 +255,11 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     }
     //MARK:端口按钮
     @objc func changePort(){
-//            self.present(PortViewController(), animated: false, completion: nil)
+        //            self.present(PortViewController(), animated: false, completion: nil)
         
         popView = popViewController.creatAlertView()
         view.addSubview(popView)
-
+        
     }
     //MARK:端口按钮确认键
     @objc fileprivate func touchOk(_ button:UIButton){
@@ -299,38 +304,40 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
         let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
         let contentData : [String : Any] = ["method":"login","info":["username":username,"password":password]]
-        
-        //网络请求
-        commonClass.requestData(urlStr: urlStr, outTime: 10, contentData: contentData, finished: { (resultData) in
-            print(resultData)
-            if resultData["status"].stringValue == "success"{
-                let json = resultData["data"]
-                let token = json["token"].object
-                let userId = json["user_id"].object
-                self.userDefault.set(urlStr, forKey: "AppUrl")
-                self.userDefault.set(token, forKey: "userToken")
-                self.userDefault.set(userId, forKey: "userId")
-                self.userDefault.set(username,forKey: "name")
-                if self.flageStatus {//判断是否保存密码
-                    self.userDefault.set(password,forKey: "password")
+        currentNetReachability()
+        if netStatus == true{
+            //网络请求
+            commonClass.requestData(urlStr: urlStr, outTime: 10, contentData: contentData, finished: { (resultData) in
+                print(resultData)
+                if resultData["status"].stringValue == "success"{
+                    let json = resultData["data"]
+                    let token = json["token"].object
+                    let userId = json["user_id"].object
+                    self.userDefault.set(urlStr, forKey: "AppUrl")
+                    self.userDefault.set(token, forKey: "userToken")
+                    self.userDefault.set(userId, forKey: "userId")
+                    self.userDefault.set(username,forKey: "name")
+                    if self.flageStatus {//判断是否保存密码
+                        self.userDefault.set(password,forKey: "password")
+                    }
+                    ///实例化将要跳转的controller
+                    let sb = UIStoryboard(name: "Main", bundle:nil)
+                    let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
+                    self.present(vc, animated: false, completion: nil)
+                }else if resultData["status"].stringValue == "err_token" {
+                    
+                }else if resultData["status"].stringValue == "err_namepwd"{
+                    self.windowAlert(msges: "用户名或密码错误")
                 }
-                ///实例化将要跳转的controller
-                let sb = UIStoryboard(name: "Main", bundle:nil)
-                let vc = sb.instantiateViewController(withIdentifier: "mainStoryboardViewController") as! MainTabViewController
-                self.present(vc, animated: false, completion: nil)
-            }else if resultData["status"].stringValue == "err_token" {
                 
-            }else if resultData["status"].stringValue == "err_namepwd"{
-                self.windowAlert(msges: "用户名或密码错误")
+            }) { (errorData) in
+                self.windowAlert(msges: "网络请求失败")
+                print("error:\(errorData)")
+                return
             }
-            
-        }) { (errorData) in
-            self.windowAlert(msges: "请检查手机网络连接或app接口设置")
-            print("error:\(errorData)")
-            return
+        }else{
+            self.windowAlert(msges: "网络已断开,请检查网络")
         }
-        
-        
         
     }
     
@@ -349,10 +356,40 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     
     func DeviceInfo() -> String{
         let infoDictionary = Bundle.main.infoDictionary!
-//        let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
+        //        let appDisplayName = infoDictionary["CFBundleDisplayName"] //程序名称
         let majorVersion = infoDictionary["CFBundleShortVersionString"]//主程序版本号
-//        let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
+        //        let minorVersion = infoDictionary["CFBundleVersion"]//版本号(内部标示)
         return majorVersion as! String
     }
     
+    func currentNetReachability() {
+        
+        manager?.listener = { status in
+            var statusStr: String?
+            switch status {
+            case .unknown:
+                statusStr = "未识别的网络"
+                break
+            case .notReachable:
+                statusStr = "不可用的网络(未连接)"
+            case .reachable:
+                if (self.manager?.isReachableOnWWAN)! {
+                    statusStr = ""//"2G,3G,4G...的网络"
+                } else if (self.manager?.isReachableOnEthernetOrWiFi)! {
+                    statusStr = ""//"wifi的网络";
+                }
+                break
+            }
+            if statusStr == "" {
+                self.netStatus = true
+            }else{
+                self.netStatus = false
+            }
+        }
+        
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        manager?.stopListening()
+    }
 }

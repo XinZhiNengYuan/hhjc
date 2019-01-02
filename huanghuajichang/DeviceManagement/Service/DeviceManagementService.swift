@@ -48,10 +48,8 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                     self.dataList.append(deviceManagementModule)
                 }
                 finished(self.dataList,oneMeanList)
-            }else if (result["status"].stringValue == "sign_app_err"){
-                MyProgressHUD.showText(text: "请重新登录", icon: "")
             }else{
-                MyProgressHUD.showText(text: "未知错误", icon: "")
+                MyProgressHUD.showText(text: result["msg"].stringValue, icon: "")
             }
             
         }) { (errorData) in
@@ -68,10 +66,8 @@ class DeviceManagementService : common{//token失效的字段:sign_app_err
                     MyProgressHUD.showText(text: "暂无数据", icon: "")
                 }
                 finished(contentListDiyData)
-            }else if (result["status"].stringValue == "sign_app_err"){
-                MyProgressHUD.showText(text: "请重新登录", icon: "")
             }else{
-                MyProgressHUD.showText(text: "未知错误", icon: "")
+                MyProgressHUD.showText(text: result["msg"].stringValue, icon: "")
             }
             
         }) { (error) in

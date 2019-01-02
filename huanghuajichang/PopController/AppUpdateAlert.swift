@@ -147,7 +147,7 @@ extension AppUpdateAlert{
     @objc func updateVersion() {
         //let str = "http://itunes.apple.com/us/app/id\(AppleAppID)"
         if let aStr = URL(string: AppStr) {
-            UIApplication.shared.openURL(aStr)
+            UIApplication.shared.open(aStr, options: [:], completionHandler: nil)
         }
     }
     /// 取消按钮点击事件

@@ -90,9 +90,9 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
         
         var mView : UIView!
         if flagePageFrom == 1{
-            mView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+            mView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight-navigationHeight))
         }else{
-            mView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.height)!+UIApplication.shared.statusBarFrame.height+0, width: KUIScreenWidth, height: KUIScreenHeight-(navigationController?.navigationBar.frame.height)!-UIApplication.shared.statusBarFrame.height-20))
+            mView = UIView(frame: CGRect(x: 0, y: 0, width: KUIScreenWidth, height: KUIScreenHeight))
         }
         
         mView.backgroundColor = UIColor.white
@@ -135,7 +135,11 @@ class DeviceDetailViewController: UIViewController,CycleViewDelegate {
 
     @objc func goBackFromDeviceDetailViewController(){
         navigationController?.tabBarController?.tabBar.isHidden = false
+        if flagePageFrom != 3{
         self.navigationController?.popViewController(animated: true)
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func openEdit(){

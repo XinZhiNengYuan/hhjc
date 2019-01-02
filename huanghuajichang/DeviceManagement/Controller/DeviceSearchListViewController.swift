@@ -55,7 +55,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
                     call()
                 }
             }else{
-                self.present(windowAlert(msges: "未知错误"), animated: true, completion: nil)
+                self.present(windowAlert(msges: result["msg"].stringValue), animated: true, completion: nil)
             }
            
         }) { (errorData) in
@@ -81,7 +81,7 @@ class DeviceSearchListViewController: UIViewController,UITextFieldDelegate,UIGes
 //        countrySearchController.searchBar.frame = CGRect(x: 60, y: 0, width: KUIScreenWidth-60, height: 40)
         //默认情况下，UISearchController暗化前一个view，这在我们使用另一个view controller来显示结果时非常有用，但当前情况我们并不想暗化当前view，即设置开始搜索时背景是否显示
         countrySearchController.dimsBackgroundDuringPresentation = false
-        countrySearchController.searchBar.placeholder = "搜索框"
+        countrySearchController.searchBar.placeholder = "设备名称/设备小类"
         //设置代理，searchResultUpdater是UISearchController的一个属性，它的值必须实现UISearchResultsUpdating协议，这个协议让我们的类在UISearchBar文字改变时被通知到，我们之后会实现这个协议。
         countrySearchController.searchResultsUpdater = self
         countrySearchController.searchBar.searchBarStyle = .default
