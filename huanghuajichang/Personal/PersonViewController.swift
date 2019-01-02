@@ -253,10 +253,13 @@ class PersonViewController: UIViewController, UITableViewDelegate, UITableViewDa
             tableCellModel = tableCellModels[indexPath.section][indexPath.row] as! PersonTableViewCellModel
             
             cell?.itemImage?.image = UIImage.init(named: tableCellModel.itemImage)
-            
-            let rightImg = UIImage.init(named: tableCellModel.itemRightIcon)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-            let newImageNormal = rightImg?.imageWithTintColor(color: UIColor(red: 143/255, green: 143/255, blue: 143/255, alpha: 1),blendMode: .overlay)
-            cell?.itemRightIcon?.image = newImageNormal
+            if tableCellModel.itemRightIcon == ""{
+                cell?.itemRightIcon?.isHidden = true
+            }else{
+                let rightImg = UIImage.init(named: tableCellModel.itemRightIcon)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+                let newImageNormal = rightImg?.imageWithTintColor(color: UIColor(red: 143/255, green: 143/255, blue: 143/255, alpha: 1),blendMode: .overlay)
+                cell?.itemRightIcon?.image = newImageNormal
+            }
             
             cell?.itemTitle?.text = tableCellModel.itemTitle//String(indexPath.section)+","+String(indexPath.row)
             if indexPath.section == 0 && indexPath.row == 0 {

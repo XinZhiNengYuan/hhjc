@@ -36,7 +36,6 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         textPassField.delegate = self
         scrollView.delegate = self
         flageStatus = self.userDefault.bool(forKey: "buttonStatus")
-        getUpdate()
         setLayoutFrame()
         // Do any additional setup after loading the view.
     }
@@ -44,29 +43,28 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
     //MARK:app更新接口
     func getUpdate(){
         let contentData = ["method":"version","info":""]
-        currentNetReachability()
-        if netStatus == true{
-            appUpdate.getData(contentData: contentData, finished: { (resultData) in
-                if resultData["status"].stringValue == "success"{
-                    let deviceInfo = self.DeviceInfo()
-                    let vision = deviceInfo.split(separator: ".")
-                    let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
-                    for index in 0..<vision.count{
-                        if vision[index] < tempVision[index]{
-                            //自定义弹框调用方式
-                            AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
-                        }
+        appUpdate.getData(contentData: contentData, finished: { (resultData) in
+            if resultData["status"].stringValue == "success"{
+                let deviceInfo = self.DeviceInfo()
+                let vision = deviceInfo.split(separator: ".")
+                let tempVision = resultData["data"]["versionNum"].description.split(separator: ".")
+                for index in 0..<vision.count{
+                    if vision[index] < tempVision[index]{
+                        //自定义弹框调用方式
+                        //                            var topRootViewController = UIApplication.shared.keyWindow?.rootViewController
+                        //                            while ((topRootViewController?.presentedViewController) != nil){
+                        //                                topRootViewController = topRootViewController!.presentedViewController
+                        //                            }
+                        AppUpdateAlert.showUpdateAlert(version: "\(resultData["data"]["versionNum"])", description: "\(resultData["data"]["versionInformation"])",ipIos:"\(resultData["data"]["ipIos"])")
                     }
-                    
-                }else {
-                    print(resultData)
-                    self.windowAlert(msges: resultData["msg"].stringValue)
                 }
-            }) { (error) in
-                self.windowAlert(msges: "请更改端口或检查网络连接")
+                
+            }else {
+                print(resultData)
+                self.windowAlert(msges: resultData["msg"].stringValue)
             }
-        }else{
-            self.windowAlert(msges: "网络已断开,请检查网络")
+        }) { (error) in
+            self.windowAlert(msges: "网络请求失败")
         }
         
     }
@@ -215,6 +213,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         //MARK:设置端口按钮事件
         popViewController.ok.addTarget(self, action: #selector(touchOk), for: UIControlEvents.touchUpInside)
         popViewController.cancel.addTarget(self, action: #selector(touchCancel), for: UIControlEvents.touchUpInside)
+        currentNetReachability()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -304,7 +303,7 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
         let userDefalutUrl = userDefault.string(forKey: "AppUrlAndPort")
         let urlStr = "http://\(userDefalutUrl ?? "10.4.65.103:8086")/interface"
         let contentData : [String : Any] = ["method":"login","info":["username":username,"password":password]]
-        currentNetReachability()
+        self.isCanLogin()
         if netStatus == true{
             //网络请求
             commonClass.requestData(urlStr: urlStr, outTime: 10, contentData: contentData, finished: { (resultData) in
@@ -379,6 +378,34 @@ class LoginViewController: UIViewController,UIScrollViewDelegate,UITextFieldDele
                     statusStr = ""//"wifi的网络";
                 }
                 break
+            }
+            if statusStr == "" {
+                self.netStatus = true
+                self.getUpdate()
+            }else{
+                self.netStatus = false
+                self.windowAlert(msges: "网络已断开,请检查网络")
+            }
+        }
+        
+    }
+    
+    func isCanLogin() {
+        
+        manager?.listener = { status in
+            var statusStr: String?
+            switch status {
+            case .unknown:
+                statusStr = "未识别的网络"
+                break
+            case .notReachable:
+                statusStr = "不可用的网络(未连接)"
+            case .reachable:
+                if (self.manager?.isReachableOnWWAN)! {
+                    statusStr = ""//"2G,3G,4G...的网络"
+                } else if (self.manager?.isReachableOnEthernetOrWiFi)! {
+                    statusStr = ""//"wifi的网络";
+                }
             }
             if statusStr == "" {
                 self.netStatus = true
