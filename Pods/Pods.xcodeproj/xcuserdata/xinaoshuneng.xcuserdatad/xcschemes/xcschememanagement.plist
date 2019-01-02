@@ -79,6 +79,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+<<<<<<< refs/remotes/origin/master
 		<key>YYKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -94,6 +95,8 @@
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
+=======
+>>>>>>> 1.修复设备管理偶发崩溃问题 2.修复首次进报警列表无红点问题 3.去掉多余三方库
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict/>

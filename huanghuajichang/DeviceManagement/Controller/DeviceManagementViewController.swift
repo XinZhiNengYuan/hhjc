@@ -129,7 +129,7 @@ class DeviceManagementViewController: BaseViewController,UIGestureRecognizerDele
         //默认选中的section，row
         let defaultSelectCell = IndexPath(row: meanAndContentLog["meanLog"]!["two"]!, section: meanAndContentLog["meanLog"]!["one"]!)
         self.tableView1.selectRow(at: defaultSelectCell, animated: true, scrollPosition: UITableViewScrollPosition.none)
-        let onlyItem = self.tableView1.cellForRow(at: defaultSelectCell) as! UITableViewControllerCellTwo
+        let onlyItem = self.tableView1.dequeueReusableCell(withIdentifier: "reusedCell1", for: defaultSelectCell) as! UITableViewControllerCellTwo
         onlyItem.mLabel.backgroundColor = UIColor(red: 99/255, green: 168/255, blue: 222/255, alpha: 1)
         onlyItem.mLabel.layer.borderWidth = 1
         onlyItem.mLabel.layer.cornerRadius = 10

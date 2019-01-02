@@ -372,7 +372,7 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
             alarmListCell = AlarmListTableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "alarmCell")
         }
         let cellData = self.alarmListjson[indexPath.row]
-        print(cellData)
+//        print(cellData)
         alarmListCell?.itemTitle.text = cellData["scIdName"].stringValue + "异常"
         alarmListCell?.itemStatus.text = cellData["alarmTypeName"].stringValue
         var middleStr:String = ""
@@ -385,7 +385,7 @@ extension AlarmListViewController:UITableViewDelegate, UITableViewDataSource{
         alarmListCell?.itemTime.text = AddDailyRecordViewController.timeStampToString(timeStamp: cellData["alarmTime"].stringValue,timeAccurate: "second")
         alarmListCell?.changUI(realTitle:(alarmListCell?.itemTitle.text)!,realStatus:(alarmListCell?.itemStatus.text)!)
         alarmListCell?.itemId = cellData["objCode"].stringValue
-        if self.userDefault.integer(forKey: "maxId") < cellData["id"].intValue{
+        if self.userDefault.integer(forKey: "currentMaxId") < cellData["id"].intValue{
             alarmListCell?.itemIcon.isHidden = false
         }else{
             alarmListCell?.itemIcon.isHidden = true

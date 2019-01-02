@@ -1,925 +1,925 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 50;
-	objects = {
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 50;
+    objects = {
 
 /* Begin PBXBuildFile section */
-		3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D053069219D72040021BB42 /* NewEquipmentListModel.swift */; };
-		3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */; };
-		3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */; };
-		3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */; };
-		3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */; };
-		3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */; };
-		3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB321742BFC002F3C35 /* PersonViewController.swift */; };
-		3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */; };
-		3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */; };
-		3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
-		3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCA21743B77002F3C35 /* PublicParamter.swift */; };
-		3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */; };
-		3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */; };
-		3D08D1AD2190570100C996D2 /* DeviceSearchListViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */; };
-		3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */; };
-		3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */; };
-		3D0F9FE321706A740041B746 /* LineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F9FE221706A740041B746 /* LineButton.swift */; };
-		3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */; };
-		3D1598F72178778E00458C11 /* ThickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F62178778E00458C11 /* ThickButton.swift */; };
-		3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F8217880CF00458C11 /* ThickButtonModel.swift */; };
-		3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */; };
-		3D18CF4821D5C4B400AFAFF7 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */; };
-		3D18CF4A21D5C54800AFAFF7 /* AVCaptureSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */; };
-		3D19EC1921C50C3B00AA8DBA /* GuidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */; };
-		3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
-		3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
-		3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */; };
-		3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */; };
-		3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7821BE783400408F92 /* EditBtn.swift */; };
-		3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */; };
-		3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */; };
-		3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C652194553D0094C6B1 /* AlarmListViewController.swift */; };
-		3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C662194553D0094C6B1 /* TabButton.swift */; };
-		3D389C6D2194553D0094C6B1 /* AlarmAnalysisViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */; };
-		3D389C6E2194553D0094C6B1 /* AlarmListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */; };
-		3D389C6F2194553D0094C6B1 /* AlarmAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */; };
-		3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
-		3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
-		3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
-		3D430CE421B14EAC0005F39A /* QrCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D430CE321B14EAC0005F39A /* QrCodeService.swift */; };
-		3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */; };
-		3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */; };
-		3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */; };
-		3D4827E021C8EFC500A2A755 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */; };
-		3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
-		3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
-		3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */; };
-		3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
-		3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
-		3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */; };
-		3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
-		3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
-		3D4CBA8921AFD9D5008319AE /* AddDeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */; };
-		3D4CBA8B21AFDF2D008319AE /* AddDeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */; };
-		3D50D39121C1045300C1612B /* HandleDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D50D39021C1045300C1612B /* HandleDate.swift */; };
-		3D68471121BF53550051A28D /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68471021BF53550051A28D /* EditView.swift */; };
-		3D72890421D6FE55004D32EB /* ZZYQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */; };
-		3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */; };
-		3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */; };
-		3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */; };
-		3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
-		3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
-		3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
-		3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
-		3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
-		3DC58F3D217971910015A518 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* Common.swift */; };
-		3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
-		3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
-		3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
-		3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F721894304005D51FB /* DeviceManagementService.swift */; };
-		3DCF48FA21894345005D51FB /* DeviceDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F921894345005D51FB /* DeviceDetailService.swift */; };
-		3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
-		3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */; };
-		3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
-		3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
-		3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
-		3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */; };
-		90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */; };
-		FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */; };
-		FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */; };
-		FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */; };
-		FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0C215493B600F6D2AB /* AppDelegate.swift */; };
-		FB381B12215493B600F6D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B10215493B600F6D2AB /* Main.storyboard */; };
-		FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB381B13215493B700F6D2AB /* Assets.xcassets */; };
-		FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */; };
-		FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B1E215497FF00F6D2AB /* LoginViewController.swift */; };
-		FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */; };
-		FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */; };
-		FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */; };
-		FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */; };
+        3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D053069219D72040021BB42 /* NewEquipmentListModel.swift */; };
+        3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */; };
+        3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */; };
+        3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */; };
+        3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */; };
+        3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */; };
+        3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB321742BFC002F3C35 /* PersonViewController.swift */; };
+        3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */; };
+        3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */; };
+        3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */; };
+        3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCA21743B77002F3C35 /* PublicParamter.swift */; };
+        3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */; };
+        3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */; };
+        3D08D1AD2190570100C996D2 /* DeviceSearchListViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */; };
+        3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */; };
+        3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */; };
+        3D0F9FE321706A740041B746 /* LineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F9FE221706A740041B746 /* LineButton.swift */; };
+        3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */; };
+        3D1598F72178778E00458C11 /* ThickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F62178778E00458C11 /* ThickButton.swift */; };
+        3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1598F8217880CF00458C11 /* ThickButtonModel.swift */; };
+        3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */; };
+        3D18CF4821D5C4B400AFAFF7 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */; };
+        3D18CF4A21D5C54800AFAFF7 /* AVCaptureSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */; };
+        3D19EC1921C50C3B00AA8DBA /* GuidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */; };
+        3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */; };
+        3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */; };
+        3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */; };
+        3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */; };
+        3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D32AF7821BE783400408F92 /* EditBtn.swift */; };
+        3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */; };
+        3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */; };
+        3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C652194553D0094C6B1 /* AlarmListViewController.swift */; };
+        3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C662194553D0094C6B1 /* TabButton.swift */; };
+        3D389C6D2194553D0094C6B1 /* AlarmAnalysisViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */; };
+        3D389C6E2194553D0094C6B1 /* AlarmListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */; };
+        3D389C6F2194553D0094C6B1 /* AlarmAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */; };
+        3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */; };
+        3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */; };
+        3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */; };
+        3D430CE421B14EAC0005F39A /* QrCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D430CE321B14EAC0005F39A /* QrCodeService.swift */; };
+        3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */; };
+        3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */; };
+        3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */; };
+        3D4827E021C8EFC500A2A755 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */; };
+        3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */; };
+        3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CA217EC68B0067705E /* MyRegex.swift */; };
+        3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */; };
+        3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94DFA5216B344D00EC892F /* BaseViewController.swift */; };
+        3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24D8216C95ED00CD675D /* PortViewController.swift */; };
+        3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */; };
+        3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */; };
+        3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D48C7F4217EFD2B0067705E /* InfoPlist.strings */; };
+        3D4CBA8921AFD9D5008319AE /* AddDeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */; };
+        3D4CBA8B21AFDF2D008319AE /* AddDeviceManagementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */; };
+        3D50D39121C1045300C1612B /* HandleDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D50D39021C1045300C1612B /* HandleDate.swift */; };
+        3D68471121BF53550051A28D /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68471021BF53550051A28D /* EditView.swift */; };
+        3D72890421D6FE55004D32EB /* ZZYQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */; };
+        3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */; };
+        3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */; };
+        3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */; };
+        3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */; };
+        3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */; };
+        3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9F99012177235B003DAA35 /* HistorySearchListView.swift */; };
+        3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */; };
+        3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */; };
+        3DC58F3D217971910015A518 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F3C217971910015A518 /* Common.swift */; };
+        3DC58F42217982F00015A518 /* CycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F41217982F00015A518 /* CycleView.swift */; };
+        3DC58F44217983440015A518 /* CycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F43217983440015A518 /* CycleCell.swift */; };
+        3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC58F45217983760015A518 /* CellFlowLayout.swift */; };
+        3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F721894304005D51FB /* DeviceManagementService.swift */; };
+        3DCF48FA21894345005D51FB /* DeviceDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF48F921894345005D51FB /* DeviceDetailService.swift */; };
+        3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */; };
+        3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */; };
+        3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF203472188439A00F003A3 /* CommenRequest.swift */; };
+        3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */; };
+        3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */; };
+        3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */; };
+        90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */; };
+        FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */; };
+        FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */; };
+        FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */; };
+        FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B0C215493B600F6D2AB /* AppDelegate.swift */; };
+        FB381B12215493B600F6D2AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B10215493B600F6D2AB /* Main.storyboard */; };
+        FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB381B13215493B700F6D2AB /* Assets.xcassets */; };
+        FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */; };
+        FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB381B1E215497FF00F6D2AB /* LoginViewController.swift */; };
+        FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */; };
+        FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */; };
+        FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */; };
+        FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.debug.xcconfig"; sourceTree = "<group>"; };
-		3D053069219D72040021BB42 /* NewEquipmentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEquipmentListModel.swift; sourceTree = "<group>"; };
-		3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySearchViewController.swift; sourceTree = "<group>"; };
-		3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxCardViewController.swift; sourceTree = "<group>"; };
-		3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNavViewController.swift; sourceTree = "<group>"; };
-		3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
-		3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCellModel.swift; sourceTree = "<group>"; };
-		3D06EBB321742BFC002F3C35 /* PersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
-		3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpDocumentViewController.swift; sourceTree = "<group>"; };
-		3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeNumberPasswordViewController.xib; sourceTree = "<group>"; };
-		3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeNumberPasswordViewController.swift; sourceTree = "<group>"; };
-		3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "咕咚APP截图操作.pdf"; sourceTree = "<group>"; };
-		3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanghuajichang-Bridging-Header.h"; sourceTree = "<group>"; };
-		3D06EBCA21743B77002F3C35 /* PublicParamter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicParamter.swift; sourceTree = "<group>"; };
-		3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeviceListViewController.swift; sourceTree = "<group>"; };
-		3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewService.swift; sourceTree = "<group>"; };
-		3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewModule.swift; sourceTree = "<group>"; };
-		3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAndEditViewController.swift; sourceTree = "<group>"; };
-		3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTopCollectionViewCell.swift; sourceTree = "<group>"; };
-		3D0F9FE221706A740041B746 /* LineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineButton.swift; sourceTree = "<group>"; };
-		3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopView.swift; sourceTree = "<group>"; };
-		3D1598F62178778E00458C11 /* ThickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButton.swift; sourceTree = "<group>"; };
-		3D1598F8217880CF00458C11 /* ThickButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButtonModel.swift; sourceTree = "<group>"; };
-		3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
-		3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
-		3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureSessionManager.swift; sourceTree = "<group>"; };
-		3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidViewController.swift; sourceTree = "<group>"; };
-		3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
-		3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
-		3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewModel.swift; sourceTree = "<group>"; };
-		3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
-		3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
-		3D32AF7821BE783400408F92 /* EditBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBtn.swift; sourceTree = "<group>"; };
-		3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewService.swift; sourceTree = "<group>"; };
-		3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModule.swift; sourceTree = "<group>"; };
-		3D389C652194553D0094C6B1 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
-		3D389C662194553D0094C6B1 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
-		3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewService.swift; sourceTree = "<group>"; };
-		3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListTableViewCell.swift; sourceTree = "<group>"; };
-		3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewController.swift; sourceTree = "<group>"; };
-		3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
-		3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
-		3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
-		3D430CE321B14EAC0005F39A /* QrCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeService.swift; sourceTree = "<group>"; };
-		3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementViewController.swift; sourceTree = "<group>"; };
-		3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControlCell.swift; sourceTree = "<group>"; };
-		3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControl.swift; sourceTree = "<group>"; };
-		3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
-		3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
-		3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDailyRecordViewController.swift; sourceTree = "<group>"; };
-		3D48C7E8217EF11B0067705E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D48C7EE217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
-		3D48C7EF217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		3D48C7F3217EFD2B0067705E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementService.swift; sourceTree = "<group>"; };
-		3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementModule.swift; sourceTree = "<group>"; };
-		3D50D39021C1045300C1612B /* HandleDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleDate.swift; sourceTree = "<group>"; };
-		3D68471021BF53550051A28D /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
-		3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZYQRCode.bundle; sourceTree = "<group>"; };
-		3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgressHUD.swift; sourceTree = "<group>"; };
-		3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewService.swift; sourceTree = "<group>"; };
-		3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataValueFormatter.swift; sourceTree = "<group>"; };
-		3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
-		3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
-		3D9F99012177235B003DAA35 /* HistorySearchListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistorySearchListView.swift; sourceTree = "<group>"; };
-		3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
-		3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
-		3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
-		3DC58F3C217971910015A518 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		3DC58F41217982F00015A518 /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
-		3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
-		3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
-		3DCF48F721894304005D51FB /* DeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementService.swift; sourceTree = "<group>"; };
-		3DCF48F921894345005D51FB /* DeviceDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailService.swift; sourceTree = "<group>"; };
-		3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
-		3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditViewController.swift; sourceTree = "<group>"; };
-		3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
-		3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
-		3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewModule.swift; sourceTree = "<group>"; };
-		6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanghuajichang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.release.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.release.xcconfig"; sourceTree = "<group>"; };
-		FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellTwo.swift; sourceTree = "<group>"; };
-		FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellOne.swift; sourceTree = "<group>"; };
-		FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellThire.swift; sourceTree = "<group>"; };
-		FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellFore.swift; sourceTree = "<group>"; };
-		FB381B09215493B600F6D2AB /* huanghuajichang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = huanghuajichang.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB381B0C215493B600F6D2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB381B11215493B600F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FB381B13215493B700F6D2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FB381B16215493B700F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FB381B1E215497FF00F6D2AB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
-		FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTabViewController.swift; sourceTree = "<group>"; };
-		FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementViewController.swift; sourceTree = "<group>"; };
-		FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewController.swift; sourceTree = "<group>"; };
+        1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.debug.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.debug.xcconfig"; sourceTree = "<group>"; };
+        3D053069219D72040021BB42 /* NewEquipmentListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEquipmentListModel.swift; sourceTree = "<group>"; };
+        3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySearchViewController.swift; sourceTree = "<group>"; };
+        3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxCardViewController.swift; sourceTree = "<group>"; };
+        3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNavViewController.swift; sourceTree = "<group>"; };
+        3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
+        3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCellModel.swift; sourceTree = "<group>"; };
+        3D06EBB321742BFC002F3C35 /* PersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
+        3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpDocumentViewController.swift; sourceTree = "<group>"; };
+        3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangeNumberPasswordViewController.xib; sourceTree = "<group>"; };
+        3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeNumberPasswordViewController.swift; sourceTree = "<group>"; };
+        3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "咕咚APP截图操作.pdf"; sourceTree = "<group>"; };
+        3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "huanghuajichang-Bridging-Header.h"; sourceTree = "<group>"; };
+        3D06EBCA21743B77002F3C35 /* PublicParamter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicParamter.swift; sourceTree = "<group>"; };
+        3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDeviceListViewController.swift; sourceTree = "<group>"; };
+        3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewService.swift; sourceTree = "<group>"; };
+        3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewModule.swift; sourceTree = "<group>"; };
+        3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAndEditViewController.swift; sourceTree = "<group>"; };
+        3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTopCollectionViewCell.swift; sourceTree = "<group>"; };
+        3D0F9FE221706A740041B746 /* LineButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineButton.swift; sourceTree = "<group>"; };
+        3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePopView.swift; sourceTree = "<group>"; };
+        3D1598F62178778E00458C11 /* ThickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButton.swift; sourceTree = "<group>"; };
+        3D1598F8217880CF00458C11 /* ThickButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickButtonModel.swift; sourceTree = "<group>"; };
+        3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListTableViewCell.swift; sourceTree = "<group>"; };
+        3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+        3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureSessionManager.swift; sourceTree = "<group>"; };
+        3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidViewController.swift; sourceTree = "<group>"; };
+        3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementModule.swift; sourceTree = "<group>"; };
+        3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlertService.swift; sourceTree = "<group>"; };
+        3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewModel.swift; sourceTree = "<group>"; };
+        3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+        3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+        3D32AF7821BE783400408F92 /* EditBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBtn.swift; sourceTree = "<group>"; };
+        3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewService.swift; sourceTree = "<group>"; };
+        3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewModule.swift; sourceTree = "<group>"; };
+        3D389C652194553D0094C6B1 /* AlarmListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListViewController.swift; sourceTree = "<group>"; };
+        3D389C662194553D0094C6B1 /* TabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
+        3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewService.swift; sourceTree = "<group>"; };
+        3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmListTableViewCell.swift; sourceTree = "<group>"; };
+        3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewController.swift; sourceTree = "<group>"; };
+        3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
+        3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
+        3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
+        3D430CE321B14EAC0005F39A /* QrCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeService.swift; sourceTree = "<group>"; };
+        3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementViewController.swift; sourceTree = "<group>"; };
+        3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControlCell.swift; sourceTree = "<group>"; };
+        3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureVisitControl.swift; sourceTree = "<group>"; };
+        3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+        3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentChangeViewController.swift; sourceTree = "<group>"; };
+        3D48C7CA217EC68B0067705E /* MyRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRegex.swift; sourceTree = "<group>"; };
+        3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDailyRecordViewController.swift; sourceTree = "<group>"; };
+        3D48C7E8217EF11B0067705E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        3D48C7EE217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+        3D48C7EF217EFCFE0067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+        3D48C7F3217EFD2B0067705E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+        3D48C7F5217EFD300067705E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+        3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementService.swift; sourceTree = "<group>"; };
+        3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceManagementModule.swift; sourceTree = "<group>"; };
+        3D50D39021C1045300C1612B /* HandleDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleDate.swift; sourceTree = "<group>"; };
+        3D68471021BF53550051A28D /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+        3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZZYQRCode.bundle; sourceTree = "<group>"; };
+        3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProgressHUD.swift; sourceTree = "<group>"; };
+        3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewService.swift; sourceTree = "<group>"; };
+        3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataValueFormatter.swift; sourceTree = "<group>"; };
+        3D94DFA5216B344D00EC892F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+        3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
+        3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailCell.swift; sourceTree = "<group>"; };
+        3D9F99012177235B003DAA35 /* HistorySearchListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistorySearchListView.swift; sourceTree = "<group>"; };
+        3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSearchListViewController.swift; sourceTree = "<group>"; };
+        3DBF24D8216C95ED00CD675D /* PortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortViewController.swift; sourceTree = "<group>"; };
+        3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateAlert.swift; sourceTree = "<group>"; };
+        3DC58F3C217971910015A518 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+        3DC58F41217982F00015A518 /* CycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleView.swift; sourceTree = "<group>"; };
+        3DC58F43217983440015A518 /* CycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleCell.swift; sourceTree = "<group>"; };
+        3DC58F45217983760015A518 /* CellFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellFlowLayout.swift; sourceTree = "<group>"; };
+        3DCF48F721894304005D51FB /* DeviceManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementService.swift; sourceTree = "<group>"; };
+        3DCF48F921894345005D51FB /* DeviceDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailService.swift; sourceTree = "<group>"; };
+        3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNearlyCollectionViewCell.swift; sourceTree = "<group>"; };
+        3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEditViewController.swift; sourceTree = "<group>"; };
+        3DF203472188439A00F003A3 /* CommenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommenRequest.swift; sourceTree = "<group>"; };
+        3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
+        3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+        3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAnalysisViewModule.swift; sourceTree = "<group>"; };
+        6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_huanghuajichang.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+        D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-huanghuajichang.release.xcconfig"; path = "Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang.release.xcconfig"; sourceTree = "<group>"; };
+        FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellTwo.swift; sourceTree = "<group>"; };
+        FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellOne.swift; sourceTree = "<group>"; };
+        FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellThire.swift; sourceTree = "<group>"; };
+        FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerCellFore.swift; sourceTree = "<group>"; };
+        FB381B09215493B600F6D2AB /* huanghuajichang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = huanghuajichang.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        FB381B0C215493B600F6D2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+        FB381B11215493B600F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+        FB381B13215493B700F6D2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+        FB381B16215493B700F6D2AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+        FB381B1E215497FF00F6D2AB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+        FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+        FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTabViewController.swift; sourceTree = "<group>"; };
+        FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManagementViewController.swift; sourceTree = "<group>"; };
+        FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FB381B06215493B600F6D2AB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        FB381B06215493B600F6D2AB /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                90F5026FF249C7FF7FE97DC6 /* Pods_huanghuajichang.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0EAD400B0944AD52453FAF1F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3D06EBAD21742BFC002F3C35 /* Personal */ = {
-			isa = PBXGroup;
-			children = (
-				3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */,
-				3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */,
-				3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */,
-				3D06EBB321742BFC002F3C35 /* PersonViewController.swift */,
-				3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */,
-				3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */,
-				3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */,
-				3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */,
-				3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */,
-				3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */,
-				3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */,
-				3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */,
-				3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */,
-				3D48C7CA217EC68B0067705E /* MyRegex.swift */,
-			);
-			path = Personal;
-			sourceTree = "<group>";
-		};
-		3D223A04218BE78A00D570C7 /* Module */ = {
-			isa = PBXGroup;
-			children = (
-				3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */,
-				3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */,
-				3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */,
-				3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */,
-			);
-			path = Module;
-			sourceTree = "<group>";
-		};
-		3D25DE3A218AC17F00A6CEBC /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		3D389C642194553D0094C6B1 /* Alarm */ = {
-			isa = PBXGroup;
-			children = (
-				3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */,
-				3D389C652194553D0094C6B1 /* AlarmListViewController.swift */,
-				3DFE359821A2D9250039EB50 /* Controller */,
-				3DFE359421A2D5D70039EB50 /* Module */,
-				3D389C672194553D0094C6B1 /* Service */,
-			);
-			path = Alarm;
-			sourceTree = "<group>";
-		};
-		3D389C672194553D0094C6B1 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		3D48C7CC217ECB610067705E /* DailyRecord */ = {
-			isa = PBXGroup;
-			children = (
-				FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
-				3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */,
-				3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
-				3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
-				3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */,
-				3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */,
-				3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */,
-				3D1598F62178778E00458C11 /* ThickButton.swift */,
-				3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
-			);
-			path = DailyRecord;
-			sourceTree = "<group>";
-		};
-		3D48C7CD217ECC510067705E /* Index */ = {
-			isa = PBXGroup;
-			children = (
-				FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
-				3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */,
-				3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
-				3D053069219D72040021BB42 /* NewEquipmentListModel.swift */,
-				3D0F9FE221706A740041B746 /* LineButton.swift */,
-				3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */,
-			);
-			path = Index;
-			sourceTree = "<group>";
-		};
-		3D68471221BF5D3F0051A28D /* CommentFiles */ = {
-			isa = PBXGroup;
-			children = (
-				3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
-				3DF203472188439A00F003A3 /* CommenRequest.swift */,
-				3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */,
-				3D32AF7821BE783400408F92 /* EditBtn.swift */,
-				3D68471021BF53550051A28D /* EditView.swift */,
-				3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */,
-				3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */,
-				3D50D39021C1045300C1612B /* HandleDate.swift */,
-				3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */,
-				3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */,
-			);
-			path = CommentFiles;
-			sourceTree = "<group>";
-		};
-		3DBF24D7216C95A600CD675D /* PopController */ = {
-			isa = PBXGroup;
-			children = (
-				3D25DE3A218AC17F00A6CEBC /* Service */,
-				3DBF24D8216C95ED00CD675D /* PortViewController.swift */,
-				3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */,
-				3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */,
-			);
-			path = PopController;
-			sourceTree = "<group>";
-		};
-		3DC58F40217982920015A518 /* CycleView */ = {
-			isa = PBXGroup;
-			children = (
-				3DC58F41217982F00015A518 /* CycleView.swift */,
-				3DC58F43217983440015A518 /* CycleCell.swift */,
-				3DC58F45217983760015A518 /* CellFlowLayout.swift */,
-			);
-			path = CycleView;
-			sourceTree = "<group>";
-		};
-		3DCF48F6218942C8005D51FB /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				3DCF48F721894304005D51FB /* DeviceManagementService.swift */,
-				3DCF48F921894345005D51FB /* DeviceDetailService.swift */,
-				3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */,
-				3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */,
-				3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */,
-				3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */,
-				3D430CE321B14EAC0005F39A /* QrCodeService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		3DFE359421A2D5D70039EB50 /* Module */ = {
-			isa = PBXGroup;
-			children = (
-				3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */,
-			);
-			path = Module;
-			sourceTree = "<group>";
-		};
-		3DFE359721A2D8FB0039EB50 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
-				FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */,
-				FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */,
-				FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */,
-				FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */,
-				3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */,
-				3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */,
-				3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
-				3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
-				3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
-				3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
-				3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */,
-				3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */,
-				3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */,
-				3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */,
-				3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		3DFE359821A2D9250039EB50 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */,
-				3D389C662194553D0094C6B1 /* TabButton.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		92733A0B1D8E6AB28FD54EE1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */,
-				D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
-			isa = PBXGroup;
-			children = (
-				3DFE359721A2D8FB0039EB50 /* Controller */,
-				3D223A04218BE78A00D570C7 /* Module */,
-				3DCF48F6218942C8005D51FB /* Service */,
-				3DC58F40217982920015A518 /* CycleView */,
-				3DC58F3C217971910015A518 /* Common.swift */,
-			);
-			path = DeviceManagement;
-			sourceTree = "<group>";
-		};
-		FB381B00215493B600F6D2AB = {
-			isa = PBXGroup;
-			children = (
-				FB381B0B215493B600F6D2AB /* huanghuajichang */,
-				FB381B0A215493B600F6D2AB /* Products */,
-				92733A0B1D8E6AB28FD54EE1 /* Pods */,
-				0EAD400B0944AD52453FAF1F /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		FB381B0A215493B600F6D2AB /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FB381B09215493B600F6D2AB /* huanghuajichang.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FB381B0B215493B600F6D2AB /* huanghuajichang */ = {
-			isa = PBXGroup;
-			children = (
-				3D389C642194553D0094C6B1 /* Alarm */,
-				3DBF24D7216C95A600CD675D /* PopController */,
-				FB10A3B9215B2C6B009658C7 /* DeviceManagement */,
-				FB381B0C215493B600F6D2AB /* AppDelegate.swift */,
-				FB381B10215493B600F6D2AB /* Main.storyboard */,
-				FB381B13215493B700F6D2AB /* Assets.xcassets */,
-				FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */,
-				FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
-				3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */,
-				FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */,
-				3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */,
-				3D48C7E8217EF11B0067705E /* Info.plist */,
-				3D48C7F4217EFD2B0067705E /* InfoPlist.strings */,
-				3D48C7CD217ECC510067705E /* Index */,
-				3D48C7CC217ECB610067705E /* DailyRecord */,
-				3D94DFA5216B344D00EC892F /* BaseViewController.swift */,
-				3D06EBAD21742BFC002F3C35 /* Personal */,
-				3D68471221BF5D3F0051A28D /* CommentFiles */,
-				3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
-			);
-			path = huanghuajichang;
-			sourceTree = "<group>";
-		};
+        0EAD400B0944AD52453FAF1F /* Frameworks */ = {
+            isa = PBXGroup;
+            children = (
+                6E26A8EF4B85FD1559AD9DF6 /* Pods_huanghuajichang.framework */,
+            );
+            name = Frameworks;
+            sourceTree = "<group>";
+        };
+        3D06EBAD21742BFC002F3C35 /* Personal */ = {
+            isa = PBXGroup;
+            children = (
+                3D06EBB021742BFC002F3C35 /* AddNavViewController.swift */,
+                3D06EBB121742BFC002F3C35 /* PersonalTableViewCell.swift */,
+                3D06EBB221742BFC002F3C35 /* PersonTableViewCellModel.swift */,
+                3D06EBB321742BFC002F3C35 /* PersonViewController.swift */,
+                3D06EBAE21742BFC002F3C35 /* MaxCardViewController.swift */,
+                3D06EBB521742BFC002F3C35 /* HelpDocumentViewController.swift */,
+                3D06EBB621742BFC002F3C35 /* ChangeNumberPasswordViewController.xib */,
+                3D06EBB721742BFC002F3C35 /* ChangeNumberPasswordViewController.swift */,
+                3D06EBB821742BFC002F3C35 /* 咕咚APP截图操作.pdf */,
+                3D3BC2A4217D60060077D0E7 /* PersonalDetailViewController.swift */,
+                3D3BC2A6217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift */,
+                3D3BC2AA217DA92E0077D0E7 /* HeaderViewController.swift */,
+                3D48C7C8217EA9130067705E /* CommentChangeViewController.swift */,
+                3D48C7CA217EC68B0067705E /* MyRegex.swift */,
+            );
+            path = Personal;
+            sourceTree = "<group>";
+        };
+        3D223A04218BE78A00D570C7 /* Module */ = {
+            isa = PBXGroup;
+            children = (
+                3D223A05218BEBFE00D570C7 /* DeviceManagementModule.swift */,
+                3D08D1AC2190570100C996D2 /* DeviceSearchListViewModule.swift */,
+                3D389C602193E3570094C6B1 /* DeviceDetailViewModule.swift */,
+                3D4CBA8A21AFDF2D008319AE /* AddDeviceManagementModule.swift */,
+            );
+            path = Module;
+            sourceTree = "<group>";
+        };
+        3D25DE3A218AC17F00A6CEBC /* Service */ = {
+            isa = PBXGroup;
+            children = (
+                3D25DE3B218AC1B700A6CEBC /* AppUpdateAlertService.swift */,
+            );
+            path = Service;
+            sourceTree = "<group>";
+        };
+        3D389C642194553D0094C6B1 /* Alarm */ = {
+            isa = PBXGroup;
+            children = (
+                3D389C692194553D0094C6B1 /* AlarmListTableViewCell.swift */,
+                3D389C652194553D0094C6B1 /* AlarmListViewController.swift */,
+                3DFE359821A2D9250039EB50 /* Controller */,
+                3DFE359421A2D5D70039EB50 /* Module */,
+                3D389C672194553D0094C6B1 /* Service */,
+            );
+            path = Alarm;
+            sourceTree = "<group>";
+        };
+        3D389C672194553D0094C6B1 /* Service */ = {
+            isa = PBXGroup;
+            children = (
+                3D389C682194553D0094C6B1 /* AlarmAnalysisViewService.swift */,
+            );
+            path = Service;
+            sourceTree = "<group>";
+        };
+        3D48C7CC217ECB610067705E /* DailyRecord */ = {
+            isa = PBXGroup;
+            children = (
+                FB75FE912159E295007B4CBA /* DailyRecordViewController.swift */,
+                3D2F0D4B21B2380200369EBA /* DailyRecordViewModel.swift */,
+                3D165FC22179A3F0003F73FB /* RecordListTableViewCell.swift */,
+                3D48C7CE217EE4D50067705E /* AddDailyRecordViewController.swift */,
+                3D0CC0CF21803E0B002D0461 /* ScanAndEditViewController.swift */,
+                3D05D673218165B900D7CAE7 /* DailySearchViewController.swift */,
+                3DD2A994218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift */,
+                3D1598F62178778E00458C11 /* ThickButton.swift */,
+                3D1598F8217880CF00458C11 /* ThickButtonModel.swift */,
+            );
+            path = DailyRecord;
+            sourceTree = "<group>";
+        };
+        3D48C7CD217ECC510067705E /* Index */ = {
+            isa = PBXGroup;
+            children = (
+                FB75FE8D2159E0B2007B4CBA /* IndexTabViewController.swift */,
+                3D83E0A921A959BE0070314E /* ChartDataValueFormatter.swift */,
+                3D06EBCC21748D03002F3C35 /* NewDeviceListViewController.swift */,
+                3D053069219D72040021BB42 /* NewEquipmentListModel.swift */,
+                3D0F9FE221706A740041B746 /* LineButton.swift */,
+                3D0E4C42216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift */,
+            );
+            path = Index;
+            sourceTree = "<group>";
+        };
+        3D68471221BF5D3F0051A28D /* CommentFiles */ = {
+            isa = PBXGroup;
+            children = (
+                3D06EBCA21743B77002F3C35 /* PublicParamter.swift */,
+                3DF203472188439A00F003A3 /* CommenRequest.swift */,
+                3D7D7496218FE3D40048AAB7 /* MyProgressHUD.swift */,
+                3D32AF7821BE783400408F92 /* EditBtn.swift */,
+                3D68471021BF53550051A28D /* EditView.swift */,
+                3D32AF7521BE69BC00408F92 /* UIButton+EnlargeTouchArea.h */,
+                3D32AF7621BE69BC00408F92 /* UIButton+EnlargeTouchArea.m */,
+                3D50D39021C1045300C1612B /* HandleDate.swift */,
+                3D4800A921C39F8400B849DF /* PictureVisitControlCell.swift */,
+                3D4800AB21C39FC100B849DF /* PictureVisitControl.swift */,
+            );
+            path = CommentFiles;
+            sourceTree = "<group>";
+        };
+        3DBF24D7216C95A600CD675D /* PopController */ = {
+            isa = PBXGroup;
+            children = (
+                3D25DE3A218AC17F00A6CEBC /* Service */,
+                3DBF24D8216C95ED00CD675D /* PortViewController.swift */,
+                3DBF24DA216C96EA00CD675D /* AppUpdateAlert.swift */,
+                3D11AEE0216DF8BD00A7D188 /* BasePopView.swift */,
+            );
+            path = PopController;
+            sourceTree = "<group>";
+        };
+        3DC58F40217982920015A518 /* CycleView */ = {
+            isa = PBXGroup;
+            children = (
+                3DC58F41217982F00015A518 /* CycleView.swift */,
+                3DC58F43217983440015A518 /* CycleCell.swift */,
+                3DC58F45217983760015A518 /* CellFlowLayout.swift */,
+            );
+            path = CycleView;
+            sourceTree = "<group>";
+        };
+        3DCF48F6218942C8005D51FB /* Service */ = {
+            isa = PBXGroup;
+            children = (
+                3DCF48F721894304005D51FB /* DeviceManagementService.swift */,
+                3DCF48F921894345005D51FB /* DeviceDetailService.swift */,
+                3D08D1AA2190504100C996D2 /* DeviceSearchListViewService.swift */,
+                3D389C5E2193DD0A0094C6B1 /* DeviceDetailViewService.swift */,
+                3D7F67FB219AA17C000FB7DC /* CameraViewService.swift */,
+                3D4CBA8821AFD9D5008319AE /* AddDeviceManagementService.swift */,
+                3D430CE321B14EAC0005F39A /* QrCodeService.swift */,
+            );
+            path = Service;
+            sourceTree = "<group>";
+        };
+        3DFE359421A2D5D70039EB50 /* Module */ = {
+            isa = PBXGroup;
+            children = (
+                3DFE359521A2D6240039EB50 /* AlarmAnalysisViewModule.swift */,
+            );
+            path = Module;
+            sourceTree = "<group>";
+        };
+        3DFE359721A2D8FB0039EB50 /* Controller */ = {
+            isa = PBXGroup;
+            children = (
+                FB75FE8F2159E234007B4CBA /* DeviceManagementViewController.swift */,
+                FB10A3BA215B2CBE009658C7 /* UITableViewControllerCellTwo.swift */,
+                FB10A3BC215B2F2D009658C7 /* UITableViewControllerCellOne.swift */,
+                FB10A3BE215B8064009658C7 /* UITableViewControllerCellThire.swift */,
+                FB10A3C0215B882E009658C7 /* UITableViewControllerCellFore.swift */,
+                3D9B248B2160DAD60055727C /* DeviceDetailViewController.swift */,
+                3D9B248D2160DD3E0055727C /* DeviceDetailCell.swift */,
+                3DFDC55F216F180A00A5CD62 /* CameraViewController.swift */,
+                3DFDC55D216F180A00A5CD62 /* QrCodeViewController.swift */,
+                3DBF0E022174308700648AD2 /* DeviceSearchListViewController.swift */,
+                3D9F99012177235B003DAA35 /* HistorySearchListView.swift */,
+                3D47A7C521AD1FAE002D4572 /* AddDeviceManagementViewController.swift */,
+                3DD8137821BB6A300013ED61 /* DeviceEditViewController.swift */,
+                3D18CF4921D5C54800AFAFF7 /* AVCaptureSessionManager.swift */,
+                3D18CF4721D5C4B300AFAFF7 /* ScanViewController.swift */,
+                3D72890321D6FE55004D32EB /* ZZYQRCode.bundle */,
+            );
+            path = Controller;
+            sourceTree = "<group>";
+        };
+        3DFE359821A2D9250039EB50 /* Controller */ = {
+            isa = PBXGroup;
+            children = (
+                3D389C6A2194553D0094C6B1 /* AlarmAnalysisViewController.swift */,
+                3D389C662194553D0094C6B1 /* TabButton.swift */,
+            );
+            path = Controller;
+            sourceTree = "<group>";
+        };
+        92733A0B1D8E6AB28FD54EE1 /* Pods */ = {
+            isa = PBXGroup;
+            children = (
+                1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */,
+                D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */,
+            );
+            name = Pods;
+            sourceTree = "<group>";
+        };
+        FB10A3B9215B2C6B009658C7 /* DeviceManagement */ = {
+            isa = PBXGroup;
+            children = (
+                3DFE359721A2D8FB0039EB50 /* Controller */,
+                3D223A04218BE78A00D570C7 /* Module */,
+                3DCF48F6218942C8005D51FB /* Service */,
+                3DC58F40217982920015A518 /* CycleView */,
+                3DC58F3C217971910015A518 /* Common.swift */,
+            );
+            path = DeviceManagement;
+            sourceTree = "<group>";
+        };
+        FB381B00215493B600F6D2AB = {
+            isa = PBXGroup;
+            children = (
+                FB381B0B215493B600F6D2AB /* huanghuajichang */,
+                FB381B0A215493B600F6D2AB /* Products */,
+                92733A0B1D8E6AB28FD54EE1 /* Pods */,
+                0EAD400B0944AD52453FAF1F /* Frameworks */,
+            );
+            sourceTree = "<group>";
+        };
+        FB381B0A215493B600F6D2AB /* Products */ = {
+            isa = PBXGroup;
+            children = (
+                FB381B09215493B600F6D2AB /* huanghuajichang.app */,
+            );
+            name = Products;
+            sourceTree = "<group>";
+        };
+        FB381B0B215493B600F6D2AB /* huanghuajichang */ = {
+            isa = PBXGroup;
+            children = (
+                3D389C642194553D0094C6B1 /* Alarm */,
+                3DBF24D7216C95A600CD675D /* PopController */,
+                FB10A3B9215B2C6B009658C7 /* DeviceManagement */,
+                FB381B0C215493B600F6D2AB /* AppDelegate.swift */,
+                FB381B10215493B600F6D2AB /* Main.storyboard */,
+                FB381B13215493B700F6D2AB /* Assets.xcassets */,
+                FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */,
+                FB381B1E215497FF00F6D2AB /* LoginViewController.swift */,
+                3D4827DF21C8EFC500A2A755 /* CustomTabBar.swift */,
+                FB75FE8B2159DD2B007B4CBA /* MainTabViewController.swift */,
+                3D19EC1821C50C3B00AA8DBA /* GuidViewController.swift */,
+                3D48C7E8217EF11B0067705E /* Info.plist */,
+                3D48C7F4217EFD2B0067705E /* InfoPlist.strings */,
+                3D48C7CD217ECC510067705E /* Index */,
+                3D48C7CC217ECB610067705E /* DailyRecord */,
+                3D94DFA5216B344D00EC892F /* BaseViewController.swift */,
+                3D06EBAD21742BFC002F3C35 /* Personal */,
+                3D68471221BF5D3F0051A28D /* CommentFiles */,
+                3D06EBC421742E5B002F3C35 /* huanghuajichang-Bridging-Header.h */,
+            );
+            path = huanghuajichang;
+            sourceTree = "<group>";
+        };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB381B08215493B600F6D2AB /* huanghuajichang */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FB381B1B215493B700F6D2AB /* Build configuration list for PBXNativeTarget "huanghuajichang" */;
-			buildPhases = (
-				F7186D3ABAB58AA3C3A4B637 /* [CP] Check Pods Manifest.lock */,
-				FB381B05215493B600F6D2AB /* Sources */,
-				FB381B06215493B600F6D2AB /* Frameworks */,
-				FB381B07215493B600F6D2AB /* Resources */,
-				9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = huanghuajichang;
-			productName = huanghuajichang;
-			productReference = FB381B09215493B600F6D2AB /* huanghuajichang.app */;
-			productType = "com.apple.product-type.application";
-		};
+        FB381B08215493B600F6D2AB /* huanghuajichang */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = FB381B1B215493B700F6D2AB /* Build configuration list for PBXNativeTarget "huanghuajichang" */;
+            buildPhases = (
+                F7186D3ABAB58AA3C3A4B637 /* [CP] Check Pods Manifest.lock */,
+                FB381B05215493B600F6D2AB /* Sources */,
+                FB381B06215493B600F6D2AB /* Frameworks */,
+                FB381B07215493B600F6D2AB /* Resources */,
+                9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+            );
+            name = huanghuajichang;
+            productName = huanghuajichang;
+            productReference = FB381B09215493B600F6D2AB /* huanghuajichang.app */;
+            productType = "com.apple.product-type.application";
+        };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		FB381B01215493B600F6D2AB /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = EnnergySuperHero;
-				TargetAttributes = {
-					FB381B08215493B600F6D2AB = {
-						CreatedOnToolsVersion = 9.4.1;
-					};
-				};
-			};
-			buildConfigurationList = FB381B04215493B600F6D2AB /* Build configuration list for PBXProject "huanghuajichang" */;
-			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-				"zh-Hans",
-			);
-			mainGroup = FB381B00215493B600F6D2AB;
-			productRefGroup = FB381B0A215493B600F6D2AB /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				FB381B08215493B600F6D2AB /* huanghuajichang */,
-			);
-		};
+        FB381B01215493B600F6D2AB /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastSwiftUpdateCheck = 0940;
+                LastUpgradeCheck = 0940;
+                ORGANIZATIONNAME = EnnergySuperHero;
+                TargetAttributes = {
+                    FB381B08215493B600F6D2AB = {
+                        CreatedOnToolsVersion = 9.4.1;
+                    };
+                };
+            };
+            buildConfigurationList = FB381B04215493B600F6D2AB /* Build configuration list for PBXProject "huanghuajichang" */;
+            compatibilityVersion = "Xcode 9.3";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+                "zh-Hans",
+            );
+            mainGroup = FB381B00215493B600F6D2AB;
+            productRefGroup = FB381B0A215493B600F6D2AB /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                FB381B08215493B600F6D2AB /* huanghuajichang */,
+            );
+        };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FB381B07215493B600F6D2AB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */,
-				3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */,
-				3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */,
-				FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */,
-				FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */,
-				3D72890421D6FE55004D32EB /* ZZYQRCode.bundle in Resources */,
-				FB381B12215493B600F6D2AB /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        FB381B07215493B600F6D2AB /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                3D06EBC321742BFC002F3C35 /* 咕咚APP截图操作.pdf in Resources */,
+                3D48C7F2217EFD2B0067705E /* InfoPlist.strings in Resources */,
+                3D06EBC121742BFC002F3C35 /* ChangeNumberPasswordViewController.xib in Resources */,
+                FB381B17215493B700F6D2AB /* LaunchScreen.storyboard in Resources */,
+                FB381B14215493B700F6D2AB /* Assets.xcassets in Resources */,
+                3D72890421D6FE55004D32EB /* ZZYQRCode.bundle in Resources */,
+                FB381B12215493B600F6D2AB /* Main.storyboard in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
-				"${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
-				"${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ZZYQRCodeSwift/ZZYQRCodeSwift.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZZYQRCodeSwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F7186D3ABAB58AA3C3A4B637 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-huanghuajichang-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
+        9AC6B748845C16EB427FF4C4 /* [CP] Embed Pods Frameworks */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+            );
+            inputPaths = (
+                "${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh",
+                "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+                "${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+                "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+                "${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+                "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+                "${BUILT_PRODUCTS_DIR}/PGDatePicker/PGDatePicker.framework",
+                "${BUILT_PRODUCTS_DIR}/PGPickerView/PGPickerView.framework",
+                "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+                "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+                "${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
+                "${BUILT_PRODUCTS_DIR}/ZZYQRCodeSwift/ZZYQRCodeSwift.framework",
+            );
+            name = "[CP] Embed Pods Frameworks";
+            outputFileListPaths = (
+            );
+            outputPaths = (
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGDatePicker.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PGPickerView.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZZYQRCodeSwift.framework",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-huanghuajichang/Pods-huanghuajichang-frameworks.sh\"\n";
+            showEnvVarsInLog = 0;
+        };
+        F7186D3ABAB58AA3C3A4B637 /* [CP] Check Pods Manifest.lock */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputPaths = (
+                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+                "${PODS_ROOT}/Manifest.lock",
+            );
+            name = "[CP] Check Pods Manifest.lock";
+            outputPaths = (
+                "$(DERIVED_FILE_DIR)/Pods-huanghuajichang-checkManifestLockResult.txt",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+            showEnvVarsInLog = 0;
+        };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		FB381B05215493B600F6D2AB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */,
-				3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
-				3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
-				3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */,
-				3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */,
-				3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */,
-				3D4CBA8921AFD9D5008319AE /* AddDeviceManagementService.swift in Sources */,
-				3D4CBA8B21AFDF2D008319AE /* AddDeviceManagementModule.swift in Sources */,
-				3D389C6F2194553D0094C6B1 /* AlarmAnalysisViewController.swift in Sources */,
-				3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */,
-				FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */,
-				3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */,
-				3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */,
-				FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */,
-				3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
-				3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
-				3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */,
-				3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,
-				3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
-				3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
-				3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */,
-				FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
-				3D389C6D2194553D0094C6B1 /* AlarmAnalysisViewService.swift in Sources */,
-				3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */,
-				3D18CF4A21D5C54800AFAFF7 /* AVCaptureSessionManager.swift in Sources */,
-				3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */,
-				3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
-				3DCF48FA21894345005D51FB /* DeviceDetailService.swift in Sources */,
-				3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
-				3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
-				3D389C6E2194553D0094C6B1 /* AlarmListTableViewCell.swift in Sources */,
-				3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */,
-				3D430CE421B14EAC0005F39A /* QrCodeService.swift in Sources */,
-				3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */,
-				3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
-				3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
-				3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
-				3D4827E021C8EFC500A2A755 /* CustomTabBar.swift in Sources */,
-				3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */,
-				3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */,
-				3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
-				3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */,
-				3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
-				3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */,
-				3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
-				3D19EC1921C50C3B00AA8DBA /* GuidViewController.swift in Sources */,
-				3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
-				3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */,
-				3DC58F3D217971910015A518 /* Common.swift in Sources */,
-				3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
-				3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */,
-				3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
-				3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */,
-				FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
-				3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */,
-				3D08D1AD2190570100C996D2 /* DeviceSearchListViewModule.swift in Sources */,
-				3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */,
-				3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */,
-				3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,
-				3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */,
-				3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */,
-				3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */,
-				FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
-				3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */,
-				FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,
-				3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */,
-				3D0F9FE321706A740041B746 /* LineButton.swift in Sources */,
-				FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */,
-				3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */,
-				3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */,
-				3D50D39121C1045300C1612B /* HandleDate.swift in Sources */,
-				3D68471121BF53550051A28D /* EditView.swift in Sources */,
-				3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */,
-				FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */,
-				3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */,
-				3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */,
-				3D1598F72178778E00458C11 /* ThickButton.swift in Sources */,
-				FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,
-				3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */,
-				3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */,
-				3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */,
-				3D18CF4821D5C4B400AFAFF7 /* ScanViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        FB381B05215493B600F6D2AB /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                3D4800AC21C39FC100B849DF /* PictureVisitControl.swift in Sources */,
+                3D48C7ED217EF8150067705E /* HelpDocumentViewController.swift in Sources */,
+                3D48C7EC217EF8020067705E /* UITableViewControllerCellFore.swift in Sources */,
+                3D83E0AA21A959BE0070314E /* ChartDataValueFormatter.swift in Sources */,
+                3D223A06218BEBFE00D570C7 /* DeviceManagementModule.swift in Sources */,
+                3D48C7EB217EF7EA0067705E /* PortViewController.swift in Sources */,
+                3D4CBA8921AFD9D5008319AE /* AddDeviceManagementService.swift in Sources */,
+                3D4CBA8B21AFDF2D008319AE /* AddDeviceManagementModule.swift in Sources */,
+                3D389C6F2194553D0094C6B1 /* AlarmAnalysisViewController.swift in Sources */,
+                3D48C7EA217EF7BD0067705E /* BaseViewController.swift in Sources */,
+                FB10A3BF215B8064009658C7 /* UITableViewControllerCellThire.swift in Sources */,
+                3D06EBB921742BFC002F3C35 /* MaxCardViewController.swift in Sources */,
+                3D2F0D4C21B2380200369EBA /* DailyRecordViewModel.swift in Sources */,
+                FB381B1F215497FF00F6D2AB /* LoginViewController.swift in Sources */,
+                3DFDC560216F180A00A5CD62 /* QrCodeViewController.swift in Sources */,
+                3D9B248C2160DAD60055727C /* DeviceDetailViewController.swift in Sources */,
+                3D389C5F2193DD0A0094C6B1 /* DeviceDetailViewService.swift in Sources */,
+                3DF203482188439A00F003A3 /* CommenRequest.swift in Sources */,
+                3DC58F44217983440015A518 /* CycleCell.swift in Sources */,
+                3D06EBCB21743B77002F3C35 /* PublicParamter.swift in Sources */,
+                3D4800AA21C39F8400B849DF /* PictureVisitControlCell.swift in Sources */,
+                FB75FE902159E234007B4CBA /* DeviceManagementViewController.swift in Sources */,
+                3D389C6D2194553D0094C6B1 /* AlarmAnalysisViewService.swift in Sources */,
+                3D389C6B2194553D0094C6B1 /* AlarmListViewController.swift in Sources */,
+                3D18CF4A21D5C54800AFAFF7 /* AVCaptureSessionManager.swift in Sources */,
+                3D0CC0D021803E0B002D0461 /* ScanAndEditViewController.swift in Sources */,
+                3D9B248E2160DD3E0055727C /* DeviceDetailCell.swift in Sources */,
+                3DCF48FA21894345005D51FB /* DeviceDetailService.swift in Sources */,
+                3D11AEE1216DF8BD00A7D188 /* BasePopView.swift in Sources */,
+                3D3BC2A5217D60060077D0E7 /* PersonalDetailViewController.swift in Sources */,
+                3D389C6E2194553D0094C6B1 /* AlarmListTableViewCell.swift in Sources */,
+                3DD2A995218189EC00C6CAC9 /* DailyNearlyCollectionViewCell.swift in Sources */,
+                3D430CE421B14EAC0005F39A /* QrCodeService.swift in Sources */,
+                3D47A7C621AD1FAE002D4572 /* AddDeviceManagementViewController.swift in Sources */,
+                3D3BC2AB217DA92E0077D0E7 /* HeaderViewController.swift in Sources */,
+                3D165FC32179A3F0003F73FB /* RecordListTableViewCell.swift in Sources */,
+                3D48C7C9217EA9130067705E /* CommentChangeViewController.swift in Sources */,
+                3D4827E021C8EFC500A2A755 /* CustomTabBar.swift in Sources */,
+                3DCF48F821894304005D51FB /* DeviceManagementService.swift in Sources */,
+                3D389C612193E3570094C6B1 /* DeviceDetailViewModule.swift in Sources */,
+                3D1598F9217880CF00458C11 /* ThickButtonModel.swift in Sources */,
+                3D05306A219D72040021BB42 /* NewEquipmentListModel.swift in Sources */,
+                3DC58F46217983760015A518 /* CellFlowLayout.swift in Sources */,
+                3D25DE3C218AC1B700A6CEBC /* AppUpdateAlertService.swift in Sources */,
+                3D9F99022177235B003DAA35 /* HistorySearchListView.swift in Sources */,
+                3D19EC1921C50C3B00AA8DBA /* GuidViewController.swift in Sources */,
+                3DC58F42217982F00015A518 /* CycleView.swift in Sources */,
+                3D05D674218165B900D7CAE7 /* DailySearchViewController.swift in Sources */,
+                3DC58F3D217971910015A518 /* Common.swift in Sources */,
+                3D0E4C43216F2F2D005FFA2F /* IndexTopCollectionViewCell.swift in Sources */,
+                3DFE359621A2D6240039EB50 /* AlarmAnalysisViewModule.swift in Sources */,
+                3DFDC562216F180A00A5CD62 /* CameraViewController.swift in Sources */,
+                3D7F67FC219AA17C000FB7DC /* CameraViewService.swift in Sources */,
+                FB75FE8C2159DD2B007B4CBA /* MainTabViewController.swift in Sources */,
+                3D7D7497218FE3D50048AAB7 /* MyProgressHUD.swift in Sources */,
+                3D08D1AD2190570100C996D2 /* DeviceSearchListViewModule.swift in Sources */,
+                3D06EBBC21742BFC002F3C35 /* PersonalTableViewCell.swift in Sources */,
+                3D3BC2A7217D6FC60077D0E7 /* PersonalDetailTableViewCell.swift in Sources */,
+                3D06EBC221742BFC002F3C35 /* ChangeNumberPasswordViewController.swift in Sources */,
+                3D389C6C2194553D0094C6B1 /* TabButton.swift in Sources */,
+                3D08D1AB2190504100C996D2 /* DeviceSearchListViewService.swift in Sources */,
+                3D32AF7921BE783400408F92 /* EditBtn.swift in Sources */,
+                FB381B0D215493B600F6D2AB /* AppDelegate.swift in Sources */,
+                3DD8137921BB6A300013ED61 /* DeviceEditViewController.swift in Sources */,
+                FB75FE8E2159E0B2007B4CBA /* IndexTabViewController.swift in Sources */,
+                3DBF0E032174308700648AD2 /* DeviceSearchListViewController.swift in Sources */,
+                3D0F9FE321706A740041B746 /* LineButton.swift in Sources */,
+                FB10A3BB215B2CBE009658C7 /* UITableViewControllerCellTwo.swift in Sources */,
+                3D06EBBB21742BFC002F3C35 /* AddNavViewController.swift in Sources */,
+                3DBF24DB216C96EA00CD675D /* AppUpdateAlert.swift in Sources */,
+                3D50D39121C1045300C1612B /* HandleDate.swift in Sources */,
+                3D68471121BF53550051A28D /* EditView.swift in Sources */,
+                3D48C7CB217EC68B0067705E /* MyRegex.swift in Sources */,
+                FB10A3BD215B2F2D009658C7 /* UITableViewControllerCellOne.swift in Sources */,
+                3D32AF7721BE69BC00408F92 /* UIButton+EnlargeTouchArea.m in Sources */,
+                3D06EBBD21742BFC002F3C35 /* PersonTableViewCellModel.swift in Sources */,
+                3D1598F72178778E00458C11 /* ThickButton.swift in Sources */,
+                FB75FE922159E295007B4CBA /* DailyRecordViewController.swift in Sources */,
+                3D06EBBE21742BFC002F3C35 /* PersonViewController.swift in Sources */,
+                3D06EBCD21748D03002F3C35 /* NewDeviceListViewController.swift in Sources */,
+                3D48C7CF217EE4D50067705E /* AddDailyRecordViewController.swift in Sources */,
+                3D18CF4821D5C4B400AFAFF7 /* ScanViewController.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3D48C7F4217EFD2B0067705E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3D48C7F3217EFD2B0067705E /* en */,
-				3D48C7F5217EFD300067705E /* zh-Hans */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		FB381B10215493B600F6D2AB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FB381B11215493B600F6D2AB /* Base */,
-				3D48C7EE217EFCFE0067705E /* zh-Hans */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FB381B16215493B700F6D2AB /* Base */,
-				3D48C7EF217EFCFE0067705E /* zh-Hans */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
+        3D48C7F4217EFD2B0067705E /* InfoPlist.strings */ = {
+            isa = PBXVariantGroup;
+            children = (
+                3D48C7F3217EFD2B0067705E /* en */,
+                3D48C7F5217EFD300067705E /* zh-Hans */,
+            );
+            name = InfoPlist.strings;
+            sourceTree = "<group>";
+        };
+        FB381B10215493B600F6D2AB /* Main.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                FB381B11215493B600F6D2AB /* Base */,
+                3D48C7EE217EFCFE0067705E /* zh-Hans */,
+            );
+            name = Main.storyboard;
+            sourceTree = "<group>";
+        };
+        FB381B15215493B700F6D2AB /* LaunchScreen.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                FB381B16215493B700F6D2AB /* Base */,
+                3D48C7EF217EFCFE0067705E /* zh-Hans */,
+            );
+            name = LaunchScreen.storyboard;
+            sourceTree = "<group>";
+        };
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		FB381B19215493B700F6D2AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = L8262PAM74;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		FB381B1A215493B700F6D2AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = L8262PAM74;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		FB381B1C215493B700F6D2AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = huanghuajichang/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
-				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
-			};
-			name = Debug;
-		};
-		FB381B1D215493B700F6D2AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = SNW8WB8R25;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = huanghuajichang/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
-				SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
-			};
-			name = Release;
-		};
+        FB381B19215493B700F6D2AB /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_ENABLE_OBJC_WEAK = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "iPhone Distribution";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                DEVELOPMENT_TEAM = L8262PAM74;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                ENABLE_TESTABILITY = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_DYNAMIC_NO_PIC = NO;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_OPTIMIZATION_LEVEL = 0;
+                GCC_PREPROCESSOR_DEFINITIONS = (
+                    "DEBUG=1",
+                    "$(inherited)",
+                );
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                MTL_ENABLE_DEBUG_INFO = YES;
+                ONLY_ACTIVE_ARCH = YES;
+                SDKROOT = iphoneos;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        FB381B1A215493B700F6D2AB /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_ENABLE_OBJC_WEAK = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "iPhone Distribution";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                DEVELOPMENT_TEAM = L8262PAM74;
+                ENABLE_NS_ASSERTIONS = NO;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                MTL_ENABLE_DEBUG_INFO = NO;
+                SDKROOT = iphoneos;
+                SWIFT_COMPILATION_MODE = wholemodule;
+                SWIFT_OPTIMIZATION_LEVEL = "-O";
+                VALIDATE_PRODUCT = YES;
+            };
+            name = Release;
+        };
+        FB381B1C215493B700F6D2AB /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 1883C657E9505B30380EEB9F /* Pods-huanghuajichang.debug.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_IDENTITY = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEFINES_MODULE = NO;
+                DEVELOPMENT_TEAM = SNW8WB8R25;
+                GCC_PRECOMPILE_PREFIX_HEADER = NO;
+                HEADER_SEARCH_PATHS = "$(inherited)";
+                INFOPLIST_FILE = huanghuajichang/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
+                SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 1;
+                USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
+            };
+            name = Debug;
+        };
+        FB381B1D215493B700F6D2AB /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = D0CE008146F96F762247220E /* Pods-huanghuajichang.release.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_IDENTITY = "iPhone Distribution";
+                CODE_SIGN_STYLE = Manual;
+                DEFINES_MODULE = NO;
+                DEVELOPMENT_TEAM = SNW8WB8R25;
+                GCC_PRECOMPILE_PREFIX_HEADER = NO;
+                HEADER_SEARCH_PATHS = "$(inherited)";
+                INFOPLIST_FILE = huanghuajichang/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.company.hhjc;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                PROVISIONING_PROFILE_SPECIFIER = 201812141638Profiles;
+                SWIFT_OBJC_BRIDGING_HEADER = "huanghuajichang/huanghuajichang-Bridging-Header.h";
+                SWIFT_VERSION = 4.0;
+                TARGETED_DEVICE_FAMILY = 1;
+                USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FB381B04215493B600F6D2AB /* Build configuration list for PBXProject "huanghuajichang" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FB381B19215493B700F6D2AB /* Debug */,
-				FB381B1A215493B700F6D2AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		FB381B1B215493B700F6D2AB /* Build configuration list for PBXNativeTarget "huanghuajichang" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FB381B1C215493B700F6D2AB /* Debug */,
-				FB381B1D215493B700F6D2AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
+        FB381B04215493B600F6D2AB /* Build configuration list for PBXProject "huanghuajichang" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                FB381B19215493B700F6D2AB /* Debug */,
+                FB381B1A215493B700F6D2AB /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        FB381B1B215493B700F6D2AB /* Build configuration list for PBXNativeTarget "huanghuajichang" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                FB381B1C215493B700F6D2AB /* Debug */,
+                FB381B1D215493B700F6D2AB /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
 /* End XCConfigurationList section */
-	};
-	rootObject = FB381B01215493B600F6D2AB /* Project object */;
+    };
+    rootObject = FB381B01215493B600F6D2AB /* Project object */;
 }

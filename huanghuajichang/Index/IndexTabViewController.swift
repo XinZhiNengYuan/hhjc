@@ -85,6 +85,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         }else{
             maxId = self.userDefault.integer(forKey: "maxId")
         }
+        self.userDefault.set(maxId, forKey: "currentMaxId")
         getALarmCount()
     }
     
