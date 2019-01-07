@@ -12,10 +12,11 @@ import Alamofire
 import SwiftyJSON
 import MJRefresh
 
-class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate {
+class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,ChartViewDelegate,UIGestureRecognizerDelegate {
     
     var collectionView:UICollectionView!
     var bottomCollectionView:UICollectionView!
+    var middleView:UIView!
     
     var userDefault = UserDefaults.standard
     var userToken:String!
@@ -150,6 +151,9 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     func deviceTotal() {
         allContentView = UIScrollView.init(frame: self.view.bounds)
         allContentView.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tap(tap:)))
+        tap.delegate = self
+        allContentView.addGestureRecognizer(tap)
         self.view.addSubview(allContentView)
         let topView:UIView = UIView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: 136))
         topView.backgroundColor = UIColor.white
@@ -187,7 +191,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
     
     //功率，电量，负荷
     func createMiddleTab() {
-        let middleView:UIView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-navigationHeight - tabBarHeight))
+        middleView = UIView.init(frame: CGRect(x: 0, y: 146, width: kScreenWidth, height: kScreenHeight-146*2-navigationHeight - tabBarHeight))
         middleView.backgroundColor = UIColor.white
         allContentView.addSubview(middleView)
         
@@ -695,7 +699,7 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         //        pieChartView.chartDescription?.textColor = UIColor.black
         
         pieChartView.usePercentValuesEnabled = true  //是否根据所提供的数据, 将显示数据转换为百分比格式
-        //pieChartView.dragDecelerationEnabled = false //把拖拽效果关了
+//        pieChartView.dragDecelerationEnabled = false //把拖拽效果关了
         pieChartView.drawEntryLabelsEnabled = true //显示区块文本
         pieChartView.entryLabelFont = UIFont.systemFont(ofSize: 10) //区块文本的字体
         pieChartView.entryLabelColor = UIColor.white
@@ -778,15 +782,21 @@ class IndexTabViewController: BaseViewController,UINavigationControllerDelegate,
         
         
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    
+    @objc func tap(tap:UITapGestureRecognizer){
+        print("触发点击")
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.isDescendant(of: scrollView) == true{
+            allContentView.isScrollEnabled = false
+            allContentView.mj_header = nil
+        }else{
+            allContentView.isScrollEnabled = true
+            allContentView.mj_header = refresHeader
+        }
+        return true
+    }
     
 }
 
@@ -829,13 +839,15 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
                 return cell!
             }else if indexPath.row == 1 {
                 cell?.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "额定总功率")
-                cell?.value.text = self.mainPointData["powerTotal"].stringValue
+                cell?.value.text = "\(self.mainPointData["powerTotal"].doubleValue.roundTo(places: 3))"
+                cell?.value.adjustsFontSizeToFitWidth = true
                 cell?.unitLabel.text = "(kW)"
                 cell?.label.text = "额定总功率"
                 return cell!
             }else{
                 cell?.setup(textColors: [topValueColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor.white, title: "实时功率")
-                cell?.value.text = self.mainPointData["powerRealTotal"].stringValue
+                cell?.value.text = "\(self.mainPointData["powerRealTotal"].doubleValue.roundTo(places: 3))"
+                cell?.value.adjustsFontSizeToFitWidth = true
                 cell?.unitLabel.text = "(kW)"
                 cell?.label.text = "实时功率"
                 return cell!
@@ -849,7 +861,8 @@ extension IndexTabViewController:UICollectionViewDelegate, UICollectionViewDataS
                 cell?.label.text = "新增台数"
             }else{
                 cell?.setup(textColors: [allFontColor, allFontColor, allUnitColor], cellBackGroundColor: UIColor(red: 213/255, green: 240/255, blue: 227/255, alpha: 1), title: "新增功率")
-                cell?.value.text = self.mainPointData["newAddPower"].stringValue
+                cell?.value.text = "\(self.mainPointData["newAddPower"].doubleValue.roundTo(places: 3))"
+                cell?.value.adjustsFontSizeToFitWidth = true
                 cell?.label.text = "新增功率"
                 cell?.unitLabel.text = "(kW)"
             }
